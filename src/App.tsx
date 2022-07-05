@@ -1,13 +1,20 @@
 import React from 'react';
 import './App.css';
-import LoginPage from './components/LoginPage/LoginPage';
+import {HashRouter} from 'react-router-dom';
+import Header from './components/Header/Header';
+import Pages from './components/Pages/Pages';
+
+
 
 function App() {
-  return (
-    <div className="App">
-      <LoginPage/>
-    </div>
-  );
+    return (
+        <div className="App">
+            <HashRouter>
+                <Header/>
+                <Pages/>
+            </HashRouter>
+        </div>
+    );
 }
 
 export default App;

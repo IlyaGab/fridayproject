@@ -1,9 +1,9 @@
 import React from 'react';
 
-export const LoginPage = () => {
+export const ProfilePage = () => {
     return (
         <div>
-            HELLO WORLD!
+            Profile
         </div>
     );
 };

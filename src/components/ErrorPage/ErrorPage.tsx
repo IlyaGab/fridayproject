@@ -1,9 +1,9 @@
 import React from 'react';
 
-export const LoginPage = () => {
+export const ErrorPage = () => {
     return (
         <div>
-            HELLO WORLD!
+            Error 404
         </div>
     );
 };
