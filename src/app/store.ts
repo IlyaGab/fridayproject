@@ -1,11 +1,11 @@
 import {applyMiddleware, combineReducers, createStore} from 'redux';
 import thunkMiddleware from 'redux-thunk'
-import {changePassReducer} from './reducers/changePassReducer';
-import {loginReducer} from './reducers/loginReducer';
-import {passwordRecoveryReducer} from './reducers/passwordRecoveryReducer';
-import {profileReducer} from './reducers/profileReducer';
-import {registrationReducer} from './reducers/registrationReducer';
-import {testReducer} from './reducers/testReducer';
+import { changePassReducer } from '../features/Pages/ChangePasswordPage/changePassSlice';
+import {loginReducer } from '../features/Pages/LoginPage/loginPageSlice';
+import { passwordRecoveryReducer } from '../features/Pages/PasswordRecoveryPage/passwordRecoveryPageSlice';
+import { profileReducer } from '../features/Pages/ProfilePage/profilePageSlice';
+import { registrationReducer } from '../features/Pages/RegistrationPage/registrationPageSlice';
+import { testReducer } from '../features/Pages/TestPage/testPageSlice';
 
 type ReducersType = typeof rootReducer
 export type AppStateType = ReturnType<ReducersType>

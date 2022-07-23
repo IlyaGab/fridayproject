@@ -1,0 +1,21 @@
+@import "./src/app/variables";
+
+.navList {
+    text-align: center;
+    background-color: $primaryColor;
+    div {
+        background-color: white;
+        color: $primaryColor;
+        height: 50px;
+    }
+    .navLink {
+        padding: 10px;
+        text-decoration: none;
+        &:hover {
+            color: white;
+        }
+    }
+}
+
+
+

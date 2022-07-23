@@ -1,12 +1,12 @@
 import React from 'react';
 import {Route, Routes } from 'react-router-dom';
-import {ChangePasswordPage} from '../ChangePasswordPage/ChangePasswordPage';
-import {ErrorPage} from '../ErrorPage/ErrorPage';
-import {LoginPage} from '../LoginPage/LoginPage';
-import {PasswordRecoveryPage} from '../PasswordRecoveryPage/PasswordRecoveryPage';
-import {ProfilePage} from '../ProfilePage/ProfilePage';
-import {RegistartionPage} from '../RegistrationPage/RegistartionPage';
-import {TestPage} from '../TestPage/TestPage';
+import {ChangePasswordPage} from './ChangePasswordPage/ChangePasswordPage';
+import {ErrorPage} from './ErrorPage/ErrorPage';
+import {LoginPage} from './LoginPage/LoginPage';
+import {PasswordRecoveryPage} from './PasswordRecoveryPage/PasswordRecoveryPage';
+import {ProfilePage} from './ProfilePage/ProfilePage';
+import {RegistartionPage} from './RegistrationPage/RegistartionPage';
+import {TestPage} from './TestPage/TestPage';
 
 export const PATH = {
     ChangePass:'/change-pass-page',
@@ -19,7 +19,7 @@ export const PATH = {
 
 const Pages = () => {
     return (
-        <div>
+        <div >
             <Routes>
                <Route path={PATH.ChangePass} element={<ChangePasswordPage/>}/>
                 <Route path={'/*'} element={<ErrorPage/>}/>

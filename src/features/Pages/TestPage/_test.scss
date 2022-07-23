@@ -1,0 +1,13 @@
+@import "./src/app/variables";
+
+.blue {
+    border-bottom: 5px solid blue;
+}
+
+.column {
+@include flexCenter(column, lightblue);
+}
+
+.slider {
+    width: 200px;
+}
