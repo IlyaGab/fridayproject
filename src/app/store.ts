@@ -6,11 +6,13 @@ import { passwordRecoveryReducer } from '../features/Pages/PasswordRecoveryPage/
 import { profileReducer } from '../features/Pages/ProfilePage/profilePageReducer';
 import { registrationReducer } from '../features/Pages/RegistrationPage/registrationPageReducer';
 import { testReducer } from '../features/Pages/TestPage/testPageSlice';
+import {appReducer} from './appReducer';
 
 type ReducersType = typeof rootReducer
-export type AppStateType = ReturnType<ReducersType>
+export type AppRootStateType = ReturnType<ReducersType>
 
 let rootReducer = combineReducers({
+    appReducer:appReducer,
     changePassReducer: changePassReducer,
     loginReducer: loginReducer,
     passwordRecoveryReducer: passwordRecoveryReducer,

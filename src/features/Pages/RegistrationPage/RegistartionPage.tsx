@@ -2,6 +2,7 @@ import { TextField } from '@mui/material';
 import React from 'react';
 import classes from './registrationPage.module.scss'
 
+
 export const RegistartionPage = () => {
     return (
         <div className={classes.registrationPageContainer}>
