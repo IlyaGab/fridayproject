@@ -2,18 +2,14 @@ import {setIsLoggedInAC} from '../features/Pages/LoginPage/loginPageReducer';
 import {authAPI} from '../api/cards-api';
 import {Dispatch} from 'redux';
 
-type ActionsType =
-    | SetAppErrorActionType
-    | SetAppStatusActionType
-    | SetAppInitActionType
 
-const initialState: InitialStateType = {
-    status: 'idle',
-    error: null,
-    isInitialized:false
+const initialState = {
+    status: 'idle' as string,
+    error: null as null | string,
+    isInitialized:false as boolean
 }
 
-export const appReducer = (state: InitialStateType = initialState, action: ActionsType): InitialStateType => {
+export const appReducer = (state: InitialStateType = initialState, action: AppActionsType): InitialStateType => {
     switch (action.type) {
         case 'APP/SET-STATUS':
             return {...state, status: action.status}
@@ -26,21 +22,13 @@ export const appReducer = (state: InitialStateType = initialState, action: Actio
     }
 }
 
-export type RequestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed'
-export type InitialStateType = {
-    status: RequestStatusType
-    error: string | null
-    isInitialized:boolean
-}
+
 
 export const setAppErrorAC = (error: string | null) => ({type: 'APP/SET-ERROR', error} as const)
 export const setAppStatusAC = (status: RequestStatusType) => ({type: 'APP/SET-STATUS', status} as const)
 export const setInitAC = (value : boolean) => ({type: 'APP/SET-IS-INITIALIZED', value} as const)
 
-export type SetAppErrorActionType = ReturnType<typeof setAppErrorAC>
-export type SetAppStatusActionType = ReturnType<typeof setAppStatusAC>
-export type SetAppInitActionType = ReturnType<typeof setInitAC>
-
+//Th
 export const initializeAppTC = () => {
     return (dispatch: Dispatch) => {
         authAPI.me()
@@ -58,3 +46,17 @@ export const initializeAppTC = () => {
             })
     };
 }
+
+
+//Types
+export type AppActionsType =
+    | SetAppErrorActionType
+    | SetAppStatusActionType
+    | SetAppInitActionType
+
+export type SetAppErrorActionType = ReturnType<typeof setAppErrorAC>
+export type SetAppStatusActionType = ReturnType<typeof setAppStatusAC>
+export type SetAppInitActionType = ReturnType<typeof setInitAC>
+
+export type RequestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed'
+type InitialStateType = typeof initialState
