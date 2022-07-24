@@ -1,0 +1,9 @@
+@import "./variables";
+
+@mixin page () {
+  display: flex;
+  justify-content: center;
+  min-height: 100vh;
+  height: 100%;
+  background: $baseBackgroundColor;
+}
