@@ -1,5 +1,5 @@
 import {Button, Checkbox, Slider} from '@mui/material';
-import './_test.scss'
+import classes from './test.module.scss'
 
 
 
@@ -8,10 +8,10 @@ export const TestPage = () => {
     return (
         <div>
             <hr/>
-            <div className='column'>
+            <div className={classes.column}>
                 <Button variant="outlined" >Outlined</Button>
                 <Checkbox defaultChecked />
-                <div className='slider'>
+                <div className={classes.slider}>
                 <Slider
                     defaultValue={70}
                     aria-label="Disabled slider"
