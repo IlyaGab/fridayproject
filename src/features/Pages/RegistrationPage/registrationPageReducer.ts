@@ -1,7 +1,7 @@
-import {authAPI, RegisterParamsType} from '../../../api/authAPI';
 import {AppThunkType} from '../../../app/store';
 import {AxiosError} from 'axios';
-import {setAppError} from '../../../app/appReducer';
+import {setAppErrorAC} from '../../../app/appReducer';
+import {authAPI, RegisterParamsType} from '../../../api/cards-api';
 
 const initialState = {
     isRegister: false
@@ -28,7 +28,10 @@ export const registerTC = (data: RegisterParamsType): AppThunkType => (dispatch)
             dispatch(setIsRegisterSucceeded(true))
         })
         .catch((error: AxiosError) => {
-            dispatch(setAppError(error.message))
+            dispatch(setAppErrorAC(error.message))
+        })
+        .finally(()=>{
+            dispatch(setIsRegisterSucceeded(false))
         })
 }
 

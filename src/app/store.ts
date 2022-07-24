@@ -5,8 +5,8 @@ import {loginReducer} from '../features/Pages/LoginPage/loginPageReducer';
 import {passwordRecoveryReducer} from '../features/Pages/PasswordRecoveryPage/passwordRecoveryPageReducer';
 import {profileReducer} from '../features/Pages/ProfilePage/profilePageReducer';
 import {RegisterActionsType, registrationReducer} from '../features/Pages/RegistrationPage/registrationPageReducer';
-import {testReducer} from '../features/Pages/TestPage/testPageSlice';
 import {AppActionsType, appReducer} from './appReducer';
+import {testReducer} from '../features/Pages/TestPage/testPageReducer';
 
 
 const rootReducer = combineReducers({

@@ -2,31 +2,27 @@ import React, {useEffect} from 'react';
 import Header from '../features/Header/Header';
 import {PATH} from '../features/Pages/Pages';
 import './App.scss';
-import {useDispatch, useSelector} from 'react-redux';
-import {initializeAppTC, RequestStatusType} from './appReducer';
+import {initializeAppTC} from './appReducer';
 import {CircularProgress} from '@mui/material';
-import {AppRootStateType} from './store';
 import {LoginPage} from '../features/Pages/LoginPage/LoginPage';
 import {PasswordRecoveryPage} from '../features/Pages/PasswordRecoveryPage/PasswordRecoveryPage';
-import {RegistartionPage} from '../features/Pages/RegistrationPage/RegistartionPage';
-import {Routes, Route} from 'react-router-dom';
+import {Route, Routes} from 'react-router-dom';
 import {ChangePasswordPage} from '../features/Pages/ChangePasswordPage/ChangePasswordPage';
 import {ProfilePage} from '../features/Pages/ProfilePage/ProfilePage';
 import {TestPage} from '../features/Pages/TestPage/TestPage';
 import {ErrorPage} from '../features/Pages/ErrorPage/ErrorPage';
-
-
-
+import {RegistrationPage} from '../features/Pages/RegistrationPage/RegistrationPage';
+import {useAppSelector} from '../common/hooks/useAppSelector';
+import {useAppDispatch} from '../common/hooks/useAppDispatch';
 
 
 function App() {
+    const isInitialized = useAppSelector(state => state.appReducer.isInitialized)
+    const status = useAppSelector(state => state.appReducer.status)
+    const isLoggedIn = useAppSelector(state => state.loginReducer.isLoggedIn)
+    const dispatch = useAppDispatch()
 
-    const isInitialized = useSelector<AppRootStateType, boolean>(state => state.appReducer.isInitialized)
-    const status = useSelector<AppRootStateType, RequestStatusType>((state) => state.appReducer.status)
-    const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.loginReducer.isLoggedIn)
-    const dispatch = useDispatch()
     useEffect(()=> {
-        // @ts-ignore
         dispatch(initializeAppTC())
     },[dispatch])
 
@@ -43,7 +39,7 @@ function App() {
             {isLoggedIn && <Header/>}
             <Routes>
                 <Route path={PATH.Login} element={<LoginPage/>}/>
-                <Route path={PATH.Registration} element={<RegistartionPage/>}/>
+                <Route path={PATH.Registration} element={<RegistrationPage/>}/>
                 <Route path={PATH.RecoveryPass} element={<PasswordRecoveryPage/>}/>
                 <Route path={PATH.ChangePass} element={<ChangePasswordPage/>}/>
                 <Route path={PATH.Profile} element={<ProfilePage/>}/>

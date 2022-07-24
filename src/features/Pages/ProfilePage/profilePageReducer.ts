@@ -1,6 +1,3 @@
-import {cardsAPI} from "../../../api/cardsApi.";
-import {AppDispatchType, AppThunkType} from "../../../app/store";
-
 const initialState = {
     name: "Ivan" ,
     email: "j&johnson@gmail.com" ,
@@ -42,21 +39,21 @@ const changeInfoAC = (name: string, avatar: string) => ({
         name,
         avatar
     }
-}) as const
+})as const
 
 
 // TC
-export const changeInfoTC = (name: string, avatar: string): AppThunkType => (dispatch: AppDispatchType) => {
-    cardsAPI.changeNInfo(name, avatar).then(() => {
-        dispatch(changeInfoAC(name, avatar))
-    })
-}
+// export const changeInfoTC = (name: string, avatar: string): AppThunkType => (dispatch: AppDispatchType) => {
+//     profileAPI.changeNInfo(name, avatar).then(() => {
+//         dispatch(changeInfoAC(name, avatar))
+//     })
+// }
 
-export const setProfileDataTC = (): AppThunkType => (dispatch: AppDispatchType) => {
-    cardsAPI.me().then((res) => {
-        dispatch(setUserDataAC(res.data.name, res.data.email, res.data.avatar))
-    })
-}
+// export const setProfileDataTC = (): AppThunkType => (dispatch: AppDispatchType) => {
+//     authAPI.me().then((res) => {
+//         dispatch(setUserDataAC(res.data.name, res.data.email, res.data.avatar))
+//     })
+// }
 
 
 // TYPES

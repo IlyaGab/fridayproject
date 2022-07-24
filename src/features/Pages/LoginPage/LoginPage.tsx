@@ -1,11 +1,11 @@
 import React from 'react';
 import {Button, Checkbox, FormControl, FormControlLabel, FormGroup, Grid, TextField} from '@mui/material';
-import {useDispatch, useSelector} from 'react-redux';
-import {AppRootStateType} from '../../../app/store';
 import {useFormik} from 'formik';
 import {PATH} from '../Pages';
 import {loginTC} from './loginPageReducer';
 import {Navigate, NavLink} from 'react-router-dom';
+import {useAppDispatch} from '../../../common/hooks/useAppDispatch';
+import {useAppSelector} from '../../../common/hooks/useAppSelector';
 
 type FormikErrorType = {
     email?: string
@@ -15,7 +15,7 @@ type FormikErrorType = {
 
 export const LoginPage = () => {
 
-    const dispatch = useDispatch()
+    const dispatch = useAppDispatch()
     const formik = useFormik({
         initialValues: {
             email: '',
@@ -38,13 +38,12 @@ export const LoginPage = () => {
                 return errors;
         },
         onSubmit: values => {
-            // @ts-ignore
             dispatch(loginTC(values))
             formik.resetForm();
         },
     })
 
-    const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.loginReducer.isLoggedIn)
+    const isLoggedIn = useAppSelector(state => state.loginReducer.isLoggedIn)
     if (isLoggedIn) {
         return <Navigate to={'/profile-page'}/>
     }
