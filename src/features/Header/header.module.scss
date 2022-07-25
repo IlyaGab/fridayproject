@@ -1,21 +1,54 @@
-@import "../../common/styles/variables";
+@import "../../common/styles/mixins";
 
-.navList {
-    text-align: center;
-    background-color: $primaryColor;
-    div {
-        background-color: white;
-        color: $primaryColor;
-        height: 50px;
-    }
-    .navLink {
-        padding: 10px;
-        text-decoration: none;
-        &:hover {
-            color: white;
+.header {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 60px;
+  background-color: #FCFCFC;
+  border-bottom: 2px solid #d7d7d7;
+
+  .container {
+    @include container();
+
+    .info {
+      display: flex;
+      justify-content: space-between;
+
+      .logo {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        height: 60px;
+      }
+
+      .profileInfo {
+        display: flex;
+        align-items: center;
+
+        .name {
+          font-weight: 500;
+          font-size: 16px;
+          line-height: 24px;
+          margin-right: 12px;
         }
+
+        .avatar {
+          height: 36px;
+          width: 36px;
+        }
+      }
     }
+
+    .btn {
+      display: flex;
+      align-items: center;
+    }
+
+  }
 }
+
+
 
 
 

@@ -1,7 +1,7 @@
 import {setIsLoggedInAC} from '../features/Pages/LoginPage/loginPageReducer';
 import {authAPI} from '../api/cards-api';
 import {Dispatch} from 'redux';
-
+import {setUserDataAC} from "../features/Pages/ProfilePage/profilePageReducer";
 
 const initialState = {
     status: 'idle' as string,
@@ -23,12 +23,13 @@ export const appReducer = (state: InitialStateType = initialState, action: AppAc
 }
 
 
-
+// AC
 export const setAppErrorAC = (error: string | null) => ({type: 'APP/SET-ERROR', error} as const)
 export const setAppStatusAC = (status: RequestStatusType) => ({type: 'APP/SET-STATUS', status} as const)
 export const setInitAC = (value : boolean) => ({type: 'APP/SET-IS-INITIALIZED', value} as const)
 
-//Th
+
+// TC
 export const initializeAppTC = () => {
     return (dispatch: Dispatch) => {
         authAPI.me()
@@ -36,6 +37,7 @@ export const initializeAppTC = () => {
                 if(res){
                     dispatch(setIsLoggedInAC(true));
                     dispatch(setAppStatusAC('succeeded'))
+                    dispatch(setUserDataAC(res.data.name, res.data.email, res.data.avatar))
                 }
             })
             .catch((error) => {

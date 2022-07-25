@@ -1,7 +1,10 @@
+import {AppDispatchType, AppThunkType} from "../../../app/store";
+import {profileAPI} from "../../../api/cards-api";
+
 const initialState = {
-    name: "Ivan" ,
-    email: "j&johnson@gmail.com" ,
-    avatar: null
+    name: "" ,
+    email: "",
+    avatar: "avatar"
 }
 
 export const profileReducer = (state:InitialStateType = initialState, action: ProfileActionType): InitialStateType => {
@@ -23,7 +26,7 @@ export const profileReducer = (state:InitialStateType = initialState, action: Pr
 
 
 // AC
-const setUserDataAC = (name: string, email: string, avatar?: string) => ({
+export const setUserDataAC = (name: string, email: string, avatar?: string) => ({
     type: "SET_PROFILE_DATA",
     payload: {
         name,
@@ -33,7 +36,7 @@ const setUserDataAC = (name: string, email: string, avatar?: string) => ({
 }) as const
 
 
-const changeInfoAC = (name: string, avatar: string) => ({
+export const changeInfoProfileAC = (name: string, avatar: string) => ({
     type: "CHANGE_INFO",
     payload: {
         name,
@@ -43,25 +46,19 @@ const changeInfoAC = (name: string, avatar: string) => ({
 
 
 // TC
-// export const changeInfoTC = (name: string, avatar: string): AppThunkType => (dispatch: AppDispatchType) => {
-//     profileAPI.changeNInfo(name, avatar).then(() => {
-//         dispatch(changeInfoAC(name, avatar))
-//     })
-// }
-
-// export const setProfileDataTC = (): AppThunkType => (dispatch: AppDispatchType) => {
-//     authAPI.me().then((res) => {
-//         dispatch(setUserDataAC(res.data.name, res.data.email, res.data.avatar))
-//     })
-// }
+export const changeInfoProfileTC = (name: string): AppThunkType => (dispatch: AppDispatchType) => {
+    profileAPI.changeNInfo(name).then(() => {
+        dispatch(changeInfoProfileAC(name, "avatar"))
+    })
+}
 
 
 // TYPES
-export type ProfileActionType = ReturnType<typeof changeInfoAC> |
+export type ProfileActionType = ReturnType<typeof changeInfoProfileAC> |
     ReturnType<typeof setUserDataAC>
 
 type InitialStateType = {
-    name: null | string,
-    email:  null | string,
-    avatar?: null | string
+    name: string,
+    email:  string,
+    avatar?: string
 }
