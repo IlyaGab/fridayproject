@@ -34,6 +34,7 @@ export const initializeAppTC = () => {
     return (dispatch: Dispatch) => {
         authAPI.me()
             .then(res => {
+                // А надо эту проверку?
                 if(res){
                     dispatch(setIsLoggedInAC(true));
                     dispatch(setAppStatusAC('succeeded'))
