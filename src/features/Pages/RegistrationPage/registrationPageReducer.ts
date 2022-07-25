@@ -1,6 +1,7 @@
 import {AppThunkType} from '../../../app/store';
 import {AxiosError} from 'axios';
 import {setAppErrorAC} from '../../../app/appReducer';
+import { setAppStatusAC} from '../../../app/appReducer';
 import {authAPI, RegisterParamsType} from '../../../api/cards-api';
 
 const initialState = {
@@ -23,9 +24,11 @@ const setIsRegisterSucceeded = (value: boolean) => ({type: 'SET-IS-REGISTER-SUCC
 
 // Thunk Creators
 export const registerTC = (data: RegisterParamsType): AppThunkType => (dispatch) => {
+    dispatch(setAppStatusAC('loading'))
     authAPI.register(data)
         .then(() => {
             dispatch(setIsRegisterSucceeded(true))
+            dispatch(setAppStatusAC('succeeded'))
         })
         .catch((error: AxiosError) => {
             dispatch(setAppErrorAC(error.message))

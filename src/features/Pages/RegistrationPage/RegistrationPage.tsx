@@ -52,10 +52,11 @@ export const RegistrationPage = () => {
     }
 
     return (
-        <div className={classes.registrationPageBlock}>
+        <div className={classes.registrationPageContainer}>
             <FormControl>
-                <form className={classes.registrationForm} onSubmit={formik.handleSubmit}>
-                    <h2 className={classes.signUpTitle}>Sign Up</h2>
+                <form className={classes.registrationPageForm} onSubmit={formik.handleSubmit}>
+                    <h1>It-incubator</h1>
+                    <h2 className={classes.registrationPageSignUpTitle}>Sign Up</h2>
                     <FormGroup>
                         <TextField label="Email"
                                    variant="standard"
@@ -100,7 +101,7 @@ export const RegistrationPage = () => {
                             style={{width: '347px', height: '36px', borderRadius: '30px'}}
                     >Sign Up
                     </Button>
-                    <div className={classes.signInContainer}>
+                    <div className={classes.registrationPageSignInContainer}>
                         <div className={classes.text}>Don't have an account?</div>
                         <NavLink to={PATH.Login}>Sign In</NavLink>
                     </div>

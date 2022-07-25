@@ -1,5 +1,6 @@
 import { Dispatch } from 'redux';
 import {authAPI, LoginParamsType} from '../../../api/cards-api';
+import {setAppErrorAC} from '../../../app/appReducer';
 import {SetAppErrorActionType, setAppStatusAC, SetAppStatusActionType} from '../../../app/appReducer';
 
 type InitialStateType = typeof initialState
@@ -33,7 +34,8 @@ export const loginTC = (data:LoginParamsType) => (dispatch: Dispatch<ActionsType
             }
         })
         .catch((error)=>{
-            alert(error.response.data.error)
+            dispatch(setAppErrorAC(error.response.data.error)) 
+            dispatch(setAppStatusAC('idle'))
         })
 }
 
@@ -47,6 +49,6 @@ export const logoutTC = () => (dispatch: Dispatch<ActionsType>) => {
             }
         })
         .catch((error) => {
-            alert(error.response.data.error)
+            dispatch(setAppErrorAC(error.response.data.error))
         })
 }

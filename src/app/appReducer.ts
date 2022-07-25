@@ -39,7 +39,7 @@ export const initializeAppTC = () => {
                 }
             })
             .catch((error) => {
-                alert(error.message)
+                dispatch(setAppErrorAC(error.response.data.error))
             })
             .finally(()=>{
                 dispatch(setInitAC(true))

@@ -1,13 +1,13 @@
-.registrationPageBlock {
-  min-height: 90vh;
+.registrationPageContainer {
+  min-height: 100vh;
   background-color: #F9F9FA;
   display: flex;
   justify-content: center;
   align-items: center;
 
-  .registrationForm {
+  .registrationPageForm {
     width: 413px;
-    height: 528px;
+    min-height: 60vh;
     background: #FFFFFF;
     box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1), -1px -1px 2px rgba(0, 0, 0, 0.1);
     border-radius: 2px;
@@ -16,7 +16,7 @@
     align-items: center;
     flex-direction: column;
 
-    .signUpTitle {
+    .registrationPageSignUpTitle {
       width: 106px;
       height: 32px;
       margin: 0;
@@ -26,7 +26,7 @@
       font-size: 26px;
       line-height: 32px;
     }
-    .signInContainer {
+    .registrationPageSignInContainer {
       display: flex;
       justify-content: center;
       align-items: center;
