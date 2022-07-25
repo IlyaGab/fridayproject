@@ -32,6 +32,7 @@ export const registerTC = (data: RegisterParamsType): AppThunkType => (dispatch)
         })
         .catch((error: AxiosError) => {
             dispatch(setAppErrorAC(error.message))
+            dispatch(setAppStatusAC('failed'))
         })
         .finally(()=>{
             dispatch(setIsRegisterSucceeded(false))
