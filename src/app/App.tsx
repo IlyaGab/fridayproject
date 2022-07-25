@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import Header from '../features/Header/Header';
+import {Header} from '../features/Header/Header';
 import {PATH} from '../features/Pages/Pages';
 import './App.scss';
 import { initializeAppTC } from './appReducer';
