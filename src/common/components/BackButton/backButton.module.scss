@@ -1,0 +1,17 @@
+.back {
+    height: 60px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    background-color: inherit;
+    border: none;
+    cursor: pointer;
+
+    span {
+        font-family: inherit;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 24px;
+        margin-left: 10px;
+    }
+}

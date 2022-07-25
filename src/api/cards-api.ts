@@ -1,7 +1,7 @@
 import axios, {AxiosResponse} from 'axios';
 
 export const instance = axios.create({
-    baseURL: "https://neko-back.herokuapp.com/2.0" || 'http://localhost:7542/2.0/',
+    baseURL: "https://neko-back.herokuapp.com/2.0/" || 'http://localhost:7542/2.0/',
     withCredentials: true,
 })
 
@@ -21,8 +21,8 @@ export const authAPI = {
 }
 
 export const profileAPI = {
-    changeNInfo(name: string, avatar: string) {
-        return instance.put("auth/me", {name, avatar})
+    changeNInfo(name: string) {
+        return instance.put("auth/me", {name, avatar: "avatar"})
     }
 }
 
