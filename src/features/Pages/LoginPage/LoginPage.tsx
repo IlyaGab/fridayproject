@@ -1,12 +1,12 @@
 import React from 'react';
-import { Button, Checkbox, FormControl, FormControlLabel, FormGroup, Grid, TextField } from '@mui/material';
+import { Button, Checkbox, FormControl, FormControlLabel, FormGroup, TextField } from '@mui/material';
 import { useFormik } from 'formik';
 import { PATH } from '../Pages';
 import { loginTC } from './loginPageReducer';
 import { Navigate, NavLink } from 'react-router-dom';
 import { useAppDispatch } from '../../../common/hooks/useAppDispatch';
 import { useAppSelector } from '../../../common/hooks/useAppSelector';
-import classes from './loginPage.module.scss'
+import styles from './loginPage.module.scss'
 import { ErrorSnackbar } from '../../../common/components/ErrorSnackbar/ErrorSnackbar';
 
 type FormikErrorType = {
@@ -51,11 +51,11 @@ export const LoginPage = () => {
     }
 
     return (
-        <div className={classes.loginPageContainer}>
+        <div className={styles.loginPageContainer}>
             <FormControl>
-                <form className={classes.loginPageForm} onSubmit={formik.handleSubmit}>
+                <form className={styles.loginPageForm} onSubmit={formik.handleSubmit}>
                     <h1>It-incubator</h1>
-                    <h2 className={classes.loginPageSignUpTitle}>Sign In</h2>
+                    <h2 className={styles.signUpTitle}>Sign In</h2>
                     <FormGroup>
                         <TextField
                             label="Email"
@@ -93,8 +93,8 @@ export const LoginPage = () => {
                         style={{ width: '347px', height: '36px', borderRadius: '30px' }}>
                         Login
                     </Button>
-                    <div className={classes.loginPageSignInContainer}>
-                        <div className={classes.text}>Don't have an account?</div>
+                    <div className={styles.signInContainer}>
+                        <div className={styles.text}>Don't have an account?</div>
                         <NavLink to={PATH.Registration}>Sign Up</NavLink>
                     </div>
                 </form>

@@ -16,17 +16,14 @@
     align-items: center;
     flex-direction: column;
 
-    .registrationPageSignUpTitle {
+    .signUpTitle {
       width: 106px;
       height: 32px;
-      margin: 0;
-      font-family: 'Montserrat', sans-serif;
-      font-style: normal;
       font-weight: 600;
       font-size: 26px;
       line-height: 32px;
     }
-    .registrationPageSignInContainer {
+    .signInContainer {
       display: flex;
       justify-content: center;
       align-items: center;
@@ -35,23 +32,16 @@
       .text {
         width: 171px;
         height: 24px;
-        font-family: 'Montserrat', sans-serif;
-        font-style: normal;
         font-weight: 600;
         font-size: 14px;
         line-height: 24px;
-        text-align: center;
-        color: #000000;
         opacity: 0.5;
       }
 
       .link {
-        font-family: 'Montserrat', sans-serif;
-        font-style: normal;
         font-weight: 600;
         font-size: 16px;
         line-height: 24px;
-        text-align: center;
         cursor: pointer;
       }
     }

@@ -16,7 +16,7 @@ import { useAppDispatch } from '../common/hooks/useAppDispatch';
 import { CircularProgressComponent } from '../common/components/CircularProgress/CircularProgress';
 
 
-function App() {
+export function App() {
     const isInitialized = useAppSelector(state => state.appReducer.isInitialized)
     const status = useAppSelector(state => state.appReducer.status)
     const isLoggedIn = useAppSelector(state => state.loginReducer.isLoggedIn)
@@ -52,4 +52,3 @@ function App() {
     );
 }
 
-export default App;

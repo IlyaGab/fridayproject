@@ -1,7 +1,7 @@
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import React from 'react';
-import classes from './registrationPage.module.scss'
+import styles from './registrationPage.module.scss'
 import FormControl from '@mui/material/FormControl';
 import {FormGroup} from '@mui/material';
 import {useAppDispatch} from '../../../common/hooks/useAppDispatch';
@@ -52,11 +52,11 @@ export const RegistrationPage = () => {
     }
 
     return (
-        <div className={classes.registrationPageContainer}>
+        <div className={styles.registrationPageContainer}>
             <FormControl>
-                <form className={classes.registrationPageForm} onSubmit={formik.handleSubmit}>
+                <form className={styles.registrationPageForm} onSubmit={formik.handleSubmit}>
                     <h1>It-incubator</h1>
-                    <h2 className={classes.registrationPageSignUpTitle}>Sign Up</h2>
+                    <h2 className={styles.signUpTitle}>Sign Up</h2>
                     <FormGroup>
                         <TextField label="Email"
                                    variant="standard"
@@ -101,8 +101,8 @@ export const RegistrationPage = () => {
                             style={{width: '347px', height: '36px', borderRadius: '30px'}}
                     >Sign Up
                     </Button>
-                    <div className={classes.registrationPageSignInContainer}>
-                        <div className={classes.text}>Don't have an account?</div>
+                    <div className={styles.signInContainer}>
+                        <div className={styles.text}>Don't have an account?</div>
                         <NavLink to={PATH.Login}>Sign In</NavLink>
                     </div>
                 </form>
