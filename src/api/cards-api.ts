@@ -1,4 +1,4 @@
-import axios, {AxiosResponse} from 'axios';
+import axios from 'axios';
 
 export const instance = axios.create({
     baseURL: "https://neko-back.herokuapp.com/2.0/" || 'http://localhost:7542/2.0/',
@@ -16,7 +16,7 @@ export const authAPI = {
         return instance.delete<MeResponseType>('auth/me')
     },
     register: (data: RegisterParamsType) => {
-        return instance.post<RegisterParamsType, AxiosResponse<{ error?: string }>>('auth/register', data)
+        return instance.post<{ error?: string }>('auth/register', data)
     }
 }
 

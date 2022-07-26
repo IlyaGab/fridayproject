@@ -13,7 +13,7 @@ import {Navigate, NavLink} from 'react-router-dom';
 import {PATH} from '../Pages';
 
 export const RegistrationPage = () => {
-    const isRegister = useAppSelector(state => state.registrationReducer.isRegister)
+    const isRegistered = useAppSelector(state => state.registrationReducer.isRegistered)
     const dispatch = useAppDispatch()
     const formik = useFormik({
         initialValues: {
@@ -23,6 +23,7 @@ export const RegistrationPage = () => {
         },
         validate: (values) => {
             const errors: FormikErrorType = {}
+
             if (!values.email) {
                 errors.email = 'Email is required'
             } else if (!/^[A-Z\d._%+-]+@[A-Z\d.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
@@ -34,6 +35,7 @@ export const RegistrationPage = () => {
             } else if (values.password.length < 7) {
                 errors.password = 'Password must be more than 7 characters...'
             }
+
             if (!values.confirm && values.password) {
                 errors.confirm = 'Confirm your password'
             } else if (values.password !== values.confirm) {
@@ -47,7 +49,7 @@ export const RegistrationPage = () => {
         }
     })
 
-    if (isRegister) {
+    if (isRegistered) {
         return <Navigate to={PATH.Login}/>
     }
 
@@ -83,7 +85,7 @@ export const RegistrationPage = () => {
                             <div style={{color: 'red'}}>{formik.errors.password}</div>
                         }
                         <TextField type={'password'}
-                                   label="Confirm"
+                                   label="Confirm Password"
                                    variant="standard"
                                    margin="normal"
                                    size={'small'}
@@ -102,7 +104,7 @@ export const RegistrationPage = () => {
                     >Sign Up
                     </Button>
                     <div className={styles.signInContainer}>
-                        <div className={styles.text}>Don't have an account?</div>
+                        <div className={styles.text}>Already have an account?</div>
                         <NavLink to={PATH.Login}>Sign In</NavLink>
                     </div>
                 </form>
