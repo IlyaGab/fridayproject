@@ -11,10 +11,7 @@
 
       .loginPageForm {
         h2 {
-          text-align: center;
-          font-weight: 600;
-          font-size: 26px;
-          line-height: 32px;
+          @include title();
         }
 
         .linkForgot {
