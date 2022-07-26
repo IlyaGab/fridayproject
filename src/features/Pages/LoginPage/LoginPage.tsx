@@ -1,13 +1,13 @@
 import React from 'react';
 import { Button, Checkbox, FormControl, FormControlLabel, FormGroup, TextField } from '@mui/material';
 import { useFormik } from 'formik';
-import { PATH } from '../Pages';
 import { loginTC } from './loginPageReducer';
 import { Navigate, NavLink } from 'react-router-dom';
 import { useAppDispatch } from '../../../common/hooks/useAppDispatch';
 import { useAppSelector } from '../../../common/hooks/useAppSelector';
 import styles from './loginPage.module.scss'
 import { ErrorSnackbar } from '../../../common/components/ErrorSnackbar/ErrorSnackbar';
+import { PATH } from '../../../app/App';
 
 type FormikErrorType = {
     email?: string

@@ -7,7 +7,7 @@ export const instance = axios.create({
 
 export const authAPI = {
     login(data:LoginParamsType) {
-        return instance.post<LoginResponseType>('auth/login', data)
+        return instance.post<MeResponseType>('auth/login', data)
     },
     me() {
         return instance.post<MeResponseType>('auth/me')
@@ -44,11 +44,6 @@ export type MeResponseType = {
     verified: boolean;
     rememberMe: boolean;
     error?: string;
-}
-
-export type LoginResponseType<D={}> = {
-    addedUser: D,
-    error?:string
 }
 
 export type RegisterParamsType = {

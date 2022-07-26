@@ -1,6 +1,6 @@
 import React from 'react';
 import {Navigate} from 'react-router-dom';
-import {PATH} from '../Pages';
+import { PATH } from '../../../app/App';
 import {useAppSelector} from '../../../common/hooks/useAppSelector';
 
 export const ErrorPage = () => {
