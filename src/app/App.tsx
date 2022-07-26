@@ -7,7 +7,6 @@ import { PasswordRecoveryPage } from '../features/Pages/PasswordRecoveryPage/Pas
 import { NavLink, Route, Routes } from 'react-router-dom';
 import { ChangePasswordPage } from '../features/Pages/ChangePasswordPage/ChangePasswordPage';
 import { ProfilePage } from '../features/Pages/ProfilePage/ProfilePage';
-import { TestPage } from '../features/Pages/TestPage/TestPage';
 import { ErrorPage } from '../features/Pages/ErrorPage/ErrorPage';
 import { RegistrationPage } from '../features/Pages/RegistrationPage/RegistrationPage';
 import { useAppSelector } from '../common/hooks/useAppSelector';
@@ -17,12 +16,11 @@ import styles from "../features/Header/header.module.scss";
 import { CheckEmailPage } from '../features/Pages/CheckEmailPage/CheckEmailPage';
 
 export enum PATH {
-    ChangePass = '/change-pass-page',
+    ChangePass = '/change-pass-page/*',
     Login = '/',
     ForgotPass = '/recovery-pass-page',
     Profile = '/profile-page',
     Registration = '/registration-page',
-    Test = '/test-page',
     CheckEmail = '/check-email-page',
 }
 
@@ -51,14 +49,12 @@ export const App = () => {
                     <Route path={PATH.ForgotPass} element={<PasswordRecoveryPage />} />
                     <Route path={PATH.ChangePass} element={<ChangePasswordPage />} />
                     <Route path={PATH.Profile} element={<ProfilePage />} />
-                    <Route path={PATH.Test} element={<TestPage />} />
                     <Route path={PATH.CheckEmail} element={<CheckEmailPage/>}/>
                     <Route path={'/*'} element={<ErrorPage />} />
                 </Routes>
                     <div className={styles.navList}>
                         <NavLink className={styles.navLink} to={PATH.ChangePass}>Change your password</NavLink>
                         <NavLink className={styles.navLink} to={PATH.Profile}>Profile</NavLink>
-                        <NavLink className={styles.navLink} to={PATH.Test}>Test</NavLink>
                         <NavLink className={styles.navLink} to={PATH.CheckEmail}>Check Email</NavLink>
                         <NavLink className={styles.navLink} to={'/*'}>Error 404</NavLink>
                     </div>

@@ -40,7 +40,7 @@ export const PasswordRecoveryPage = () => {
 
     const isSend = useAppSelector(state => state.passwordRecoveryReducer.isSend)
     if(isSend) {
-        return <Navigate to={PATH.CheckEmailPage}/>
+        return <Navigate to={PATH.CheckEmail}/>
     } 
 
     return (

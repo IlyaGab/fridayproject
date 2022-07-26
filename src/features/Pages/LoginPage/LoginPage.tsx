@@ -46,7 +46,6 @@ export const LoginPage = () => {
         },
     })
 
-    const isLoggedIn = useAppSelector(state => state.loginReducer.isLoggedIn)
     if (isLoggedIn) {
         return <Navigate to={PATH.Profile} />
     }

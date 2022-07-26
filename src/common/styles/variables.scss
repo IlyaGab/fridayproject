@@ -1,9 +1,2 @@
 $primaryColor : rgb(41, 131, 55);
 $baseBackgroundColor: #F9F9FA;
-
-@mixin flexCenter($direction, $background-color) {
-  display: flex;
-  flex-direction: $direction;
-  align-items: center;
-  background-color: $background-color;
-}

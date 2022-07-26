@@ -7,7 +7,6 @@ import {PasswordRecoveryActionsType} from '../features/Pages/PasswordRecoveryPag
 import {ProfileActionType, profileReducer} from '../features/Pages/ProfilePage/profilePageReducer';
 import {RegisterActionsType, registrationReducer} from '../features/Pages/RegistrationPage/registrationPageReducer';
 import {AppActionsType, appReducer} from './appReducer';
-import {testReducer} from '../features/Pages/TestPage/testPageReducer';
 
 const rootReducer = combineReducers({
     changePassReducer: changePassReducer,
@@ -15,7 +14,6 @@ const rootReducer = combineReducers({
     passwordRecoveryReducer: passwordRecoveryReducer,
     profileReducer: profileReducer,
     registrationReducer: registrationReducer,
-    testReducer: testReducer,
     appReducer: appReducer
 })
 
