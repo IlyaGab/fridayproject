@@ -10,7 +10,7 @@ import {registerTC} from './registrationPageReducer';
 import {ErrorSnackbar} from '../../../common/components/ErrorSnackbar/ErrorSnackbar';
 import {useAppSelector} from '../../../common/hooks/useAppSelector';
 import {Navigate, NavLink} from 'react-router-dom';
-import { PATH } from '../../../app/App';
+import {PATH} from '../../../app/App';
 
 export const RegistrationPage = () => {
     const isRegistered = useAppSelector(state => state.registrationReducer.isRegistered)
@@ -54,62 +54,65 @@ export const RegistrationPage = () => {
     }
 
     return (
-        <div className={styles.registrationPageContainer}>
-            <FormControl>
-                <form className={styles.registrationPageForm} onSubmit={formik.handleSubmit}>
-                    <h1>It-incubator</h1>
-                    <h2 className={styles.signUpTitle}>Sign Up</h2>
-                    <FormGroup>
-                        <TextField label="Email"
-                                   variant="standard"
-                                   margin="normal"
-                                   size={'small'}
-                                   style={{width: '347px', height: '48px'}}
-                                   {...formik.getFieldProps('email')}
-                        />
-                        {
-                            formik.touched.email &&
-                            formik.errors.email &&
-                            <div style={{color: 'red'}}>{formik.errors.email}</div>
-                        }
-                        <TextField type={'password'}
-                                   label="Password"
-                                   variant="standard"
-                                   margin="normal"
-                                   size={'small'}
-                                   {...formik.getFieldProps('password')}
-                        />
-                        {
-                            formik.touched.password &&
-                            formik.errors.password &&
-                            <div style={{color: 'red'}}>{formik.errors.password}</div>
-                        }
-                        <TextField type={'password'}
-                                   label="Confirm Password"
-                                   variant="standard"
-                                   margin="normal"
-                                   size={'small'}
-                                   {...formik.getFieldProps('confirm')}
-                        />
-                        {
-                            formik.touched.confirm &&
-                            formik.errors.confirm &&
-                            <div style={{color: 'red'}}>{formik.errors.confirm}</div>
-                        }
-                    </FormGroup>
-                    <Button type={'submit'}
-                            variant={'contained'}
-                            color={'primary'}
-                            style={{width: '347px', height: '36px', borderRadius: '30px'}}
-                    >Sign Up
-                    </Button>
-                    <div className={styles.signInContainer}>
-                        <div className={styles.text}>Already have an account?</div>
-                        <NavLink to={PATH.Login}>Sign In</NavLink>
-                    </div>
-                </form>
-            </FormControl>
-            <ErrorSnackbar/>
+        <div className={styles.registrationPage}>
+            <div className={styles.container}>
+                <div className={styles.register}>
+                    <FormControl style={{width: '100%'}}>
+                        <form className={styles.registrationPageForm} onSubmit={formik.handleSubmit}>
+                            <h2 className={styles.signUpTitle}>Sign Up</h2>
+                            <FormGroup>
+                                <TextField label="Email"
+                                           variant="standard"
+                                           margin="normal"
+                                           size={'small'}
+                                           style={{width: '347px', height: '48px'}}
+                                           {...formik.getFieldProps('email')}
+                                />
+                                {
+                                    formik.touched.email &&
+                                    formik.errors.email &&
+                                    <div style={{color: 'red'}}>{formik.errors.email}</div>
+                                }
+                                <TextField type={'password'}
+                                           label="Password"
+                                           variant="standard"
+                                           margin="normal"
+                                           size={'small'}
+                                           {...formik.getFieldProps('password')}
+                                />
+                                {
+                                    formik.touched.password &&
+                                    formik.errors.password &&
+                                    <div style={{color: 'red'}}>{formik.errors.password}</div>
+                                }
+                                <TextField type={'password'}
+                                           label="Confirm Password"
+                                           variant="standard"
+                                           margin="normal"
+                                           size={'small'}
+                                           {...formik.getFieldProps('confirm')}
+                                />
+                                {
+                                    formik.touched.confirm &&
+                                    formik.errors.confirm &&
+                                    <div style={{color: 'red'}}>{formik.errors.confirm}</div>
+                                }
+                            </FormGroup>
+                            <Button type={'submit'}
+                                    variant={'contained'}
+                                    color={'primary'}
+                                    style={{width: '100%', borderRadius: '30px', marginTop: '40px'}}
+                            >Sign Up
+                            </Button>
+                            <div className={styles.signInContainer}>
+                                <div className={styles.text}>Already have an account?</div>
+                                <NavLink to={PATH.Login} className={styles.link}>Sign In</NavLink>
+                            </div>
+                        </form>
+                    </FormControl>
+                    <ErrorSnackbar/>
+                </div>
+            </div>
         </div>
     );
 };

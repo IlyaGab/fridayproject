@@ -1,10 +1,10 @@
 import React from 'react';
 import styles from './header.module.scss'
-import {useAppSelector} from "../../common/hooks/useAppSelector";
-import avatar from "../../assets/img/avatar.png";
-import cards from "../../assets/img/logo-cards.png";
-import Button from "@mui/material/Button";
-import {NavLink} from "react-router-dom";
+import {useAppSelector} from '../../common/hooks/useAppSelector';
+import avatar from '../../assets/img/avatar.png';
+import logo from '../../assets/img/IT-INC-Logo.svg';
+import Button from '@mui/material/Button';
+import {NavLink} from 'react-router-dom';
 import {PATH} from '../../app/App';
 
 export const Header = () => {
@@ -15,21 +15,21 @@ export const Header = () => {
         <div className={styles.header}>
             <div className={styles.container}>
                 <div className={styles.info}>
-                    <img className={styles.logo} src={cards} alt="logo-cards"/>
+                    <NavLink to={PATH.Login}><img className={styles.logo} src={logo} alt="IT-INC-Logo"/></NavLink>
                     {isLoggedIn
                         ? <div className={styles.profileInfo}>
                             <p className={styles.name}>{name}</p>
                             <NavLink to={PATH.Profile}><img className={styles.avatar} src={avatar}
-                                                            alt={"avatar"}/></NavLink>
+                                                            alt={'avatar'}/></NavLink>
                         </div>
                         : <div className={styles.btn}>
-                            <NavLink to={PATH.Login} style={{textDecoration: "none"}}>
+                            <NavLink to={PATH.Login} style={{textDecoration: 'none'}}>
                                 <Button type={'submit'}
                                         variant={'contained'}
                                         color={'primary'}
                                         style={{
                                             maxWidth: '150px',
-                                            width: "100%",
+                                            width: '100%',
                                             height: '36px',
                                             borderRadius: '30px',
                                         }}
