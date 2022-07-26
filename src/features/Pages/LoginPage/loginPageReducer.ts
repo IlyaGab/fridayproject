@@ -7,22 +7,20 @@ type InitialStateType = typeof initialState
 
 export type ActionsType = ReturnType<typeof setIsLoggedInAC> | SetAppStatusActionType | SetAppErrorActionType
 
-const SetIsLoggedIn = 'login/SET-IS-LOGGED-IN'
-
 let initialState = {
     isLoggedIn:false
 }
 
 export const loginReducer = (state:InitialStateType = initialState, action:ActionsType):InitialStateType => {
     switch (action.type) {
-        case SetIsLoggedIn:
+        case 'login/SET-IS-LOGGED-IN':
             return {...state, isLoggedIn: action.value}
         default:
             return state
     }
 }
 
-export const setIsLoggedInAC = (value:boolean) => ({type:SetIsLoggedIn, value} as const)
+export const setIsLoggedInAC = (value:boolean) => ({type:'login/SET-IS-LOGGED-IN', value} as const)
 
 export const loginTC = (data:LoginParamsType) => (dispatch: Dispatch<ActionsType>) => {
     dispatch(setAppStatusAC('loading'))

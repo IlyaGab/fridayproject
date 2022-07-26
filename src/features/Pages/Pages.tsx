@@ -6,7 +6,8 @@ export const PATH = {
     RecoveryPass: '/recovery-pass-page',
     Profile: '/profile-page',
     Registration: '/registration-page',
-    Test: '/test-page'
+    Test: '/test-page',
+    CheckEmailPage: 'check-email-page'
 }
 
 const Pages = () => {

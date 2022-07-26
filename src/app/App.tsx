@@ -5,7 +5,7 @@ import './App.scss';
 import { initializeAppTC } from './appReducer';
 import { LoginPage } from '../features/Pages/LoginPage/LoginPage';
 import { PasswordRecoveryPage } from '../features/Pages/PasswordRecoveryPage/PasswordRecoveryPage';
-import { NavLink, Route, Routes } from 'react-router-dom';
+import { NavLink, Route, Routes, useNavigate } from 'react-router-dom';
 import { ChangePasswordPage } from '../features/Pages/ChangePasswordPage/ChangePasswordPage';
 import { ProfilePage } from '../features/Pages/ProfilePage/ProfilePage';
 import { TestPage } from '../features/Pages/TestPage/TestPage';
@@ -15,6 +15,7 @@ import { useAppSelector } from '../common/hooks/useAppSelector';
 import { useAppDispatch } from '../common/hooks/useAppDispatch';
 import { CircularProgressComponent } from '../common/components/CircularProgress/CircularProgress';
 import classes from "../features/Header/header.module.scss";
+import { CheckEmailPage } from '../features/Pages/CheckEmailPage/CheckEmailPage';
 
 export function App() {
     const isInitialized = useAppSelector(state => state.appReducer.isInitialized)
@@ -41,12 +42,14 @@ export function App() {
                     <Route path={PATH.ChangePass} element={<ChangePasswordPage />} />
                     <Route path={PATH.Profile} element={<ProfilePage />} />
                     <Route path={PATH.Test} element={<TestPage />} />
+                    <Route path={PATH.CheckEmailPage} element={<CheckEmailPage/>}/>
                     <Route path={'/*'} element={<ErrorPage />} />
                 </Routes>
                     <div className={classes.navList}>
                         <NavLink className={classes.navLink} to={PATH.ChangePass}>Change your password</NavLink>
                         <NavLink className={classes.navLink} to={PATH.Profile}>Profile</NavLink>
                         <NavLink className={classes.navLink} to={PATH.Test}>Test</NavLink>
+                        <NavLink className={classes.navLink} to={PATH.CheckEmailPage}>Check Email</NavLink>
                         <NavLink className={classes.navLink} to={'/*'}>Error 404</NavLink>
                     </div>
             </div>

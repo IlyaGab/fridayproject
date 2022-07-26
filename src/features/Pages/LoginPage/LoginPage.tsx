@@ -3,7 +3,7 @@ import { Button, Checkbox, FormControl, FormControlLabel, FormGroup, TextField }
 import { useFormik } from 'formik';
 import { PATH } from '../Pages';
 import { loginTC } from './loginPageReducer';
-import { Navigate, NavLink } from 'react-router-dom';
+import { Navigate, NavLink, useNavigate } from 'react-router-dom';
 import { useAppDispatch } from '../../../common/hooks/useAppDispatch';
 import { useAppSelector } from '../../../common/hooks/useAppSelector';
 import styles from './loginPage.module.scss'
@@ -16,7 +16,6 @@ type FormikErrorType = {
 }
 
 export const LoginPage = () => {
-
     const dispatch = useAppDispatch()
     const formik = useFormik({
         initialValues: {
@@ -27,15 +26,15 @@ export const LoginPage = () => {
         validate: (values) => {
             const errors: FormikErrorType = {};
             if (!values.email) {
-                errors.email = 'Required email';
-            } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
-                errors.email = 'Invalid email address';
+                errors.email = 'Email is required'
+            } else if (!/^[A-Z\d._%+-]+@[A-Z\d.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
+                errors.email = 'Invalid email address'
             }
 
             if (!values.password) {
-                errors.password = 'Required password'
+                errors.password = 'Password is required'
             } else if (values.password.length < 7) {
-                errors.password = 'Invalid password'
+                errors.password = 'Password must be more than 7 characters...'
             }
             return errors;
         },
@@ -47,7 +46,7 @@ export const LoginPage = () => {
 
     const isLoggedIn = useAppSelector(state => state.loginReducer.isLoggedIn)
     if (isLoggedIn) {
-        return <Navigate to={'/profile-page'} />
+        return <Navigate to={PATH.Profile} />
     }
 
     return (
