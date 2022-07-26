@@ -1,5 +1,4 @@
 import axios, {AxiosResponse} from 'axios';
-import { stringify } from 'querystring';
 
 export const instance = axios.create({
     baseURL: "https://neko-back.herokuapp.com/2.0/" || 'http://localhost:7542/2.0/',

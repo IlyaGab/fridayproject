@@ -3,16 +3,13 @@ import { Button, FormControl, FormGroup } from '@mui/material';
 import { useNavigate} from 'react-router-dom';
 import { PATH } from '../Pages';
 import { setIsSendAC } from '../PasswordRecoveryPage/passwordRecoveryPageReducer';
-import { useAppDispatch } from '../../../common/hooks/useAppDispatch';
+import { useDispatch } from 'react-redux';
 
 export const CheckEmailPage = () => {
-
-
     const navigate = useNavigate()
-    const dispatch = useAppDispatch()
+    const dispatch = useDispatch()
     const onClick = () => {
         navigate(PATH.Login)
-        //@ts-ignore
         dispatch(setIsSendAC(false))
     }
 
