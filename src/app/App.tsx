@@ -34,7 +34,7 @@ export const App = () => {
         dispatch(initializeAppTC())
     },[dispatch])
 
-    //
+
     if (!isInitialized) {
         return <CircularProgressComponent />
     }

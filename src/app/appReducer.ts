@@ -34,15 +34,9 @@ export const initializeAppTC = () => {
     return (dispatch: Dispatch) => {
         authAPI.me()
             .then(res => {
-                // А надо эту проверку?
-                if(res){
                     dispatch(setIsLoggedInAC(true));
                     dispatch(setAppStatusAC('succeeded'))
                     dispatch(setUserDataAC(res.data.name, res.data.email, res.data.avatar))
-                }
-            })
-            .catch((error) => {
-                dispatch(setAppErrorAC(error.response.data.error))
             })
             .finally(()=>{
                 dispatch(setInitAC(true))
