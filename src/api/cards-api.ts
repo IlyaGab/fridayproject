@@ -1,4 +1,4 @@
-import axios, {AxiosResponse} from 'axios';
+import axios from 'axios';
 
 export const instance = axios.create({
     baseURL: "https://neko-back.herokuapp.com/2.0/" || 'http://localhost:7542/2.0/',
@@ -7,17 +7,17 @@ export const instance = axios.create({
 
 export const authAPI = {
     login(data:LoginParamsType) {
-        return instance.post<LoginResponseType>('auth/login', data)
+        return instance.post<MeResponseType>('auth/login', data)
     },
     me() {
         return instance.post<MeResponseType>('auth/me')
     },
     logout() {
-        return instance.delete<MeResponseType>('auth/me')
+        return instance.delete<DeleteResponseType>('auth/me')
     },
     register: (data: RegisterParamsType) => {
-        return instance.post<RegisterParamsType, AxiosResponse<{ error?: string }>>('auth/register', data)
-    }, 
+        return instance.post<RegisterResponseType>('auth/register', data)
+    },
     forgot (data:ForgotParamsType) {
         return instance.post<ForgotParamsType>('auth/forgot', data)
     }
@@ -29,6 +29,7 @@ export const profileAPI = {
     }
 }
 
+// Types
 export type LoginParamsType = {
     email: string
     password:string
@@ -55,7 +56,7 @@ export type ForgotParamsType = {
     message:string
 }
 
-export type LoginResponseType<D={}> = {
+export type RegisterResponseType<D={}> = {
     addedUser: D,
     error?:string
 }
@@ -63,4 +64,9 @@ export type LoginResponseType<D={}> = {
 export type RegisterParamsType = {
     email: string
     password: string
+}
+
+export type DeleteResponseType = {
+    info: string
+    error: string
 }

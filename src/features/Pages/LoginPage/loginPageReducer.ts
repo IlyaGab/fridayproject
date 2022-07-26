@@ -1,17 +1,14 @@
 import { Dispatch } from 'redux';
 import {authAPI, LoginParamsType} from '../../../api/cards-api';
-import {setAppErrorAC} from '../../../app/appReducer';
-import {SetAppErrorActionType, setAppStatusAC, SetAppStatusActionType} from '../../../app/appReducer';
-
-type InitialStateType = typeof initialState
-
-export type ActionsType = ReturnType<typeof setIsLoggedInAC> | SetAppStatusActionType | SetAppErrorActionType
+import {setAppErrorAC, setAppStatusAC} from '../../../app/appReducer';
+import {setUserDataAC} from "../ProfilePage/profilePageReducer";
+import {AppDispatchType, AppThunkType} from "../../../app/store";
 
 let initialState = {
     isLoggedIn:false
 }
 
-export const loginReducer = (state:InitialStateType = initialState, action:ActionsType):InitialStateType => {
+export const loginReducer = (state:InitialStateType = initialState, action:LoginActionsType):InitialStateType => {
     switch (action.type) {
         case 'login/SET-IS-LOGGED-IN':
             return {...state, isLoggedIn: action.value}
@@ -20,16 +17,17 @@ export const loginReducer = (state:InitialStateType = initialState, action:Actio
     }
 }
 
+// AC
 export const setIsLoggedInAC = (value:boolean) => ({type:'login/SET-IS-LOGGED-IN', value} as const)
 
-export const loginTC = (data:LoginParamsType) => (dispatch: Dispatch<ActionsType>) => {
+// TC
+export const loginTC = (data:LoginParamsType): AppThunkType => (dispatch: AppDispatchType) => {
     dispatch(setAppStatusAC('loading'))
     authAPI.login(data)
-        .then(res => {
-            if(res){
+        .then((res) => {
                 dispatch(setIsLoggedInAC(true))
                 dispatch(setAppStatusAC('succeeded'))
-            }
+                dispatch(setUserDataAC(res.data.name, res.data.email))
         })
         .catch((error)=>{
             dispatch(setAppErrorAC(error.response.data.error)) 
@@ -37,7 +35,7 @@ export const loginTC = (data:LoginParamsType) => (dispatch: Dispatch<ActionsType
         })
 }
 
-export const logoutTC = () => (dispatch: Dispatch<ActionsType>) => {
+export const logoutTC = (): AppThunkType => (dispatch: AppDispatchType) => {
     dispatch(setAppStatusAC('loading'))
     authAPI.logout()
         .then(res => {
@@ -50,3 +48,9 @@ export const logoutTC = () => (dispatch: Dispatch<ActionsType>) => {
             dispatch(setAppErrorAC(error.response.data.error))
         })
 }
+
+
+// Types
+
+type InitialStateType = typeof initialState
+export type LoginActionsType = ReturnType<typeof setIsLoggedInAC>
