@@ -1,7 +1,7 @@
 import React from 'react';
 import {Navigate} from 'react-router-dom';
-import {PATH} from '../Pages';
 import {useAppSelector} from '../../../common/hooks/useAppSelector';
+import {PATH} from '../../../app/App';
 
 export const ErrorPage = () => {
     const isLoggedIn = useAppSelector(state => state.loginReducer.isLoggedIn)

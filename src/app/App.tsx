@@ -1,11 +1,11 @@
 import React, {useEffect} from 'react';
 import {Header} from '../features/Header/Header';
-import {PATH} from '../features/Pages/Pages';
+
 import './App.scss';
 import { initializeAppTC } from './appReducer';
 import { LoginPage } from '../features/Pages/LoginPage/LoginPage';
 import { PasswordRecoveryPage } from '../features/Pages/PasswordRecoveryPage/PasswordRecoveryPage';
-import { NavLink, Route, Routes, useNavigate } from 'react-router-dom';
+import { NavLink, Route, Routes } from 'react-router-dom';
 import { ChangePasswordPage } from '../features/Pages/ChangePasswordPage/ChangePasswordPage';
 import { ProfilePage } from '../features/Pages/ProfilePage/ProfilePage';
 import { TestPage } from '../features/Pages/TestPage/TestPage';
@@ -16,6 +16,17 @@ import { useAppDispatch } from '../common/hooks/useAppDispatch';
 import { CircularProgressComponent } from '../common/components/CircularProgress/CircularProgress';
 import classes from "../features/Header/header.module.scss";
 import { CheckEmailPage } from '../features/Pages/CheckEmailPage/CheckEmailPage';
+
+export const PATH = {
+    ChangePass:'/change-pass-page',
+    Login:'/',
+    RecoveryPass: '/recovery-pass-page',
+    Profile: '/profile-page',
+    Registration: '/registration-page',
+    Test: '/test-page',
+    CheckEmailPage: '/check-email-page'
+}
+
 
 export function App() {
     const isInitialized = useAppSelector(state => state.appReducer.isInitialized)

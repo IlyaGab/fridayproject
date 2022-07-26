@@ -1,14 +1,5 @@
 import React from 'react';
 
-export const PATH = {
-    ChangePass:'/change-pass-page',
-    Login:'/',
-    RecoveryPass: '/recovery-pass-page',
-    Profile: '/profile-page',
-    Registration: '/registration-page',
-    Test: '/test-page',
-    CheckEmailPage: 'check-email-page'
-}
 
 const Pages = () => {
     return (

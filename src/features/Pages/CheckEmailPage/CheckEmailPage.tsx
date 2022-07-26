@@ -1,16 +1,13 @@
 import styles from './checkEmailPage.module.scss'
 import { Button, FormControl, FormGroup } from '@mui/material';
 import { useNavigate} from 'react-router-dom';
-import { PATH } from '../Pages';
-import { setIsSendAC } from '../PasswordRecoveryPage/passwordRecoveryPageReducer';
-import { useDispatch } from 'react-redux';
+import {PATH} from '../../../app/App';
+
 
 export const CheckEmailPage = () => {
     const navigate = useNavigate()
-    const dispatch = useDispatch()
     const onClick = () => {
         navigate(PATH.Login)
-        dispatch(setIsSendAC(false))
     }
 
     return (

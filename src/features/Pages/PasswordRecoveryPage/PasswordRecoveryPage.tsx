@@ -2,19 +2,16 @@ import React from 'react';
 import styles from './passwordRecoveryPage.module.scss'
 import { Button, FormControl, FormGroup, TextField } from '@mui/material';
 import { useFormik } from 'formik';
-import { PATH } from '../Pages';
-import { Navigate, NavLink } from 'react-router-dom';
+import { NavLink, Navigate } from 'react-router-dom';
 import { useAppDispatch } from '../../../common/hooks/useAppDispatch';
 import { useAppSelector } from '../../../common/hooks/useAppSelector';
-import { ErrorSnackbar } from '../../../common/components/ErrorSnackbar/ErrorSnackbar';
 import { forgotTC } from './passwordRecoveryPageReducer';
-import { CheckEmailPage } from '../CheckEmailPage/CheckEmailPage';
+import {PATH} from '../../../app/App';
 
 
 type FormikErrorType = {
     email?: string
 }
-
 
 export const PasswordRecoveryPage = () => {
 
@@ -23,7 +20,7 @@ export const PasswordRecoveryPage = () => {
         initialValues: {
             email: '',
             from:'test-front-admin <ilyagab1994@gmail.com>',
-            message:`<div style='padding:15px'>password recovery link: <a href='http://localhost:3000/#/change-pass-page/$token$'>link</a></div>`
+            message:`<div style='padding:15px'>password recovery link: <a href='http://localhost:3000/#/change-pass-page/'>link</a></div>`
         },
         validate: (values) => {
             const errors: FormikErrorType = {};
@@ -42,9 +39,8 @@ export const PasswordRecoveryPage = () => {
     })
 
     const isSend = useAppSelector(state => state.passwordRecoveryReducer.isSend)
-
     if(isSend) {
-        return <CheckEmailPage/>
+        return <Navigate to={PATH.CheckEmailPage}/>
     } 
 
     return (

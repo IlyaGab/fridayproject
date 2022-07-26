@@ -10,7 +10,8 @@ import {registerTC} from './registrationPageReducer';
 import {ErrorSnackbar} from '../../../common/components/ErrorSnackbar/ErrorSnackbar';
 import {useAppSelector} from '../../../common/hooks/useAppSelector';
 import {Navigate, NavLink} from 'react-router-dom';
-import {PATH} from '../Pages';
+import {PATH} from '../../../app/App';
+
 
 export const RegistrationPage = () => {
     const isRegister = useAppSelector(state => state.registrationReducer.isRegister)

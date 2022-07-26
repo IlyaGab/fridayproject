@@ -4,13 +4,13 @@ import {faArrowRightFromBracket} from "@fortawesome/free-solid-svg-icons"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 import avatar from "../../../assets/img/avatar.png"
 import {Navigate} from 'react-router-dom';
-import {PATH} from '../Pages';
 import {useAppSelector} from '../../../common/hooks/useAppSelector';
 import {useAppDispatch} from '../../../common/hooks/useAppDispatch';
 import {logoutTC} from '../LoginPage/loginPageReducer';
 import {EditableSpan} from "../../../common/components/EditableSpan/EditableSpan";
 import {changeInfoProfileTC} from "./profilePageReducer";
 import {BackButton} from "../../../common/components/BackButton/BackButton";
+import {PATH} from '../../../app/App';
 
 export const ProfilePage = () => {
     const nameState = useAppSelector(state => state.profileReducer.name)

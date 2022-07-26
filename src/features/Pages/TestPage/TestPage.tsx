@@ -1,9 +1,9 @@
 import {Button, Checkbox, Slider} from '@mui/material';
 import classes from './test.module.scss'
 import {Navigate} from 'react-router-dom';
-import {PATH} from '../Pages';
 import React from 'react';
 import {useAppSelector} from '../../../common/hooks/useAppSelector';
+import {PATH} from '../../../app/App';
 
 
 export const TestPage = () => {
