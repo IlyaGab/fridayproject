@@ -1,18 +1,12 @@
 import React from 'react';
-import {Navigate} from 'react-router-dom';
-import {PATH} from '../Pages';
-import {useAppSelector} from '../../../common/hooks/useAppSelector';
-import styles from "./changePasswordPage.module.scss";
-import {Button, FormControl, IconButton, Input, InputAdornment, InputLabel} from "@mui/material";
-import {ErrorSnackbar} from "../../../common/components/ErrorSnackbar/ErrorSnackbar";
-import {useFormik} from "formik";
-import {useAppDispatch} from "../../../common/hooks/useAppDispatch";
-import {Visibility, VisibilityOff} from "@mui/icons-material";
+import styles from './changePasswordPage.module.scss';
+import {Button, FormControl, IconButton, Input, InputAdornment, InputLabel} from '@mui/material';
+import {ErrorSnackbar} from '../../../common/components/ErrorSnackbar/ErrorSnackbar';
+import {useFormik} from 'formik';
+import {Visibility, VisibilityOff} from '@mui/icons-material';
+
 
 export const ChangePasswordPage = () => {
-    const isLoggedIn = useAppSelector(state => state.loginReducer.isLoggedIn)
-
-    const dispatch = useAppDispatch()
 
     const [values, setValues] = React.useState<StateFormType>({
         password: '',
@@ -21,7 +15,7 @@ export const ChangePasswordPage = () => {
 
     const handleChange =
         (prop: keyof StateFormType) => (event: React.ChangeEvent<HTMLInputElement>) => {
-            setValues({ ...values, [prop]: event.target.value });
+            setValues({...values, [prop]: event.target.value});
             formik.handleChange(values);
             formik.values.newPassword = values.password
         };
@@ -56,21 +50,19 @@ export const ChangePasswordPage = () => {
         },
     })
 
-    if(!isLoggedIn) {
-        return <Navigate to={PATH.Login}/>
-    }
 
     return (
         <div className={styles.changePasswordPage}>
             <div className={styles.container}>
                 <div className={styles.changePassword}>
-                    <FormControl style={{width: "100%"}}>
+                    <FormControl style={{width: '100%'}}>
                         <form className={styles.loginPageForm} onSubmit={formik.handleSubmit}>
                             <h2>Create new password</h2>
-                            <InputLabel htmlFor="password" style={{marginTop: "90px", width: "100%"}}>Password</InputLabel>
+                            <InputLabel htmlFor="password"
+                                        style={{marginTop: '90px', width: '100%'}}>Password</InputLabel>
                             <Input
                                 id="password"
-                                style={{marginTop: "70px", width: "100%"}}
+                                style={{marginTop: '70px', width: '100%'}}
                                 type={values.showPassword ? 'text' : 'password'}
                                 value={values.password}
                                 onChange={handleChange('password')}
@@ -93,7 +85,7 @@ export const ChangePasswordPage = () => {
                                 type={'submit'}
                                 variant={'contained'}
                                 color={'primary'}
-                                style={{width: "100%", borderRadius: '30px', marginTop: "40px"}}>
+                                style={{width: '100%', borderRadius: '30px', marginTop: '40px'}}>
                                 Create new password
                             </Button>
                         </form>

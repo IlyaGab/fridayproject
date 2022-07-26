@@ -86,7 +86,7 @@ export const LoginPage = () => {
                                     }
                                 />
                             </FormGroup>
-                            <NavLink to={PATH.RecoveryPass} className={styles.linkForgot}>Forgot Password?</NavLink>
+                            <NavLink to={PATH.ForgotPass} className={styles.linkForgot}>Forgot Password?</NavLink>
                             <Button
                                 type={'submit'}
                                 variant={'contained'}

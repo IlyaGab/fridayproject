@@ -1,4 +1,3 @@
-import { Dispatch } from 'redux';
 import {authAPI, LoginParamsType} from '../../../api/cards-api';
 import {setAppErrorAC, setAppStatusAC} from '../../../app/appReducer';
 import {setUserDataAC} from "../ProfilePage/profilePageReducer";

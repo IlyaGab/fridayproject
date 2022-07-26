@@ -4,8 +4,8 @@ import {useAppSelector} from "../../common/hooks/useAppSelector";
 import avatar from "../../assets/img/avatar.png";
 import cards from "../../assets/img/logo-cards.png";
 import Button from "@mui/material/Button";
-import {PATH} from "../Pages/Pages";
 import {NavLink} from "react-router-dom";
+import {PATH} from '../../app/App';
 
 export const Header = () => {
     const name = useAppSelector(state => state.profileReducer.name)

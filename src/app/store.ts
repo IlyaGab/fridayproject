@@ -3,7 +3,6 @@ import thunkMiddleware, {ThunkAction, ThunkDispatch} from 'redux-thunk';
 import {changePassReducer} from '../features/Pages/ChangePasswordPage/changePassReducer';
 import {LoginActionsType, loginReducer} from '../features/Pages/LoginPage/loginPageReducer';
 import {passwordRecoveryReducer} from '../features/Pages/PasswordRecoveryPage/passwordRecoveryPageReducer';
-import {loginReducer} from '../features/Pages/LoginPage/loginPageReducer';
 import {PasswordRecoveryActionsType} from '../features/Pages/PasswordRecoveryPage/passwordRecoveryPageReducer';
 import {ProfileActionType, profileReducer} from '../features/Pages/ProfilePage/profilePageReducer';
 import {RegisterActionsType, registrationReducer} from '../features/Pages/RegistrationPage/registrationPageReducer';
