@@ -7,7 +7,7 @@ import { useAppDispatch } from '../../../common/hooks/useAppDispatch';
 import { useAppSelector } from '../../../common/hooks/useAppSelector';
 import styles from './loginPage.module.scss'
 import { ErrorSnackbar } from '../../../common/components/ErrorSnackbar/ErrorSnackbar';
-import {PATH} from '../../../app/App';
+import { PATH } from '../../../app/App';
 
 type FormikErrorType = {
     email?: string
@@ -46,6 +46,7 @@ export const LoginPage = () => {
         },
     })
 
+    const isLoggedIn = useAppSelector(state => state.loginReducer.isLoggedIn)
     if (isLoggedIn) {
         return <Navigate to={PATH.Profile} />
     }

@@ -1,6 +1,5 @@
 import React, {useEffect} from 'react';
 import {Header} from '../features/Header/Header';
-
 import './App.scss';
 import { initializeAppTC } from './appReducer';
 import { LoginPage } from '../features/Pages/LoginPage/LoginPage';
@@ -14,21 +13,21 @@ import { RegistrationPage } from '../features/Pages/RegistrationPage/Registratio
 import { useAppSelector } from '../common/hooks/useAppSelector';
 import { useAppDispatch } from '../common/hooks/useAppDispatch';
 import { CircularProgressComponent } from '../common/components/CircularProgress/CircularProgress';
-import classes from "../features/Header/header.module.scss";
+import styles from "../features/Header/header.module.scss";
 import { CheckEmailPage } from '../features/Pages/CheckEmailPage/CheckEmailPage';
 
-export const PATH = {
-    ChangePass:'/change-pass-page/*',
-    Login:'/',
-    ForgotPass: '/recovery-pass-page',
-    Profile: '/profile-page',
-    Registration: '/registration-page',
-    Test: '/test-page',
-    CheckEmailPage: '/check-email-page'
+export enum PATH {
+    ChangePass = '/change-pass-page',
+    Login = '/',
+    ForgotPass = '/recovery-pass-page',
+    Profile = '/profile-page',
+    Registration = '/registration-page',
+    Test = '/test-page',
+    CheckEmail = '/check-email-page',
 }
 
 
-export function App() {
+export const App = () => {
     const isInitialized = useAppSelector(state => state.appReducer.isInitialized)
     const status = useAppSelector(state => state.appReducer.status)
     const dispatch = useAppDispatch()
@@ -53,21 +52,23 @@ export function App() {
                     <Route path={PATH.ChangePass} element={<ChangePasswordPage />} />
                     <Route path={PATH.Profile} element={<ProfilePage />} />
                     <Route path={PATH.Test} element={<TestPage />} />
-                    <Route path={PATH.CheckEmailPage} element={<CheckEmailPage/>}/>
+                    <Route path={PATH.CheckEmail} element={<CheckEmailPage/>}/>
                     <Route path={'/*'} element={<ErrorPage />} />
                 </Routes>
-                    <div className={classes.navList}>
-                        <NavLink className={classes.navLink} to={PATH.ChangePass}>Change your password</NavLink>
-                        <NavLink className={classes.navLink} to={PATH.Profile}>Profile</NavLink>
-                        <NavLink className={classes.navLink} to={PATH.Test}>Test</NavLink>
-                        <NavLink className={classes.navLink} to={PATH.CheckEmailPage}>Check Email</NavLink>
-                        <NavLink className={classes.navLink} to={'/*'}>Error 404</NavLink>
+                    <div className={styles.navList}>
+                        <NavLink className={styles.navLink} to={PATH.ChangePass}>Change your password</NavLink>
+                        <NavLink className={styles.navLink} to={PATH.Profile}>Profile</NavLink>
+                        <NavLink className={styles.navLink} to={PATH.Test}>Test</NavLink>
+                        <NavLink className={styles.navLink} to={PATH.CheckEmail}>Check Email</NavLink>
+                        <NavLink className={styles.navLink} to={'/*'}>Error 404</NavLink>
                     </div>
             </div>
                 : <CircularProgressComponent />}
         </>
 
     );
-}
+};
+
+
 
 
