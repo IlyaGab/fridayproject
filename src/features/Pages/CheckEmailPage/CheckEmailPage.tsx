@@ -35,5 +35,5 @@ export const CheckEmailPage = () => {
             </div>
 
         </div>
-    );
-};
+    )
+}

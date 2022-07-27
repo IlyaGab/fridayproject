@@ -8,7 +8,9 @@ import {useAppSelector} from '../../../common/hooks/useAppSelector';
 
 export const ErrorPage = () => {
     const isLoggedIn = useAppSelector(state => state.loginReducer.isLoggedIn)
+
     const navigate = useNavigate()
+
     const onClickHandler = () => {
         navigate(isLoggedIn ? PATH.Profile : PATH.Login)
     }

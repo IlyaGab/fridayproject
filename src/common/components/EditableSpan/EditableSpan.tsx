@@ -41,8 +41,7 @@ export const EditableSpan: React.FC<EditableSpanType> = ({initialName, callback,
     )
 }
 
-
-// TYPES
+//Types
 type EditableSpanType = {
     initialName: string
     callback: (title: string) => void

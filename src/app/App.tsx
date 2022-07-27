@@ -27,14 +27,15 @@ export enum PATH {
 export const App = () => {
     const isInitialized = useAppSelector(state => state.appReducer.isInitialized)
     const status = useAppSelector(state => state.appReducer.status)
+
     const dispatch = useAppDispatch()
 
-    useEffect(()=> {
+    useEffect(() => {
         dispatch(initializeAppTC())
-    },[dispatch])
+    }, [dispatch])
 
     if (!isInitialized) {
-        return <CircularProgressComponent />
+        return <CircularProgressComponent/>
     }
 
     return (
@@ -51,13 +52,14 @@ export const App = () => {
                         <Route path={'/*'} element={<ErrorPage/>}/>
                     </Routes>
                     <div className={styles.navList}>
-                        <NavLink className={styles.navLink} to={PATH.ChangePass}>Change your password</NavLink>
+                        <NavLink className={styles.navLink} to={PATH.ChangePass}>Change your
+                            password</NavLink>
                         <NavLink className={styles.navLink} to={PATH.Profile}>Profile</NavLink>
                         <NavLink className={styles.navLink} to={PATH.CheckEmail}>Check Email</NavLink>
                         <NavLink className={styles.navLink} to={'/*'}>Error 404</NavLink>
                     </div>
-            </div>
-                : <CircularProgressComponent />}
+                </div>
+                : <CircularProgressComponent/>}
         </>
-    );
-};
+    )
+}

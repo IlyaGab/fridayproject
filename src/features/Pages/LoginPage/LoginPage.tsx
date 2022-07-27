@@ -9,12 +9,6 @@ import styles from './loginPage.module.scss'
 import {ErrorSnackbar} from '../../../common/components/ErrorSnackbar/ErrorSnackbar';
 import {PATH} from '../../../app/App';
 
-type FormikErrorType = {
-    email?: string
-    password?: string
-    rememberMe?: boolean
-}
-
 export const LoginPage = () => {
     const isLoggedIn = useAppSelector(state => state.loginReducer.isLoggedIn)
 
@@ -26,7 +20,7 @@ export const LoginPage = () => {
             rememberMe: false
         },
         validate: (values) => {
-            const errors: FormikErrorType = {};
+            const errors: FormikErrorType = {}
             if (!values.email) {
                 errors.email = 'Email is required'
             } else if (!/^[A-Z\d._%+-]+@[A-Z\d.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
@@ -115,4 +109,11 @@ export const LoginPage = () => {
             </div>
         </div>
     )
+}
+
+//Types
+type FormikErrorType = {
+    email?: string
+    password?: string
+    rememberMe?: boolean
 }

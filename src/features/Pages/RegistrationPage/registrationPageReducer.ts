@@ -9,19 +9,21 @@ const initialState = {
 
 export const registrationReducer = (state: InitialStateType = initialState, action: RegisterActionsType): InitialStateType => {
     switch (action.type) {
-        case 'SET-IS-REGISTERED':
+        case 'REGISTRATION/SET-IS-REGISTERED':
             return {...state, isRegistered: action.value}
         default:
             return state
     }
 }
 
+//AC
+const setIsRegisteredAC = (value: boolean) => ({
+    type: 'REGISTRATION/SET-IS-REGISTERED',
+    value
+} as const)
 
-// Action Creators
-const setIsRegisteredAC = (value: boolean) => ({type: 'SET-IS-REGISTERED', value} as const)
 
-
-// Thunk Creators
+//TC
 export const registerTC = (data: RegisterParamsType): AppThunkType => (dispatch) => {
     dispatch(setAppStatusAC('loading'))
     authAPI.register(data)
@@ -38,9 +40,6 @@ export const registerTC = (data: RegisterParamsType): AppThunkType => (dispatch)
         })
 }
 
-
-// Types
+//Types
 type InitialStateType = typeof initialState
-
-export type RegisterActionsType = SetIsRegisteredActionType
-export type SetIsRegisteredActionType = ReturnType<typeof setIsRegisteredAC>
+export type RegisterActionsType = ReturnType<typeof setIsRegisteredAC>

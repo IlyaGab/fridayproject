@@ -9,7 +9,7 @@ let initialState = {
 
 export const changePasswordReducer = (state: InitialStateType = initialState, action: ChangePasswordActionType) => {
     switch (action.type) {
-        case "IS_SET_NEW_PASSWORD": {
+        case "CHANGE-PASSWORD/IS-SET-NEW-PASSWORD": {
             return {
                 ...state,
                 ...action.payload
@@ -20,17 +20,15 @@ export const changePasswordReducer = (state: InitialStateType = initialState, ac
     }
 }
 
-
-// AC
+//AC
 export const isSetNewPasswordAC = (isSetNewPassword: boolean) => ({
-    type: "IS_SET_NEW_PASSWORD",
+    type: "CHANGE-PASSWORD/IS-SET-NEW-PASSWORD",
     payload: {
         isSetNewPassword
     }
 })
 
-
-// TC
+//TC
 export const setNewPasswordTC = (password: string, resetPasswordToken: string): AppThunkType => (dispatch: AppDispatchType) => {
     dispatch(setAppStatusAC('loading'))
     console.log(password, resetPasswordToken)
@@ -48,10 +46,8 @@ export const setNewPasswordTC = (password: string, resetPasswordToken: string): 
         })
 }
 
-
-// TYPES
+//Types
 export type ChangePasswordActionType = ReturnType<typeof isSetNewPasswordAC>
-
 type InitialStateType = {
     isSetNewPassword: boolean
 }

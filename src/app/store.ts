@@ -29,6 +29,7 @@ const rootReducer = combineReducers({
 
 export const store = createStore(rootReducer, applyMiddleware(thunkMiddleware))
 
+//Types
 export type AppStateType = ReturnType<typeof rootReducer>
 export type AppRootActionsType =
     AppActionsType
@@ -37,6 +38,5 @@ export type AppRootActionsType =
     | PasswordRecoveryActionsType
     | LoginActionsType
     | ChangePasswordActionType
-
 export type AppDispatchType = ThunkDispatch<AppStateType, unknown, AppRootActionsType>
 export type AppThunkType<ReturnType = void> = ThunkAction<ReturnType, AppStateType, unknown, AppRootActionsType>
