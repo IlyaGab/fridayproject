@@ -29,12 +29,12 @@ export const App = () => {
     const status = useAppSelector(state => state.appReducer.status)
     const dispatch = useAppDispatch()
 
-    useEffect(() => {
+    useEffect(()=> {
         dispatch(initializeAppTC())
-    }, [dispatch])
+    },[dispatch])
 
     if (!isInitialized) {
-        return <CircularProgressComponent/>
+        return <CircularProgressComponent />
     }
 
     return (
@@ -56,12 +56,8 @@ export const App = () => {
                         <NavLink className={styles.navLink} to={PATH.CheckEmail}>Check Email</NavLink>
                         <NavLink className={styles.navLink} to={'/*'}>Error 404</NavLink>
                     </div>
-                </div>
-                : <CircularProgressComponent/>}
+            </div>
+                : <CircularProgressComponent />}
         </>
     );
 };
-
-
-
-

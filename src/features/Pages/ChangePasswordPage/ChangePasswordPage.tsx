@@ -4,31 +4,23 @@ import {Button, FormControl, IconButton, Input, InputAdornment, InputLabel} from
 import {ErrorSnackbar} from '../../../common/components/ErrorSnackbar/ErrorSnackbar';
 import {useFormik} from 'formik';
 import {Visibility, VisibilityOff} from '@mui/icons-material';
-
+import {setNewPasswordTC} from "./changePassReducer";
+import {useAppDispatch} from "../../../common/hooks/useAppDispatch";
+import {Navigate, useParams} from "react-router-dom";
+import {useAppSelector} from "../../../common/hooks/useAppSelector";
+import {PATH} from "../../../app/App";
 
 export const ChangePasswordPage = () => {
+    const [showPassword, setShowPassword] = React.useState<boolean>(false)
 
-    const [values, setValues] = React.useState<StateFormType>({
-        password: '',
-        showPassword: false,
-    });
+    const isSetNewPassword = useAppSelector(state => state.changePassReducer.isSetNewPassword)
 
-    const handleChange =
-        (prop: keyof StateFormType) => (event: React.ChangeEvent<HTMLInputElement>) => {
-            setValues({...values, [prop]: event.target.value});
-            formik.handleChange(values);
-            formik.values.newPassword = values.password
-        };
+    const dispatch = useAppDispatch()
+
+    const params = useParams<"*">()
 
     const handleClickShowPassword = () => {
-        setValues({
-            ...values,
-            showPassword: !values.showPassword,
-        });
-    };
-
-    const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
-        event.preventDefault();
+        setShowPassword(!showPassword)
     };
 
     const formik = useFormik({
@@ -45,11 +37,17 @@ export const ChangePasswordPage = () => {
             return errors;
         },
         onSubmit: values => {
-            // dispatch
-            formik.resetForm();
+            const token = params["*"]
+            if (token) {
+                dispatch(setNewPasswordTC(values.newPassword, token))
+            }
+            formik.resetForm()
         },
     })
 
+    if (isSetNewPassword) {
+        return <Navigate to={PATH.Login}/>
+    }
 
     return (
         <div className={styles.changePasswordPage}>
@@ -59,22 +57,22 @@ export const ChangePasswordPage = () => {
                         <form className={styles.loginPageForm} onSubmit={formik.handleSubmit}>
                             <h2>Create new password</h2>
                             <InputLabel htmlFor="password"
-                                        style={{marginTop: '90px', width: '100%'}}>Password</InputLabel>
+                                        style={{
+                                            marginTop: '90px',
+                                            width: '100%'
+                                        }}>Password</InputLabel>
                             <Input
                                 id="password"
                                 style={{marginTop: '70px', width: '100%'}}
-                                type={values.showPassword ? 'text' : 'password'}
-                                value={values.password}
-                                onChange={handleChange('password')}
-                                onBlur={formik.handleBlur}
+                                type={showPassword ? 'text' : 'password'}
+                                {...formik.getFieldProps('newPassword')}
                                 endAdornment={
                                     <InputAdornment position="end">
                                         <IconButton
                                             aria-label="toggle password visibility"
                                             onClick={handleClickShowPassword}
-                                            onMouseDown={handleMouseDownPassword}
                                         >
-                                            {values.showPassword ? <VisibilityOff/> : <Visibility/>}
+                                            {showPassword ? <VisibilityOff/> : <Visibility/>}
                                         </IconButton>
                                     </InputAdornment>
                                 }
@@ -100,9 +98,4 @@ export const ChangePasswordPage = () => {
 //Types
 type FormikErrorType = {
     newPassword?: string
-}
-
-type StateFormType = {
-    password: string;
-    showPassword: boolean;
 }

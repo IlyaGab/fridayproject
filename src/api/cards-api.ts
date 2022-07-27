@@ -6,25 +6,28 @@ export const instance = axios.create({
 })
 
 export const authAPI = {
-    login(data:LoginParamsType) {
+    login(data: LoginParamsType) {
         return instance.post<MeResponseType>('auth/login', data)
     },
     me() {
         return instance.post<MeResponseType>('auth/me')
     },
     logout() {
-        return instance.delete<DeleteResponseType>('auth/me')
+        return instance.delete<InfoResponseType>('auth/me')
     },
     register: (data: RegisterParamsType) => {
         return instance.post<RegisterResponseType>('auth/register', data)
     },
-    forgot (data:ForgotParamsType) {
-        return instance.post<ForgotParamsType>('auth/forgot', data)
+    forgot(data: ForgotParamsType) {
+        return instance.post<InfoResponseType>('auth/forgot', data)
+    },
+    setNewPassword(data: SetNewPasswordParamsType) {
+        return instance.post<InfoResponseType>("auth/set-new-password", data)
     }
 }
 
 export const profileAPI = {
-    changeNInfo(name: string) {
+    changeInfo(name: string) {
         return instance.put("auth/me", {name, avatar: "avatar"})
     }
 }
@@ -32,8 +35,18 @@ export const profileAPI = {
 // Types
 export type LoginParamsType = {
     email: string
-    password:string
-    rememberMe:boolean
+    password: string
+    rememberMe: boolean
+}
+
+export type RegisterParamsType = {
+    email: string
+    password: string
+}
+
+export type SetNewPasswordParamsType = {
+    password: string
+    resetPasswordToken: string
 }
 
 export type MeResponseType = {
@@ -51,22 +64,17 @@ export type MeResponseType = {
 }
 
 export type ForgotParamsType = {
-    email:string
-    from:string
-    message:string
-}
-
-export type RegisterResponseType<D={}> = {
-    addedUser: D,
-    error?:string
-}
-
-export type RegisterParamsType = {
     email: string
-    password: string
+    from: string
+    message: string
 }
 
-export type DeleteResponseType = {
+export type RegisterResponseType<D = {}> = {
+    addedUser: D,
+    error?: string
+}
+
+export type InfoResponseType = {
     info: string
     error: string
 }

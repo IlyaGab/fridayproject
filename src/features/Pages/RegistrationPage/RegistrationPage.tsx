@@ -1,6 +1,6 @@
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
-import React, {useState} from 'react';
+import React from 'react';
 import styles from './registrationPage.module.scss'
 import FormControl from '@mui/material/FormControl';
 import FormGroup from '@mui/material/FormGroup'
@@ -76,16 +76,16 @@ export const RegistrationPage = () => {
     return (
         <div className={styles.registrationPage}>
             <div className={styles.container}>
-                <div className={styles.register}>
+                <div className={styles.registration}>
                     <FormControl style={{width: '100%'}}>
                         <form className={styles.registrationPageForm} onSubmit={formik.handleSubmit}>
-                            <h2 className={styles.signUpTitle}>Sign Up</h2>
-                            <FormGroup>
+                            <h2>Sign Up</h2>
+                            <FormGroup style={{marginTop: "20px"}}>
                                 <TextField label="Email"
                                            variant="standard"
                                            margin="normal"
                                            size={'small'}
-                                           style={{width: '347px', height: '48px'}}
+                                           style={{width: '100%'}}
                                            {...formik.getFieldProps('email')}
                                 />
                                 {
@@ -93,7 +93,7 @@ export const RegistrationPage = () => {
                                     formik.errors.email &&
                                     <div style={{color: 'red'}}>{formik.errors.email}</div>
                                 }
-                                <FormControl variant="standard">
+                                <FormControl variant="standard" style={{marginTop: "20px"}}>
                                     <InputLabel htmlFor="password">Password</InputLabel>
                                     <Input id="password"
                                            type={showPassword ? 'text' : 'password'}
@@ -117,7 +117,7 @@ export const RegistrationPage = () => {
                                     formik.errors.password &&
                                     <div style={{color: 'red'}}>{formik.errors.password}</div>
                                 }
-                                <FormControl sx={{marginTop: '10px'}} variant="standard">
+                                <FormControl style={{marginTop: "20px"}} variant="standard">
                                     <InputLabel htmlFor="confirm">Confirm Password</InputLabel>
                                     <Input id="confirm"
                                            type={showConfirmPassword ? 'text' : 'password'}
@@ -145,10 +145,10 @@ export const RegistrationPage = () => {
                             <Button type={'submit'}
                                     variant={'contained'}
                                     color={'primary'}
-                                    style={{width: '100%', borderRadius: '30px', marginTop: '40px'}}
+                                    style={{width: '100%', borderRadius: '30px', marginTop: '60px'}}
                             >Sign Up
                             </Button>
-                            <div className={styles.signInContainer}>
+                            <div className={styles.linkBlock}>
                                 <div className={styles.text}>Already have an account?</div>
                                 <NavLink to={PATH.Login} className={styles.link}>Sign In</NavLink>
                             </div>
@@ -161,9 +161,9 @@ export const RegistrationPage = () => {
     );
 };
 
+//Types
 type FormikErrorType = {
     email?: string
     password?: string
     confirm?: string
 }
-

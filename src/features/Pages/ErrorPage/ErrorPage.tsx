@@ -28,6 +28,5 @@ export const ErrorPage = () => {
                 </div>
             </div>
         </div>
-    );
-};
-
+    )
+}

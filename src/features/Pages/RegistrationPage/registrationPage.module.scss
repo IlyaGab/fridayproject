@@ -6,7 +6,7 @@
   .container {
     @include container();
 
-    .register {
+    .registration {
       @include block(60px);
 
       .registrationPageForm {
@@ -14,27 +14,14 @@
           @include title();
         }
 
-        .signInContainer {
+        .linkBlock {
 
           .text {
-            text-align: center;
-            font-weight: 600;
-            font-size: 14px;
-            line-height: 24px;
-            opacity: 0.5;
-            margin-top: 30px;
+            @include question();
           }
 
           .link {
-            display: block;
-            color: #366EFF;
-            font-weight: 600;
-            font-size: 16px;
-            line-height: 24px;
-            text-align: center;
-            text-decoration-line: underline;
-            cursor: pointer;
-            margin-top: 10px;
+            @include link();
           }
         }
       }

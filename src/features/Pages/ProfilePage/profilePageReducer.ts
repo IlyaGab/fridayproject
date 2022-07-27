@@ -47,7 +47,7 @@ export const changeInfoProfileAC = (name: string, avatar: string) => ({
 
 // TC
 export const changeInfoProfileTC = (name: string): AppThunkType => (dispatch: AppDispatchType) => {
-    profileAPI.changeNInfo(name).then(() => {
+    profileAPI.changeInfo(name).then(() => {
         dispatch(changeInfoProfileAC(name, "avatar"))
     })
 }

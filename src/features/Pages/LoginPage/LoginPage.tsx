@@ -1,13 +1,13 @@
 import React from 'react';
-import { Button, Checkbox, FormControl, FormControlLabel, FormGroup, TextField } from '@mui/material';
-import { useFormik } from 'formik';
-import { loginTC } from './loginPageReducer';
-import { Navigate, NavLink } from 'react-router-dom';
-import { useAppDispatch } from '../../../common/hooks/useAppDispatch';
-import { useAppSelector } from '../../../common/hooks/useAppSelector';
+import {Button, Checkbox, FormControl, FormControlLabel, FormGroup, TextField} from '@mui/material';
+import {useFormik} from 'formik';
+import {loginTC} from './loginPageReducer';
+import {Navigate, NavLink} from 'react-router-dom';
+import {useAppDispatch} from '../../../common/hooks/useAppDispatch';
+import {useAppSelector} from '../../../common/hooks/useAppSelector';
 import styles from './loginPage.module.scss'
-import { ErrorSnackbar } from '../../../common/components/ErrorSnackbar/ErrorSnackbar';
-import { PATH } from '../../../app/App';
+import {ErrorSnackbar} from '../../../common/components/ErrorSnackbar/ErrorSnackbar';
+import {PATH} from '../../../app/App';
 
 type FormikErrorType = {
     email?: string
@@ -47,7 +47,7 @@ export const LoginPage = () => {
     })
 
     if (isLoggedIn) {
-        return <Navigate to={PATH.Profile} />
+        return <Navigate to={PATH.Profile}/>
     }
 
     return (
@@ -62,10 +62,11 @@ export const LoginPage = () => {
                                     label="Email"
                                     variant="standard"
                                     margin="normal"
-                                    style={{ width: '100%', marginTop: "40px" }}
+                                    style={{width: '100%', marginTop: "40px"}}
                                     {...formik.getFieldProps('email')}
                                 />
-                                {formik.touched.email && formik.errors.email && <div style={{ color: 'red' }}>{formik.errors.email}</div>}
+                                {formik.touched.email && formik.errors.email &&
+                                    <div style={{color: 'red'}}>{formik.errors.email}</div>}
                                 <TextField
                                     type="password"
                                     label="Password"
@@ -74,10 +75,17 @@ export const LoginPage = () => {
                                     style={{marginTop: "10px"}}
                                     {...formik.getFieldProps('password')}
                                 />
-                                {formik.touched.password && formik.errors.password && <div style={{ color: 'red' }}>{formik.errors.password}</div>}
+                                {formik.touched.password && formik.errors.password &&
+                                    <div style={{color: 'red'}}>{formik.errors.password}</div>}
                                 <FormControlLabel
                                     label={'Remember me'}
-                                    style={{ marginTop: '10px', fontWeight: "500",fontSize: "14px", lineHeight: "17px", fontFamily: "inherit" }}
+                                    style={{
+                                        marginTop: '10px',
+                                        fontWeight: "500",
+                                        fontSize: "14px",
+                                        lineHeight: "17px",
+                                        fontFamily: "inherit"
+                                    }}
                                     control={
                                         <Checkbox
                                             checked={formik.values.rememberMe}
@@ -86,21 +94,23 @@ export const LoginPage = () => {
                                     }
                                 />
                             </FormGroup>
-                            <NavLink to={PATH.ForgotPass} className={styles.linkForgot}>Forgot Password?</NavLink>
+                            <NavLink to={PATH.ForgotPass} className={styles.linkForgot}>Forgot
+                                Password?</NavLink>
                             <Button
                                 type={'submit'}
                                 variant={'contained'}
                                 color={'primary'}
-                                style={{ width: "100%", borderRadius: '30px' , marginTop: "50px"}}>
+                                style={{width: "100%", borderRadius: '30px', marginTop: "50px"}}>
                                 Sign In
                             </Button>
-                            <div className={styles.signUpContainer}>
+                            <div className={styles.linkBlock}>
                                 <div className={styles.text}>Don't have an account?</div>
-                                <NavLink to={PATH.Registration} className={styles.link}>Sign Up</NavLink>
+                                <NavLink to={PATH.Registration} className={styles.link}>Sign
+                                    Up</NavLink>
                             </div>
                         </form>
                     </FormControl>
-                    <ErrorSnackbar />
+                    <ErrorSnackbar/>
                 </div>
             </div>
         </div>

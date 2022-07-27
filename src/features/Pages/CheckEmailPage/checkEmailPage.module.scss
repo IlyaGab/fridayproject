@@ -1,36 +1,32 @@
-.checkEmailPageContainer {
-    min-height: 100vh;
-    background-color: #F9F9FA;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    .checkEmailPageForm{
-      width: 413px;
-      min-height: 60vh;
-      background: #FFFFFF;
-      box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1), -1px -1px 2px rgba(0, 0, 0, 0.1);
-      border-radius: 2px;
-      display: flex;
-      justify-content: space-evenly;
-      align-items: center;
-      flex-direction: column;
-      .signInContainer {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-direction: column;
-        gap: 10px;
+@import "../../../common/styles/mixins";
+
+.checkEmailPage {
+  @include page();
+
+  .container {
+    @include container();
+
+    .checkEmail {
+      @include block(60px);
+
+      .checkEmailPageForm {
+        h2 {
+          @include title();
+        }
+
+        .logoEmail {
+          display: block;
+          width: 108px;
+          margin: 30px auto 0;
+        }
+
         .text {
-          width: 75%;
+          @include note();
+          margin-top: 30px;
           text-align: center;
-          height: 24px;
-          font-weight: 600;
-          font-size: 14px;
-          line-height: 24px;
-          opacity: 0.5;
         }
 
       }
-  
     }
   }
+}
