@@ -1,9 +1,12 @@
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
-import React from 'react';
+import React, {useState} from 'react';
 import styles from './registrationPage.module.scss'
 import FormControl from '@mui/material/FormControl';
-import {FormGroup} from '@mui/material';
+import FormGroup from '@mui/material/FormGroup'
+import IconButton from '@mui/material/IconButton'
+import Input from '@mui/material/Input'
+import InputAdornment from '@mui/material/InputAdornment'
 import {useAppDispatch} from '../../../common/hooks/useAppDispatch';
 import {useFormik} from 'formik';
 import {registerTC} from './registrationPageReducer';
@@ -11,10 +14,16 @@ import {ErrorSnackbar} from '../../../common/components/ErrorSnackbar/ErrorSnack
 import {useAppSelector} from '../../../common/hooks/useAppSelector';
 import {Navigate, NavLink} from 'react-router-dom';
 import {PATH} from '../../../app/App';
+import {Visibility, VisibilityOff} from '@mui/icons-material';
+import InputLabel from '@mui/material/InputLabel';
 
 export const RegistrationPage = () => {
+    const [showPassword, setShowPassword] = useState<boolean>(false)
+    const [showConfirmPassword, setShowConfirmPassword] = useState<boolean>(false)
+
     const isRegistered = useAppSelector(state => state.registrationReducer.isRegistered)
     const dispatch = useAppDispatch()
+
     const formik = useFormik({
         initialValues: {
             email: '',
@@ -49,6 +58,17 @@ export const RegistrationPage = () => {
         }
     })
 
+    const onClickPasswordHandler = () => {
+        setShowPassword(!showPassword)
+    }
+    const onClickConfirmPasswordHandler = () => {
+        setShowConfirmPassword(!showConfirmPassword)
+    }
+
+    const onMouseDownHandler = (event: React.MouseEvent<HTMLButtonElement>) => {
+        event.preventDefault()
+    }
+
     if (isRegistered) {
         return <Navigate to={PATH.Login}/>
     }
@@ -73,25 +93,49 @@ export const RegistrationPage = () => {
                                     formik.errors.email &&
                                     <div style={{color: 'red'}}>{formik.errors.email}</div>
                                 }
-                                <TextField type={'password'}
-                                           label="Password"
-                                           variant="standard"
-                                           margin="normal"
-                                           size={'small'}
+                                <FormControl variant="standard">
+                                    <InputLabel htmlFor="password">Password</InputLabel>
+                                    <Input id="password"
+                                           type={showPassword ? 'text' : 'password'}
                                            {...formik.getFieldProps('password')}
-                                />
+                                           endAdornment={
+                                               <InputAdornment position="end" sx={{marginBottom: '13.92px'}}>
+                                                   <IconButton
+                                                       aria-label="toggle password visibility"
+                                                       onClick={onClickPasswordHandler}
+                                                       onMouseDown={onMouseDownHandler}
+                                                       sx={{color: 'black'}}
+                                                   >
+                                                       {showPassword ? <VisibilityOff/> : <Visibility/>}
+                                                   </IconButton>
+                                               </InputAdornment>
+                                           }
+                                    />
+                                </FormControl>
                                 {
                                     formik.touched.password &&
                                     formik.errors.password &&
                                     <div style={{color: 'red'}}>{formik.errors.password}</div>
                                 }
-                                <TextField type={'password'}
-                                           label="Confirm Password"
-                                           variant="standard"
-                                           margin="normal"
-                                           size={'small'}
+                                <FormControl sx={{marginTop: '10px'}} variant="standard">
+                                    <InputLabel htmlFor="confirm">Confirm Password</InputLabel>
+                                    <Input id="confirm"
+                                           type={showConfirmPassword ? 'text' : 'password'}
                                            {...formik.getFieldProps('confirm')}
-                                />
+                                           endAdornment={
+                                               <InputAdornment position="end" sx={{marginBottom: '13.92px'}}>
+                                                   <IconButton
+                                                       aria-label="toggle password visibility"
+                                                       onClick={onClickConfirmPasswordHandler}
+                                                       onMouseDown={onMouseDownHandler}
+                                                       sx={{color: 'black'}}
+                                                   >
+                                                       {showConfirmPassword ? <VisibilityOff/> : <Visibility/>}
+                                                   </IconButton>
+                                               </InputAdornment>
+                                           }
+                                    />
+                                </FormControl>
                                 {
                                     formik.touched.confirm &&
                                     formik.errors.confirm &&

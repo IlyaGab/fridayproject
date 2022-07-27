@@ -1,0 +1,26 @@
+@import "../../../common/styles/mixins";
+
+.errorPage {
+  @include page();
+
+  .container {
+    @include container();
+
+    .error {
+      @include block(60px);
+      height: 408px;
+
+      h2 {
+        @include title();
+      }
+
+      .icon {
+        width: 333px;
+        height: 250px;
+      }
+
+    }
+  }
+}
+
+
