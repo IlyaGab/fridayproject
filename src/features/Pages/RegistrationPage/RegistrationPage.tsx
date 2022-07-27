@@ -65,10 +65,6 @@ export const RegistrationPage = () => {
         setShowConfirmPassword(!showConfirmPassword)
     }
 
-    const onMouseDownHandler = (event: React.MouseEvent<HTMLButtonElement>) => {
-        event.preventDefault()
-    }
-
     if (isRegistered) {
         return <Navigate to={PATH.Login}/>
     }
@@ -103,7 +99,6 @@ export const RegistrationPage = () => {
                                                    <IconButton
                                                        aria-label="toggle password visibility"
                                                        onClick={onClickPasswordHandler}
-                                                       onMouseDown={onMouseDownHandler}
                                                        sx={{color: 'black'}}
                                                    >
                                                        {showPassword ? <VisibilityOff/> : <Visibility/>}
@@ -127,7 +122,6 @@ export const RegistrationPage = () => {
                                                    <IconButton
                                                        aria-label="toggle password visibility"
                                                        onClick={onClickConfirmPasswordHandler}
-                                                       onMouseDown={onMouseDownHandler}
                                                        sx={{color: 'black'}}
                                                    >
                                                        {showConfirmPassword ? <VisibilityOff/> : <Visibility/>}

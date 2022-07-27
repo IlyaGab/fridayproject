@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Button, Checkbox, FormControl, FormControlLabel, FormGroup, TextField} from '@mui/material';
 import {useFormik} from 'formik';
 import {loginTC} from './loginPageReducer';
@@ -8,11 +8,19 @@ import {useAppSelector} from '../../../common/hooks/useAppSelector';
 import styles from './loginPage.module.scss'
 import {ErrorSnackbar} from '../../../common/components/ErrorSnackbar/ErrorSnackbar';
 import {PATH} from '../../../app/App';
+import InputLabel from "@mui/material/InputLabel";
+import Input from "@mui/material/Input";
+import InputAdornment from "@mui/material/InputAdornment";
+import IconButton from "@mui/material/IconButton";
+import {Visibility, VisibilityOff} from "@mui/icons-material";
 
 export const LoginPage = () => {
+    const [showPassword, setShowPassword] = useState<boolean>(false)
+
     const isLoggedIn = useAppSelector(state => state.loginReducer.isLoggedIn)
 
     const dispatch = useAppDispatch()
+
     const formik = useFormik({
         initialValues: {
             email: '',
@@ -40,6 +48,10 @@ export const LoginPage = () => {
         },
     })
 
+    const onClickPasswordHandler = () => {
+        setShowPassword(!showPassword)
+    }
+
     if (isLoggedIn) {
         return <Navigate to={PATH.Profile}/>
     }
@@ -61,14 +73,26 @@ export const LoginPage = () => {
                                 />
                                 {formik.touched.email && formik.errors.email &&
                                     <div style={{color: 'red'}}>{formik.errors.email}</div>}
-                                <TextField
-                                    type="password"
-                                    label="Password"
-                                    variant="standard"
-                                    margin="normal"
-                                    style={{marginTop: "10px"}}
-                                    {...formik.getFieldProps('password')}
-                                />
+                                <FormControl variant="standard" style={{marginTop: "20px"}}>
+                                    <InputLabel htmlFor="password">Password</InputLabel>
+                                    <Input id="password"
+                                           type={showPassword ? 'text' : 'password'}
+                                           {...formik.getFieldProps('password')}
+                                           endAdornment={
+                                               <InputAdornment position="end"
+                                                               sx={{marginBottom: '13.92px'}}>
+                                                   <IconButton
+                                                       aria-label="toggle password visibility"
+                                                       onClick={onClickPasswordHandler}
+                                                       sx={{color: 'black'}}
+                                                   >
+                                                       {showPassword ? <VisibilityOff/> :
+                                                           <Visibility/>}
+                                                   </IconButton>
+                                               </InputAdornment>
+                                           }
+                                    />
+                                </FormControl>
                                 {formik.touched.password && formik.errors.password &&
                                     <div style={{color: 'red'}}>{formik.errors.password}</div>}
                                 <FormControlLabel
