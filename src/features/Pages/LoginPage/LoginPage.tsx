@@ -103,7 +103,7 @@ export const LoginPage = () => {
                                 style={{width: "100%", borderRadius: '30px', marginTop: "50px"}}>
                                 Sign In
                             </Button>
-                            <div className={styles.signUpContainer}>
+                            <div className={styles.linkBlock}>
                                 <div className={styles.text}>Don't have an account?</div>
                                 <NavLink to={PATH.Registration} className={styles.link}>Sign
                                     Up</NavLink>

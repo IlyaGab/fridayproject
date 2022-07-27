@@ -24,16 +24,15 @@ export enum PATH {
     CheckEmail = '/check-email-page',
 }
 
-
 export const App = () => {
     const isInitialized = useAppSelector(state => state.appReducer.isInitialized)
     const status = useAppSelector(state => state.appReducer.status)
+
     const dispatch = useAppDispatch()
 
     useEffect(()=> {
         dispatch(initializeAppTC())
     },[dispatch])
-
 
     if (!isInitialized) {
         return <CircularProgressComponent />
@@ -62,9 +61,5 @@ export const App = () => {
                 : <CircularProgressComponent />}
         </>
 
-    );
-};
-
-
-
-
+    )
+}

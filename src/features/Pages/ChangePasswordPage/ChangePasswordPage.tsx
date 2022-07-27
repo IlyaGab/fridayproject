@@ -10,9 +10,8 @@ import {Navigate, useParams} from "react-router-dom";
 import {useAppSelector} from "../../../common/hooks/useAppSelector";
 import {PATH} from "../../../app/App";
 
-
 export const ChangePasswordPage = () => {
-    const [showPassword, setShowPassword] = React.useState<boolean>(false);
+    const [showPassword, setShowPassword] = React.useState<boolean>(false)
 
     const isSetNewPassword = useAppSelector(state => state.changePassReducer.isSetNewPassword)
 
@@ -22,10 +21,6 @@ export const ChangePasswordPage = () => {
 
     const handleClickShowPassword = () => {
         setShowPassword(!showPassword)
-    };
-
-    const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
-        event.preventDefault();
     };
 
     const formik = useFormik({
@@ -71,13 +66,11 @@ export const ChangePasswordPage = () => {
                                 style={{marginTop: '70px', width: '100%'}}
                                 type={showPassword ? 'text' : 'password'}
                                 {...formik.getFieldProps('newPassword')}
-
                                 endAdornment={
                                     <InputAdornment position="end">
                                         <IconButton
                                             aria-label="toggle password visibility"
                                             onClick={handleClickShowPassword}
-                                            onMouseDown={handleMouseDownPassword}
                                         >
                                             {showPassword ? <VisibilityOff/> : <Visibility/>}
                                         </IconButton>

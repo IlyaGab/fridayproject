@@ -9,7 +9,7 @@ export const ErrorPage = () => {
         return <Navigate to={PATH.Login}/>
     }
     return (
-        <div>
+        <div style={{fontSize: "40px", margin: "60px auto", textAlign: "center"}}>
             Error 404
         </div>
     );

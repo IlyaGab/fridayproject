@@ -3,19 +3,12 @@ import {authAPI} from "../../../api/cards-api";
 import {setAppErrorAC, setAppStatusAC} from "../../../app/appReducer";
 import {setIsSendAC} from "../PasswordRecoveryPage/passwordRecoveryPageReducer";
 
-let initialstate = {
-    password: "",
+let initialState = {
     isSetNewPassword: false
 }
 
-export const changePasswordReducer = (state: InitialStateType = initialstate, action: ChangePasswordActionType) => {
+export const changePasswordReducer = (state: InitialStateType = initialState, action: ChangePasswordActionType) => {
     switch (action.type) {
-        case "SET_NEW_PASSWORD": {
-            return {
-                ...state,
-                ...action.payload
-            }
-        }
         case "IS_SET_NEW_PASSWORD": {
             return {
                 ...state,
@@ -29,13 +22,6 @@ export const changePasswordReducer = (state: InitialStateType = initialstate, ac
 
 
 // AC
-export const setNewPasswordAC = (password: string) => ({
-    type: "SET_NEW_PASSWORD",
-    payload: {
-        password
-    }
-}) as const
-
 export const isSetNewPasswordAC = (isSetNewPassword: boolean) => ({
     type: "IS_SET_NEW_PASSWORD",
     payload: {
@@ -50,8 +36,6 @@ export const setNewPasswordTC = (password: string, resetPasswordToken: string): 
     console.log(password, resetPasswordToken)
     authAPI.setNewPassword({password, resetPasswordToken})
         .then(() => {
-            console.log("then")
-            dispatch(setNewPasswordAC(password))
             dispatch(isSetNewPasswordAC(true))
             dispatch(setAppStatusAC('succeeded'))
         })
@@ -66,11 +50,8 @@ export const setNewPasswordTC = (password: string, resetPasswordToken: string): 
 
 
 // TYPES
-export type ChangePasswordActionType =
-    ReturnType<typeof setNewPasswordAC>
-    | ReturnType<typeof isSetNewPasswordAC>
+export type ChangePasswordActionType = ReturnType<typeof isSetNewPasswordAC>
 
 type InitialStateType = {
-    password: string,
     isSetNewPassword: boolean
 }
