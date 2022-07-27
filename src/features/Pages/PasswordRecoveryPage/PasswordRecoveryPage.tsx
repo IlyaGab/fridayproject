@@ -15,7 +15,7 @@ export const PasswordRecoveryPage = () => {
         initialValues: {
             email: '',
             from: 'test-front-admin <ilyagab1994@gmail.com>',
-            message: `<div style='padding:15px'>password recovery link: <a href='http://localhost:3000/#/change-pass-page/$token$'>link</a></div>`
+            message: `<div style='padding:15px'>password recovery link: <a href='https://ilyagab.github.io/fridayproject/#/change-pass-page/$token$'>link</a></div>`
         },
         validate: (values) => {
             const errors: FormikErrorType = {};
