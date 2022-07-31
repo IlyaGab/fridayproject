@@ -59,3 +59,10 @@
   cursor: pointer;
   margin-top: 10px;
 }
+
+@mixin subtitle() {
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 17px;
+  margin-bottom: 10px;
+}

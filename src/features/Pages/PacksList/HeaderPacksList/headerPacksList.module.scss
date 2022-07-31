@@ -1,0 +1,12 @@
+@import "../../../../common/styles/mixins";
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  margin: 40px 0;
+
+  h2 {
+    @include title();
+    text-align: start;
+  }
+}

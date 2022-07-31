@@ -1,0 +1,10 @@
+@import "../../../common/styles/mixins";
+
+.packsListPage {
+  @include page();
+
+  .container {
+    @include container();
+
+  }
+}

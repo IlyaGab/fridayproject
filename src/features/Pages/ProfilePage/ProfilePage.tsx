@@ -44,7 +44,8 @@ export const ProfilePage = () => {
                                   className={styles.name}/>
                     <p className={styles.email}>{email}</p>
                     <button className={styles.btn} onClick={onClickHandler}><FontAwesomeIcon
-                        icon={faArrowRightFromBracket} size="lg"/> Log out
+                        icon={faArrowRightFromBracket} size="lg"
+                    /> Log out
                     </button>
                 </div>
             </div>
