@@ -11,7 +11,6 @@ import {NavLinkList} from "../common/components/NavlinkList/NavLinkList";
 export const App = () => {
     const isInitialized = useAppSelector(state => state.appReducer.isInitialized)
     const status = useAppSelector(state => state.appReducer.status)
-
     const dispatch = useAppDispatch()
 
     useEffect(() => {
