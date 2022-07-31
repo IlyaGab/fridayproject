@@ -9,7 +9,7 @@ import {forgotTC} from './passwordRecoveryPageReducer';
 import {PATH} from '../../../app/App';
 
 export const PasswordRecoveryPage = () => {
-    const isSend = useAppSelector(state => state.passwordRecoveryReducer.isSend)
+    const isSendMessageToEmail = useAppSelector(state => state.passwordRecoveryReducer.isSendMessageToEmail)
 
     const dispatch = useAppDispatch()
 
@@ -35,7 +35,7 @@ export const PasswordRecoveryPage = () => {
         },
     })
 
-    if (isSend) {
+    if (isSendMessageToEmail) {
         return <Navigate to={PATH.CheckEmail}/>
     }
 

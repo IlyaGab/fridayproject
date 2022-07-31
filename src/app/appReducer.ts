@@ -1,7 +1,7 @@
 import {setIsLoggedInAC} from '../features/Pages/LoginPage/loginPageReducer';
 import {Dispatch} from 'redux';
-import {setUserDataAC} from "../features/Pages/ProfilePage/profilePageReducer";
 import {authAPI} from "../api/authAPI";
+import {setProfileDataAC} from "../features/Pages/ProfilePage/profilePageReducer";
 
 const initialState = {
     status: 'idle' as string,
@@ -37,7 +37,12 @@ export const initializeAppTC = () => {
             .then(res => {
                 dispatch(setIsLoggedInAC(true));
                 dispatch(setAppStatusAC('succeeded'))
-                dispatch(setUserDataAC(res.data.name, res.data.email, res.data.avatar))
+                if(res.data.avatar) {
+                    dispatch(setProfileDataAC(res.data.name, res.data.email, res.data.avatar))
+                } else {
+                    dispatch(setProfileDataAC(res.data.name, res.data.email, "avatar"))
+                }
+
             })
             .catch((error) => {
                 console.log(error)

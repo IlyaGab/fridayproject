@@ -17,14 +17,14 @@ export const profileReducer = (state: InitialStateType = initialState, action: P
         case "PROFILE/CHANGE_INFO":
             return {
                 ...state, ...action.payload
-        }
+            }
         default:
             return state
     }
 }
 
 //AC
-export const setUserDataAC = (name: string, email: string, avatar?: string) => ({
+export const setProfileDataAC = (name: string, email: string, avatar: string) => ({
     type: "PROFILE/SET_PROFILE_DATA",
     payload: {
         name,
@@ -54,10 +54,5 @@ export const changeInfoProfileTC = (name: string): AppThunkType => (dispatch) =>
 
 //Types
 export type ProfileActionType = ReturnType<typeof changeInfoProfileAC> |
-    ReturnType<typeof setUserDataAC>
-
-type InitialStateType = {
-    name: string,
-    email: string,
-    avatar?: string
-}
+    ReturnType<typeof setProfileDataAC>
+type InitialStateType = typeof initialState

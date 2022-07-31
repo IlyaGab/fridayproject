@@ -1,5 +1,5 @@
 import {setAppErrorAC, setAppStatusAC} from '../../../app/appReducer';
-import {setUserDataAC} from "../ProfilePage/profilePageReducer";
+import {setProfileDataAC} from "../ProfilePage/profilePageReducer";
 import {AppThunkType} from "../../../app/store";
 import {authAPI, LoginParamsType} from "../../../api/authAPI";
 
@@ -29,7 +29,11 @@ export const loginTC = (data: LoginParamsType): AppThunkType => (dispatch) => {
         .then((res) => {
             dispatch(setIsLoggedInAC(true))
             dispatch(setAppStatusAC('succeeded'))
-            dispatch(setUserDataAC(res.data.name, res.data.email))
+            if(res.data.avatar) {
+                dispatch(setProfileDataAC(res.data.name, res.data.email, res.data.avatar))
+            } else {
+                dispatch(setProfileDataAC(res.data.name, res.data.email, "avatar"))
+            }
         })
         .catch((error) => {
             dispatch(setAppErrorAC(error.response.data.error))

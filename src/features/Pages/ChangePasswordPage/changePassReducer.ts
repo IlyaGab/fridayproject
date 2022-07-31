@@ -1,9 +1,9 @@
 import {AppThunkType} from "../../../app/store";
 import {setAppErrorAC, setAppStatusAC} from "../../../app/appReducer";
-import {setIsSendAC} from "../PasswordRecoveryPage/passwordRecoveryPageReducer";
 import {authAPI} from "../../../api/authAPI";
+import {setIsSendMessageToEmailAC} from "../PasswordRecoveryPage/passwordRecoveryPageReducer";
 
-let initialState = {
+const initialState = {
     isSetNewPassword: false
 }
 
@@ -40,12 +40,10 @@ export const setNewPasswordTC = (password: string, resetPasswordToken: string): 
             dispatch(setAppStatusAC('failed'))
         })
         .finally(() => {
-            dispatch(setIsSendAC(false))
+            dispatch(setIsSendMessageToEmailAC(false))
         })
 }
 
 //Types
 export type ChangePasswordActionType = ReturnType<typeof isSetNewPasswordAC>
-type InitialStateType = {
-    isSetNewPassword: boolean
-}
+type InitialStateType = typeof initialState

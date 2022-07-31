@@ -7,7 +7,7 @@ import email from "../../../assets/img/email.png"
 export const CheckEmailPage = () => {
     const navigate = useNavigate()
 
-    const onClick = () => {
+    const onClickHandler = () => {
         navigate(PATH.Login)
     }
 
@@ -26,7 +26,7 @@ export const CheckEmailPage = () => {
                             variant={'contained'}
                             color={'primary'}
                             style={{width: '100%', borderRadius: '30px', marginTop: "40px"}}
-                            onClick={onClick}
+                            onClick={onClickHandler}
                         >
                             Back to Login
                         </Button>

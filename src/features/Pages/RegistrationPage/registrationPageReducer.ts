@@ -16,7 +16,7 @@ export const registrationReducer = (state: InitialStateType = initialState, acti
 }
 
 //AC
-const setIsRegisteredAC = (value: boolean) => ({
+export const setIsRegisteredAC = (value: boolean) => ({
     type: 'REGISTRATION/SET-IS-REGISTERED',
     value
 } as const)
