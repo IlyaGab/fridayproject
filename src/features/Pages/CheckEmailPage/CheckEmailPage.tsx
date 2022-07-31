@@ -33,7 +33,6 @@ export const CheckEmailPage = () => {
                     </div>
                 </div>
             </div>
-
         </div>
     )
 }

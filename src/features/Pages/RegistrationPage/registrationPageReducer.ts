@@ -1,7 +1,6 @@
 import {AppThunkType} from '../../../app/store';
-import {setAppErrorAC} from '../../../app/appReducer';
-import {setAppStatusAC} from '../../../app/appReducer';
-import {authAPI, RegisterParamsType} from '../../../api/cards-api';
+import {setAppErrorAC, setAppStatusAC} from '../../../app/appReducer';
+import {authAPI, RegisterParamsType} from "../../../api/authAPI";
 
 const initialState = {
     isRegistered: false
@@ -24,7 +23,7 @@ const setIsRegisteredAC = (value: boolean) => ({
 
 
 //TC
-export const registerTC = (data: RegisterParamsType): AppThunkType => (dispatch) => {
+export const registrationTC = (data: RegisterParamsType): AppThunkType => (dispatch) => {
     dispatch(setAppStatusAC('loading'))
     authAPI.register(data)
         .then(() => {

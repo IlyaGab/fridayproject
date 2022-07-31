@@ -9,7 +9,7 @@ import Input from '@mui/material/Input'
 import InputAdornment from '@mui/material/InputAdornment'
 import {useAppDispatch} from '../../../common/hooks/useAppDispatch';
 import {useFormik} from 'formik';
-import {registerTC} from './registrationPageReducer';
+import {registrationTC} from './registrationPageReducer';
 import {ErrorSnackbar} from '../../../common/components/ErrorSnackbar/ErrorSnackbar';
 import {useAppSelector} from '../../../common/hooks/useAppSelector';
 import {Navigate, NavLink} from 'react-router-dom';
@@ -53,7 +53,7 @@ export const RegistrationPage = () => {
             return errors
         },
         onSubmit: values => {
-            dispatch(registerTC(values))
+            dispatch(registrationTC(values))
             formik.resetForm()
         }
     })

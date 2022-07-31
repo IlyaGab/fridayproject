@@ -1,7 +1,7 @@
 import {setIsLoggedInAC} from '../features/Pages/LoginPage/loginPageReducer';
-import {authAPI} from '../api/cards-api';
 import {Dispatch} from 'redux';
 import {setUserDataAC} from "../features/Pages/ProfilePage/profilePageReducer";
+import {authAPI} from "../api/authAPI";
 
 const initialState = {
     status: 'idle' as string,

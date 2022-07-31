@@ -1,20 +1,19 @@
-import {AppDispatchType, AppThunkType} from "../../../app/store";
-import {authAPI} from "../../../api/cards-api";
+import {AppThunkType} from "../../../app/store";
 import {setAppErrorAC, setAppStatusAC} from "../../../app/appReducer";
 import {setIsSendAC} from "../PasswordRecoveryPage/passwordRecoveryPageReducer";
+import {authAPI} from "../../../api/authAPI";
 
 let initialState = {
     isSetNewPassword: false
 }
 
-export const changePasswordReducer = (state: InitialStateType = initialState, action: ChangePasswordActionType) => {
+export const changePasswordReducer = (state: InitialStateType = initialState, action: ChangePasswordActionType): InitialStateType => {
     switch (action.type) {
-        case "CHANGE-PASSWORD/IS-SET-NEW-PASSWORD": {
+        case "CHANGE-PASSWORD/IS-SET-NEW-PASSWORD":
             return {
                 ...state,
                 ...action.payload
             }
-        }
         default:
             return state
     }
@@ -29,9 +28,8 @@ export const isSetNewPasswordAC = (isSetNewPassword: boolean) => ({
 })
 
 //TC
-export const setNewPasswordTC = (password: string, resetPasswordToken: string): AppThunkType => (dispatch: AppDispatchType) => {
+export const setNewPasswordTC = (password: string, resetPasswordToken: string): AppThunkType => (dispatch) => {
     dispatch(setAppStatusAC('loading'))
-    console.log(password, resetPasswordToken)
     authAPI.setNewPassword({password, resetPasswordToken})
         .then(() => {
             dispatch(isSetNewPasswordAC(true))

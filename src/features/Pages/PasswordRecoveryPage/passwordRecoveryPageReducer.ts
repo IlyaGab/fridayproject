@@ -1,12 +1,12 @@
-import {authAPI, ForgotParamsType} from '../../../api/cards-api'
 import {setAppErrorAC, setAppStatusAC} from '../../../app/appReducer'
-import {AppDispatchType, AppThunkType} from '../../../app/store';
+import {AppThunkType} from '../../../app/store'
+import {authAPI, ForgotParamsType} from "../../../api/authAPI";
 
 const initialState = {
     isSend: false
 }
 
-export const passwordRecoveryReducer = (state: InitialStateType = initialState, action: PasswordRecoveryActionsType) => {
+export const passwordRecoveryReducer = (state: InitialStateType = initialState, action: PasswordRecoveryActionsType): InitialStateType => {
     switch (action.type) {
         case 'FORGOT-PASSWORD/SET-IS-SEND-IN':
             return {...state, isSend: action.value}
@@ -19,7 +19,7 @@ export const passwordRecoveryReducer = (state: InitialStateType = initialState, 
 export const setIsSendAC = (value: boolean) => ({type: 'FORGOT-PASSWORD/SET-IS-SEND-IN', value} as const)
 
 //TC
-export const forgotTC = (data: ForgotParamsType): AppThunkType => (dispatch: AppDispatchType) => {
+export const forgotTC = (data: ForgotParamsType): AppThunkType => (dispatch) => {
     dispatch(setAppStatusAC('loading'))
     authAPI.forgot(data)
         .then(() => {

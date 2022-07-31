@@ -1,7 +1,7 @@
-import {authAPI, LoginParamsType} from '../../../api/cards-api';
 import {setAppErrorAC, setAppStatusAC} from '../../../app/appReducer';
 import {setUserDataAC} from "../ProfilePage/profilePageReducer";
-import {AppDispatchType, AppThunkType} from "../../../app/store";
+import {AppThunkType} from "../../../app/store";
+import {authAPI, LoginParamsType} from "../../../api/authAPI";
 
 const initialState = {
     isLoggedIn: false
@@ -23,7 +23,7 @@ export const setIsLoggedInAC = (value: boolean) => ({
 } as const)
 
 //TC
-export const loginTC = (data: LoginParamsType): AppThunkType => (dispatch: AppDispatchType) => {
+export const loginTC = (data: LoginParamsType): AppThunkType => (dispatch) => {
     dispatch(setAppStatusAC('loading'))
     authAPI.login(data)
         .then((res) => {
@@ -37,7 +37,7 @@ export const loginTC = (data: LoginParamsType): AppThunkType => (dispatch: AppDi
         })
 }
 
-export const logoutTC = (): AppThunkType => (dispatch: AppDispatchType) => {
+export const logoutTC = (): AppThunkType => (dispatch) => {
     dispatch(setAppStatusAC('loading'))
     authAPI.logout()
         .then(res => {

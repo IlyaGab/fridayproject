@@ -1,16 +1,11 @@
-import axios from 'axios';
-
-export const instance = axios.create({
-    baseURL: "https://neko-back.herokuapp.com/2.0/" || 'http://localhost:7542/2.0/',
-    withCredentials: true,
-})
+import {instance} from "./istanceAPI";
 
 export const authAPI = {
     login(data: LoginParamsType) {
-        return instance.post<MeResponseType>('auth/login', data)
+        return instance.post<UserResponseType>('auth/login', data)
     },
     me() {
-        return instance.post<MeResponseType>('auth/me')
+        return instance.post<UserResponseType>('auth/me')
     },
     logout() {
         return instance.delete<InfoResponseType>('auth/me')
@@ -23,12 +18,6 @@ export const authAPI = {
     },
     setNewPassword(data: SetNewPasswordParamsType) {
         return instance.post<InfoResponseType>("auth/set-new-password", data)
-    }
-}
-
-export const profileAPI = {
-    changeInfo(name: string) {
-        return instance.put("auth/me", {name, avatar: "avatar"})
     }
 }
 
@@ -49,7 +38,7 @@ export type SetNewPasswordParamsType = {
     resetPasswordToken: string
 }
 
-export type MeResponseType = {
+export type UserResponseType = {
     _id: string;
     email: string;
     name: string;

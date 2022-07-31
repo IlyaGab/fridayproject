@@ -1,5 +1,6 @@
-import {AppDispatchType, AppThunkType} from "../../../app/store";
-import {profileAPI} from "../../../api/cards-api";
+import {AppThunkType} from "../../../app/store";
+import {profileAPI} from "../../../api/profileAPI";
+import {setAppErrorAC} from "../../../app/appReducer";
 
 const initialState = {
     name: "",
@@ -9,15 +10,13 @@ const initialState = {
 
 export const profileReducer = (state: InitialStateType = initialState, action: ProfileActionType): InitialStateType => {
     switch (action.type) {
-        case "PROFILE/SET_PROFILE_DATA": {
+        case "PROFILE/SET_PROFILE_DATA":
             return {
                 ...state, ...action.payload
             }
-        }
-        case "PROFILE/CHANGE_INFO": {
+        case "PROFILE/CHANGE_INFO":
             return {
                 ...state, ...action.payload
-            }
         }
         default:
             return state
@@ -43,10 +42,14 @@ export const changeInfoProfileAC = (name: string, avatar: string) => ({
 }) as const
 
 //TC
-export const changeInfoProfileTC = (name: string): AppThunkType => (dispatch: AppDispatchType) => {
-    profileAPI.changeInfo(name).then(() => {
-        dispatch(changeInfoProfileAC(name, "avatar"))
-    })
+export const changeInfoProfileTC = (name: string): AppThunkType => (dispatch) => {
+    profileAPI.changeInfo(name)
+        .then(() => {
+            dispatch(changeInfoProfileAC(name, "avatar"))
+        })
+        .catch((error) => {
+            dispatch(setAppErrorAC(error.response.data.error))
+        })
 }
 
 //Types
