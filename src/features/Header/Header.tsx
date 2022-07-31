@@ -5,7 +5,7 @@ import avatar from '../../assets/img/avatar.png';
 import logo from '../../assets/img/IT-INC-Logo.svg';
 import Button from '@mui/material/Button';
 import {NavLink} from 'react-router-dom';
-import {PATH} from '../../app/App';
+import {PATH} from "../../common/components/RoutesList/RoutersList";
 
 export const Header = () => {
     const name = useAppSelector(state => state.profileReducer.name)

@@ -2,27 +2,11 @@ import React, {useEffect} from 'react';
 import {Header} from '../features/Header/Header';
 import './App.module.scss';
 import {initializeAppTC} from './appReducer';
-import {LoginPage} from '../features/Pages/LoginPage/LoginPage';
-import {PasswordRecoveryPage} from '../features/Pages/PasswordRecoveryPage/PasswordRecoveryPage';
-import {NavLink, Route, Routes} from 'react-router-dom';
-import {ChangePasswordPage} from '../features/Pages/ChangePasswordPage/ChangePasswordPage';
-import {ProfilePage} from '../features/Pages/ProfilePage/ProfilePage';
-import {ErrorPage} from '../features/Pages/ErrorPage/ErrorPage';
-import {RegistrationPage} from '../features/Pages/RegistrationPage/RegistrationPage';
 import {useAppSelector} from '../common/hooks/useAppSelector';
 import {useAppDispatch} from '../common/hooks/useAppDispatch';
 import {CircularProgressComponent} from '../common/components/CircularProgress/CircularProgress';
-import {CheckEmailPage} from '../features/Pages/CheckEmailPage/CheckEmailPage';
-import styles from './App.module.scss'
-
-export enum PATH {
-    ChangePass = '/change-pass-page/*',
-    Login = '/',
-    ForgotPass = '/recovery-pass-page',
-    Profile = '/profile-page',
-    Registration = '/registration-page',
-    CheckEmail = '/check-email-page',
-}
+import {RoutersList} from "../common/components/RoutesList/RoutersList";
+import {NavLinkList} from "../common/components/NavlinkList/NavLinkList";
 
 export const App = () => {
     const isInitialized = useAppSelector(state => state.appReducer.isInitialized)
@@ -42,22 +26,8 @@ export const App = () => {
         <>
             {status !== 'loading' ? <div>
                     <Header/>
-                    <Routes>
-                        <Route path={PATH.Login} element={<LoginPage/>}/>
-                        <Route path={PATH.Registration} element={<RegistrationPage/>}/>
-                        <Route path={PATH.ForgotPass} element={<PasswordRecoveryPage/>}/>
-                        <Route path={PATH.ChangePass} element={<ChangePasswordPage/>}/>
-                        <Route path={PATH.Profile} element={<ProfilePage/>}/>
-                        <Route path={PATH.CheckEmail} element={<CheckEmailPage/>}/>
-                        <Route path={'/*'} element={<ErrorPage/>}/>
-                    </Routes>
-                    <div className={styles.navList}>
-                        <NavLink className={styles.navLink} to={PATH.ChangePass}>Change your
-                            password</NavLink>
-                        <NavLink className={styles.navLink} to={PATH.Profile}>Profile</NavLink>
-                        <NavLink className={styles.navLink} to={PATH.CheckEmail}>Check Email</NavLink>
-                        <NavLink className={styles.navLink} to={'/*'}>Error 404</NavLink>
-                    </div>
+                    <RoutersList/>
+                    <NavLinkList/>
                 </div>
                 : <CircularProgressComponent/>}
         </>

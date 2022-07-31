@@ -7,12 +7,12 @@ import {useAppDispatch} from '../../../common/hooks/useAppDispatch';
 import {useAppSelector} from '../../../common/hooks/useAppSelector';
 import styles from './loginPage.module.scss'
 import {ErrorSnackbar} from '../../../common/components/ErrorSnackbar/ErrorSnackbar';
-import {PATH} from '../../../app/App';
 import InputLabel from "@mui/material/InputLabel";
 import Input from "@mui/material/Input";
 import InputAdornment from "@mui/material/InputAdornment";
 import IconButton from "@mui/material/IconButton";
 import {Visibility, VisibilityOff} from "@mui/icons-material";
+import {PATH} from "../../../common/components/RoutesList/RoutersList";
 
 export const LoginPage = () => {
     const [showPassword, setShowPassword] = useState<boolean>(false)

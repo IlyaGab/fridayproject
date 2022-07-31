@@ -3,8 +3,8 @@ import styles from './ErrorPage.module.scss'
 import ufo from '../../../assets/img/UFO.svg'
 import Button from '@mui/material/Button';
 import {useNavigate} from 'react-router-dom';
-import {PATH} from '../../../app/App';
 import {useAppSelector} from '../../../common/hooks/useAppSelector';
+import {PATH} from "../../../common/components/RoutesList/RoutersList";
 
 export const ErrorPage = () => {
     const isLoggedIn = useAppSelector(state => state.loginReducer.isLoggedIn)

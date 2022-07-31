@@ -1,8 +1,8 @@
 import styles from './checkEmailPage.module.scss'
 import {Button} from '@mui/material';
 import {useNavigate} from 'react-router-dom';
-import {PATH} from '../../../app/App';
-import email from "../../../assets/img/email.png"
+import emailLogo from "../../../assets/img/email.png"
+import {PATH} from "../../../common/components/RoutesList/RoutersList";
 
 export const CheckEmailPage = () => {
     const navigate = useNavigate()
@@ -17,7 +17,7 @@ export const CheckEmailPage = () => {
                 <div className={styles.checkEmail}>
                     <div className={styles.checkEmailPageForm}>
                         <h2>Check Email</h2>
-                        <img className={styles.logoEmail} src={email} alt="email"/>
+                        <img className={styles.logoEmail} src={emailLogo} alt="email"/>
                         <div className={styles.text}>We’ve sent an Email with instructions to
                             example@mail.com
                         </div>

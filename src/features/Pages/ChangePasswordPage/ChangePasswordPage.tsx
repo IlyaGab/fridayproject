@@ -8,7 +8,7 @@ import {setNewPasswordTC} from "./changePassReducer";
 import {useAppDispatch} from "../../../common/hooks/useAppDispatch";
 import {Navigate, useParams} from "react-router-dom";
 import {useAppSelector} from "../../../common/hooks/useAppSelector";
-import {PATH} from "../../../app/App";
+import {PATH} from "../../../common/components/RoutesList/RoutersList";
 
 export const ChangePasswordPage = () => {
     const [showPassword, setShowPassword] = React.useState<boolean>(false)

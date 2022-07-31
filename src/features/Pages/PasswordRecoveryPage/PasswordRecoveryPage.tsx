@@ -6,7 +6,7 @@ import {NavLink, Navigate} from 'react-router-dom';
 import {useAppDispatch} from '../../../common/hooks/useAppDispatch';
 import {useAppSelector} from '../../../common/hooks/useAppSelector';
 import {forgotTC} from './passwordRecoveryPageReducer';
-import {PATH} from '../../../app/App';
+import {PATH} from "../../../common/components/RoutesList/RoutersList";
 
 export const PasswordRecoveryPage = () => {
     const isSendMessageToEmail = useAppSelector(state => state.passwordRecoveryReducer.isSendMessageToEmail)

@@ -10,7 +10,7 @@ import {logoutTC} from '../LoginPage/loginPageReducer';
 import {EditableSpan} from "../../../common/components/EditableSpan/EditableSpan";
 import {changeInfoProfileTC} from "./profilePageReducer";
 import {BackButton} from "../../../common/components/BackButton/BackButton";
-import {PATH} from '../../../app/App';
+import {PATH} from "../../../common/components/RoutesList/RoutersList";
 
 export const ProfilePage = () => {
     const nameState = useAppSelector(state => state.profileReducer.name)
