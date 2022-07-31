@@ -1,4 +1,13 @@
 .pagination {
   background-color: cadetblue;
   margin-top: 40px;
+
+  .icon {
+    margin: 0 20px;
+  }
+
+  .pageButton {
+    cursor: pointer;
+    margin: 0 10px;
+  }
 }

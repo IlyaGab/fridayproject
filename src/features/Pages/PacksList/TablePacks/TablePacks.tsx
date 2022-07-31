@@ -13,8 +13,7 @@ import {useAppSelector} from "../../../../common/hooks/useAppSelector";
 
 export const TablePacks = (): ReactElement => {
     const dispatch = useAppDispatch()
-    const rows = useAppSelector(state => state.packsList)
-
+    const rows = useAppSelector(state => state.packsList.cardPacks)
     useEffect(() => {
         dispatch(getPackListTC())
     }, [])
@@ -41,9 +40,9 @@ export const TablePacks = (): ReactElement => {
                                 <TableCell component="th" scope="row">
                                     {row.name}
                                 </TableCell>
-                                <TableCell align="right">{row.cards}</TableCell>
-                                <TableCell align="right">{row.lastUpdates}</TableCell>
-                                <TableCell align="right">{row.createdBy}</TableCell>
+                                <TableCell align="right">{row.cardsCount}</TableCell>
+                                <TableCell align="right">{row.updated}</TableCell>
+                                <TableCell align="right">{row.created}</TableCell>
                                 <TableCell align="right">delete</TableCell>
                             </TableRow>
                         ))}
