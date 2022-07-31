@@ -77,13 +77,15 @@ export const ChangePasswordPage = () => {
                                     </InputAdornment>
                                 }
                             />
+                            <div style={{color: 'red'}}>{formik.errors.newPassword}</div>
                             <p className={styles.text}>Create new password and we will send you
                                 further instructions to email</p>
                             <Button
                                 type={'submit'}
                                 variant={'contained'}
                                 color={'primary'}
-                                style={{width: '100%', borderRadius: '30px', marginTop: '40px'}}>
+                                style={{width: '100%', borderRadius: '30px', marginTop: '40px'}}
+                            >
                                 Create new password
                             </Button>
                         </form>
