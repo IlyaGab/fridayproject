@@ -1,13 +1,29 @@
 .pagination {
-  background-color: cadetblue;
   margin-top: 40px;
+
+  select {
+    margin: 0 10px;
+  }
 
   .icon {
     margin: 0 20px;
   }
 
   .pageButton {
+    display: inline-block;
     cursor: pointer;
     margin: 0 10px;
+    min-width: 25px;
+    height: 25px;
+    text-align: center;
+    padding: 0 5px;
+    font-weight: 400;
+    font-size: 12px;
+  }
+
+  .activePageButton {
+    border-radius: 5px;
+    background-color: #366EFF;
+    color: #FFFFFF;
   }
 }
