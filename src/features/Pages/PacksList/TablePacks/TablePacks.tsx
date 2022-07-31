@@ -14,8 +14,9 @@ import {useAppSelector} from "../../../../common/hooks/useAppSelector";
 export const TablePacks = (): ReactElement => {
     const dispatch = useAppDispatch()
     const rows = useAppSelector(state => state.packsList.cardPacks)
+
     useEffect(() => {
-        dispatch(getPackListTC())
+        dispatch(getPackListTC(`?page=5&pageCount=4`))
     }, [])
 
     return (
@@ -34,7 +35,7 @@ export const TablePacks = (): ReactElement => {
                     <TableBody >
                         {rows.map((row) => (
                             <TableRow
-                                key={row.name}
+                                key={row._id}
                                 sx={{"&:last-child td, &:last-child th": {border: 0}}}
                             >
                                 <TableCell component="th" scope="row">

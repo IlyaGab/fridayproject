@@ -31,7 +31,7 @@ export const Pagination = () => {
     }
 
     useEffect(() => {
-        dispatch(getPackListTC(`?page=${page}&pageCount=${pageSize}&sortPacks=0updated`))
+        dispatch(getPackListTC(`?page=${page}&pageCount=${pageSize}`))
     }, [page, pageSize])
 
     return (
