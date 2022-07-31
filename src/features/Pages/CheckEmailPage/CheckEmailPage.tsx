@@ -3,8 +3,9 @@ import {Button} from '@mui/material';
 import {useNavigate} from 'react-router-dom';
 import emailLogo from "../../../assets/img/email.png"
 import {PATH} from "../../../common/components/RoutesList/RoutersList";
+import {ReactElement} from "react";
 
-export const CheckEmailPage = () => {
+export const CheckEmailPage = (): ReactElement => {
     const navigate = useNavigate()
 
     const onClickHandler = () => {

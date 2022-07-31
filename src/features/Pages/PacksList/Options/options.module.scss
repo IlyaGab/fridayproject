@@ -3,23 +3,4 @@
 .options {
   display: flex;
   justify-content: space-around;
-  background-color: lavender;
-
-  .search {
-    h3 {
-      @include subtitle();
-    }
-  }
-
-  .showPacksCards {
-    h3 {
-      @include subtitle();
-    }
-  }
-
-  .numberOfCards {
-    h3 {
-      @include subtitle();
-    }
-  }
 }

@@ -1,0 +1,10 @@
+@import "../../../../../common/styles/mixins";
+
+.showPacksCards {
+  flex-grow: 1;
+  background-color: #6060cc;
+
+  h3 {
+    @include subtitle();
+  }
+}

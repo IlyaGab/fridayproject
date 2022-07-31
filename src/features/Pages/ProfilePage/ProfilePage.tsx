@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {ReactElement} from "react";
 import styles from "./profilePage.module.scss"
 import {faArrowRightFromBracket} from "@fortawesome/free-solid-svg-icons"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
@@ -12,7 +12,7 @@ import {changeInfoProfileTC} from "./profilePageReducer";
 import {BackButton} from "../../../common/components/BackButton/BackButton";
 import {PATH} from "../../../common/components/RoutesList/RoutersList";
 
-export const ProfilePage = () => {
+export const ProfilePage = (): ReactElement => {
     const nameState = useAppSelector(state => state.profileReducer.name)
     const email = useAppSelector(state => state.profileReducer.email)
     const isLoggedIn = useAppSelector(state => state.loginReducer.isLoggedIn)

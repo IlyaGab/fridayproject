@@ -1,6 +1,6 @@
 import Button from "@mui/material/Button"
 import TextField from "@mui/material/TextField"
-import React, {useState} from "react"
+import React, {ReactElement, useState} from "react"
 import styles from "./registrationPage.module.scss"
 import FormControl from "@mui/material/FormControl"
 import FormGroup from "@mui/material/FormGroup"
@@ -17,7 +17,7 @@ import {Visibility, VisibilityOff} from "@mui/icons-material"
 import InputLabel from "@mui/material/InputLabel"
 import {PATH} from "../../../common/components/RoutesList/RoutersList";
 
-export const RegistrationPage = () => {
+export const RegistrationPage = (): ReactElement => {
     const [showPassword, setShowPassword] = useState<boolean>(false)
     const [showConfirmPassword, setShowConfirmPassword] = useState<boolean>(false)
 

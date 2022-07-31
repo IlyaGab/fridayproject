@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {ReactElement} from "react";
 import styles from './changePasswordPage.module.scss';
 import {Button, FormControl, IconButton, Input, InputAdornment, InputLabel} from '@mui/material';
 import {ErrorSnackbar} from '../../../common/components/ErrorSnackbar/ErrorSnackbar';
@@ -10,7 +10,7 @@ import {Navigate, useParams} from "react-router-dom";
 import {useAppSelector} from "../../../common/hooks/useAppSelector";
 import {PATH} from "../../../common/components/RoutesList/RoutersList";
 
-export const ChangePasswordPage = () => {
+export const ChangePasswordPage = (): ReactElement => {
     const [showPassword, setShowPassword] = React.useState<boolean>(false)
 
     const isSetNewPassword = useAppSelector(state => state.changePassReducer.isSetNewPassword)

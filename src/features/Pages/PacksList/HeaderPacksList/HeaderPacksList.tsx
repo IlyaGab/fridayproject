@@ -1,8 +1,8 @@
-import React from "react";
+import React, {ReactElement} from "react";
 import styles from "./headerPacksList.module.scss";
 import {Button} from "@mui/material";
 
-export const HeaderPacksList = () => {
+export const HeaderPacksList = (): ReactElement => {
     const onClickHandler = () => {
         alert("Add new pack")
     }

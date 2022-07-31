@@ -1,24 +1,15 @@
-import React from "react";
+import React, {ReactElement} from "react";
 import styles from "./options.module.scss";
+import {Search} from "./Search/Search";
+import {ShowPacksCards} from "./ShowPacksCards/ShowPacksCards";
+import {NumberOfCards} from "./NumberOfCards/NumberOfCards";
 
-export const Options = () => {
+export const Options = (): ReactElement => {
     return (
         <div className={styles.options}>
-            <div className={styles.search}>
-                <h3>
-                    Search
-                </h3>
-            </div>
-            <div className={styles.showPacksCards}>
-                <h3>
-                    Show packs cards
-                </h3>
-            </div>
-            <div className={styles.numberOfCards}>
-                <h3>
-                    Number of cards
-                </h3>
-            </div>
+            <Search/>
+            <ShowPacksCards/>
+            <NumberOfCards/>
         </div>
     )
 }

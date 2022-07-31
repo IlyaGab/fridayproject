@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {ReactElement} from "react";
 import styles from './passwordRecoveryPage.module.scss'
 import {Button, FormControl, FormGroup, TextField} from '@mui/material';
 import {useFormik} from 'formik';
@@ -8,7 +8,7 @@ import {useAppSelector} from '../../../common/hooks/useAppSelector';
 import {forgotTC} from './passwordRecoveryPageReducer';
 import {PATH} from "../../../common/components/RoutesList/RoutersList";
 
-export const PasswordRecoveryPage = () => {
+export const PasswordRecoveryPage = (): ReactElement => {
     const isSendMessageToEmail = useAppSelector(state => state.passwordRecoveryReducer.isSendMessageToEmail)
 
     const dispatch = useAppDispatch()

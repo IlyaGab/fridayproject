@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {ReactElement, useState} from "react";
 import {Button, Checkbox, FormControl, FormControlLabel, FormGroup, TextField} from '@mui/material';
 import {useFormik} from 'formik';
 import {loginTC} from './loginPageReducer';
@@ -14,7 +14,7 @@ import IconButton from "@mui/material/IconButton";
 import {Visibility, VisibilityOff} from "@mui/icons-material";
 import {PATH} from "../../../common/components/RoutesList/RoutersList";
 
-export const LoginPage = () => {
+export const LoginPage = (): ReactElement => {
     const [showPassword, setShowPassword] = useState<boolean>(false)
 
     const isLoggedIn = useAppSelector(state => state.loginReducer.isLoggedIn)
