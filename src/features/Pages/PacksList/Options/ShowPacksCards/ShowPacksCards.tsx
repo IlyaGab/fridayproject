@@ -1,15 +1,15 @@
 import { Button } from "@mui/material";
 import React, {ReactElement} from "react";
 import { useAppDispatch } from "../../../../../common/hooks/useAppDispatch";
-import { useAppSelector } from "../../../../../common/hooks/useAppSelector";
 import { getPackListTC } from "../../packsListReducer";
 import styles from "./showPacksCards.module.scss";
+import {useAppSelector} from '../../../../../common/hooks/useAppSelector';
 
 export const ShowPacksCards = (): ReactElement => {
     const dispatch = useAppDispatch()
-
+    const userId = useAppSelector(state => state.profileReducer._id)
     const onClickMyCards = () => {
-        dispatch(getPackListTC(`?user_id=62bbddd9b063c900042ab835`))
+        dispatch(getPackListTC(`?user_id=${userId}`))
     }
 
     const onClickAllCards = () => {

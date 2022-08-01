@@ -6,7 +6,7 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import {ReactElement, useEffect} from "react";
+import {ReactElement, useState} from 'react';
 import {useAppDispatch} from "../../../../common/hooks/useAppDispatch";
 import {getPackListTC} from "../packsListReducer";
 import {useAppSelector} from "../../../../common/hooks/useAppSelector";
@@ -14,10 +14,14 @@ import {useAppSelector} from "../../../../common/hooks/useAppSelector";
 export const TablePacks = (): ReactElement => {
     const dispatch = useAppDispatch()
     const rows = useAppSelector(state => state.packsList.cardPacks)
+    const [count, setCount] = useState(0)
 
-    useEffect(() => {
-        dispatch(getPackListTC(`?page=5&pageCount=4`))
-    }, [])
+    const onClickHandler = () => {
+        count === 0 ?setCount(1) : setCount(0)
+        dispatch(getPackListTC(`?sortPacks=${count}cardsCount`))
+    }
+
+
 
     return (
         <div className={styles.tablePacks}>
@@ -26,7 +30,7 @@ export const TablePacks = (): ReactElement => {
                     <TableHead>
                         <TableRow>
                             <TableCell>Name</TableCell>
-                            <TableCell align="right">Cards</TableCell>
+                            <TableCell align="right" onClick={onClickHandler}>Cards</TableCell>
                             <TableCell align="right">Last Updates</TableCell>
                             <TableCell align="right">Created by</TableCell>
                             <TableCell align="right">Actions</TableCell>

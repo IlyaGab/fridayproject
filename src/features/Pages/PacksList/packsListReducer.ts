@@ -18,10 +18,6 @@ export const packsListReducer = (state: InitialStateType = initialState, action:
             return {
                 ...action.payload.data
             }
-        case "PACKS-LIST/GET-MIN-PACKS":
-            return {
-                ...state, ...state.cardPacks.map(el => el.cardsCount === action.minCardsCount)
-            }
         default:
             return state
     }
@@ -35,10 +31,6 @@ export const getPacksListAC = (data: GetCardsResponseType) => ({
     }
 }) as const
 
-export const getMinPacksAC = (minCardsCount:number) => ({
-    type: "PACKS-LIST/GET-MIN-PACKS",
-        minCardsCount
-}) as const
 
 //TC
 export const getPackListTC = (queryParams?: string): AppThunkType => (dispatch) => {
@@ -48,13 +40,6 @@ export const getPackListTC = (queryParams?: string): AppThunkType => (dispatch) 
         })
 }
 
-export const getMinPacksTC = (queryParams?: string): AppThunkType => (dispatch) => {
-    cardsAPI.getCards(queryParams)
-        .then((res) => {
-            dispatch(getMinPacksAC(res.data.minCardsCount))
-        })
-}
-
 //Types
-export type PacksListActionType = ReturnType<typeof getPacksListAC> | ReturnType<typeof getMinPacksAC>
+export type PacksListActionType = ReturnType<typeof getPacksListAC>
 type InitialStateType = typeof initialState
