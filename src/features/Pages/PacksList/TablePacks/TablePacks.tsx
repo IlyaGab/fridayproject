@@ -6,14 +6,21 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import {ReactElement, useState} from 'react';
-import {useAppDispatch} from "../../../../common/hooks/useAppDispatch";
+import {useState} from 'react';
 import {getPackListTC} from "../packsListReducer";
+import React, {ReactElement} from "react";
 import {useAppSelector} from "../../../../common/hooks/useAppSelector";
+import {faGraduationCap, faPencil, faTrashCan} from "@fortawesome/free-solid-svg-icons";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {useAppDispatch} from "../../../../common/hooks/useAppDispatch";
+import {changeNameCardsPackTC, deleteCardsPackTC} from "../packsListReducer";
 
 export const TablePacks = (): ReactElement => {
     const dispatch = useAppDispatch()
+
     const rows = useAppSelector(state => state.packsList.cardPacks)
+    const userId = useAppSelector(state => state.profileReducer._id)
+
     const [count, setCount] = useState(0)
 
     const onClickHandler = () => {
@@ -21,7 +28,13 @@ export const TablePacks = (): ReactElement => {
         dispatch(getPackListTC(`?sortPacks=${count}cardsCount`))
     }
 
+    const deleteCardsPackHandler = (id: string): void => {
+        dispatch(deleteCardsPackTC(id))
+    }
 
+    const changeNameCardsPackHandler = (id: string, name: string): void => {
+        dispatch(changeNameCardsPackTC(id, name))
+    }
 
     return (
         <div className={styles.tablePacks}>
@@ -30,13 +43,13 @@ export const TablePacks = (): ReactElement => {
                     <TableHead>
                         <TableRow>
                             <TableCell>Name</TableCell>
-                            <TableCell align="right" onClick={onClickHandler}>Cards</TableCell>
-                            <TableCell align="right">Last Updates</TableCell>
-                            <TableCell align="right">Created by</TableCell>
-                            <TableCell align="right">Actions</TableCell>
+                            <TableCell align="center" onClick={onClickHandler}>Cards</TableCell>
+                            <TableCell align="center">Last Updates</TableCell>
+                            <TableCell align="center">Created by</TableCell>
+                            <TableCell align="center">Actions</TableCell>
                         </TableRow>
                     </TableHead>
-                    <TableBody >
+                    <TableBody>
                         {rows.map((row) => (
                             <TableRow
                                 key={row._id}
@@ -45,10 +58,33 @@ export const TablePacks = (): ReactElement => {
                                 <TableCell component="th" scope="row">
                                     {row.name}
                                 </TableCell>
-                                <TableCell align="right">{row.cardsCount}</TableCell>
-                                <TableCell align="right">{row.updated}</TableCell>
-                                <TableCell align="right">{row.created}</TableCell>
-                                <TableCell align="right">delete</TableCell>
+                                <TableCell align="center">{row.cardsCount}</TableCell>
+                                <TableCell align="center">{row.updated}</TableCell>
+                                <TableCell align="center">{row.created}</TableCell>
+                                <TableCell align="center">
+                                    <button onClick={() => deleteCardsPackHandler(row._id)}
+                                            className={styles.btn}
+                                            disabled={userId !== row.user_id}
+                                    ><FontAwesomeIcon
+                                        className={styles.icon}
+                                        icon={faTrashCan} size="lg"
+                                    />
+                                    </button>
+                                    <button
+                                        onClick={() => changeNameCardsPackHandler(row._id, "New name")}
+                                        className={styles.btn}
+                                        disabled={userId !== row.user_id}
+                                    ><FontAwesomeIcon
+                                        className={styles.icon}
+                                        icon={faPencil} size="lg"/>
+                                    </button>
+                                    <button className={styles.btn}
+                                            disabled={userId !== row.user_id}
+                                    ><FontAwesomeIcon
+                                        className={styles.icon}
+                                        icon={faGraduationCap} size="lg"/>
+                                    </button>
+                                </TableCell>
                             </TableRow>
                         ))}
                     </TableBody>

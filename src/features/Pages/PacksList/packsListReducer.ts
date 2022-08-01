@@ -1,5 +1,5 @@
 import {AppThunkType} from "../../../app/store"
-import {cardsAPI, CardType, GetCardsResponseType} from "../../../api/cardsAPI"
+import {cardsAPI, CardsPackType, CardType, GetCardsResponseType} from "../../../api/cardsAPI"
 
 const initialState = {
     cardPacks: [] as CardType[],
@@ -39,6 +39,28 @@ export const getPackListTC = (queryParams?: string): AppThunkType => (dispatch) 
             dispatch(getPacksListAC(res.data))
         })
 }
+
+export const createCardsPackTC = (newCardsPack: CardsPackType): AppThunkType => (dispatch) => {
+    cardsAPI.createCardsPack(newCardsPack)
+        .then(() => {
+            dispatch(getPackListTC())
+        })
+}
+
+export const deleteCardsPackTC = (id: string): AppThunkType => (dispatch) => {
+    cardsAPI.deleteCardsPack(id)
+        .then(() => {
+            dispatch(getPackListTC())
+        })
+}
+
+export const changeNameCardsPackTC = (id: string, name: string): AppThunkType => (dispatch) => {
+    cardsAPI.changeNameCardsPack(id, name)
+        .then(() => {
+            dispatch(getPackListTC())
+        })
+}
+
 
 //Types
 export type PacksListActionType = ReturnType<typeof getPacksListAC>

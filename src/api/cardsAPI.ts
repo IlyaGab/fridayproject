@@ -3,6 +3,15 @@ import {instance} from "./istanceAPI";
 export const cardsAPI = {
     getCards(queryParams: string = "") {
         return instance.get<GetCardsResponseType>("cards/pack" + queryParams)
+    },
+    createCardsPack(newCardsPack: CardsPackType) {
+        return instance.post("cards/pack", {cardsPack: newCardsPack})
+    },
+    deleteCardsPack(id: string) {
+        return instance.delete(`cards/pack?id=${id}`)
+    },
+    changeNameCardsPack(_id: string, name: string) {
+        return instance.put("cards/pack", {cardsPack: {_id, name}})
     }
 }
 
@@ -35,4 +44,10 @@ export type CardType = {
     more_id: string
     __v: number
     deckCover: null
+}
+
+export type CardsPackType = {
+    name?: string
+    deckCover?: string
+    private?: boolean
 }
