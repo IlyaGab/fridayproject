@@ -1,13 +1,13 @@
 import {instance} from "./istanceAPI";
 
 export const cardsAPI = {
-    getCards() {
-        return instance.get<GetCardsResponseType>("cards/pack")
+    getCards(queryParams: string = "") {
+        return instance.get<GetCardsResponseType>("cards/pack" + queryParams)
     }
 }
 
 //Types
-type GetCardsResponseType = {
+export type GetCardsResponseType = {
     cardPacks: CardType[]
     cardPacksTotalCount: number
     maxCardsCount: number

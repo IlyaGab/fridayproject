@@ -1,39 +1,44 @@
-import {AppThunkType} from "../../../app/store";
-import {cardsAPI, CardType} from "../../../api/cardsAPI";
+import {AppThunkType} from "../../../app/store"
+import {cardsAPI, CardType, GetCardsResponseType} from "../../../api/cardsAPI"
 
-const initialState: CardStateType[] = []
+const initialState = {
+    cardPacks: [] as CardType[],
+    cardPacksTotalCount: 0 as number,
+    maxCardsCount: 0 as number,
+    minCardsCount: 0 as number,
+    page: 0 as number,
+    pageCount: 0 as number,
+    token: "" as string,
+    tokenDeathTime: 0 as number,
+}
 
-export const packsListReducer = (state: CardStateType[] = initialState, action: PacksListActionType): CardStateType[] => {
+export const packsListReducer = (state: InitialStateType = initialState, action: PacksListActionType): InitialStateType => {
     switch (action.type) {
         case "PACKS-LIST/GET-PACKS-LIST":
-            return action.payload.cardPacks.map(card => ({name: card.name, cards: card.cardsCount, lastUpdates: card.updated, createdBy: card.created}))
+            return {
+                ...action.payload.data
+            }
         default:
             return state
     }
 }
 
 //AC
-export const getPacksListAC = (cardPacks: CardType[]) => ({
+export const getPacksListAC = (data: GetCardsResponseType) => ({
     type: "PACKS-LIST/GET-PACKS-LIST",
     payload: {
-        cardPacks
+        data
     }
 }) as const
 
 //TC
-export const getPackListTC = (): AppThunkType => (dispatch) => {
-    cardsAPI.getCards()
+export const getPackListTC = (queryParams?: string): AppThunkType => (dispatch) => {
+    cardsAPI.getCards(queryParams)
         .then((res) => {
-            dispatch(getPacksListAC(res.data.cardPacks))
+            dispatch(getPacksListAC(res.data))
         })
 }
 
 //Types
-type CardStateType = {
-    name: string,
-    cards: number,
-    lastUpdates: string,
-    createdBy: string
-}
-
 export type PacksListActionType = ReturnType<typeof getPacksListAC>
+type InitialStateType = typeof initialState
