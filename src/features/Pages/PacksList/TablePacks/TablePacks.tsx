@@ -25,7 +25,7 @@ export const TablePacks = (): ReactElement => {
 
     const onClickHandler = () => {
         count === 0 ?setCount(1) : setCount(0)
-        dispatch(getPackListTC(`?sortPacks=${count}cardsCount`))
+        dispatch(getPackListTC())
     }
 
     const deleteCardsPackHandler = (id: string): void => {

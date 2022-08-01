@@ -4,7 +4,7 @@ import {faAngleLeft, faAngleRight} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {useAppSelector} from "../../../../common/hooks/useAppSelector";
 import {useAppDispatch} from "../../../../common/hooks/useAppDispatch";
-import {getPackListTC} from "../packsListReducer";
+import {getPackListTC, setPageNumberCountAC} from '../packsListReducer';
 
 const arr = [5, 10, 20, 50]
 
@@ -58,8 +58,9 @@ export const Pagination = () => {
     }
 
     useEffect(() => {
-        dispatch(getPackListTC(`?page=${page}&pageCount=${pageSize}`))
-    }, [page, pageSize])
+        dispatch(setPageNumberCountAC(page, pageSize))
+        dispatch(getPackListTC())
+    }, [dispatch, page, pageSize])
 
     return (
         <div className={styles.pagination}>
