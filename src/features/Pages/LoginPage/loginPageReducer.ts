@@ -30,9 +30,9 @@ export const loginTC = (data: LoginParamsType): AppThunkType => (dispatch) => {
             dispatch(setIsLoggedInAC(true))
             dispatch(setAppStatusAC('succeeded'))
             if(res.data.avatar) {
-                dispatch(setProfileDataAC(res.data.name, res.data.email, res.data.avatar))
+                dispatch(setProfileDataAC(res.data.name, res.data.email, res.data.avatar, res.data._id))
             } else {
-                dispatch(setProfileDataAC(res.data.name, res.data.email, "avatar"))
+                dispatch(setProfileDataAC(res.data.name, res.data.email, "avatar", res.data._id))
             }
         })
         .catch((error) => {

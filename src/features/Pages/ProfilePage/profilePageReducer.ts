@@ -5,7 +5,8 @@ import {setAppErrorAC} from "../../../app/appReducer";
 const initialState = {
     name: "",
     email: "",
-    avatar: "avatar"
+    avatar: "avatar",
+    _id: ""
 }
 
 export const profileReducer = (state: InitialStateType = initialState, action: ProfileActionType): InitialStateType => {
@@ -24,12 +25,13 @@ export const profileReducer = (state: InitialStateType = initialState, action: P
 }
 
 //AC
-export const setProfileDataAC = (name: string, email: string, avatar: string) => ({
+export const setProfileDataAC = (name: string, email: string, avatar: string, _id:string) => ({
     type: "PROFILE/SET_PROFILE_DATA",
     payload: {
         name,
         email,
-        avatar
+        avatar,
+        _id
     }
 }) as const
 

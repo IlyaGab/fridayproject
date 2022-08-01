@@ -10,6 +10,7 @@ import {ProfilePage} from "../../../features/Pages/ProfilePage/ProfilePage";
 import {CheckEmailPage} from "../../../features/Pages/CheckEmailPage/CheckEmailPage";
 import {ErrorPage} from "../../../features/Pages/ErrorPage/ErrorPage";
 import {PacksList} from "../../../features/Pages/PacksList/PacksList";
+import {Pack} from "../../../features/Pages/Pack/Pack";
 
 export enum PATH {
     ChangePass = '/change-pass-page/*',
@@ -19,6 +20,7 @@ export enum PATH {
     Registration = '/registration-page',
     CheckEmail = '/check-email-page',
     PacksList = '/packs-list',
+    Pack = '/pack',
 }
 
 export const RoutersList = () => {
@@ -31,6 +33,7 @@ export const RoutersList = () => {
             <Route path={PATH.Profile} element={<ProfilePage/>}/>
             <Route path={PATH.CheckEmail} element={<CheckEmailPage/>}/>
             <Route path={PATH.PacksList} element={<PacksList/>}/>
+            <Route path={PATH.Pack} element={<Pack/>}/>
             <Route path={'/*'} element={<ErrorPage/>}/>
         </Routes>
     )
