@@ -1,8 +1,8 @@
 import { AppStateType, AppThunkType } from '../../../app/store'
-import { cardsAPI, CardsPackType, CardType, GetCardsResponseType } from '../../../api/cardsAPI'
+import { CardsPackType, GetPacksResponseType, packsAPI, PackType } from '../../../api/packsAPI'
 
 const initialState = {
-    cardPacks: [] as CardType[],
+    cardPacks: [] as PackType[],
     cardPacksTotalCount: 0 as number,
     maxCardsCount: 0 as number,
     minCardsCount: 0 as number,
@@ -58,7 +58,7 @@ export const packsListReducer = (state: InitialStateType = initialState, action:
 }
 
 //AC
-export const getPacksListAC = (data: GetCardsResponseType) => ({
+export const getPacksListAC = (data: GetPacksResponseType) => ({
     type: 'PACKS-LIST/GET-PACKS-LIST',
     payload: {
         data
@@ -97,28 +97,28 @@ export const setIsMyCardsPackAC = (value: boolean) => ({
 
 //TC
 export const getPackListTC = (): AppThunkType => (dispatch, getState: () => AppStateType) => {
-    cardsAPI.getCards(getState().packsList.queryParams, getState().profileReducer._id)
+    packsAPI.getCardsPacks(getState().packsList.queryParams, getState().profileReducer._id)
         .then((res) => {
             dispatch(getPacksListAC(res.data))
         })
 }
 
 export const createCardsPackTC = (newCardsPack: CardsPackType): AppThunkType => (dispatch) => {
-    cardsAPI.createCardsPack(newCardsPack)
+    packsAPI.createCardsPack(newCardsPack)
         .then(() => {
             dispatch(getPackListTC())
         })
 }
 
 export const deleteCardsPackTC = (id: string): AppThunkType => (dispatch) => {
-    cardsAPI.deleteCardsPack(id)
+    packsAPI.deleteCardsPack(id)
         .then(() => {
             dispatch(getPackListTC())
         })
 }
 
 export const changeNameCardsPackTC = (id: string, name: string): AppThunkType => (dispatch) => {
-    cardsAPI.changeNameCardsPack(id, name)
+    packsAPI.changeNameCardsPack(id, name)
         .then(() => {
             dispatch(getPackListTC())
         })

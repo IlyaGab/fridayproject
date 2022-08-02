@@ -18,6 +18,7 @@ import {
 } from "../features/Pages/RegistrationPage/registrationPageReducer";
 import {AppActionsType, appReducer} from "./appReducer";
 import {PacksListActionType, packsListReducer} from "../features/Pages/PacksList/packsListReducer";
+import { CardsListActionType, cardsListReducer } from "../features/Pages/CardsPack/cardsListReducer";
 
 const rootReducer = combineReducers({
     changePassReducer: changePasswordReducer,
@@ -26,7 +27,8 @@ const rootReducer = combineReducers({
     profileReducer: profileReducer,
     registrationReducer: registrationReducer,
     appReducer: appReducer,
-    packsList: packsListReducer
+    packsList: packsListReducer,
+    cardsList:cardsListReducer
 })
 
 export const store = createStore(rootReducer, applyMiddleware(thunkMiddleware))
@@ -41,5 +43,6 @@ export type AppRootActionsType =
     | LoginActionsType
     | ChangePasswordActionType
     | PacksListActionType
+    | CardsListActionType
 export type AppDispatchType = ThunkDispatch<AppStateType, unknown, AppRootActionsType>
 export type AppThunkType<ReturnType = void> = ThunkAction<ReturnType, AppStateType, unknown, AppRootActionsType>

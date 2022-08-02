@@ -10,7 +10,7 @@ import {ProfilePage} from "../../../features/Pages/ProfilePage/ProfilePage";
 import {CheckEmailPage} from "../../../features/Pages/CheckEmailPage/CheckEmailPage";
 import {ErrorPage} from "../../../features/Pages/ErrorPage/ErrorPage";
 import {PacksList} from "../../../features/Pages/PacksList/PacksList";
-import {Pack} from "../../../features/Pages/Pack/Pack";
+import {Pack} from "../../../features/Pages/CardsPack/CardsPack";
 
 export enum PATH {
     ChangePass = '/change-pass-page/*',

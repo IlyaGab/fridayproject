@@ -14,16 +14,24 @@ import {faGraduationCap, faPencil, faTrashCan} from "@fortawesome/free-solid-svg
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {useAppDispatch} from "../../../../common/hooks/useAppDispatch";
 import {changeNameCardsPackTC, deleteCardsPackTC} from "../packsListReducer";
+import { useNavigate } from "react-router-dom";
+import { PATH } from "../../../../common/components/RoutesList/RoutersList";
+import { getCardsListTC } from "../../CardsPack/cardsListReducer";
 
 export const TablePacks = (): ReactElement => {
+
     const dispatch = useAppDispatch()
+
+    const navigate = useNavigate()
 
     const rows = useAppSelector(state => state.packsList.cardPacks)
     const userId = useAppSelector(state => state.profileReducer._id)
 
+    
+
     const [count, setCount] = useState(0)
 
-    const onClickHandler = () => {
+    const onClickSortHandler = () => {
         count === 0 ?setCount(1) : setCount(0)
         dispatch(setSortPacksAC(count,'cardsCount'))
         dispatch(getPackListTC())
@@ -37,6 +45,10 @@ export const TablePacks = (): ReactElement => {
         dispatch(changeNameCardsPackTC(id, name))
     }
 
+    const onClickNavigate = () => {
+        navigate(PATH.Pack)
+    }
+
     return (
         <div className={styles.tablePacks}>
             <TableContainer component={Paper} style={{marginBottom: "0"}}>
@@ -44,7 +56,7 @@ export const TablePacks = (): ReactElement => {
                     <TableHead>
                         <TableRow>
                             <TableCell>Name</TableCell>
-                            <TableCell align="center" onClick={onClickHandler}>Cards</TableCell>
+                            <TableCell align="center" onClick={onClickSortHandler}>Cards</TableCell>
                             <TableCell align="center">Last Updates</TableCell>
                             <TableCell align="center">Created by</TableCell>
                             <TableCell align="center">Actions</TableCell>
@@ -54,6 +66,7 @@ export const TablePacks = (): ReactElement => {
                         {rows.map((row) => (
                             <TableRow
                                 key={row._id}
+                                onClick={onClickNavigate}
                                 sx={{"&:last-child td, &:last-child th": {border: 0}}}
                             >
                                 <TableCell component="th" scope="row">
