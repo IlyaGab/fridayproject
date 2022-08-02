@@ -10,7 +10,7 @@ export const NavLinkList = () => {
                 password</NavLink>
             <NavLink className={styles.navLink} to={PATH.Profile}>Profile</NavLink>
             <NavLink className={styles.navLink} to={PATH.CheckEmail}>Check Email</NavLink>
-            <NavLink className={styles.navLink} to={PATH.Pack}>Pack</NavLink>
+            <NavLink className={styles.navLink} to={PATH.CardsList}>Cards</NavLink>
             <NavLink className={styles.navLink} to={'/*'}>Error 404</NavLink>
         </div>
     )

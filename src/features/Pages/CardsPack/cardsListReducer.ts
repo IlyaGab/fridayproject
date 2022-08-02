@@ -1,5 +1,5 @@
-import { cardsAPI, CardsType, GetCardsResponseType } from "../../../api/cardsAPI"
-import { AppStateType, AppThunkType } from "../../../app/store"
+import {cardsAPI, CardsType, GetCardsResponseType} from '../../../api/cardsAPI'
+import {AppStateType, AppThunkType} from '../../../app/store'
 
 const initialState = {
     cards: [] as CardsType[],
@@ -33,6 +33,8 @@ export const cardsListReducer = (state: InitialStateType = initialState, action:
     }
 }
 
+
+
 //AC
 export const getCardsListAC = (data: GetCardsResponseType) => ({
     type: 'CARDS-LIST/GET-CARDS-LIST',
@@ -43,13 +45,12 @@ export const getCardsListAC = (data: GetCardsResponseType) => ({
 
 
 //TC
-export const getCardsListTC = (): AppThunkType => (dispatch, getState: () => AppStateType) => {
-    cardsAPI.getCards(getState().cardsList.queryParams, getState().profileReducer._id)
+export const getCardsListTC = (id:string): AppThunkType => (dispatch, getState: () => AppStateType) => {
+    cardsAPI.getCards(getState().cardsList.queryParams, id)
         .then((res) => {
            dispatch(getCardsListAC(res.data))
         })
 }
-
 
 
 //Types

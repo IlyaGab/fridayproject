@@ -1,13 +1,12 @@
 import {instance} from './istanceAPI';
 
-const id = "62e903a007c1e80004a5d3b2"
+
 
 export const cardsAPI = {
-    getCards(queryParams: QueryParamsCardsType,_id:string) { 
-        return instance.get<GetCardsResponseType>(`cards/card?cardAnswer=${queryParams.cardAnswer}&cardQuestion=${queryParams.cardQuestion}&cardsPack_id=${id}&min=${queryParams.min}&max${queryParams.max}&sortCards=${queryParams.sortCards}${queryParams.sortNameCards}&page=${queryParams.page}&pageCount=${queryParams.pageCount}`)
-    }
+    getCards(queryParams: QueryParamsCardsType,id:string) {
+        return instance.get<GetCardsResponseType>(`cards/card?cardAnswer=${queryParams.cardAnswer}&cardQuestion=${queryParams.cardQuestion}&cardsPack_id=${id}&min=${queryParams.min}&max=${queryParams.max}&sortCards=${queryParams.sortCards}${queryParams.sortNameCards}&page=${queryParams.page}&pageCount=${queryParams.pageCount}`)
+    },
 }
-
 
 export type GetCardsResponseType = {
     cardPacks: CardsType[]

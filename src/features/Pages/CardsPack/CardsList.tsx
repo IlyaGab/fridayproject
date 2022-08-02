@@ -1,21 +1,13 @@
-import React, { useEffect } from "react";
+import React from "react";
 import styles from "./cardsPack.module.scss"
 import { BackButton } from "../../../common/components/BackButton/BackButton";
 import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
 import { useAppSelector } from "../../../common/hooks/useAppSelector";
-import { useAppDispatch } from "../../../common/hooks/useAppDispatch";
-import { getCardsListTC} from "./cardsListReducer";
 
 
-export const Pack = () => {
+export const CardsList = () => {
 
     const rows = useAppSelector(state => state.cardsList.cards)
-    
-    const dispatch = useAppDispatch()
-
-    useEffect(() => {
-            dispatch(getCardsListTC())
-    }, [])
 
     return (
         <div className={styles.pack}>
