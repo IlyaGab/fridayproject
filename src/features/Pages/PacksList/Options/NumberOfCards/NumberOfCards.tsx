@@ -1,8 +1,8 @@
-import { Slider } from "@mui/material";
+import {Slider} from '@mui/material';
 import React, {ReactElement, useEffect} from 'react';
-import { useAppDispatch } from "../../../../../common/hooks/useAppDispatch";
-import {getPackListTC, setMinMaxValueAC} from '../../packsListReducer';
-import styles from "./numberOfCards.module.scss";
+import {useAppDispatch} from '../../../../../common/hooks/useAppDispatch';
+import {getPackListTC, setQueryParamsAC} from '../../packsListReducer';
+import styles from './numberOfCards.module.scss';
 import {useDebounce} from '../../../../../common/hooks/useDebounce';
 
 export const NumberOfCards = (): ReactElement => {
@@ -21,7 +21,7 @@ export const NumberOfCards = (): ReactElement => {
     };
 
     useEffect(()=>{
-        dispatch(setMinMaxValueAC(debouncedValue[0],debouncedValue[1]))
+        dispatch(setQueryParamsAC({min:debouncedValue[0], max:debouncedValue[1]}))
         dispatch(getPackListTC())
     },[dispatch, debouncedValue])
 

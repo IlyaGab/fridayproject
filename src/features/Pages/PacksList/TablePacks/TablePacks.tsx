@@ -1,19 +1,17 @@
-import styles from "./tablePacks.module.scss";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
-import {useState} from 'react';
-import {getPackListTC, setSortPacksAC} from "../packsListReducer";
-import React, {ReactElement} from "react";
-import {useAppSelector} from "../../../../common/hooks/useAppSelector";
-import {faGraduationCap, faPencil, faTrashCan} from "@fortawesome/free-solid-svg-icons";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {useAppDispatch} from "../../../../common/hooks/useAppDispatch";
-import {changeNameCardsPackTC, deleteCardsPackTC} from "../packsListReducer";
+import styles from './tablePacks.module.scss';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import Paper from '@mui/material/Paper';
+import React, {ReactElement, useState} from 'react';
+import {changeNameCardsPackTC, deleteCardsPackTC, getPackListTC, setQueryParamsAC} from '../packsListReducer';
+import {useAppSelector} from '../../../../common/hooks/useAppSelector';
+import {faGraduationCap, faPencil, faTrashCan} from '@fortawesome/free-solid-svg-icons';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import {useAppDispatch} from '../../../../common/hooks/useAppDispatch';
 import {PATH} from '../../../../common/components/RoutesList/RoutersList';
 import {useNavigate} from 'react-router-dom';
 import {getCardsListTC} from '../../CardsList/cardsListReducer';
@@ -25,11 +23,11 @@ export const TablePacks = (): ReactElement => {
     const rows = useAppSelector(state => state.packsList.cardPacks)
     const userId = useAppSelector(state => state.profileReducer._id)
 
-    const [count, setCount] = useState(0)
+    const [sortValue, setSortValue] = useState<number>(0)
 
-    const sortPacksHandler = (sortPacksName:string) => {
-        count === 0 ?setCount(1) : setCount(0)
-        dispatch(setSortPacksAC(count,sortPacksName))
+    const sortPacksHandler = (sortPacksName: string) => {
+        sortValue === 0 ? setSortValue(1) : setSortValue(0)
+        dispatch(setQueryParamsAC({sortPacks: sortValue, sortPacksName: sortPacksName}))
         dispatch(getPackListTC())
     }
 
@@ -41,21 +39,22 @@ export const TablePacks = (): ReactElement => {
         dispatch(changeNameCardsPackTC(id, name))
     }
 
-    const navigateToCardsPackHandler = (id:string) => {
+    const navigateToCardsPackHandler = (id: string) => {
         navigate(PATH.CardsList)
         dispatch(getCardsListTC(id))
     }
 
     return (
         <div className={styles.tablePacks}>
-            <TableContainer component={Paper} style={{marginBottom: "0"}}>
-                <Table sx={{minWidth: 650}} aria-label="simple table" >
+            <TableContainer component={Paper} style={{marginBottom: '0'}}>
+                <Table sx={{minWidth: 650}} aria-label="simple table">
                     <TableHead>
                         <TableRow>
                             <TableCell>Name</TableCell>
-                            <TableCell align="center" onClick={()=>sortPacksHandler('cardsCount')}>Cards</TableCell>
-                            <TableCell align="center" onClick={()=>sortPacksHandler('updated')}>Last Updates</TableCell>
-                            <TableCell align="center" onClick={()=>sortPacksHandler('created')}>Created by</TableCell>
+                            <TableCell align="center" onClick={() => sortPacksHandler('cardsCount')}>Cards</TableCell>
+                            <TableCell align="center" onClick={() => sortPacksHandler('updated')}>Last
+                                Updates</TableCell>
+                            <TableCell align="center" onClick={() => sortPacksHandler('created')}>Created by</TableCell>
                             <TableCell align="center">Actions</TableCell>
                         </TableRow>
                     </TableHead>
@@ -63,8 +62,8 @@ export const TablePacks = (): ReactElement => {
                         {rows.map((row) => (
                             <TableRow
                                 key={row._id}
-                                onClick={()=>navigateToCardsPackHandler(row._id)}
-                                sx={{"&:last-child td, &:last-child th": {border: 0}}}
+                                onClick={() => navigateToCardsPackHandler(row._id)}
+                                sx={{'&:last-child td, &:last-child th': {border: 0}}}
                             >
                                 <TableCell component="th" scope="row">
                                     {row.name}
@@ -82,7 +81,7 @@ export const TablePacks = (): ReactElement => {
                                     />
                                     </button>
                                     <button
-                                        onClick={() => changeNameCardsPackHandler(row._id, "New name")}
+                                        onClick={() => changeNameCardsPackHandler(row._id, 'New name')}
                                         className={styles.btn}
                                         disabled={userId !== row.user_id}
                                     ><FontAwesomeIcon

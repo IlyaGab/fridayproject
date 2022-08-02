@@ -5,7 +5,7 @@ import {InputAdornment} from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import {useAppDispatch} from '../../../../../common/hooks/useAppDispatch';
 import {useDebounce} from '../../../../../common/hooks/useDebounce';
-import {changeSearchValueAC, getPackListTC} from '../../packsListReducer';
+import {getPackListTC, setQueryParamsAC} from '../../packsListReducer';
 
 export const Search = (): ReactElement => {
     const [value, setValue] = useState<string>('')
@@ -17,7 +17,7 @@ export const Search = (): ReactElement => {
     }
 
     useEffect(() => {
-        dispatch(changeSearchValueAC(debouncedValue))
+        dispatch(setQueryParamsAC({packName:debouncedValue}))
         dispatch(getPackListTC())
     }, [dispatch, debouncedValue])
 
