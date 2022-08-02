@@ -28,6 +28,10 @@ export const NumberOfCards = (): ReactElement => {
     return (
         <div className={styles.numberOfCards}>
             <h3>
+                Number of cards
+            </h3>
+            <div className={styles.slider}>
+                <div className={styles.value}>{value[0]}</div>
                 <Slider
                     value={value}
                     onChange={handleChange}
@@ -36,8 +40,10 @@ export const NumberOfCards = (): ReactElement => {
                     disableSwap
                     min={min}
                     max={max}
+                    style={{display: "inline-block"}}
                 />
-            </h3>
+                <div className={styles.value}>{value[1]}</div>
+            </div>
         </div>
     )
 }

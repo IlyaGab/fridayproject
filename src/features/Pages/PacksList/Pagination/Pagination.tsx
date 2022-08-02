@@ -65,7 +65,7 @@ export const Pagination = () => {
     return (
         <div className={styles.pagination}>
             <button className={styles.btn} onClick={onClickBackHandler}><FontAwesomeIcon className={styles.icon}
-                                                                  icon={faAngleLeft} size="lg"/>
+                                                                                         icon={faAngleLeft} size="lg"/>
             </button>
 
             {pages.map(el => <span key={el}
@@ -77,7 +77,7 @@ export const Pagination = () => {
                   className={page === numberOfPages ? `${styles.pageButton} ${styles.activePageButton}` : `${styles.pageButton}`}
                   onClick={() => onClickPageHandler(numberOfPages)}>{numberOfPages}</span>
             <button className={styles.btn} onClick={onClickForthHandler}><FontAwesomeIcon className={styles.icon}
-                                                                   icon={faAngleRight} size="lg"/>
+                                                                                          icon={faAngleRight} size="lg"/>
             </button>
             Show
             <select onChange={onChangeSizePageHandler}>
