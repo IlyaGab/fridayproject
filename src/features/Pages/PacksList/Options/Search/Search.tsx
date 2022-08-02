@@ -23,7 +23,7 @@ export const Search = (): ReactElement => {
 
     return (
         <div className={styles.search}>
-            <h3>Search</h3>
+            <h3 className={styles.searchTitle}>Search</h3>
             <OutlinedInput
                 value={value}
                 onChange={onChangeHandler}
