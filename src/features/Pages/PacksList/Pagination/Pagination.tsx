@@ -4,7 +4,7 @@ import {faAngleLeft, faAngleRight} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {useAppSelector} from "../../../../common/hooks/useAppSelector";
 import {useAppDispatch} from "../../../../common/hooks/useAppDispatch";
-import {getPackListTC, setPageNumberCountAC} from '../packsListReducer';
+import {getPackListTC, setQueryParamsAC} from "../packsListReducer";
 
 const arr = [5, 10, 20, 50]
 
@@ -14,11 +14,11 @@ export const Pagination = () => {
     const cardPacksTotalCount = useAppSelector(state => state.packsList.cardPacksTotalCount)
 
     const [page, setPage] = useState<number>(1)
-    const [pageSize, setPageSize] = useState<number>(arr[0])
+    const [pageCount, setPageCount] = useState<number>(arr[0])
     const [startPage, setStartPage] = useState<number>(1)
     const [finishPage, setFinishPage] = useState<number>(5)
 
-    const numberOfPages = Math.ceil(cardPacksTotalCount / pageSize)
+    const numberOfPages = Math.ceil(cardPacksTotalCount / pageCount)
 
     const pages = [];
     for (let i = startPage; i <= finishPage; i++) {
@@ -29,7 +29,7 @@ export const Pagination = () => {
     }
 
     const onChangeSizePageHandler = (e: ChangeEvent<HTMLSelectElement>): void => {
-        setPageSize(Number(e.currentTarget.value))
+        setPageCount(Number(e.currentTarget.value))
     }
 
     const onClickBackHandler = (): void => {
@@ -58,14 +58,14 @@ export const Pagination = () => {
     }
 
     useEffect(() => {
-        dispatch(setPageNumberCountAC(page, pageSize))
+        dispatch(setQueryParamsAC({page, pageCount}))
         dispatch(getPackListTC())
-    }, [dispatch, page, pageSize])
+    }, [dispatch, page, pageCount])
 
     return (
         <div className={styles.pagination}>
             <button className={styles.btn} onClick={onClickBackHandler}><FontAwesomeIcon className={styles.icon}
-                                                                  icon={faAngleLeft} size="lg"/>
+                                                                                         icon={faAngleLeft} size="lg"/>
             </button>
 
             {pages.map(el => <span key={el}
@@ -77,7 +77,7 @@ export const Pagination = () => {
                   className={page === numberOfPages ? `${styles.pageButton} ${styles.activePageButton}` : `${styles.pageButton}`}
                   onClick={() => onClickPageHandler(numberOfPages)}>{numberOfPages}</span>
             <button className={styles.btn} onClick={onClickForthHandler}><FontAwesomeIcon className={styles.icon}
-                                                                   icon={faAngleRight} size="lg"/>
+                                                                                          icon={faAngleRight} size="lg"/>
             </button>
             Show
             <select onChange={onChangeSizePageHandler}>

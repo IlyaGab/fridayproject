@@ -30,14 +30,25 @@ export const packsListReducer = (state: InitialStateType = initialState, action:
             }
         case 'PACKS-LIST/SET-MIN-MAX-VALUE':
             return {
-                ...state, queryParams: {
-                    ...state.queryParams, ...action.payload
+                ...state,
+                queryParams: {
+                    ...state.queryParams,
+                    ...action.payload
+                }
+            }
+        case 'PACKS-LIST/SET-IS-MY-CARDS-PACK':
+            return {
+                ...state,
+                queryParams: {
+                    ...state.queryParams,
+                    isMyCardsPack: action.payload.value
                 }
             }
         case 'PACKS-LIST/SET-PAGE-NUMBER-COUNT':
             return {
                 ...state, queryParams: {
-                    ...state.queryParams, ...action.payload
+                    ...state.queryParams,
+                    ...action.payload
                 }
             }
         case 'PACKS-LIST/SET-SORT-PACKS':
@@ -46,10 +57,11 @@ export const packsListReducer = (state: InitialStateType = initialState, action:
                     ...state.queryParams, ...action.payload
                 }
             }
-        case 'PACKS-LIST/SET-IS-MY-CARDS-PACK':
+        case 'PACKS-LIST/SET-QUERY-PARAMS':
             return {
                 ...state, queryParams: {
-                    ...state.queryParams, isMyCardsPack: action.payload.value
+                    ...state.queryParams,
+                    ...action.payload
                 }
             }
         default:
@@ -58,7 +70,7 @@ export const packsListReducer = (state: InitialStateType = initialState, action:
 }
 
 //AC
-export const getPacksListAC = (data: GetPacksResponseType) => ({
+export const getPacksListAC = (data: GetCardsResponseType) => ({
     type: 'PACKS-LIST/GET-PACKS-LIST',
     payload: {
         data
@@ -72,20 +84,6 @@ export const setMinMaxValueAC = (min: number, max: number) => ({
     }
 }) as const
 
-export const setPageNumberCountAC = (page: number, pageCount: number) => ({
-    type: 'PACKS-LIST/SET-PAGE-NUMBER-COUNT',
-    payload: {
-        page, pageCount
-    }
-}) as const
-
-export const setSortPacksAC = (sortPacks:number, sortPacksName:string) => ({
-    type: 'PACKS-LIST/SET-SORT-PACKS',
-    payload: {
-        sortPacks, sortPacksName
-    }
-}) as const
-
 export const setIsMyCardsPackAC = (value: boolean) => ({
     type: 'PACKS-LIST/SET-IS-MY-CARDS-PACK',
     payload: {
@@ -93,6 +91,26 @@ export const setIsMyCardsPackAC = (value: boolean) => ({
     }
 }) as const
 
+export const setSortPacksAC = (sortPacks: number, sortPacksName: string) => ({
+    type: 'PACKS-LIST/SET-SORT-PACKS',
+    payload: {
+        sortPacks, sortPacksName
+    }
+}) as const
+
+export const setPageNumberCountAC = (page: number, pageCount: number) => ({
+    type: 'PACKS-LIST/SET-PAGE-NUMBER-COUNT',
+    payload: {
+        page, pageCount
+    }
+}) as const
+
+export const setQueryParamsAC = (queryParams: QueryParamsThunkType) => ({
+    type: 'PACKS-LIST/SET-QUERY-PARAMS',
+    payload: {
+        ...queryParams
+    }
+}) as const
 
 
 //TC
@@ -126,9 +144,20 @@ export const changeNameCardsPackTC = (id: string, name: string): AppThunkType =>
 
 
 //Types
-export type PacksListActionType = ReturnType<typeof getPacksListAC> 
-| ReturnType<typeof setMinMaxValueAC> 
-| ReturnType<typeof setIsMyCardsPackAC> 
-| ReturnType<typeof setPageNumberCountAC>
-| ReturnType<typeof setSortPacksAC>
+export type PacksListActionType = ReturnType<typeof getPacksListAC>
+    | ReturnType<typeof setMinMaxValueAC>
+    | ReturnType<typeof setIsMyCardsPackAC>
+    | ReturnType<typeof setPageNumberCountAC>
+    | ReturnType<typeof setSortPacksAC>
+    | ReturnType<typeof setQueryParamsAC>
 type InitialStateType = typeof initialState
+type QueryParamsThunkType = {
+    packName?: string
+    min?: number
+    max?: number
+    sortPacks?: number
+    sortPacksName?: string
+    page?: number
+    pageCount?: number,
+    isMyCardsPack?: boolean
+}
