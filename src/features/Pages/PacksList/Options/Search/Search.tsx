@@ -5,20 +5,21 @@ import {InputAdornment} from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import {useAppDispatch} from '../../../../../common/hooks/useAppDispatch';
 import {useDebounce} from '../../../../../common/hooks/useDebounce';
-import {changeSearchValueTC} from '../optionsReducer';
+import {changeSearchValueAC, getPackListTC} from '../../packsListReducer';
 
 export const Search = (): ReactElement => {
     const [value, setValue] = useState<string>('')
     const dispatch = useAppDispatch()
     const debouncedValue = useDebounce<string>(value, 500)
 
-    useEffect(() => {
-        dispatch(changeSearchValueTC(debouncedValue))
-    }, [debouncedValue])
-
     const onChangeHandler = (e: ChangeEvent<HTMLInputElement>): void => {
         setValue(e.currentTarget.value);
     }
+
+    useEffect(() => {
+        dispatch(changeSearchValueAC(debouncedValue))
+        dispatch(getPackListTC())
+    }, [dispatch, debouncedValue])
 
     return (
         <div className={styles.search}>

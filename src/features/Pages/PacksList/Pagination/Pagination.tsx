@@ -4,12 +4,13 @@ import {faAngleLeft, faAngleRight} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {useAppSelector} from "../../../../common/hooks/useAppSelector";
 import {useAppDispatch} from "../../../../common/hooks/useAppDispatch";
-import {getPackListTC} from "../packsListReducer";
+import {getPackListTC, setPageNumberCountAC} from '../packsListReducer';
 
 const arr = [5, 10, 20, 50]
 
 export const Pagination = () => {
     const dispatch = useAppDispatch()
+
     const cardPacksTotalCount = useAppSelector(state => state.packsList.cardPacksTotalCount)
 
     const [page, setPage] = useState<number>(1)
@@ -17,23 +18,21 @@ export const Pagination = () => {
     const [startPage, setStartPage] = useState<number>(1)
     const [finishPage, setFinishPage] = useState<number>(5)
 
-
     const numberOfPages = Math.ceil(cardPacksTotalCount / pageSize)
 
-    let pages = [];
+    const pages = [];
     for (let i = startPage; i <= finishPage; i++) {
         pages.push(i)
     }
-    const onClickPageHandler = (el: number) => {
+    const onClickPageHandler = (el: number): void => {
         setPage(el)
     }
 
-    const onChangeSizePageHandler = (e: ChangeEvent<HTMLSelectElement>) => {
-        debugger
+    const onChangeSizePageHandler = (e: ChangeEvent<HTMLSelectElement>): void => {
         setPageSize(Number(e.currentTarget.value))
     }
 
-    const onClickBackHandler = () => {
+    const onClickBackHandler = (): void => {
         if(startPage - 5 < 1) {
             setStartPage(1)
             setFinishPage(5)
@@ -41,10 +40,9 @@ export const Pagination = () => {
             setStartPage(startPage - 5)
             setFinishPage(finishPage - 5)
         }
-
     }
 
-    const onClickForthHandler = () => {
+    const onClickForthHandler = (): void => {
         if(finishPage + 5 > numberOfPages) {
             setStartPage(numberOfPages - 5)
             setFinishPage(numberOfPages - 1)
@@ -60,12 +58,13 @@ export const Pagination = () => {
     }
 
     useEffect(() => {
-        dispatch(getPackListTC(`?page=${page}&pageCount=${pageSize}`))
-    }, [page, pageSize])
+        dispatch(setPageNumberCountAC(page, pageSize))
+        dispatch(getPackListTC())
+    }, [dispatch, page, pageSize])
 
     return (
         <div className={styles.pagination}>
-            <button onClick={onClickBackHandler}><FontAwesomeIcon className={styles.icon}
+            <button className={styles.btn} onClick={onClickBackHandler}><FontAwesomeIcon className={styles.icon}
                                                                   icon={faAngleLeft} size="lg"/>
             </button>
 
@@ -77,7 +76,7 @@ export const Pagination = () => {
             <span key={numberOfPages}
                   className={page === numberOfPages ? `${styles.pageButton} ${styles.activePageButton}` : `${styles.pageButton}`}
                   onClick={() => onClickPageHandler(numberOfPages)}>{numberOfPages}</span>
-            <button onClick={onClickForthHandler}><FontAwesomeIcon className={styles.icon}
+            <button className={styles.btn} onClick={onClickForthHandler}><FontAwesomeIcon className={styles.icon}
                                                                    icon={faAngleRight} size="lg"/>
             </button>
             Show

@@ -1,0 +1,15 @@
+@import "../../../common/styles/mixins";
+
+.pack {
+  @include page();
+
+  .container {
+    @include container();
+
+    h2 {
+      @include title();
+      text-align: start;
+    }
+
+  }
+}

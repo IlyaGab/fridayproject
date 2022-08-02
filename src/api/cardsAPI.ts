@@ -1,8 +1,18 @@
-import {instance} from "./istanceAPI";
+import {instance} from './istanceAPI';
 
 export const cardsAPI = {
-    getCards(queryParams: string = "") {
-        return instance.get<GetCardsResponseType>("cards/pack" + queryParams)
+    getCards(queryParams: QueryParamsType, _id:string) {
+        const myCardsPack = queryParams.isMyCardsPack ? `&user_id=${_id}`: ''
+        return instance.get<GetCardsResponseType>(`cards/pack?packName=${queryParams.packName}&min=${queryParams.min}&max=${queryParams.max}&sortPacks=${queryParams.sortPacks}${queryParams.sortPacksName}&page=${queryParams.page}&pageCount=${queryParams.pageCount}${myCardsPack}`)
+    },
+    createCardsPack(newCardsPack: CardsPackType) {
+        return instance.post('cards/pack', {cardsPack: newCardsPack})
+    },
+    deleteCardsPack(id: string) {
+        return instance.delete(`cards/pack?id=${id}`)
+    },
+    changeNameCardsPack(_id: string, name: string) {
+        return instance.put('cards/pack', {cardsPack: {_id, name}})
     }
 }
 
@@ -35,4 +45,21 @@ export type CardType = {
     more_id: string
     __v: number
     deckCover: null
+}
+
+export type CardsPackType = {
+    name?: string
+    deckCover?: string
+    private?: boolean
+}
+
+export type QueryParamsType = {
+    packName: string,
+    min: number,
+    max: number,
+    sortPacks: number,
+    sortPacksName: string,
+    page: number,
+    pageCount: number,
+    isMyCardsPack:boolean
 }
