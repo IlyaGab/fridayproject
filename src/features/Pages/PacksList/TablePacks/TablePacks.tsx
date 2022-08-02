@@ -16,7 +16,7 @@ import {useAppDispatch} from "../../../../common/hooks/useAppDispatch";
 import {changeNameCardsPackTC, deleteCardsPackTC} from "../packsListReducer";
 import {PATH} from '../../../../common/components/RoutesList/RoutersList';
 import {useNavigate} from 'react-router-dom';
-import {getCardsListTC} from '../../CardsPack/cardsListReducer';
+import {getCardsListTC} from '../../CardsList/cardsListReducer';
 
 export const TablePacks = (): ReactElement => {
     const dispatch = useAppDispatch()

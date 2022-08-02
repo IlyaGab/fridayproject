@@ -3,13 +3,13 @@ import { CardsPackType, GetPacksResponseType, packsAPI, PackType } from '../../.
 
 const initialState = {
     cardPacks: [] as PackType[],
-    cardPacksTotalCount: 0 as number,
-    maxCardsCount: 0 as number,
-    minCardsCount: 0 as number,
-    page: 0 as number,
-    pageCount: 0 as number,
-    token: '' as string,
-    tokenDeathTime: 0 as number,
+    cardPacksTotalCount: 0,
+    maxCardsCount: 0,
+    minCardsCount: 0,
+    page: 0,
+    pageCount: 0,
+    token: '',
+    tokenDeathTime: 0,
     queryParams: {
         packName: '',
         min: 0,
@@ -70,7 +70,7 @@ export const packsListReducer = (state: InitialStateType = initialState, action:
 }
 
 //AC
-export const getPacksListAC = (data: GetCardsResponseType) => ({
+export const getPacksListAC = (data: GetPacksResponseType) => ({
     type: 'PACKS-LIST/GET-PACKS-LIST',
     payload: {
         data

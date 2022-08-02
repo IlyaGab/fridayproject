@@ -18,7 +18,7 @@ import {
 } from "../features/Pages/RegistrationPage/registrationPageReducer";
 import {AppActionsType, appReducer} from "./appReducer";
 import {PacksListActionType, packsListReducer} from "../features/Pages/PacksList/packsListReducer";
-import { CardsListActionType, cardsListReducer } from "../features/Pages/CardsPack/cardsListReducer";
+import { CardsListActionType, cardsListReducer } from "../features/Pages/CardsList/cardsListReducer";
 
 const rootReducer = combineReducers({
     changePassReducer: changePasswordReducer,

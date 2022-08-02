@@ -3,11 +3,11 @@ import {AppStateType, AppThunkType} from '../../../app/store'
 
 const initialState = {
     cards: [] as CardsType[],
-    cardsTotalcount: 0 as number,
-    maxGrade: 0 as number,
-    minGrade: 0 as number,
-    page: 0 as number,
-    packUserId: '' as string,
+    cardsTotalcount: 0,
+    maxGrade: 0,
+    minGrade: 0,
+    page: 0,
+    packUserId: '',
     queryParams: {
         cardAnswer: '',
         cardQuestion: '',
@@ -54,6 +54,5 @@ export const getCardsListTC = (id:string): AppThunkType => (dispatch, getState: 
 
 
 //Types
-export type CardsListActionType = ReturnType<typeof getCardsListAC> 
-
+export type CardsListActionType = ReturnType<typeof getCardsListAC>
 type InitialStateType = typeof initialState
