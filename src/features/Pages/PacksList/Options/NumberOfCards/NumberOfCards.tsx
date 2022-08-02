@@ -1,9 +1,9 @@
-import {Slider} from '@mui/material';
-import React, {ReactElement, useEffect} from 'react';
-import {useAppDispatch} from '../../../../../common/hooks/useAppDispatch';
-import {getPackListTC, setQueryParamsAC} from '../../packsListReducer';
-import styles from './numberOfCards.module.scss';
-import {useDebounce} from '../../../../../common/hooks/useDebounce';
+import {Slider} from "@mui/material";
+import React, {ReactElement, useLayoutEffect, useRef} from "react";
+import {useAppDispatch} from "../../../../../common/hooks/useAppDispatch";
+import {getPackListTC, setQueryParamsAC} from "../../packsListReducer";
+import styles from "./numberOfCards.module.scss";
+import {useDebounce} from "../../../../../common/hooks/useDebounce";
 
 export const NumberOfCards = (): ReactElement => {
     const min = 0
@@ -13,17 +13,27 @@ export const NumberOfCards = (): ReactElement => {
     const [value, setValue] = React.useState<number[]>([min,max]);
     const debouncedValue = useDebounce<number[]>(value, 500)
     function valuetext(value: number) {
-        return `${{value}}`;
+        return `${{value}}`
     }
 
     const handleChange = (event: Event, newValue: number | number[]) => {
         setValue(newValue as number[])
-    };
+    }
 
-    useEffect(()=>{
+    // useEffect(()=>{
+    //     dispatch(setQueryParamsAC({min:debouncedValue[0], max:debouncedValue[1]}))
+    //     dispatch(getPackListTC())
+    // },[dispatch, debouncedValue])
+
+    const firstUpdate = useRef(true)
+    useLayoutEffect(() => {
+        if (firstUpdate.current) {
+            firstUpdate.current = false
+            return
+        }
         dispatch(setQueryParamsAC({min:debouncedValue[0], max:debouncedValue[1]}))
         dispatch(getPackListTC())
-    },[dispatch, debouncedValue])
+    }, [dispatch, debouncedValue])
 
     return (
         <div className={styles.numberOfCards}>

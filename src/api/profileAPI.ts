@@ -1,4 +1,4 @@
-import {instance} from "./istanceAPI";
+import {instance} from "./istanceSettings";
 import {UserResponseType} from "./authAPI";
 
 export const profileAPI = {

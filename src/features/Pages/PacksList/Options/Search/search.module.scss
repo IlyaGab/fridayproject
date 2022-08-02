@@ -1,6 +1,5 @@
 @import "../../../../../common/styles/mixins";
 
-
 .search {
   flex-grow: 2;
 
@@ -9,7 +8,7 @@
   }
   .input {
     box-sizing: border-box;
-    width: 463px;
+    width: 90%;
     height: 36px;
     background: #FFFFFF;
     border: 1px solid #D9D9D9;

@@ -1,4 +1,4 @@
-import {instance} from './istanceAPI';
+import {instance} from './istanceSettings';
 
 export const packsAPI = {
     getCardsPacks(queryParams: QueryParamsPackType, _id:string) {

@@ -30,8 +30,8 @@ export const Search = (): ReactElement => {
                 placeholder="Provide your text"
                 className={styles.input}
                 startAdornment={
-                    <InputAdornment position="start">
-                        <SearchIcon/>
+                    <InputAdornment position="start" >
+                        <SearchIcon />
                     </InputAdornment>
                 }
             />

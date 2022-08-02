@@ -1,4 +1,4 @@
-import {instance} from "./istanceAPI";
+import {instance} from "./istanceSettings";
 
 export const authAPI = {
     login(data: LoginParamsType) {

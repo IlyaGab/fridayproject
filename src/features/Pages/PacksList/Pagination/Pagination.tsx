@@ -1,4 +1,4 @@
-import React, {ChangeEvent, useLayoutEffect, useRef, useState} from "react";
+import React, {ChangeEvent, ReactElement, useLayoutEffect, useRef, useState} from "react";
 import styles from "./pagination.module.scss";
 import {faAngleLeft, faAngleRight} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
@@ -8,25 +8,25 @@ import {getPackListTC, setQueryParamsAC} from "../packsListReducer";
 
 const arr = [5, 10, 20, 50]
 
-export const Pagination = () => {
+export const Pagination = (): ReactElement => {
     const dispatch = useAppDispatch()
 
     const cardPacksTotalCount = useAppSelector(state => state.packsList.cardPacksTotalCount)
 
     const [page, setPage] = useState<number>(1)
     const [pageCount, setPageCount] = useState<number>(arr[0])
-
-    let startPage = 1
-    let finishPage = 5
+    const [startPage, setStartPage] = useState<number>(1)
+    const [finishPage, setFinishPage] = useState<number>(5)
 
     const numberOfPages = Math.ceil(cardPacksTotalCount / pageCount)
 
-    if(numberOfPages <= finishPage) {
-        finishPage = numberOfPages
-    }
+    // if (numberOfPages <= finishPage) {
+    //     setFinishPage(numberOfPages)
+    // }
 
     const pages = [];
     for (let i = startPage; i <= finishPage; i++) {
+        console.log("array")
         pages.push(i)
     }
 
@@ -38,29 +38,32 @@ export const Pagination = () => {
         setPageCount(Number(e.currentTarget.value))
     }
 
-
     const onClickBackHandler = (): void => {
-        // if(startPage - 5 < 1) {
-        //     setStartPage(1)
-        //     setFinishPage(5)
-        // } else {
-        //     setStartPage(startPage - 5)
-        //     setFinishPage(finishPage - 5)
-        // }
+        if (startPage - 5 < 1) {
+            setStartPage(1)
+            setFinishPage(5)
+            setPage(1)
+        } else {
+            setStartPage(startPage - 5)
+            setFinishPage(finishPage - 5)
+            setPage(page - 5)
+        }
     }
 
     const onClickForthHandler = (): void => {
-        // if(finishPage + 5 > numberOfPages) {
-        //     setStartPage(numberOfPages - 5)
-        //     setFinishPage(numberOfPages - 1)
-        // } else {
-        //     setStartPage(startPage + 5)
-        //     setFinishPage(finishPage + 5)
-        // }
+        if (finishPage + 5 > numberOfPages) {
+            setStartPage(numberOfPages - 5)
+            setFinishPage(numberOfPages)
+            setPage(numberOfPages)
+        } else {
+            setStartPage(startPage + 5)
+            setFinishPage(finishPage + 5)
+            setPage(page + 5)
+        }
     }
 
     let ellipsis = "..."
-    if(finishPage === numberOfPages - 1) {
+    if (finishPage === numberOfPages - 1) {
         ellipsis = ""
     }
 
@@ -76,8 +79,9 @@ export const Pagination = () => {
 
     return (
         <div className={styles.pagination}>
-            <button className={styles.btn} onClick={onClickBackHandler}><FontAwesomeIcon className={styles.icon}
-                                                                                         icon={faAngleLeft} size="lg"/>
+            <button className={styles.btn} onClick={onClickBackHandler}><FontAwesomeIcon
+                className={styles.icon}
+                icon={faAngleLeft} size="lg"/>
             </button>
 
             {pages.map(el => <span key={el}
@@ -85,13 +89,14 @@ export const Pagination = () => {
                                    onClick={() => onClickPageHandler(el)}>{el}</span>)}
             {numberOfPages > finishPage && <span>
                 <span>{ellipsis}</span>
-                <span key={numberOfPages}
-                className={page === numberOfPages ? `${styles.pageButton} ${styles.activePageButton}` : `${styles.pageButton}`}
-                onClick={() => onClickPageHandler(numberOfPages)}>{numberOfPages}</span>
+                {/*<span key={numberOfPages}*/}
+                {/*      className={page === numberOfPages ? `${styles.pageButton} ${styles.activePageButton}` : `${styles.pageButton}`}*/}
+                {/*      onClick={() => onClickPageHandler(numberOfPages)}>{numberOfPages}</span>*/}
                  </span>
             }
-            <button className={styles.btn} onClick={onClickForthHandler}><FontAwesomeIcon className={styles.icon}
-                                                                                          icon={faAngleRight} size="lg"/>
+            <button className={styles.btn} onClick={onClickForthHandler}><FontAwesomeIcon
+                className={styles.icon}
+                icon={faAngleRight} size="lg"/>
             </button>
             Show
             <select onChange={onChangeSizePageHandler}>
