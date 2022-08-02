@@ -1,4 +1,4 @@
-import React, {ChangeEvent, useEffect, useState} from "react";
+import React, {ChangeEvent, useLayoutEffect, useRef, useState} from "react";
 import styles from "./pagination.module.scss";
 import {faAngleLeft, faAngleRight} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
@@ -15,15 +15,21 @@ export const Pagination = () => {
 
     const [page, setPage] = useState<number>(1)
     const [pageCount, setPageCount] = useState<number>(arr[0])
-    const [startPage, setStartPage] = useState<number>(1)
-    const [finishPage, setFinishPage] = useState<number>(5)
+
+    let startPage = 1
+    let finishPage = 5
 
     const numberOfPages = Math.ceil(cardPacksTotalCount / pageCount)
+
+    if(numberOfPages <= finishPage) {
+        finishPage = numberOfPages
+    }
 
     const pages = [];
     for (let i = startPage; i <= finishPage; i++) {
         pages.push(i)
     }
+
     const onClickPageHandler = (el: number): void => {
         setPage(el)
     }
@@ -32,24 +38,25 @@ export const Pagination = () => {
         setPageCount(Number(e.currentTarget.value))
     }
 
+
     const onClickBackHandler = (): void => {
-        if(startPage - 5 < 1) {
-            setStartPage(1)
-            setFinishPage(5)
-        } else {
-            setStartPage(startPage - 5)
-            setFinishPage(finishPage - 5)
-        }
+        // if(startPage - 5 < 1) {
+        //     setStartPage(1)
+        //     setFinishPage(5)
+        // } else {
+        //     setStartPage(startPage - 5)
+        //     setFinishPage(finishPage - 5)
+        // }
     }
 
     const onClickForthHandler = (): void => {
-        if(finishPage + 5 > numberOfPages) {
-            setStartPage(numberOfPages - 5)
-            setFinishPage(numberOfPages - 1)
-        } else {
-            setStartPage(startPage + 5)
-            setFinishPage(finishPage + 5)
-        }
+        // if(finishPage + 5 > numberOfPages) {
+        //     setStartPage(numberOfPages - 5)
+        //     setFinishPage(numberOfPages - 1)
+        // } else {
+        //     setStartPage(startPage + 5)
+        //     setFinishPage(finishPage + 5)
+        // }
     }
 
     let ellipsis = "..."
@@ -57,7 +64,12 @@ export const Pagination = () => {
         ellipsis = ""
     }
 
-    useEffect(() => {
+    const firstUpdate = useRef(true)
+    useLayoutEffect(() => {
+        if (firstUpdate.current) {
+            firstUpdate.current = false
+            return
+        }
         dispatch(setQueryParamsAC({page, pageCount}))
         dispatch(getPackListTC())
     }, [dispatch, page, pageCount])
@@ -71,11 +83,13 @@ export const Pagination = () => {
             {pages.map(el => <span key={el}
                                    className={page === el ? `${styles.pageButton} ${styles.activePageButton}` : `${styles.pageButton}`}
                                    onClick={() => onClickPageHandler(el)}>{el}</span>)}
-            {}
-            <span>{ellipsis}</span>
-            <span key={numberOfPages}
-                  className={page === numberOfPages ? `${styles.pageButton} ${styles.activePageButton}` : `${styles.pageButton}`}
-                  onClick={() => onClickPageHandler(numberOfPages)}>{numberOfPages}</span>
+            {numberOfPages > finishPage && <span>
+                <span>{ellipsis}</span>
+                <span key={numberOfPages}
+                className={page === numberOfPages ? `${styles.pageButton} ${styles.activePageButton}` : `${styles.pageButton}`}
+                onClick={() => onClickPageHandler(numberOfPages)}>{numberOfPages}</span>
+                 </span>
+            }
             <button className={styles.btn} onClick={onClickForthHandler}><FontAwesomeIcon className={styles.icon}
                                                                                           icon={faAngleRight} size="lg"/>
             </button>
