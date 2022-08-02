@@ -1,6 +1,6 @@
 import {AppThunkType} from '../../../app/store';
 import {setAppErrorAC, setAppStatusAC} from '../../../app/appReducer';
-import {authAPI, RegisterParamsType} from "../../../api/authAPI";
+import {authAPI, RegisterParamsType} from '../../../api/authAPI';
 
 const initialState = {
     isRegistered: false
