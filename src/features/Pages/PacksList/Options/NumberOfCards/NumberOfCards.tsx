@@ -3,7 +3,7 @@ import React, {ReactElement, useEffect} from 'react';
 import { useAppDispatch } from "../../../../../common/hooks/useAppDispatch";
 import {getPackListTC, setMinMaxValueAC} from '../../packsListReducer';
 import styles from "./numberOfCards.module.scss";
-import useDebounce from '../../../../../common/hooks/useDebounce';
+import {useDebounce} from '../../../../../common/hooks/useDebounce';
 
 export const NumberOfCards = (): ReactElement => {
     const min = 0

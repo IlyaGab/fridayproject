@@ -3,9 +3,16 @@
 
 .search {
   flex-grow: 2;
-  background-color: lavender;
 
-  h3 {
+  .searchTitle {
     @include subtitle();
+  }
+  .input {
+    box-sizing: border-box;
+    width: 463px;
+    height: 36px;
+    background: #FFFFFF;
+    border: 1px solid #D9D9D9;
+    border-radius: 2px;
   }
 }

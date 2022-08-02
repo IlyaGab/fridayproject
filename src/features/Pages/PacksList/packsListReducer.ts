@@ -64,6 +64,12 @@ export const packsListReducer = (state: InitialStateType = initialState, action:
                     ...action.payload
                 }
             }
+        case 'PACKS-LIST/CHANGE-SEARCH-VALUE':
+            return {
+                ...state, queryParams: {
+                    ...state.queryParams, packName: action.payload.packName
+                }
+            }
         default:
             return state
     }
@@ -112,6 +118,12 @@ export const setQueryParamsAC = (queryParams: QueryParamsThunkType) => ({
     }
 }) as const
 
+export const changeSearchValueAC = (packName: string) => ({
+    type: 'PACKS-LIST/CHANGE-SEARCH-VALUE',
+    payload: {
+        packName
+    }
+}) as const
 
 //TC
 export const getPackListTC = (): AppThunkType => (dispatch, getState: () => AppStateType) => {
@@ -150,6 +162,7 @@ export type PacksListActionType = ReturnType<typeof getPacksListAC>
     | ReturnType<typeof setPageNumberCountAC>
     | ReturnType<typeof setSortPacksAC>
     | ReturnType<typeof setQueryParamsAC>
+    | ReturnType<typeof changeSearchValueAC>
 type InitialStateType = typeof initialState
 type QueryParamsThunkType = {
     packName?: string
