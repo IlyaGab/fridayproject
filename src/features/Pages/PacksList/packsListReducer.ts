@@ -1,5 +1,5 @@
-import {AppStateType, AppThunkType} from '../../../app/store'
-import {cardsAPI, CardsPackType, CardType, GetCardsResponseType} from '../../../api/cardsAPI'
+import { AppStateType, AppThunkType } from '../../../app/store'
+import { cardsAPI, CardsPackType, CardType, GetCardsResponseType } from '../../../api/cardsAPI'
 
 const initialState = {
     cardPacks: [] as CardType[],
@@ -34,16 +34,22 @@ export const packsListReducer = (state: InitialStateType = initialState, action:
                     ...state.queryParams, ...action.payload
                 }
             }
-        case 'PACKS-LIST/SET-IS-MY-CARDS-PACK':
-            return {
-                ...state, queryParams: {
-                    ...state.queryParams, isMyCardsPack:action.payload.value
-                }
-            }
         case 'PACKS-LIST/SET-PAGE-NUMBER-COUNT':
             return {
                 ...state, queryParams: {
                     ...state.queryParams, ...action.payload
+                }
+            }
+        case 'PACKS-LIST/SET-SORT-PACKS':
+            return {
+                ...state, queryParams: {
+                    ...state.queryParams, ...action.payload
+                }
+            }
+        case 'PACKS-LIST/SET-IS-MY-CARDS-PACK':
+            return {
+                ...state, queryParams: {
+                    ...state.queryParams, isMyCardsPack: action.payload.value
                 }
             }
         default:
@@ -59,29 +65,38 @@ export const getPacksListAC = (data: GetCardsResponseType) => ({
     }
 }) as const
 
-export const setMinMaxValueAC = (min:number, max:number) => ({
-  type: 'PACKS-LIST/SET-MIN-MAX-VALUE',
-    payload:{
-      min, max
+export const setMinMaxValueAC = (min: number, max: number) => ({
+    type: 'PACKS-LIST/SET-MIN-MAX-VALUE',
+    payload: {
+        min, max
     }
 }) as const
 
-export const setIsMyCardsPackAC = (value:boolean) => ({
-    type: 'PACKS-LIST/SET-IS-MY-CARDS-PACK',
-    payload:{
-        value
-    }
-}) as const
-
-export const setPageNumberCountAC = (page:number, pageCount:number) => ({
+export const setPageNumberCountAC = (page: number, pageCount: number) => ({
     type: 'PACKS-LIST/SET-PAGE-NUMBER-COUNT',
-    payload:{
+    payload: {
         page, pageCount
     }
 }) as const
 
+export const setSortPacksAC = (sortPacks:number, sortPacksName:string) => ({
+    type: 'PACKS-LIST/SET-SORT-PACKS',
+    payload: {
+        sortPacks, sortPacksName
+    }
+}) as const
+
+export const setIsMyCardsPackAC = (value: boolean) => ({
+    type: 'PACKS-LIST/SET-IS-MY-CARDS-PACK',
+    payload: {
+        value
+    }
+}) as const
+
+
+
 //TC
-export const getPackListTC = (): AppThunkType => (dispatch, getState:()=>AppStateType) => {
+export const getPackListTC = (): AppThunkType => (dispatch, getState: () => AppStateType) => {
     cardsAPI.getCards(getState().packsList.queryParams, getState().profileReducer._id)
         .then((res) => {
             dispatch(getPacksListAC(res.data))
@@ -111,5 +126,9 @@ export const changeNameCardsPackTC = (id: string, name: string): AppThunkType =>
 
 
 //Types
-export type PacksListActionType = ReturnType<typeof getPacksListAC> | ReturnType<typeof setMinMaxValueAC> | ReturnType<typeof setIsMyCardsPackAC> | ReturnType<typeof setPageNumberCountAC>
+export type PacksListActionType = ReturnType<typeof getPacksListAC> 
+| ReturnType<typeof setMinMaxValueAC> 
+| ReturnType<typeof setIsMyCardsPackAC> 
+| ReturnType<typeof setPageNumberCountAC>
+| ReturnType<typeof setSortPacksAC>
 type InitialStateType = typeof initialState

@@ -7,7 +7,7 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import {useState} from 'react';
-import {getPackListTC} from "../packsListReducer";
+import {getPackListTC, setSortPacksAC} from "../packsListReducer";
 import React, {ReactElement} from "react";
 import {useAppSelector} from "../../../../common/hooks/useAppSelector";
 import {faGraduationCap, faPencil, faTrashCan} from "@fortawesome/free-solid-svg-icons";
@@ -25,6 +25,7 @@ export const TablePacks = (): ReactElement => {
 
     const onClickHandler = () => {
         count === 0 ?setCount(1) : setCount(0)
+        dispatch(setSortPacksAC(count,'cardsCount'))
         dispatch(getPackListTC())
     }
 
