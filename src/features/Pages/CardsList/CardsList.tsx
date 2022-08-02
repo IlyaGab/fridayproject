@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "./cardsPack.module.scss"
+import styles from "./cardsList.module.scss"
 import { BackButton } from "../../../common/components/BackButton/BackButton";
 import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
 import { useAppSelector } from "../../../common/hooks/useAppSelector";
