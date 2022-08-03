@@ -14,13 +14,20 @@ import {
     setQueryParamsAC
 } from "../packsListReducer";
 import {useAppSelector} from "../../../../common/hooks/useAppSelector";
-import {faGraduationCap, faPencil, faTrashCan} from "@fortawesome/free-solid-svg-icons";
+import {
+    faGraduationCap,
+    faPencil,
+    faTrashCan,
+    faCaretDown,
+    faCaretUp
+} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {useAppDispatch} from "../../../../common/hooks/useAppDispatch";
 import {PATH} from "../../../../common/components/RoutesList/RoutersList";
 import {useNavigate} from "react-router-dom";
 import {getCardsListTC, setCardsQueryParamsAC} from "../../CardsList/cardsListReducer";
 import {setAppStatusAC} from "../../../../app/appReducer";
+import {SortIcon} from "./Sort/SortIcon";
 
 export const TablePacks = (): ReactElement => {
     const dispatch = useAppDispatch()
@@ -28,6 +35,7 @@ export const TablePacks = (): ReactElement => {
 
     const rows = useAppSelector(state => state.packsList.cardPacks)
     const userId = useAppSelector(state => state.profileReducer._id)
+
 
     const [sortValue, setSortValue] = useState<number>(0)
 
@@ -47,7 +55,7 @@ export const TablePacks = (): ReactElement => {
 
     const navigateToCardsPackHandler = (cardsPack_id: string, packName: string) => {
         navigate(PATH.CardsList)
-        dispatch(setAppStatusAC('loading'))
+        dispatch(setAppStatusAC("loading"))
         dispatch(setCardsQueryParamsAC({cardsPack_id, packName}))
         dispatch(getCardsListTC())
     }
@@ -58,14 +66,24 @@ export const TablePacks = (): ReactElement => {
                 <Table sx={{minWidth: 650}} aria-label="simple table">
                     <TableHead>
                         <TableRow>
-                            <TableCell>Name</TableCell>
+                            <TableCell
+                                onClick={() => sortPacksHandler("name")}>
+                                Name <SortIcon name={"name"}/>
+                            </TableCell>
                             <TableCell align="center"
-                                       onClick={() => sortPacksHandler("cardsCount")}>Cards</TableCell>
-                            <TableCell align="center" onClick={() => sortPacksHandler("updated")}>Last
-                                Updates</TableCell>
-                            <TableCell align="center" onClick={() => sortPacksHandler("created")}>Created
-                                by</TableCell>
-                            <TableCell align="center">Actions</TableCell>
+                                       onClick={() => sortPacksHandler("cardsCount")}>
+                                Cards <SortIcon name={"cardsCount"}/>
+                            </TableCell>
+                            <TableCell align="center" onClick={() => sortPacksHandler("updated")}>
+                                Last
+                                Updates <SortIcon name={"updated"}/>
+                            </TableCell>
+                            <TableCell align="center" onClick={() => sortPacksHandler("created")}>
+                                Created by <SortIcon name={"created"}/>
+                            </TableCell>
+                            <TableCell align="center">
+                                Actions
+                            </TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
@@ -74,7 +92,8 @@ export const TablePacks = (): ReactElement => {
                                 key={row._id}
                                 sx={{"&:last-child td, &:last-child th": {border: 0}}}
                             >
-                                <TableCell component="th" scope="row" onClick={() => navigateToCardsPackHandler(row._id, row.name)}>
+                                <TableCell component="th" scope="row"
+                                           onClick={() => navigateToCardsPackHandler(row._id, row.name)}>
                                     {row.name}
                                 </TableCell>
                                 <TableCell align="center">{row.cardsCount}</TableCell>

@@ -6,15 +6,16 @@ import {Pagination} from "../../../common/components/Pagination/Pagination";
 import {useAppDispatch} from "../../../common/hooks/useAppDispatch";
 import {useAppSelector} from "../../../common/hooks/useAppSelector";
 import {getCardsListTC, setCardsQueryParamsAC} from "./cardsListReducer";
+import {HeaderPacksList} from "./HeaderCardsList/HeaderCardsList";
+import {EmptyCardsList} from "./EmptyCardsList/EmptyCardsList";
 
 export const CardsList = (): ReactElement => {
     const dispatch = useAppDispatch()
 
     const cardsTotalCount = useAppSelector(state => state.cardsList.cardsTotalCount)
-    const packName = useAppSelector(state => state.cardsList.queryParams.packName)
     const cards = useAppSelector(state => state.cardsList.cards)
 
-    const changePagination = (page: number, pageCount: number) => {
+    const changePagination = (page: number, pageCount: number): void => {
         dispatch(setCardsQueryParamsAC({page, pageCount}))
         dispatch(getCardsListTC())
     }
@@ -23,18 +24,13 @@ export const CardsList = (): ReactElement => {
         <div className={styles.pack}>
             <div className={styles.container}>
                 <BackButton/>
-                <h2>
-                    {packName}
-                </h2>
+                <HeaderPacksList />
                 {!!cards.length ? <div>
                         <TableCards/>
                         <Pagination cardPacksTotalCount={cardsTotalCount}
                                     changePagination={changePagination}/>
                     </div>
-                    : <div style={{textAlign: "center", marginTop: "150px"}}>
-                        <p>This pack is empty. Click add new card to fill this pack</p>
-                        <button>Add new card</button>
-                    </div>
+                    : <EmptyCardsList />
                 }
             </div>
         </div>

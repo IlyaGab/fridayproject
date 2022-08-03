@@ -1,8 +1,8 @@
 import React, {ReactElement} from "react";
 import styles from "./headerPacksList.module.scss";
-import {Button} from "@mui/material";
 import {useAppDispatch} from "../../../../common/hooks/useAppDispatch";
 import {createCardsPackTC} from "../packsListReducer";
+import {AddButton} from "../../../../common/components/AddButton/AddButton";
 
 export const HeaderPacksList = (): ReactElement => {
     const dispatch = useAppDispatch()
@@ -19,14 +19,7 @@ export const HeaderPacksList = (): ReactElement => {
             <h2>
                 Packs List
             </h2>
-            <Button
-                variant={"contained"}
-                color={"primary"}
-                style={{borderRadius: "30px", padding: "5px 30px"}}
-                onClick={onClickHandler}
-            >
-                Add new pack
-            </Button>
+            <AddButton name={"Add new pack"} callback={onClickHandler}/>
         </div>
     )
 }

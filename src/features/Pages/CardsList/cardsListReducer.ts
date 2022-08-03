@@ -1,4 +1,4 @@
-import {cardsAPI, CardsType, GetCardsResponseType} from "../../../api/cardsAPI"
+import {CardPostType, cardsAPI, CardsType, GetCardsResponseType} from "../../../api/cardsAPI"
 import {AppStateType, AppThunkType} from "../../../app/store"
 import {setAppStatusAC} from "../../../app/appReducer";
 
@@ -20,7 +20,8 @@ const initialState = {
         sortNameCards: "grade",
         page: 1,
         pageCount: 5,
-        packName: ""
+        packName: "",
+
         // isMyCardsPack: false
     }
 }
@@ -68,6 +69,14 @@ export const getCardsListTC = (): AppThunkType => (dispatch, getState: () => App
             dispatch(setAppStatusAC('idle'))
         })
 }
+
+export const createCardTC = (card: CardPostType): AppThunkType => (dispatch, getState: () => AppStateType) => {
+    cardsAPI.createCard(card)
+        .then(() => {
+            dispatch(getCardsListTC())
+        })
+}
+
 
 //Types
 export type CardsListActionType =

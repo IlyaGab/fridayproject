@@ -1,0 +1,12 @@
+@import "../../../../common/styles/mixins";
+
+.emptyCardsList {
+  text-align: center;
+  margin-top: 80px;
+
+  .message {
+    @include note();
+    margin-bottom: 30px;
+
+  }
+}

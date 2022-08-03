@@ -72,7 +72,7 @@ export const Pagination = ({
             return
         }
         changePagination(page, pageCount)
-    }, [page, pageCount])
+    }, [changePagination, page, pageCount])
 
     return (
         <div className={styles.pagination}>

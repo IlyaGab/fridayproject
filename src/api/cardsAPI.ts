@@ -4,6 +4,9 @@ export const cardsAPI = {
     getCards(queryParams: QueryParamsCardsType) {
         return instance.get<GetCardsResponseType>(`cards/card?cardAnswer=${queryParams.cardAnswer}&cardQuestion=${queryParams.cardQuestion}&cardsPack_id=${queryParams.cardsPack_id}&min=${queryParams.min}&max=${queryParams.max}&sortCards=${queryParams.sortCards}${queryParams.sortNameCards}&page=${queryParams.page}&pageCount=${queryParams.pageCount}`)
     },
+    createCard(card: CardPostType) {
+        return instance.post("cards/card", {card})
+    }
 }
 
 export type GetCardsResponseType = {
@@ -28,16 +31,16 @@ export type CardsType = {
     _id: string
 }
 
-export type CardsPostType = {
-    cardsPack_id: string
-    question: string
-    answer: string
-    grade: number
-    shots: number
-    answerImg: string
-    questionImg: string
-    questionVideo: string
-    answerVideo: string
+export type CardPostType = {
+    cardsPack_id?: string
+    question?: string
+    answer?: string
+    grade?: number
+    shots?: number
+    answerImg?: string
+    questionImg?: string
+    questionVideo?: string
+    answerVideo?: string
 }
 
 export type QueryParamsCardsType = {
