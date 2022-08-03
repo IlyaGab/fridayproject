@@ -2,32 +2,30 @@ import React, {ChangeEvent, ReactElement, useLayoutEffect, useRef, useState} fro
 import styles from "./pagination.module.scss";
 import {faAngleLeft, faAngleRight} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {useAppSelector} from "../../../../common/hooks/useAppSelector";
-import {useAppDispatch} from "../../../../common/hooks/useAppDispatch";
-import {getPackListTC, setQueryParamsAC} from "../packsListReducer";
 
 const arr = [5, 10, 20, 50]
 
-export const Pagination = (): ReactElement => {
-    const dispatch = useAppDispatch()
-
-    const cardPacksTotalCount = useAppSelector(state => state.packsList.cardPacksTotalCount)
+export const Pagination = ({
+                               cardPacksTotalCount,
+                               changePagination
+                           }: PaginationType): ReactElement => {
 
     const [page, setPage] = useState<number>(1)
-    const [pageCount, setPageCount] = useState<number>(arr[0])
+    const [pageCount, setPageCount] = useState<number>(5)
     const [startPage, setStartPage] = useState<number>(1)
     const [finishPage, setFinishPage] = useState<number>(5)
 
     const numberOfPages = Math.ceil(cardPacksTotalCount / pageCount)
 
-    // if (numberOfPages <= finishPage) {
-    //     setFinishPage(numberOfPages)
-    // }
-
     const pages = [];
-    for (let i = startPage; i <= finishPage; i++) {
-        console.log("array")
-        pages.push(i)
+    if (finishPage === numberOfPages || page === numberOfPages) {
+        for (let i = numberOfPages - 6 >= 1 ? numberOfPages - 6 : 1; i <= numberOfPages; i++) {
+            pages.push(i)
+        }
+    } else {
+        for (let i = startPage; i <= finishPage && i <= numberOfPages; i++) {
+            pages.push(i)
+        }
     }
 
     const onClickPageHandler = (el: number): void => {
@@ -67,15 +65,14 @@ export const Pagination = (): ReactElement => {
         ellipsis = ""
     }
 
-    const firstUpdate = useRef(true)
+    const firstUpdate = useRef<boolean>(true)
     useLayoutEffect(() => {
         if (firstUpdate.current) {
             firstUpdate.current = false
             return
         }
-        dispatch(setQueryParamsAC({page, pageCount}))
-        dispatch(getPackListTC())
-    }, [dispatch, page, pageCount])
+        changePagination(page, pageCount)
+    }, [page, pageCount])
 
     return (
         <div className={styles.pagination}>
@@ -87,11 +84,11 @@ export const Pagination = (): ReactElement => {
             {pages.map(el => <span key={el}
                                    className={page === el ? `${styles.pageButton} ${styles.activePageButton}` : `${styles.pageButton}`}
                                    onClick={() => onClickPageHandler(el)}>{el}</span>)}
-            {numberOfPages > finishPage && <span>
-                <span>{ellipsis}</span>
-                {/*<span key={numberOfPages}*/}
-                {/*      className={page === numberOfPages ? `${styles.pageButton} ${styles.activePageButton}` : `${styles.pageButton}`}*/}
-                {/*      onClick={() => onClickPageHandler(numberOfPages)}>{numberOfPages}</span>*/}
+            {numberOfPages > finishPage && page !== numberOfPages && <span>
+                <span style={{margin: "0 10px"}}>{ellipsis}</span>
+                <span key={numberOfPages}
+                      className={page === numberOfPages ? `${styles.pageButton} ${styles.activePageButton}` : `${styles.pageButton}`}
+                      onClick={() => onClickPageHandler(numberOfPages)}>{numberOfPages}</span>
                  </span>
             }
             <button className={styles.btn} onClick={onClickForthHandler}><FontAwesomeIcon
@@ -105,4 +102,11 @@ export const Pagination = (): ReactElement => {
             Cards per Page
         </div>
     )
+}
+
+//Types
+
+type PaginationType = {
+    cardPacksTotalCount: number
+    changePagination: (age: number, pageCount: number) => void
 }
