@@ -3,7 +3,7 @@ import {AppStateType, AppThunkType} from '../../../app/store'
 
 const initialState = {
     cards: [] as CardsType[],
-    cardsTotalcount: 0,
+    cardsTotalCount: 0,
     maxGrade: 0,
     minGrade: 0,
     page: 0,
@@ -28,11 +28,17 @@ export const cardsListReducer = (state: InitialStateType = initialState, action:
             return {
                 ...state, ...action.payload.data
             }
+        case 'CARDS-LIST/SET-QUERY-PARAMS':
+            return {
+                ...state, queryParams: {
+                    ...state.queryParams,
+                    ...action.payload
+                }
+            }
         default:
             return state
     }
 }
-
 
 
 //AC
@@ -43,16 +49,35 @@ export const getCardsListAC = (data: GetCardsResponseType) => ({
     }
 }) as const
 
+export const setQueryParamsForCardsListAC = (queryParams: QueryParamsThunkType) => ({
+    type: 'CARDS-LIST/SET-QUERY-PARAMS',
+    payload: {
+        ...queryParams
+    }
+}) as const
+
 
 //TC
-export const getCardsListTC = (id:string): AppThunkType => (dispatch, getState: () => AppStateType) => {
+export const getCardsListTC = (id: string): AppThunkType => (dispatch, getState: () => AppStateType) => {
     cardsAPI.getCards(getState().cardsList.queryParams, id)
         .then((res) => {
-           dispatch(getCardsListAC(res.data))
+            dispatch(getCardsListAC(res.data))
         })
 }
 
 
 //Types
-export type CardsListActionType = ReturnType<typeof getCardsListAC>
+export type CardsListActionType = ReturnType<typeof getCardsListAC> | ReturnType<typeof setQueryParamsForCardsListAC>
 type InitialStateType = typeof initialState
+
+type QueryParamsThunkType = {
+    cardAnswer?: string,
+    cardQuestion?: string,
+    cardsPack_id?: string,
+    min?: number,
+    max?: number,
+    sortCards?: number,
+    sortNameCards?: string,
+    page?: number,
+    pageCount?: number,
+}

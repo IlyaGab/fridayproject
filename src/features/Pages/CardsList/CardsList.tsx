@@ -3,6 +3,7 @@ import styles from "./cardsList.module.scss"
 import { BackButton } from "../../../common/components/BackButton/BackButton";
 import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
 import { useAppSelector } from "../../../common/hooks/useAppSelector";
+import { Search } from "../../../common/components/Search/Search";
 
 
 export const CardsList = () => {
@@ -13,6 +14,7 @@ export const CardsList = () => {
         <div className={styles.pack}>
             <div className={styles.container}>
                 <BackButton />
+                <Search listType={'cardsList'}/>
                 <h2>
                     <TableContainer component={Paper} style={{ marginBottom: "0" }}>
                         <Table sx={{ minWidth: 650 }} aria-label="simple table" >

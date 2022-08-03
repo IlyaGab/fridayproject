@@ -14,7 +14,7 @@ import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {useAppDispatch} from '../../../../common/hooks/useAppDispatch';
 import {PATH} from '../../../../common/components/RoutesList/RoutersList';
 import {useNavigate} from 'react-router-dom';
-import {getCardsListTC} from '../../CardsList/cardsListReducer';
+import {getCardsListTC, setQueryParamsForCardsListAC} from '../../CardsList/cardsListReducer';
 
 export const TablePacks = (): ReactElement => {
     const dispatch = useAppDispatch()
@@ -42,6 +42,7 @@ export const TablePacks = (): ReactElement => {
     const navigateToCardsPackHandler = (id: string) => {
         navigate(PATH.CardsList)
         dispatch(getCardsListTC(id))
+        dispatch(setQueryParamsForCardsListAC({cardsPack_id: id}))
     }
 
     return (
