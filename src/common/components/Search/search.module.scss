@@ -1,0 +1,18 @@
+@import "../../styles/mixins";
+
+
+.search {
+  flex-grow: 2;
+
+  h3 {
+    @include subtitle();
+  }
+
+  .searchInputForPacksList {
+    @include searchInput(463px, (0 0 0 0))
+  }
+
+  .searchInputForCardsList {
+    @include searchInput(100%, (0 0 24px))
+  }
+}

@@ -44,6 +44,7 @@ export const cardsListReducer = (state: InitialStateType = initialState, action:
     }
 }
 
+
 //AC
 export const getCardsListAC = (data: GetCardsResponseType) => ({
     type: "CARDS-LIST/GET-CARDS-LIST",

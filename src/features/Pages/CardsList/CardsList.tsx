@@ -8,6 +8,7 @@ import {useAppSelector} from "../../../common/hooks/useAppSelector";
 import {getCardsListTC, setCardsQueryParamsAC} from "./cardsListReducer";
 import {HeaderPacksList} from "./HeaderCardsList/HeaderCardsList";
 import {EmptyCardsList} from "./EmptyCardsList/EmptyCardsList";
+import { Search } from "../../../common/components/Search/Search";
 
 export const CardsList = (): ReactElement => {
     const dispatch = useAppDispatch()
@@ -24,6 +25,7 @@ export const CardsList = (): ReactElement => {
         <div className={styles.pack}>
             <div className={styles.container}>
                 <BackButton/>
+                <Search listType={'cardsList'}/>
                 <HeaderPacksList />
                 {!!cards.length ? <div>
                         <TableCards/>
