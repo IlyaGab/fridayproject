@@ -14,7 +14,7 @@ export const CardsList = (): ReactElement => {
     const dispatch = useAppDispatch()
 
     const cardsTotalCount = useAppSelector(state => state.cardsList.cardsTotalCount)
-    const cards = useAppSelector(state => state.cardsList.cards)
+    const cardsCount = useAppSelector(state => state.cardsList.queryParams.cardsCount)
 
     const changePagination = useCallback((page: number, pageCount: number): void => {
         dispatch(setCardsQueryParamsAC({page, pageCount}))
@@ -26,7 +26,7 @@ export const CardsList = (): ReactElement => {
             <div className={styles.container}>
                 <BackButton/>
                 <HeaderPacksList/>
-                {!!cards.length ? <div>
+                {!!cardsCount ? <div>
                         <Search listType={'cardsList'}/>
                         <TableCards/>
                         <Pagination cardPacksTotalCount={cardsTotalCount}

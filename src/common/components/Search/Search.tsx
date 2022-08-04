@@ -25,7 +25,6 @@ export const Search: React.FC<SearchPropsType> = React.memo( ({listType}): React
 
     const firstUpdateSearch = useRef<boolean>(true)
     useLayoutEffect(() => {
-        console.log('search')
         if (firstUpdateSearch.current) {
             firstUpdateSearch.current = false
             return

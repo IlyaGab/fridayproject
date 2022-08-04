@@ -1,4 +1,4 @@
-import React, {ReactElement} from "react";
+import React, {ReactElement, useEffect} from "react";
 import {
     Paper,
     Table,
@@ -10,10 +10,18 @@ import {
 } from "@mui/material";
 import {useAppSelector} from "../../../../common/hooks/useAppSelector";
 import styles from "./tableCards.module.scss";
+import {useAppDispatch} from "../../../../common/hooks/useAppDispatch";
+import {getCardsListTC} from "../cardsListReducer";
 
 export const TableCards = (): ReactElement => {
 
     const rows = useAppSelector(state => state.cardsList.cards)
+
+    const dispatch = useAppDispatch()
+
+    useEffect(() => {
+        dispatch(getCardsListTC())
+    }, [dispatch])
 
     return (
         <div className={styles.tableCards}>

@@ -67,7 +67,6 @@ export const Pagination = React.memo(({
 
     const firstUpdate = useRef<boolean>(true)
     useLayoutEffect(() => {
-        console.log('page')
         if (firstUpdate.current) {
             firstUpdate.current = false
             return

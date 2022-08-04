@@ -1,6 +1,5 @@
 @import "../../styles/mixins";
 
-
 .search {
   flex-grow: 2;
 
@@ -9,7 +8,7 @@
   }
 
   .searchInputForPacksList {
-    @include searchInput(463px, (0 0 0 0))
+    @include searchInput(90%, (0 0 0 0))
   }
 
   .searchInputForCardsList {

@@ -21,6 +21,7 @@ const initialState = {
         page: 1,
         pageCount: 5,
         packName: "",
+        cardsCount: 0
 
         // isMyCardsPack: false
     }
@@ -74,7 +75,9 @@ export const getCardsListTC = (): AppThunkType => (dispatch, getState: () => App
 export const createCardTC = (card: CardPostType): AppThunkType => (dispatch, getState: () => AppStateType) => {
     cardsAPI.createCard(card)
         .then(() => {
+            dispatch(setCardsQueryParamsAC({cardsCount: getState().cardsList.queryParams.cardsCount + 1}))
             dispatch(getCardsListTC())
+
         })
 }
 
@@ -96,5 +99,6 @@ type CardsQueryParamsActionType = {
     sortNameCards?: string
     page?: number
     pageCount?: number
-    packName?: string
+    packName?: string,
+    cardsCount?: number
 }

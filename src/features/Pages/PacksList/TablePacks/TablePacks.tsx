@@ -1,31 +1,27 @@
-import styles from './tablePacks.module.scss';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
-import React, {ReactElement, useEffect, useState} from 'react';
+import styles from "./tablePacks.module.scss";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import Paper from "@mui/material/Paper";
+import React, {ReactElement, useEffect, useState} from "react";
 import {
     changeNameCardsPackTC,
     deleteCardsPackTC,
     getPackListTC,
     setQueryParamsAC
-} from '../packsListReducer';
-import {useAppSelector} from '../../../../common/hooks/useAppSelector';
-import {
-    faGraduationCap,
-    faPencil,
-    faTrashCan
-} from '@fortawesome/free-solid-svg-icons';
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {useAppDispatch} from '../../../../common/hooks/useAppDispatch';
-import {PATH} from '../../../../common/components/RoutesList/RoutersList';
-import {useNavigate} from 'react-router-dom';
-import {getCardsListTC, setCardsQueryParamsAC} from '../../CardsList/cardsListReducer';
-import {setAppStatusAC} from '../../../../app/appReducer';
-import {SortIcon} from './Sort/SortIcon';
+} from "../packsListReducer";
+import {useAppSelector} from "../../../../common/hooks/useAppSelector";
+import {faGraduationCap, faPencil, faTrashCan} from "@fortawesome/free-solid-svg-icons";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {useAppDispatch} from "../../../../common/hooks/useAppDispatch";
+import {PATH} from "../../../../common/components/RoutesList/RoutersList";
+import {useNavigate} from "react-router-dom";
+import {getCardsListTC, setCardsQueryParamsAC} from "../../CardsList/cardsListReducer";
+import {setAppStatusAC} from "../../../../app/appReducer";
+import {SortIcon} from "./Sort/SortIcon";
 
 export const TablePacks = (): ReactElement => {
     const dispatch = useAppDispatch()
@@ -50,10 +46,10 @@ export const TablePacks = (): ReactElement => {
         dispatch(changeNameCardsPackTC(id, name))
     }
 
-    const navigateToCardsPackHandler = (cardsPack_id: string, packName: string) => (): void => {
+    const navigateToCardsPackHandler = (cardsPack_id: string, packName: string, cardsCount: number) => (): void => {
         navigate(PATH.CardsList)
         dispatch(setAppStatusAC('loading'))
-        dispatch(setCardsQueryParamsAC({cardsPack_id, packName}))
+        dispatch(setCardsQueryParamsAC({cardsPack_id, packName, cardsCount}))
         dispatch(getCardsListTC())
     }
 
@@ -94,7 +90,7 @@ export const TablePacks = (): ReactElement => {
                                 sx={{'&:last-child td, &:last-child th': {border: 0}}}
                             >
                                 <TableCell component="th" scope="row"
-                                           onClick={navigateToCardsPackHandler(row._id, row.name)}>
+                                           onClick={navigateToCardsPackHandler(row._id, row.name, row.cardsCount)}>
                                     {row.name}
                                 </TableCell>
                                 <TableCell align="center">{row.cardsCount}</TableCell>
