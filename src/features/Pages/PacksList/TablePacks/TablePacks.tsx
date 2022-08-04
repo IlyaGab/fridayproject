@@ -1,31 +1,31 @@
-import styles from "./tablePacks.module.scss";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
-import React, {ReactElement, useState} from "react";
+import styles from './tablePacks.module.scss';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import Paper from '@mui/material/Paper';
+import React, {ReactElement, useEffect, useState} from 'react';
 import {
     changeNameCardsPackTC,
     deleteCardsPackTC,
     getPackListTC,
     setQueryParamsAC
-} from "../packsListReducer";
-import {useAppSelector} from "../../../../common/hooks/useAppSelector";
+} from '../packsListReducer';
+import {useAppSelector} from '../../../../common/hooks/useAppSelector';
 import {
     faGraduationCap,
     faPencil,
     faTrashCan
-} from "@fortawesome/free-solid-svg-icons";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {useAppDispatch} from "../../../../common/hooks/useAppDispatch";
-import {PATH} from "../../../../common/components/RoutesList/RoutersList";
-import {useNavigate} from "react-router-dom";
-import {getCardsListTC, setCardsQueryParamsAC} from "../../CardsList/cardsListReducer";
-import {setAppStatusAC} from "../../../../app/appReducer";
-import {SortIcon} from "./Sort/SortIcon";
+} from '@fortawesome/free-solid-svg-icons';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import {useAppDispatch} from '../../../../common/hooks/useAppDispatch';
+import {PATH} from '../../../../common/components/RoutesList/RoutersList';
+import {useNavigate} from 'react-router-dom';
+import {getCardsListTC, setCardsQueryParamsAC} from '../../CardsList/cardsListReducer';
+import {setAppStatusAC} from '../../../../app/appReducer';
+import {SortIcon} from './Sort/SortIcon';
 
 export const TablePacks = (): ReactElement => {
     const dispatch = useAppDispatch()
@@ -52,31 +52,35 @@ export const TablePacks = (): ReactElement => {
 
     const navigateToCardsPackHandler = (cardsPack_id: string, packName: string) => (): void => {
         navigate(PATH.CardsList)
-        dispatch(setAppStatusAC("loading"))
+        dispatch(setAppStatusAC('loading'))
         dispatch(setCardsQueryParamsAC({cardsPack_id, packName}))
         dispatch(getCardsListTC())
     }
 
+    useEffect(() => {
+        dispatch(getPackListTC())
+    }, [dispatch])
+
     return (
         <div className={styles.tablePacks}>
-            <TableContainer component={Paper} style={{marginBottom: "0"}}>
+            <TableContainer component={Paper} style={{marginBottom: '0'}}>
                 <Table sx={{minWidth: 650}} aria-label="simple table">
                     <TableHead>
                         <TableRow>
                             <TableCell
-                                onClick={sortPacksHandler("name")}>
-                                Name <SortIcon name={"name"}/>
+                                onClick={sortPacksHandler('name')}>
+                                Name <SortIcon name={'name'}/>
                             </TableCell>
                             <TableCell align="center"
-                                       onClick={sortPacksHandler("cardsCount")}>
-                                Cards <SortIcon name={"cardsCount"}/>
+                                       onClick={sortPacksHandler('cardsCount')}>
+                                Cards <SortIcon name={'cardsCount'}/>
                             </TableCell>
-                            <TableCell align="center" onClick={sortPacksHandler("updated")}>
+                            <TableCell align="center" onClick={sortPacksHandler('updated')}>
                                 Last
-                                Updates <SortIcon name={"updated"}/>
+                                Updates <SortIcon name={'updated'}/>
                             </TableCell>
-                            <TableCell align="center" onClick={sortPacksHandler("created")}>
-                                Created by <SortIcon name={"created"}/>
+                            <TableCell align="center" onClick={sortPacksHandler('created')}>
+                                Created by <SortIcon name={'created'}/>
                             </TableCell>
                             <TableCell align="center">
                                 Actions
@@ -87,7 +91,7 @@ export const TablePacks = (): ReactElement => {
                         {rows.map((row) => (
                             <TableRow
                                 key={row._id}
-                                sx={{"&:last-child td, &:last-child th": {border: 0}}}
+                                sx={{'&:last-child td, &:last-child th': {border: 0}}}
                             >
                                 <TableCell component="th" scope="row"
                                            onClick={navigateToCardsPackHandler(row._id, row.name)}>
@@ -106,7 +110,7 @@ export const TablePacks = (): ReactElement => {
                                     />
                                     </button>
                                     <button
-                                        onClick={changeNameCardsPackHandler(row._id, "New name")}
+                                        onClick={changeNameCardsPackHandler(row._id, 'New name')}
                                         className={styles.btn}
                                         disabled={userId !== row.user_id}
                                     ><FontAwesomeIcon

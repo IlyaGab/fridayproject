@@ -1,22 +1,20 @@
 import OutlinedInput from '@mui/material/OutlinedInput/OutlinedInput';
-import React, {ChangeEvent, ReactElement, useEffect, useState} from 'react';
+import React, {ChangeEvent, ReactElement, useLayoutEffect, useRef, useState} from 'react';
 import styles from './search.module.scss';
 import {InputAdornment} from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import {useAppDispatch} from '../../hooks/useAppDispatch';
 import {useDebounce} from '../../hooks/useDebounce';
 import {getPackListTC, setQueryParamsAC} from '../../../features/Pages/PacksList/packsListReducer';
-import {getCardsListTC, setQueryParamsForCardsListAC} from '../../../features/Pages/CardsList/cardsListReducer';
-import {useAppSelector} from '../../hooks/useAppSelector';
+import {getCardsListTC, setCardsQueryParamsAC} from '../../../features/Pages/CardsList/cardsListReducer';
 
 type SearchPropsType = {
     listType: 'packsList' | 'cardsList'
 }
 
-export const Search: React.FC<SearchPropsType> = ({listType}): ReactElement => {
+export const Search: React.FC<SearchPropsType> = React.memo( ({listType}): ReactElement => {
     const [value, setValue] = useState<string>('')
     const dispatch = useAppDispatch()
-    const cardsListId = useAppSelector(state => state.cardsList.queryParams.cardsPack_id)
     const debouncedValue = useDebounce<string>(value, 500)
 
     const onChangeHandler = (e: ChangeEvent<HTMLInputElement>): void => {
@@ -25,15 +23,22 @@ export const Search: React.FC<SearchPropsType> = ({listType}): ReactElement => {
 
     const searchInputClassName = listType === 'packsList' ? styles.searchInputForPacksList : styles.searchInputForCardsList
 
-    useEffect(() => {
+    const firstUpdateSearch = useRef<boolean>(true)
+    useLayoutEffect(() => {
+        console.log('search')
+        if (firstUpdateSearch.current) {
+            firstUpdateSearch.current = false
+            return
+        }
         if (listType === 'packsList') {
             dispatch(setQueryParamsAC({packName: debouncedValue}))
             dispatch(getPackListTC())
         } else {
-            dispatch(setQueryParamsForCardsListAC({cardQuestion: debouncedValue}))
-            dispatch(getCardsListTC(cardsListId))
+            dispatch(setCardsQueryParamsAC({cardQuestion: debouncedValue}))
+            dispatch(getCardsListTC())
         }
-    }, [dispatch, debouncedValue])
+    }, [listType, dispatch, debouncedValue])
+
 
     return (
         <div className={styles.search}>
@@ -51,4 +56,4 @@ export const Search: React.FC<SearchPropsType> = ({listType}): ReactElement => {
             />
         </div>
     )
-}
+})

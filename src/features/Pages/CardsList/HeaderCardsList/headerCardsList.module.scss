@@ -8,5 +8,20 @@
   h2 {
     @include title();
     text-align: start;
+
+    .btnMenu {
+      background-color: inherit;
+      border: none;
+    }
+
+    .icon {
+      border-radius: 50%;
+      border: 1px solid;
+      width: 15px;
+      height: 15px;
+      padding: 5px;
+      cursor: pointer;
+    }
+
   }
 }

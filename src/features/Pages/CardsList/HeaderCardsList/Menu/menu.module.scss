@@ -1,0 +1,28 @@
+.menu {
+  position: absolute;
+
+  .menuContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    position: relative;
+    left: 230px;
+    width: 100px;
+    height: 80px;
+    background-color: #e8d8d8;
+    z-index: 1;
+
+    .btn {
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 24px;
+      text-align: center;
+      background-color: inherit;
+      border: none;
+      cursor: pointer;
+      &:hover {
+        background-color: #efe1e1;
+      }
+    }
+  }
+}

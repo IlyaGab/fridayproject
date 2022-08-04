@@ -5,7 +5,7 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
 const arr = [5, 10, 20, 50]
 
-export const Pagination = ({
+export const Pagination = React.memo(({
                                cardPacksTotalCount,
                                changePagination
                            }: PaginationType): ReactElement => {
@@ -67,6 +67,7 @@ export const Pagination = ({
 
     const firstUpdate = useRef<boolean>(true)
     useLayoutEffect(() => {
+        console.log('page')
         if (firstUpdate.current) {
             firstUpdate.current = false
             return
@@ -102,7 +103,7 @@ export const Pagination = ({
             Cards per Page
         </div>
     )
-}
+})
 
 //Types
 
