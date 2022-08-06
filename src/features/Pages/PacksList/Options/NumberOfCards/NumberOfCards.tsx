@@ -1,38 +1,30 @@
 import {Slider} from "@mui/material";
-import React, {ReactElement, useLayoutEffect, useRef} from "react";
+import React, {ReactElement, useEffect} from "react";
 import {useAppDispatch} from "../../../../../common/hooks/useAppDispatch";
-import {getPackListTC, setQueryParamsAC} from "../../packsListReducer";
+import {setQueryParamsAC} from "../../packsListReducer";
 import styles from "./numberOfCards.module.scss";
 import {useDebounce} from "../../../../../common/hooks/useDebounce";
 
 export const NumberOfCards = (): ReactElement => {
     const min = 0
     const max = 110
+
     const dispatch = useAppDispatch()
 
-    const [value, setValue] = React.useState<number[]>([min,max]);
+    const [value, setValue] = React.useState<number[]>([min, max]);
+
     const debouncedValue = useDebounce<number[]>(value, 500)
-    function valuetext(value: number) {
+
+    function valueText(value: number) {
         return `${{value}}`
     }
 
-    const handleChange = (event: Event, newValue: number | number[]) => {
+    const handleChange = (event: Event, newValue: number | number[]): void => {
         setValue(newValue as number[])
     }
 
-    // useEffect(()=>{
-    //     dispatch(setQueryParamsAC({min:debouncedValue[0], max:debouncedValue[1]}))
-    //     dispatch(getPackListTC())
-    // },[dispatch, debouncedValue])
-
-    const firstUpdate = useRef(true)
-    useLayoutEffect(() => {
-        if (firstUpdate.current) {
-            firstUpdate.current = false
-            return
-        }
-        dispatch(setQueryParamsAC({min:debouncedValue[0], max:debouncedValue[1]}))
-        dispatch(getPackListTC())
+    useEffect(() => {
+        dispatch(setQueryParamsAC({min: debouncedValue[0], max: debouncedValue[1]}))
     }, [dispatch, debouncedValue])
 
     return (
@@ -46,7 +38,7 @@ export const NumberOfCards = (): ReactElement => {
                     value={value}
                     onChange={handleChange}
                     valueLabelDisplay="auto"
-                    getAriaValueText={valuetext}
+                    getAriaValueText={valueText}
                     disableSwap
                     min={min}
                     max={max}

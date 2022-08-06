@@ -1,4 +1,9 @@
-import React, {ChangeEvent, ReactElement, useLayoutEffect, useRef, useState} from "react";
+import React, {
+    ChangeEvent,
+    ReactElement,
+    useEffect,
+    useState
+} from "react";
 import styles from "./pagination.module.scss";
 import {faAngleLeft, faAngleRight} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
@@ -15,7 +20,7 @@ export const Pagination = React.memo(({
     const [startPage, setStartPage] = useState<number>(1)
     const [finishPage, setFinishPage] = useState<number>(5)
 
-    const numberOfPages = Math.ceil(cardPacksTotalCount / pageCount)
+    let numberOfPages = Math.ceil(cardPacksTotalCount / pageCount)
 
     const pages = [];
     if (finishPage === numberOfPages || page === numberOfPages) {
@@ -65,12 +70,7 @@ export const Pagination = React.memo(({
         ellipsis = ""
     }
 
-    const firstUpdate = useRef<boolean>(true)
-    useLayoutEffect(() => {
-        if (firstUpdate.current) {
-            firstUpdate.current = false
-            return
-        }
+    useEffect(() => {
         changePagination(page, pageCount)
     }, [changePagination, page, pageCount])
 

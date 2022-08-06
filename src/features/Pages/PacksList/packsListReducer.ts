@@ -18,8 +18,9 @@ const initialState = {
         sortPacksName: 'updated',
         page: 1,
         pageCount: 5,
-        isMyCardsPack: false
-    }
+        user_id: ""
+    },
+    isMyCardsPack: false
 }
 
 export const packsListReducer = (state: InitialStateType = initialState, action: PacksListActionType): InitialStateType => {
@@ -84,7 +85,6 @@ export const changeNameCardsPackTC = (id: string, name: string): AppThunkType =>
         })
 }
 
-
 //Types
 export type PacksListActionType = ReturnType<typeof getPacksListAC>
     | ReturnType<typeof setQueryParamsAC>
@@ -97,5 +97,5 @@ type QueryParamsThunkType = {
     sortPacksName?: string
     page?: number
     pageCount?: number,
-    isMyCardsPack?: boolean
+    user_id?: string
 }

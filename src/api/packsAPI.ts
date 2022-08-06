@@ -2,8 +2,10 @@ import {instance} from './istanceSettings';
 
 export const packsAPI = {
     getCardsPacks(queryParams: QueryParamsPackType, _id:string) {
-        const myCardsPack = queryParams.isMyCardsPack ? `&user_id=${_id}`: ''
-        return instance.get<GetPacksResponseType>(`cards/pack?packName=${queryParams.packName}&min=${queryParams.min}&max=${queryParams.max}&sortPacks=${queryParams.sortPacks}${queryParams.sortPacksName}&page=${queryParams.page}&pageCount=${queryParams.pageCount}${myCardsPack}`)
+        const params = queryParams
+        // const myCardsPack = queryParams.isMyCardsPack ? `&user_id=${_id}`: ''
+        //return instance.get<GetPacksResponseType>(`cards/pack?packName=${queryParams.packName}&min=${queryParams.min}&max=${queryParams.max}&sortPacks=${queryParams.sortPacks}${queryParams.sortPacksName}&page=${queryParams.page}&pageCount=${queryParams.pageCount}${myCardsPack}`)return instance.get<GetPacksResponseType>(`cards/pack?packName=${queryParams.packName}&min=${queryParams.min}&max=${queryParams.max}&sortPacks=${queryParams.sortPacks}${queryParams.sortPacksName}&page=${queryParams.page}&pageCount=${queryParams.pageCount}${myCardsPack}`)return instance.get<GetPacksResponseType>(`cards/pack?packName=${queryParams.packName}&min=${queryParams.min}&max=${queryParams.max}&sortPacks=${queryParams.sortPacks}${queryParams.sortPacksName}&page=${queryParams.page}&pageCount=${queryParams.pageCount}${myCardsPack}`)
+        return instance.get<GetPacksResponseType>("cards/pack", {params})
     },
     createCardsPack(newCardsPack: CardsPackType) {
         return instance.post('cards/pack', {cardsPack: newCardsPack})
@@ -61,5 +63,5 @@ export type QueryParamsPackType = {
     sortPacksName: string,
     page: number,
     pageCount: number,
-    isMyCardsPack:boolean
+    user_id: string
 }

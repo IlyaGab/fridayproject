@@ -7,55 +7,48 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import React, {ReactElement, useEffect, useState} from "react";
-import {
-    changeNameCardsPackTC,
-    deleteCardsPackTC,
-    getPackListTC,
-    setQueryParamsAC
-} from "../packsListReducer";
+import {getPackListTC, setQueryParamsAC} from "../packsListReducer";
 import {useAppSelector} from "../../../../common/hooks/useAppSelector";
-import {faGraduationCap, faPencil, faTrashCan} from "@fortawesome/free-solid-svg-icons";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {useAppDispatch} from "../../../../common/hooks/useAppDispatch";
 import {PATH} from "../../../../common/components/RoutesList/RoutersList";
 import {useNavigate} from "react-router-dom";
-import {getCardsListTC, setCardsQueryParamsAC} from "../../CardsList/cardsListReducer";
+import {setCardsQueryParamsAC} from "../../CardsList/cardsListReducer";
 import {setAppStatusAC} from "../../../../app/appReducer";
-import {SortIcon} from "./Sort/SortIcon";
+import {SortIcon} from "./SortIcon/SortIcon";
+import {ActionButtons} from "./ActionButtons/ActionButtons";
 
 export const TablePacks = (): ReactElement => {
     const dispatch = useAppDispatch()
+
     const navigate = useNavigate()
 
     const rows = useAppSelector(state => state.packsList.cardPacks)
-    const userId = useAppSelector(state => state.profileReducer._id)
+
+    const sortPacks = useAppSelector(state => state.packsList.queryParams.sortPacks)
+    const min = useAppSelector(state => state.packsList.queryParams.min)
+    const max = useAppSelector(state => state.packsList.queryParams.max)
+    const pageCount = useAppSelector(state => state.packsList.queryParams.pageCount)
+    const page = useAppSelector(state => state.packsList.queryParams.page)
+    const sortPacksName = useAppSelector(state => state.packsList.queryParams.sortPacksName)
+    const user_id = useAppSelector(state => state.packsList.queryParams.user_id)
 
     const [sortValue, setSortValue] = useState<number>(0)
 
     const sortPacksHandler = (sortPacksName: string) => (): void => {
         sortValue === 0 ? setSortValue(1) : setSortValue(0)
         dispatch(setQueryParamsAC({sortPacks: sortValue, sortPacksName: sortPacksName}))
-        dispatch(getPackListTC())
-    }
-
-    const deleteCardsPackHandler = (id: string) => (): void => {
-        dispatch(deleteCardsPackTC(id))
-    }
-
-    const changeNameCardsPackHandler = (id: string, name: string) => (): void => {
-        dispatch(changeNameCardsPackTC(id, name))
     }
 
     const navigateToCardsPackHandler = (cardsPack_id: string, packName: string, cardsCount: number) => (): void => {
         navigate(PATH.CardsList)
         dispatch(setAppStatusAC('loading'))
         dispatch(setCardsQueryParamsAC({cardsPack_id, packName, cardsCount}))
-        dispatch(getCardsListTC())
     }
 
     useEffect(() => {
+        debugger
         dispatch(getPackListTC())
-    }, [dispatch])
+    }, [dispatch, sortPacks, min, max, page, pageCount, sortPacksName, user_id])
 
     return (
         <div className={styles.tablePacks}>
@@ -97,28 +90,7 @@ export const TablePacks = (): ReactElement => {
                                 <TableCell align="center">{row.updated}</TableCell>
                                 <TableCell align="center">{row.created}</TableCell>
                                 <TableCell align="center">
-                                    <button onClick={deleteCardsPackHandler(row._id)}
-                                            className={styles.btn}
-                                            disabled={userId !== row.user_id}
-                                    ><FontAwesomeIcon
-                                        className={styles.icon}
-                                        icon={faTrashCan} size="lg"
-                                    />
-                                    </button>
-                                    <button
-                                        onClick={changeNameCardsPackHandler(row._id, 'New name')}
-                                        className={styles.btn}
-                                        disabled={userId !== row.user_id}
-                                    ><FontAwesomeIcon
-                                        className={styles.icon}
-                                        icon={faPencil} size="lg"/>
-                                    </button>
-                                    <button className={styles.btn}
-                                            disabled={userId !== row.user_id}
-                                    ><FontAwesomeIcon
-                                        className={styles.icon}
-                                        icon={faGraduationCap} size="lg"/>
-                                    </button>
+                                    <ActionButtons row={row}/>
                                 </TableCell>
                             </TableRow>
                         ))}
