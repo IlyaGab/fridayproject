@@ -5,18 +5,15 @@ import {useAppSelector} from "../../../../../common/hooks/useAppSelector";
 
 export const SortIcon = ({name}: SortIconType): ReactElement => {
     const sortPacks = useAppSelector(state => state.packsList.queryParams.sortPacks)
-    const sortPacksName = useAppSelector(state => state.packsList.queryParams.sortPacksName)
     return (
         <>
-            {sortPacks === 0 && sortPacksName === name
+            {sortPacks[0] === "0" && sortPacks.slice(1) === name
                 ? <FontAwesomeIcon icon={faCaretDown} size="lg"/>
-                : sortPacksName === name
+                : sortPacks[0] === "1" && sortPacks.slice(1) === name
                     ? <FontAwesomeIcon icon={faCaretUp} size="lg"/>
                     : ""
             }
-
         </>
-
     )
 }
 

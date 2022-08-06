@@ -7,16 +7,24 @@ import {HeaderPacksList} from "./HeaderPacksList/HeaderPacksList";
 import {useAppDispatch} from "../../../common/hooks/useAppDispatch";
 import {setQueryParamsAC} from "./packsListReducer";
 import {useAppSelector} from "../../../common/hooks/useAppSelector";
+import {Navigate} from "react-router-dom";
+import {PATH} from "../../../common/components/RoutesList/RoutersList";
 
 export const PacksList = (): ReactElement => {
     const dispatch = useAppDispatch()
 
     const cardPacksTotalCount = useAppSelector(state => state.packsList.cardPacksTotalCount)
+    const isLoggedIn = useAppSelector(state => state.loginReducer.isLoggedIn)
 
     const changePagination = useCallback(
         (page: number, pageCount: number) => {
             dispatch(setQueryParamsAC({page, pageCount}))
         }, [dispatch])
+
+
+    if (!isLoggedIn) {
+        return <Navigate to={PATH.Login}/>
+    }
 
     return (
         <div className={styles.packsListPage}>

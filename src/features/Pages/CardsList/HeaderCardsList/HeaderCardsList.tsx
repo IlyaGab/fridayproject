@@ -14,8 +14,8 @@ export const HeaderPacksList = (): ReactElement => {
     const packUserId = useAppSelector(state => state.cardsList.packUserId)
     const userId = useAppSelector(state => state.profileReducer._id)
     const cardsPack_id = useAppSelector(state => state.cardsList.queryParams.cardsPack_id)
-    const packName = useAppSelector(state => state.cardsList.queryParams.packName)
-    const cardsCount = useAppSelector(state => state.cardsList.queryParams.cardsCount)
+    const packName = useAppSelector(state => state.cardsList.packName)
+    const cardsCount = useAppSelector(state => state.cardsList.cardsCount)
 
     const [showMenu, setShowMenu] = useState<boolean>(false)
 

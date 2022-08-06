@@ -1,5 +1,6 @@
 import { AppStateType, AppThunkType } from '../../../app/store'
 import { CardsPackType, GetPacksResponseType, packsAPI, PackType } from '../../../api/packsAPI'
+import {setAppStatusAC} from "../../../app/appReducer";
 
 const initialState = {
     cardPacks: [] as PackType[],
@@ -14,8 +15,7 @@ const initialState = {
         packName: '',
         min: 0,
         max: 110,
-        sortPacks: 0,
-        sortPacksName: 'updated',
+        sortPacks: "0updated",
         page: 1,
         pageCount: 5,
         user_id: ""
@@ -58,9 +58,17 @@ export const setQueryParamsAC = (queryParams: QueryParamsThunkType) => ({
 
 //TC
 export const getPackListTC = (): AppThunkType => (dispatch, getState: () => AppStateType) => {
-    packsAPI.getCardsPacks(getState().packsList.queryParams, getState().profileReducer._id)
+    //dispatch(setAppStatusAC('loading'))
+    packsAPI.getCardsPacks(getState().packsList.queryParams)
         .then((res) => {
             dispatch(getPacksListAC(res.data))
+            dispatch(setAppStatusAC('succeeded'))
+        })
+        .catch(() => {
+            dispatch(setAppStatusAC('failed'))
+        })
+        .finally(() => {
+            dispatch(setAppStatusAC('idle'))
         })
 }
 
@@ -93,8 +101,7 @@ type QueryParamsThunkType = {
     packName?: string
     min?: number
     max?: number
-    sortPacks?: number
-    sortPacksName?: string
+    sortPacks?: string
     page?: number
     pageCount?: number,
     user_id?: string

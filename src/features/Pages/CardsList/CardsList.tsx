@@ -9,16 +9,23 @@ import {setCardsQueryParamsAC} from "./cardsListReducer";
 import {HeaderPacksList} from "./HeaderCardsList/HeaderCardsList";
 import {EmptyCardsList} from "./EmptyCardsList/EmptyCardsList";
 import {Search} from "../../../common/components/Search/Search";
+import {Navigate} from "react-router-dom";
+import {PATH} from "../../../common/components/RoutesList/RoutersList";
 
 export const CardsList = (): ReactElement => {
     const dispatch = useAppDispatch()
 
     const cardsTotalCount = useAppSelector(state => state.cardsList.cardsTotalCount)
-    const cardsCount = useAppSelector(state => state.cardsList.queryParams.cardsCount)
+    const cardsCount = useAppSelector(state => state.cardsList.cardsCount)
+    const isLoggedIn = useAppSelector(state => state.loginReducer.isLoggedIn)
 
     const changePagination = useCallback((page: number, pageCount: number): void => {
         dispatch(setCardsQueryParamsAC({page, pageCount}))
     }, [dispatch])
+
+    if (!isLoggedIn) {
+        return <Navigate to={PATH.Login}/>
+    }
 
     return (
         <div className={styles.pack}>

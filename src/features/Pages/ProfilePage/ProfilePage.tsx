@@ -3,10 +3,10 @@ import styles from "./profilePage.module.scss"
 import {faArrowRightFromBracket} from "@fortawesome/free-solid-svg-icons"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 import avatar from "../../../assets/img/avatar.png"
-import {Navigate} from 'react-router-dom';
-import {useAppSelector} from '../../../common/hooks/useAppSelector';
-import {useAppDispatch} from '../../../common/hooks/useAppDispatch';
-import {logoutTC} from '../LoginPage/loginPageReducer';
+import {Navigate} from "react-router-dom";
+import {useAppSelector} from "../../../common/hooks/useAppSelector";
+import {useAppDispatch} from "../../../common/hooks/useAppDispatch";
+import {logoutTC} from "../LoginPage/loginPageReducer";
 import {EditableSpan} from "../../../common/components/EditableSpan/EditableSpan";
 import {changeInfoProfileTC} from "./profilePageReducer";
 import {BackButton} from "../../../common/components/BackButton/BackButton";
@@ -28,7 +28,7 @@ export const ProfilePage = (): ReactElement => {
     }
 
     const onChangeInfoProfile = (name: string) => {
-        if(nameState !== name) {
+        if (nameState !== name) {
             dispatch(changeInfoProfileTC(name))
         }
     }
@@ -36,7 +36,7 @@ export const ProfilePage = (): ReactElement => {
     return (
         <div className={styles.profilePage}>
             <div className={styles.container}>
-                <BackButton />
+                <BackButton/>
                 <div className={styles.profile}>
                     <h1>Personal Information</h1>
                     <img className={styles.avatar} src={avatar} alt={"avatar"}/>

@@ -12,8 +12,11 @@ import {useAppSelector} from "../../../../common/hooks/useAppSelector";
 import {useAppDispatch} from "../../../../common/hooks/useAppDispatch";
 import {PATH} from "../../../../common/components/RoutesList/RoutersList";
 import {useNavigate} from "react-router-dom";
-import {setCardsQueryParamsAC} from "../../CardsList/cardsListReducer";
-import {setAppStatusAC} from "../../../../app/appReducer";
+import {
+    setCardsCountAC,
+    setCardsQueryParamsAC,
+    setPackNameAC
+} from "../../CardsList/cardsListReducer";
 import {SortIcon} from "./SortIcon/SortIcon";
 import {ActionButtons} from "./ActionButtons/ActionButtons";
 
@@ -23,53 +26,51 @@ export const TablePacks = (): ReactElement => {
     const navigate = useNavigate()
 
     const rows = useAppSelector(state => state.packsList.cardPacks)
-
     const sortPacks = useAppSelector(state => state.packsList.queryParams.sortPacks)
     const min = useAppSelector(state => state.packsList.queryParams.min)
     const max = useAppSelector(state => state.packsList.queryParams.max)
     const pageCount = useAppSelector(state => state.packsList.queryParams.pageCount)
     const page = useAppSelector(state => state.packsList.queryParams.page)
-    const sortPacksName = useAppSelector(state => state.packsList.queryParams.sortPacksName)
     const user_id = useAppSelector(state => state.packsList.queryParams.user_id)
 
     const [sortValue, setSortValue] = useState<number>(0)
 
     const sortPacksHandler = (sortPacksName: string) => (): void => {
         sortValue === 0 ? setSortValue(1) : setSortValue(0)
-        dispatch(setQueryParamsAC({sortPacks: sortValue, sortPacksName: sortPacksName}))
+        dispatch(setQueryParamsAC({sortPacks: `${sortValue}${sortPacksName}`}))
     }
 
     const navigateToCardsPackHandler = (cardsPack_id: string, packName: string, cardsCount: number) => (): void => {
         navigate(PATH.CardsList)
-        dispatch(setAppStatusAC('loading'))
-        dispatch(setCardsQueryParamsAC({cardsPack_id, packName, cardsCount}))
+        dispatch(setCardsQueryParamsAC({cardsPack_id}))
+        dispatch(setPackNameAC(packName))
+        dispatch(setCardsCountAC(cardsCount))
     }
 
     useEffect(() => {
-        debugger
         dispatch(getPackListTC())
-    }, [dispatch, sortPacks, min, max, page, pageCount, sortPacksName, user_id])
+    }, [ sortPacks, min, max, page, pageCount, user_id])
 
     return (
         <div className={styles.tablePacks}>
-            <TableContainer component={Paper} style={{marginBottom: '0'}}>
+            <TableContainer component={Paper} style={{marginBottom: "0"}}>
                 <Table sx={{minWidth: 650}} aria-label="simple table">
                     <TableHead>
                         <TableRow>
                             <TableCell
-                                onClick={sortPacksHandler('name')}>
-                                Name <SortIcon name={'name'}/>
+                                onClick={sortPacksHandler("name")}>
+                                Name <SortIcon name={"name"}/>
                             </TableCell>
                             <TableCell align="center"
-                                       onClick={sortPacksHandler('cardsCount')}>
-                                Cards <SortIcon name={'cardsCount'}/>
+                                       onClick={sortPacksHandler("cardsCount")}>
+                                Cards <SortIcon name={"cardsCount"}/>
                             </TableCell>
-                            <TableCell align="center" onClick={sortPacksHandler('updated')}>
+                            <TableCell align="center" onClick={sortPacksHandler("updated")}>
                                 Last
-                                Updates <SortIcon name={'updated'}/>
+                                Updates <SortIcon name={"updated"}/>
                             </TableCell>
-                            <TableCell align="center" onClick={sortPacksHandler('created')}>
-                                Created by <SortIcon name={'created'}/>
+                            <TableCell align="center" onClick={sortPacksHandler("user_name")}>
+                                Author <SortIcon name={"user_name"}/>
                             </TableCell>
                             <TableCell align="center">
                                 Actions
@@ -80,7 +81,7 @@ export const TablePacks = (): ReactElement => {
                         {rows.map((row) => (
                             <TableRow
                                 key={row._id}
-                                sx={{'&:last-child td, &:last-child th': {border: 0}}}
+                                sx={{"&:last-child td, &:last-child th": {border: 0}}}
                             >
                                 <TableCell component="th" scope="row"
                                            onClick={navigateToCardsPackHandler(row._id, row.name, row.cardsCount)}>
@@ -88,7 +89,7 @@ export const TablePacks = (): ReactElement => {
                                 </TableCell>
                                 <TableCell align="center">{row.cardsCount}</TableCell>
                                 <TableCell align="center">{row.updated}</TableCell>
-                                <TableCell align="center">{row.created}</TableCell>
+                                <TableCell align="center">{row.user_name}</TableCell>
                                 <TableCell align="center">
                                     <ActionButtons row={row}/>
                                 </TableCell>

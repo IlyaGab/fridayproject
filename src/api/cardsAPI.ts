@@ -2,7 +2,8 @@ import {instance} from "./istanceSettings";
 
 export const cardsAPI = {
     getCards(queryParams: QueryParamsCardsType) {
-        return instance.get<GetCardsResponseType>(`cards/card?cardAnswer=${queryParams.cardAnswer}&cardQuestion=${queryParams.cardQuestion}&cardsPack_id=${queryParams.cardsPack_id}&min=${queryParams.min}&max=${queryParams.max}&sortCards=${queryParams.sortCards}${queryParams.sortNameCards}&page=${queryParams.page}&pageCount=${queryParams.pageCount}`)
+        const params = queryParams
+        return instance.get<GetCardsResponseType>("cards/card", {params})
     },
     createCard(card: CardPostType) {
         return instance.post("cards/card", {card})
@@ -49,8 +50,7 @@ export type QueryParamsCardsType = {
     cardsPack_id: string
     min: number
     max: number
-    sortCards: number
-    sortNameCards: string
+    sortCards: string
     page: number
     pageCount: number
 }

@@ -16,15 +16,12 @@ const initialState = {
         cardsPack_id: "",
         min: 0,
         max: 5,
-        sortCards: 0,
-        sortNameCards: "grade",
+        sortCards: "0grade",
         page: 1,
         pageCount: 5,
-        packName: "",
-        cardsCount: 0
-
-        // isMyCardsPack: false
-    }
+    },
+    packName: "",
+    cardsCount: 0
 }
 
 export const cardsListReducer = (state: InitialStateType = initialState, action: CardsListActionType): InitialStateType => {
@@ -40,11 +37,20 @@ export const cardsListReducer = (state: InitialStateType = initialState, action:
                     ...action.payload
                 }
             }
+        case "CARDS-LIST/SET-PACK-NAME":
+            return {
+                ...state,
+                ...action.payload
+            }
+        case "CARDS-LIST/SET-CARDS-COUNT":
+            return {
+                ...state,
+                ...action.payload
+            }
         default:
             return state
     }
 }
-
 
 //AC
 export const getCardsListAC = (data: GetCardsResponseType) => ({
@@ -58,6 +64,20 @@ export const setCardsQueryParamsAC = (queryParams: CardsQueryParamsActionType) =
     type: "CARDS-LIST/SET-QUERY-PARAMS",
     payload: {
         ...queryParams
+    }
+}) as const
+
+export const setPackNameAC = (packName: string) => ({
+    type: "CARDS-LIST/SET-PACK-NAME",
+    payload: {
+        packName
+    }
+}) as const
+
+export const setCardsCountAC = (cardsCount: number) => ({
+    type: "CARDS-LIST/SET-CARDS-COUNT",
+    payload: {
+        cardsCount
     }
 }) as const
 
@@ -75,17 +95,17 @@ export const getCardsListTC = (): AppThunkType => (dispatch, getState: () => App
 export const createCardTC = (card: CardPostType): AppThunkType => (dispatch, getState: () => AppStateType) => {
     cardsAPI.createCard(card)
         .then(() => {
-            dispatch(setCardsQueryParamsAC({cardsCount: getState().cardsList.queryParams.cardsCount + 1}))
+            dispatch(setCardsCountAC(getState().cardsList.cardsCount + 1))
             dispatch(getCardsListTC())
-
         })
 }
-
 
 //Types
 export type CardsListActionType =
     ReturnType<typeof getCardsListAC>
     | ReturnType<typeof setCardsQueryParamsAC>
+    | ReturnType<typeof setPackNameAC>
+    | ReturnType<typeof setCardsCountAC>
 
 type InitialStateType = typeof initialState
 
@@ -95,10 +115,7 @@ type CardsQueryParamsActionType = {
     cardsPack_id?: string
     min?: number
     max?: number
-    sortCards?: number
-    sortNameCards?: string
+    sortCards?: string
     page?: number
     pageCount?: number
-    packName?: string,
-    cardsCount?: number
 }
