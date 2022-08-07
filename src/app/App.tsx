@@ -26,12 +26,12 @@ export const App = (): ReactElement => {
     return (
         <>
             <Header/>
-            {status === "loading" ? <LinearProgress color="inherit"/>
-                :<div>
+            {status === "loading" && <LinearProgress color="inherit"/>}
+                <div>
                     <RoutersList/>
                     <NavLinkList/>
                 </div>
-            }
+
         </>
     )
 }

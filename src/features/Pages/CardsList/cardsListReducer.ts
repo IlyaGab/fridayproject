@@ -1,6 +1,7 @@
 import {CardPostType, cardsAPI, CardsType, GetCardsResponseType} from "../../../api/cardsAPI"
 import {AppStateType, AppThunkType} from "../../../app/store"
 import {setAppStatusAC} from "../../../app/appReducer";
+import {handleServerNetworkError} from "../../../common/utils/error-utils";
 
 const initialState = {
     cards: [] as CardsType[],
@@ -82,22 +83,27 @@ export const setCardsCountAC = (cardsCount: number) => ({
 }) as const
 
 //TC
-export const getCardsListTC = (): AppThunkType => (dispatch, getState: () => AppStateType) => {
-    cardsAPI.getCards(getState().cardsList.queryParams)
-        .then((res) => {
-            dispatch(getCardsListAC(res.data))
-        })
-        .finally(()=>{
-            dispatch(setAppStatusAC('idle'))
-        })
+export const getCardsListTC = (): AppThunkType => async (dispatch, getState: () => AppStateType) => {
+    try {
+        dispatch(setAppStatusAC("loading"))
+        const res = await cardsAPI.getCards(getState().cardsList.queryParams)
+        dispatch(getCardsListAC(res.data))
+    } catch (e) {
+        handleServerNetworkError(e, dispatch)
+        dispatch(setAppStatusAC("failed"))
+    }
 }
 
-export const createCardTC = (card: CardPostType): AppThunkType => (dispatch, getState: () => AppStateType) => {
-    cardsAPI.createCard(card)
-        .then(() => {
-            dispatch(setCardsCountAC(getState().cardsList.cardsCount + 1))
-            dispatch(getCardsListTC())
-        })
+export const createCardTC = (card: CardPostType): AppThunkType => async (dispatch, getState: () => AppStateType) => {
+    try {
+        dispatch(setAppStatusAC("loading"))
+        await cardsAPI.createCard(card)
+        dispatch(setCardsCountAC(getState().cardsList.cardsCount + 1))
+        dispatch(getCardsListTC())
+    } catch (e) {
+        handleServerNetworkError(e, dispatch)
+        dispatch(setAppStatusAC("failed"))
+    }
 }
 
 //Types

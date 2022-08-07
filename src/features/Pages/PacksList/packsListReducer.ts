@@ -1,6 +1,7 @@
-import { AppStateType, AppThunkType } from '../../../app/store'
-import { CardsPackType, GetPacksResponseType, packsAPI, PackType } from '../../../api/packsAPI'
+import {AppStateType, AppThunkType} from "../../../app/store"
+import {CardsPackType, GetPacksResponseType, packsAPI, PackType} from "../../../api/packsAPI"
 import {setAppStatusAC} from "../../../app/appReducer";
+import {handleServerNetworkError} from "../../../common/utils/error-utils";
 
 const initialState = {
     cardPacks: [] as PackType[],
@@ -9,10 +10,10 @@ const initialState = {
     minCardsCount: 0,
     page: 0,
     pageCount: 0,
-    token: '',
+    token: "",
     tokenDeathTime: 0,
     queryParams: {
-        packName: '',
+        packName: "",
         min: 0,
         max: 110,
         sortPacks: "0updated",
@@ -25,11 +26,11 @@ const initialState = {
 
 export const packsListReducer = (state: InitialStateType = initialState, action: PacksListActionType): InitialStateType => {
     switch (action.type) {
-        case 'PACKS-LIST/GET-PACKS-LIST':
+        case "PACKS-LIST/GET-PACKS-LIST":
             return {
                 ...state, ...action.payload.data
             }
-        case 'PACKS-LIST/SET-QUERY-PARAMS':
+        case "PACKS-LIST/SET-QUERY-PARAMS":
             return {
                 ...state, queryParams: {
                     ...state.queryParams,
@@ -43,54 +44,64 @@ export const packsListReducer = (state: InitialStateType = initialState, action:
 
 //AC
 export const getPacksListAC = (data: GetPacksResponseType) => ({
-    type: 'PACKS-LIST/GET-PACKS-LIST',
+    type: "PACKS-LIST/GET-PACKS-LIST",
     payload: {
         data
     }
 }) as const
 
 export const setQueryParamsAC = (queryParams: QueryParamsThunkType) => ({
-    type: 'PACKS-LIST/SET-QUERY-PARAMS',
+    type: "PACKS-LIST/SET-QUERY-PARAMS",
     payload: {
         ...queryParams
     }
 }) as const
 
 //TC
-export const getPackListTC = (): AppThunkType => (dispatch, getState: () => AppStateType) => {
-    //dispatch(setAppStatusAC('loading'))
-    packsAPI.getCardsPacks(getState().packsList.queryParams)
-        .then((res) => {
-            dispatch(getPacksListAC(res.data))
-            dispatch(setAppStatusAC('succeeded'))
-        })
-        .catch(() => {
-            dispatch(setAppStatusAC('failed'))
-        })
-        .finally(() => {
-            dispatch(setAppStatusAC('idle'))
-        })
+export const getPackListTC = (): AppThunkType => async (dispatch, getState: () => AppStateType) => {
+    try {
+        dispatch(setAppStatusAC("loading"))
+        const res = await packsAPI.getCardsPacks(getState().packsList.queryParams)
+        dispatch(getPacksListAC(res.data))
+        dispatch(setAppStatusAC("succeeded"))
+    } catch (e) {
+        handleServerNetworkError(e, dispatch)
+        dispatch(setAppStatusAC("failed"))
+    }
 }
 
-export const createCardsPackTC = (newCardsPack: CardsPackType): AppThunkType => (dispatch) => {
-    packsAPI.createCardsPack(newCardsPack)
-        .then(() => {
-            dispatch(getPackListTC())
-        })
+export const createCardsPackTC = (newCardsPack: CardsPackType): AppThunkType => async (dispatch) => {
+    try {
+        dispatch(setAppStatusAC("loading"))
+        await packsAPI.createCardsPack(newCardsPack)
+        dispatch(getPackListTC())
+    } catch (e) {
+        handleServerNetworkError(e, dispatch)
+        dispatch(setAppStatusAC("failed"))
+    }
 }
 
-export const deleteCardsPackTC = (id: string): AppThunkType => (dispatch) => {
-    packsAPI.deleteCardsPack(id)
-        .then(() => {
-            dispatch(getPackListTC())
-        })
+export const deleteCardsPackTC = (id: string): AppThunkType => async (dispatch) => {
+    try {
+        dispatch(setAppStatusAC("loading"))
+        await packsAPI.deleteCardsPack(id)
+        dispatch(getPackListTC())
+    } catch (e) {
+        handleServerNetworkError(e, dispatch)
+        dispatch(setAppStatusAC("failed"))
+    }
+
 }
 
-export const changeNameCardsPackTC = (id: string, name: string): AppThunkType => (dispatch) => {
-    packsAPI.changeNameCardsPack(id, name)
-        .then(() => {
-            dispatch(getPackListTC())
-        })
+export const changeNameCardsPackTC = (id: string, name: string): AppThunkType => async (dispatch) => {
+    try {
+        dispatch(setAppStatusAC("loading"))
+        await packsAPI.changeNameCardsPack(id, name)
+        dispatch(getPackListTC())
+    } catch (e) {
+        handleServerNetworkError(e, dispatch)
+        dispatch(setAppStatusAC("failed"))
+    }
 }
 
 //Types

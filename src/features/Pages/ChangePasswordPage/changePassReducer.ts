@@ -1,7 +1,8 @@
 import {AppThunkType} from "../../../app/store";
-import {setAppErrorAC, setAppStatusAC} from "../../../app/appReducer";
+import {setAppStatusAC} from "../../../app/appReducer";
 import {authAPI} from "../../../api/authAPI";
 import {setIsSendMessageToEmailAC} from "../PasswordRecoveryPage/passwordRecoveryPageReducer";
+import {handleServerNetworkError} from "../../../common/utils/error-utils";
 
 const initialState = {
     isSetNewPassword: false
@@ -28,20 +29,18 @@ export const isSetNewPasswordAC = (isSetNewPassword: boolean) => ({
 })
 
 //TC
-export const setNewPasswordTC = (password: string, resetPasswordToken: string): AppThunkType => (dispatch) => {
-    dispatch(setAppStatusAC('loading'))
-    authAPI.setNewPassword({password, resetPasswordToken})
-        .then(() => {
-            dispatch(isSetNewPasswordAC(true))
-            dispatch(setAppStatusAC('succeeded'))
-        })
-        .catch((error) => {
-            dispatch(setAppErrorAC(error.response.data.error))
-            dispatch(setAppStatusAC('failed'))
-        })
-        .finally(() => {
-            dispatch(setIsSendMessageToEmailAC(false))
-        })
+export const setNewPasswordTC = (password: string, resetPasswordToken: string): AppThunkType => async (dispatch) => {
+    try {
+        dispatch(setAppStatusAC('loading'))
+        await authAPI.setNewPassword({password, resetPasswordToken})
+        dispatch(isSetNewPasswordAC(true))
+        dispatch(setAppStatusAC('succeeded'))
+    } catch (e) {
+        handleServerNetworkError(e, dispatch)
+        dispatch(setAppStatusAC("failed"))
+    } finally {
+        dispatch(setIsSendMessageToEmailAC(false))
+    }
 }
 
 //Types

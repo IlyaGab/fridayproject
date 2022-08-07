@@ -1,6 +1,7 @@
 import {AppThunkType} from "../../../app/store";
 import {profileAPI} from "../../../api/profileAPI";
-import {setAppErrorAC} from "../../../app/appReducer";
+import {setAppStatusAC} from "../../../app/appReducer";
+import {handleServerNetworkError} from "../../../common/utils/error-utils";
 
 const initialState = {
     name: "",
@@ -25,7 +26,7 @@ export const profileReducer = (state: InitialStateType = initialState, action: P
 }
 
 //AC
-export const setProfileDataAC = (name: string, email: string, avatar: string,_id:string) => ({
+export const setProfileDataAC = (name: string, email: string, avatar: string, _id: string) => ({
     type: "PROFILE/SET_PROFILE_DATA",
     payload: {
         name,
@@ -44,14 +45,16 @@ export const changeInfoProfileAC = (name: string, avatar: string) => ({
 }) as const
 
 //TC
-export const changeInfoProfileTC = (name: string): AppThunkType => (dispatch) => {
-    profileAPI.changeInfo(name)
-        .then(() => {
-            dispatch(changeInfoProfileAC(name, "avatar"))
-        })
-        .catch((error) => {
-            dispatch(setAppErrorAC(error.response.data.error))
-        })
+export const changeInfoProfileTC = (name: string): AppThunkType => async (dispatch) => {
+    try {
+        dispatch(setAppStatusAC("loading"))
+        await profileAPI.changeInfo(name)
+        dispatch(changeInfoProfileAC(name, "avatar"))
+        dispatch(setAppStatusAC("succeeded"))
+    } catch (e) {
+        handleServerNetworkError(e, dispatch)
+        dispatch(setAppStatusAC("failed"))
+    }
 }
 
 //Types

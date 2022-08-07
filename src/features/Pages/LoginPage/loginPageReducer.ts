@@ -1,7 +1,8 @@
-import {setAppErrorAC, setAppStatusAC} from '../../../app/appReducer';
-import {setProfileDataAC} from '../ProfilePage/profilePageReducer';
-import {AppThunkType} from '../../../app/store';
-import {authAPI, LoginParamsType} from '../../../api/authAPI';
+import {setAppStatusAC} from "../../../app/appReducer";
+import {setProfileDataAC} from "../ProfilePage/profilePageReducer";
+import {AppThunkType} from "../../../app/store";
+import {authAPI, LoginParamsType} from "../../../api/authAPI";
+import {handleServerNetworkError} from "../../../common/utils/error-utils";
 
 const initialState = {
     isLoggedIn: false
@@ -9,7 +10,7 @@ const initialState = {
 
 export const loginReducer = (state: InitialStateType = initialState, action: LoginActionsType): InitialStateType => {
     switch (action.type) {
-        case 'LOGIN/SET-IS-LOGGED-IN':
+        case "LOGIN/SET-IS-LOGGED-IN":
             return {...state, isLoggedIn: action.value}
         default:
             return state
@@ -18,41 +19,38 @@ export const loginReducer = (state: InitialStateType = initialState, action: Log
 
 //AC
 export const setIsLoggedInAC = (value: boolean) => ({
-    type: 'LOGIN/SET-IS-LOGGED-IN',
+    type: "LOGIN/SET-IS-LOGGED-IN",
     value
 } as const)
 
 //TC
-export const loginTC = (data: LoginParamsType): AppThunkType => (dispatch) => {
-    dispatch(setAppStatusAC('loading'))
-    authAPI.login(data)
-        .then((res) => {
-            dispatch(setIsLoggedInAC(true))
-            dispatch(setAppStatusAC('succeeded'))
-            if (res.data.avatar) {
-                dispatch(setProfileDataAC(res.data.name, res.data.email, res.data.avatar, res.data._id))
-            } else {
-                dispatch(setProfileDataAC(res.data.name, res.data.email, 'avatar', res.data._id))
-            }
-        })
-        .catch((error) => {
-            dispatch(setAppErrorAC(error.response.data.error))
-            dispatch(setAppStatusAC('idle'))
-        })
+export const loginTC = (data: LoginParamsType): AppThunkType => async (dispatch) => {
+    try {
+        dispatch(setAppStatusAC("loading"))
+        const res = await authAPI.login(data)
+        dispatch(setIsLoggedInAC(true))
+        dispatch(setAppStatusAC("succeeded"))
+        if (res.data.avatar) {
+            dispatch(setProfileDataAC(res.data.name, res.data.email, res.data.avatar, res.data._id))
+        } else {
+            dispatch(setProfileDataAC(res.data.name, res.data.email, "avatar", res.data._id))
+        }
+    } catch (e) {
+        handleServerNetworkError(e, dispatch)
+        dispatch(setAppStatusAC("failed"))
+    }
 }
 
-export const logoutTC = (): AppThunkType => (dispatch) => {
-    dispatch(setAppStatusAC('loading'))
-    authAPI.logout()
-        .then(res => {
-            if (res) {
-                dispatch(setIsLoggedInAC(false))
-                dispatch(setAppStatusAC('succeeded'))
-            }
-        })
-        .catch((error) => {
-            dispatch(setAppErrorAC(error.response.data.error))
-        })
+export const logoutTC = (): AppThunkType => async (dispatch) => {
+    try {
+        dispatch(setAppStatusAC("loading"))
+        await authAPI.logout()
+        dispatch(setIsLoggedInAC(false))
+        dispatch(setAppStatusAC("succeeded"))
+    } catch (e) {
+        handleServerNetworkError(e, dispatch)
+        dispatch(setAppStatusAC("failed"))
+    }
 }
 
 // Types

@@ -18,7 +18,7 @@ import {
 } from "../features/Pages/RegistrationPage/registrationPageReducer";
 import {AppActionsType, appReducer} from "./appReducer";
 import {PacksListActionType, packsListReducer} from "../features/Pages/PacksList/packsListReducer";
-import { CardsListActionType, cardsListReducer } from "../features/Pages/CardsList/cardsListReducer";
+import {CardsListActionType, cardsListReducer} from "../features/Pages/CardsList/cardsListReducer";
 
 const rootReducer = combineReducers({
     changePassReducer: changePasswordReducer,
@@ -28,7 +28,7 @@ const rootReducer = combineReducers({
     registrationReducer: registrationReducer,
     appReducer: appReducer,
     packsList: packsListReducer,
-    cardsList:cardsListReducer
+    cardsList: cardsListReducer
 })
 
 export const store = createStore(rootReducer, applyMiddleware(thunkMiddleware))

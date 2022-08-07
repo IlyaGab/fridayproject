@@ -1,6 +1,7 @@
-import {setAppErrorAC, setAppStatusAC} from '../../../app/appReducer'
-import {AppThunkType} from '../../../app/store'
+import {setAppStatusAC} from "../../../app/appReducer"
+import {AppThunkType} from "../../../app/store"
 import {authAPI, ForgotParamsType} from "../../../api/authAPI";
+import {handleServerNetworkError} from "../../../common/utils/error-utils";
 
 const initialState = {
     isSendMessageToEmail: false
@@ -8,7 +9,7 @@ const initialState = {
 
 export const passwordRecoveryReducer = (state: InitialStateType = initialState, action: PasswordRecoveryActionsType): InitialStateType => {
     switch (action.type) {
-        case 'FORGOT-PASSWORD/SET-IS-SEND-IN':
+        case "FORGOT-PASSWORD/SET-IS-SEND-IN":
             return {...state, isSendMessageToEmail: action.value}
         default:
             return state
@@ -16,23 +17,24 @@ export const passwordRecoveryReducer = (state: InitialStateType = initialState, 
 }
 
 //AC
-export const setIsSendMessageToEmailAC = (value: boolean) => ({type: 'FORGOT-PASSWORD/SET-IS-SEND-IN', value} as const)
+export const setIsSendMessageToEmailAC = (value: boolean) => ({
+    type: "FORGOT-PASSWORD/SET-IS-SEND-IN",
+    value
+} as const)
 
 //TC
-export const forgotTC = (data: ForgotParamsType): AppThunkType => (dispatch) => {
-    dispatch(setAppStatusAC('loading'))
-    authAPI.forgot(data)
-        .then(() => {
-            dispatch(setIsSendMessageToEmailAC(true))
-            dispatch(setAppStatusAC('succeeded'))
-        })
-        .catch((error) => {
-            dispatch(setAppErrorAC(error.response.data.error))
-            dispatch(setAppStatusAC('failed'))
-        })
-        .finally(() => {
-            dispatch(setIsSendMessageToEmailAC(false))
-        })
+export const forgotTC = (data: ForgotParamsType): AppThunkType => async (dispatch) => {
+    try {
+        dispatch(setAppStatusAC("loading"))
+        await authAPI.forgot(data)
+        dispatch(setIsSendMessageToEmailAC(true))
+        dispatch(setAppStatusAC("succeeded"))
+    } catch (e) {
+        handleServerNetworkError(e, dispatch)
+        dispatch(setAppStatusAC("failed"))
+    } finally {
+        dispatch(setIsSendMessageToEmailAC(false))
+    }
 }
 
 //Types
