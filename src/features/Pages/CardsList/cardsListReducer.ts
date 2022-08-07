@@ -1,10 +1,16 @@
-import {CardPostType, cardsAPI, CardsType, GetCardsResponseType} from "../../../api/cardsAPI"
+import {
+    CardPostType,
+    CardPutType,
+    cardsAPI,
+    CardType,
+    GetCardsResponseType
+} from "../../../api/cardsAPI"
 import {AppStateType, AppThunkType} from "../../../app/store"
 import {setAppStatusAC} from "../../../app/appReducer";
 import {handleServerNetworkError} from "../../../common/utils/error-utils";
 
 const initialState = {
-    cards: [] as CardsType[],
+    cards: [] as CardType[],
     cardsTotalCount: 0,
     maxGrade: 5,
     minGrade: 0,
@@ -22,7 +28,8 @@ const initialState = {
         pageCount: 5,
     },
     packName: "",
-    cardsCount: 0
+    cardsCount: 0,
+    isMyCards: false
 }
 
 export const cardsListReducer = (state: InitialStateType = initialState, action: CardsListActionType): InitialStateType => {
@@ -44,6 +51,11 @@ export const cardsListReducer = (state: InitialStateType = initialState, action:
                 ...action.payload
             }
         case "CARDS-LIST/SET-CARDS-COUNT":
+            return {
+                ...state,
+                ...action.payload
+            }
+        case "CARDS-LIST/SET-IS-MY-CARDS":
             return {
                 ...state,
                 ...action.payload
@@ -82,12 +94,20 @@ export const setCardsCountAC = (cardsCount: number) => ({
     }
 }) as const
 
+export const setIsMyCardsAC = (isMyCards: boolean) => ({
+    type: "CARDS-LIST/SET-IS-MY-CARDS",
+    payload: {
+        isMyCards
+    }
+}) as const
+
 //TC
 export const getCardsListTC = (): AppThunkType => async (dispatch, getState: () => AppStateType) => {
     try {
         dispatch(setAppStatusAC("loading"))
         const res = await cardsAPI.getCards(getState().cardsList.queryParams)
         dispatch(getCardsListAC(res.data))
+        dispatch(setAppStatusAC("succeeded"))
     } catch (e) {
         handleServerNetworkError(e, dispatch)
         dispatch(setAppStatusAC("failed"))
@@ -100,11 +120,37 @@ export const createCardTC = (card: CardPostType): AppThunkType => async (dispatc
         await cardsAPI.createCard(card)
         dispatch(setCardsCountAC(getState().cardsList.cardsCount + 1))
         dispatch(getCardsListTC())
+        dispatch(setAppStatusAC("succeeded"))
     } catch (e) {
         handleServerNetworkError(e, dispatch)
         dispatch(setAppStatusAC("failed"))
     }
 }
+
+export const deleteCardTC = (id: string): AppThunkType => async (dispatch) => {
+    try {
+        dispatch(setAppStatusAC("loading"))
+        await cardsAPI.deleteCard(id)
+        dispatch(getCardsListTC())
+        dispatch(setAppStatusAC("succeeded"))
+    } catch (e) {
+        handleServerNetworkError(e, dispatch)
+        dispatch(setAppStatusAC("failed"))
+    }
+}
+
+export const changeCardTC = (card: CardPutType): AppThunkType => async (dispatch) => {
+    try {
+        dispatch(setAppStatusAC("loading"))
+        await cardsAPI.changeCard(card)
+        dispatch(getCardsListTC())
+        dispatch(setAppStatusAC("succeeded"))
+    } catch (e) {
+        handleServerNetworkError(e, dispatch)
+        dispatch(setAppStatusAC("failed"))
+    }
+}
+
 
 //Types
 export type CardsListActionType =
@@ -112,6 +158,7 @@ export type CardsListActionType =
     | ReturnType<typeof setCardsQueryParamsAC>
     | ReturnType<typeof setPackNameAC>
     | ReturnType<typeof setCardsCountAC>
+    | ReturnType<typeof setIsMyCardsAC>
 
 type InitialStateType = typeof initialState
 

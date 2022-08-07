@@ -14,11 +14,11 @@ import {PATH} from "../../../../common/components/RoutesList/RoutersList";
 import {useNavigate} from "react-router-dom";
 import {
     setCardsCountAC,
-    setCardsQueryParamsAC,
+    setCardsQueryParamsAC, setIsMyCardsAC,
     setPackNameAC
 } from "../../CardsList/cardsListReducer";
 import {SortIcon} from "./SortIcon/SortIcon";
-import {ActionButtons} from "./ActionButtons/ActionButtons";
+import {PacksActionButtons} from "./PacksActionButtons/PacksActionButtons";
 
 export const TablePacks = (): ReactElement => {
     const dispatch = useAppDispatch()
@@ -32,6 +32,7 @@ export const TablePacks = (): ReactElement => {
     const pageCount = useAppSelector(state => state.packsList.queryParams.pageCount)
     const page = useAppSelector(state => state.packsList.queryParams.page)
     const user_id = useAppSelector(state => state.packsList.queryParams.user_id)
+    const userId = useAppSelector(state => state.profileReducer._id)
 
     const [sortValue, setSortValue] = useState<number>(0)
 
@@ -40,16 +41,21 @@ export const TablePacks = (): ReactElement => {
         dispatch(setQueryParamsAC({sortPacks: `${sortValue}${sortPacksName}`}))
     }
 
-    const navigateToCardsPackHandler = (cardsPack_id: string, packName: string, cardsCount: number) => (): void => {
+    const navigateToCardsPackHandler = (cardsPack_id: string, packName: string, cardsCount: number, user_id: string) => (): void => {
         navigate(PATH.CardsList)
         dispatch(setCardsQueryParamsAC({cardsPack_id}))
         dispatch(setPackNameAC(packName))
         dispatch(setCardsCountAC(cardsCount))
+        if(user_id === userId) {
+            dispatch(setIsMyCardsAC(true))
+        } else {
+            dispatch(setIsMyCardsAC(false))
+        }
     }
 
     useEffect(() => {
         dispatch(getPackListTC())
-    }, [ sortPacks, min, max, page, pageCount, user_id])
+    }, [ dispatch, sortPacks, min, max, page, pageCount, user_id])
 
     return (
         <div className={styles.tablePacks}>
@@ -84,14 +90,15 @@ export const TablePacks = (): ReactElement => {
                                 sx={{"&:last-child td, &:last-child th": {border: 0}}}
                             >
                                 <TableCell component="th" scope="row"
-                                           onClick={navigateToCardsPackHandler(row._id, row.name, row.cardsCount)}>
+                                           onClick={navigateToCardsPackHandler(row._id, row.name, row.cardsCount, row.user_id)}>
                                     {row.name}
                                 </TableCell>
                                 <TableCell align="center">{row.cardsCount}</TableCell>
                                 <TableCell align="center">{row.updated}</TableCell>
                                 <TableCell align="center">{row.user_name}</TableCell>
+                                {}
                                 <TableCell align="center">
-                                    <ActionButtons row={row}/>
+                                    <PacksActionButtons row={row}/>
                                 </TableCell>
                             </TableRow>
                         ))}

@@ -1,5 +1,5 @@
 import React, {ReactElement} from "react";
-import styles from "../tablePacks.module.scss";
+import styles from "./packsActionButtons.module.scss";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faGraduationCap, faPencil, faTrashCan} from "@fortawesome/free-solid-svg-icons";
 import {changeNameCardsPackTC, deleteCardsPackTC} from "../../packsListReducer";
@@ -8,7 +8,7 @@ import {useAppSelector} from "../../../../../common/hooks/useAppSelector";
 import {PackType} from "../../../../../api/packsAPI";
 
 
-export const ActionButtons = ({row}: ActionButtonsType): ReactElement => {
+export const PacksActionButtons = ({row}: ActionButtonsType): ReactElement => {
     const dispatch = useAppDispatch()
 
     const userId = useAppSelector(state => state.profileReducer._id)
@@ -40,7 +40,6 @@ export const ActionButtons = ({row}: ActionButtonsType): ReactElement => {
                 icon={faPencil} size="lg"/>
             </button>
             <button className={styles.btn}
-                    disabled={userId !== row.user_id}
             ><FontAwesomeIcon
                 className={styles.icon}
                 icon={faGraduationCap} size="lg"/>
@@ -50,7 +49,6 @@ export const ActionButtons = ({row}: ActionButtonsType): ReactElement => {
 }
 
 //Types
-
 type ActionButtonsType = {
     row: PackType
 }

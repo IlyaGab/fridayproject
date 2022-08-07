@@ -19,7 +19,7 @@ export const NumberOfCards = (): ReactElement => {
         return `${{value}}`
     }
 
-    const handleChange = (event: Event, newValue: number | number[]): void => {
+    const handleChange = (event:  React.SyntheticEvent | Event, newValue: number | number[]): void => {
         setValue(newValue as number[])
     }
 
