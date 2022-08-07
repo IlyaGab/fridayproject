@@ -11,11 +11,10 @@ import {Menu} from "./Menu/Menu";
 export const HeaderPacksList = (): ReactElement => {
     const dispatch = useAppDispatch()
 
-    const packUserId = useAppSelector(state => state.cardsList.packUserId)
-    const userId = useAppSelector(state => state.profileReducer._id)
     const cardsPack_id = useAppSelector(state => state.cardsList.queryParams.cardsPack_id)
-    const packName = useAppSelector(state => state.cardsList.packName)
-    const cardsCount = useAppSelector(state => state.cardsList.cardsCount)
+    const packName = useAppSelector(state => state.cardsList.infoCardsPack.packName)
+    const cardsCount = useAppSelector(state => state.cardsList.infoCardsPack.cardsCount)
+    const isMyCards = useAppSelector(state => state.cardsList.infoCardsPack.isMyCards)
 
     const [showMenu, setShowMenu] = useState<boolean>(false)
 
@@ -26,14 +25,11 @@ export const HeaderPacksList = (): ReactElement => {
     const handleSetShowMenu = () => {
         setShowMenu(!showMenu)
     }
-
-    const isMyCards = userId === packUserId
-
     return (
         <div className={styles.header}>
             <h2>
                 {packName} {isMyCards &&
-                <button className={styles.btnMenu} onClick={handleSetShowMenu} >
+                <button className={styles.btnMenu} onClick={handleSetShowMenu}>
                     <FontAwesomeIcon className={styles.icon} icon={faEllipsisVertical} size="sm"/>
                 </button>}
                 {showMenu && <Menu/>}

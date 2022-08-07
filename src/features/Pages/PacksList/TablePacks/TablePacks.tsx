@@ -12,11 +12,7 @@ import {useAppSelector} from "../../../../common/hooks/useAppSelector";
 import {useAppDispatch} from "../../../../common/hooks/useAppDispatch";
 import {PATH} from "../../../../common/components/RoutesList/RoutersList";
 import {useNavigate} from "react-router-dom";
-import {
-    setCardsCountAC,
-    setCardsQueryParamsAC, setIsMyCardsAC,
-    setPackNameAC
-} from "../../CardsList/cardsListReducer";
+import {setCardsQueryParamsAC, setInfoCardsPackAC} from "../../CardsList/cardsListReducer";
 import {SortIcon} from "./SortIcon/SortIcon";
 import {PacksActionButtons} from "./PacksActionButtons/PacksActionButtons";
 
@@ -43,19 +39,15 @@ export const TablePacks = (): ReactElement => {
 
     const navigateToCardsPackHandler = (cardsPack_id: string, packName: string, cardsCount: number, user_id: string) => (): void => {
         navigate(PATH.CardsList)
+        debugger
         dispatch(setCardsQueryParamsAC({cardsPack_id}))
-        dispatch(setPackNameAC(packName))
-        dispatch(setCardsCountAC(cardsCount))
-        if(user_id === userId) {
-            dispatch(setIsMyCardsAC(true))
-        } else {
-            dispatch(setIsMyCardsAC(false))
-        }
+        const isMyCards = user_id === userId
+        dispatch(setInfoCardsPackAC({packName, cardsCount, isMyCards}))
     }
 
     useEffect(() => {
         dispatch(getPackListTC())
-    }, [ dispatch, sortPacks, min, max, page, pageCount, user_id])
+    }, [dispatch, sortPacks, min, max, page, pageCount, user_id])
 
     return (
         <div className={styles.tablePacks}>

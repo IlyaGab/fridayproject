@@ -27,9 +27,12 @@ const initialState = {
         page: 1,
         pageCount: 5,
     },
-    packName: "",
-    cardsCount: 0,
-    isMyCards: false
+    infoCardsPack: {
+        packName: "",
+        cardsCount: 0,
+        isMyCards: false,
+        packId: ""
+    }
 }
 
 export const cardsListReducer = (state: InitialStateType = initialState, action: CardsListActionType): InitialStateType => {
@@ -45,20 +48,13 @@ export const cardsListReducer = (state: InitialStateType = initialState, action:
                     ...action.payload
                 }
             }
-        case "CARDS-LIST/SET-PACK-NAME":
+        case "CARDS-LIST/SET-INFO-CARDS-PACK":
             return {
                 ...state,
-                ...action.payload
-            }
-        case "CARDS-LIST/SET-CARDS-COUNT":
-            return {
-                ...state,
-                ...action.payload
-            }
-        case "CARDS-LIST/SET-IS-MY-CARDS":
-            return {
-                ...state,
-                ...action.payload
+                infoCardsPack: {
+                    ...state.infoCardsPack,
+                    ...action.payload.infoCardsPack
+                }
             }
         default:
             return state
@@ -80,24 +76,10 @@ export const setCardsQueryParamsAC = (queryParams: CardsQueryParamsActionType) =
     }
 }) as const
 
-export const setPackNameAC = (packName: string) => ({
-    type: "CARDS-LIST/SET-PACK-NAME",
+export const setInfoCardsPackAC = (infoCardsPack: InfoCardsPackType) => ({
+    type: "CARDS-LIST/SET-INFO-CARDS-PACK",
     payload: {
-        packName
-    }
-}) as const
-
-export const setCardsCountAC = (cardsCount: number) => ({
-    type: "CARDS-LIST/SET-CARDS-COUNT",
-    payload: {
-        cardsCount
-    }
-}) as const
-
-export const setIsMyCardsAC = (isMyCards: boolean) => ({
-    type: "CARDS-LIST/SET-IS-MY-CARDS",
-    payload: {
-        isMyCards
+        infoCardsPack
     }
 }) as const
 
@@ -118,7 +100,7 @@ export const createCardTC = (card: CardPostType): AppThunkType => async (dispatc
     try {
         dispatch(setAppStatusAC("loading"))
         await cardsAPI.createCard(card)
-        dispatch(setCardsCountAC(getState().cardsList.cardsCount + 1))
+        dispatch(setInfoCardsPackAC({cardsCount: getState().cardsList.infoCardsPack.cardsCount + 1}))
         dispatch(getCardsListTC())
         dispatch(setAppStatusAC("succeeded"))
     } catch (e) {
@@ -156,9 +138,7 @@ export const changeCardTC = (card: CardPutType): AppThunkType => async (dispatch
 export type CardsListActionType =
     ReturnType<typeof getCardsListAC>
     | ReturnType<typeof setCardsQueryParamsAC>
-    | ReturnType<typeof setPackNameAC>
-    | ReturnType<typeof setCardsCountAC>
-    | ReturnType<typeof setIsMyCardsAC>
+    | ReturnType<typeof setInfoCardsPackAC>
 
 type InitialStateType = typeof initialState
 
@@ -171,4 +151,10 @@ type CardsQueryParamsActionType = {
     sortCards?: string
     page?: number
     pageCount?: number
+}
+
+type InfoCardsPackType = {
+    packName?: string
+    cardsCount?: number
+    isMyCards?: boolean
 }

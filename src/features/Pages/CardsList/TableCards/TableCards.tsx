@@ -18,11 +18,10 @@ export const TableCards = (): ReactElement => {
     const dispatch = useAppDispatch()
 
     const rows = useAppSelector(state => state.cardsList.cards)
-    const isMyCards = useAppSelector(state => state.cardsList.isMyCards)
-
+    const isMyCards = useAppSelector(state => state.cardsList.infoCardsPack.isMyCards)
     useEffect(() => {
         dispatch(getCardsListTC())
-    }, [dispatch])
+    }, [dispatch ])
 
     return (
         <div className={styles.tableCards}>

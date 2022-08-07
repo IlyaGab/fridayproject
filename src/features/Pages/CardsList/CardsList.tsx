@@ -16,7 +16,7 @@ export const CardsList = (): ReactElement => {
     const dispatch = useAppDispatch()
 
     const cardsTotalCount = useAppSelector(state => state.cardsList.cardsTotalCount)
-    const cardsCount = useAppSelector(state => state.cardsList.cardsCount)
+    const cardsCount = useAppSelector(state => state.cardsList.infoCardsPack.cardsCount)
     const isLoggedIn = useAppSelector(state => state.loginReducer.isLoggedIn)
 
     const changePagination = useCallback((page: number, pageCount: number): void => {
@@ -26,7 +26,7 @@ export const CardsList = (): ReactElement => {
     if (!isLoggedIn) {
         return <Navigate to={PATH.Login}/>
     }
-
+    console.log(cardsCount)
     return (
         <div className={styles.pack}>
             <div className={styles.container}>
