@@ -4,12 +4,12 @@ import Button from '@mui/material/Button';
 import Checkbox from '@mui/material/Checkbox';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import TextField from '@mui/material/TextField';
-import {useFormik} from 'formik';
 import {useAppDispatch} from '../../../common/hooks/useAppDispatch';
-import {createCardsPackTC} from '../../Pages/PacksList/packsListReducer';
 import Modal from '@mui/material/Modal';
 import {IconButton} from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
+import {createCardsPackTC} from '../../Pages/PacksList/packsListReducer';
+import {useFormik} from 'formik';
 
 export const AddNewPackModal = () => {
     const [open, setOpen] = useState<boolean>(false)
@@ -35,6 +35,7 @@ export const AddNewPackModal = () => {
         onSubmit: values => {
             dispatch(createCardsPackTC(values))
             formik.resetForm()
+            handleClose()
         }
     })
 
@@ -43,7 +44,7 @@ export const AddNewPackModal = () => {
             <Button
                 variant={'contained'}
                 color={'primary'}
-                style={{borderRadius: '30px', padding: '5px 30px'}}
+                className={styles.addButton}
                 onClick={handleOpen}
             >
                 Add new pack

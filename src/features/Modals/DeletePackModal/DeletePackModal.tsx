@@ -25,12 +25,12 @@ export const DeletePackModal: React.FC<PropsType> = ({userId, row}) => {
 
     const handleClick = () => {
         dispatch(deleteCardsPackTC(row._id))
+        handleClose()
     }
 
     return (
         <>
             <button
-                // onClick={deleteCardsPackHandler(row._id)}
                 onClick={handleOpen}
                 className={styles.iconButton}
                 disabled={userId !== row.user_id}

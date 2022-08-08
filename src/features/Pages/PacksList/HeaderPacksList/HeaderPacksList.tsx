@@ -1,6 +1,6 @@
 import React, {ReactElement} from 'react';
 import styles from './headerPacksList.module.scss';
-import {AddNewPackModal} from '../../../modals/AddNewPackModal/AddNewPackModal';
+import {AddNewPackModal} from '../../../Modals/AddNewPackModal/AddNewPackModal';
 
 export const HeaderPacksList = (): ReactElement => {
 

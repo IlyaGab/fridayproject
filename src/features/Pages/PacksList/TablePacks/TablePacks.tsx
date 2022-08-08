@@ -20,8 +20,8 @@ import {useNavigate} from "react-router-dom";
 import {getCardsListTC, setCardsQueryParamsAC} from "../../CardsList/cardsListReducer";
 import {setAppStatusAC} from "../../../../app/appReducer";
 import {SortIcon} from "./Sort/SortIcon";
-import { EditPackModal } from "../../../modals/EditPackModal/EditPackModal";
-import { DeletePackModal } from "../../../modals/DeletePackModal/DeletePackModal";
+import { EditPackModal } from "../../../Modals/EditPackModal/EditPackModal";
+import { DeletePackModal } from "../../../Modals/DeletePackModal/DeletePackModal";
 
 export const TablePacks = (): ReactElement => {
     const dispatch = useAppDispatch()

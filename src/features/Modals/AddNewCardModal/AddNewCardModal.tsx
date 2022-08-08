@@ -1,25 +1,19 @@
 import React, {useState} from 'react';
-import styles from './editPackModal.module.scss'
-import {useAppDispatch} from '../../../common/hooks/useAppDispatch';
-import {useFormik} from 'formik';
-import {changeNameCardsPackTC} from '../../Pages/PacksList/packsListReducer';
+import styles from './addNewCardModal.module.scss'
 import Button from '@mui/material/Button';
 import Modal from '@mui/material/Modal';
 import {IconButton} from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
-import {faPencil} from '@fortawesome/free-solid-svg-icons';
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {PackType} from '../../../api/packsAPI';
+import {useAppDispatch} from '../../../common/hooks/useAppDispatch';
+import {useFormik} from 'formik';
+import {createCardTC} from '../../Pages/CardsList/cardsListReducer';
 
 type PropsType = {
-    userId: string
-    row: PackType
+    cardsPackId: string
 }
 
-export const EditPackModal: React.FC<PropsType> = ({userId, row}) => {
+export const AddNewCardModal: React.FC<PropsType> = ({cardsPackId}) => {
     const [open, setOpen] = useState<boolean>(false)
     const handleOpen = () => setOpen(true)
     const handleClose = () => setOpen(false)
@@ -28,34 +22,39 @@ export const EditPackModal: React.FC<PropsType> = ({userId, row}) => {
 
     const formik = useFormik({
         initialValues: {
-            name: row.name,
-            private: false
+            cardsPack_id: cardsPackId,
+            question: '',
+            answer: ''
         },
         validate: (values) => {
             const errors: FormikErrorType = {}
 
-            if (!values.name) {
-                errors.name = 'Name is required'
+            if (!values.question) {
+                errors.question = 'Question is required'
+            }
+            if (!values.answer) {
+                errors.answer = 'Answer is required'
             }
 
             return errors
         },
         onSubmit: values => {
-            dispatch(changeNameCardsPackTC(row._id, values.name, values.private))
+            dispatch(createCardTC(values))
+            formik.resetForm()
+            handleClose()
         }
     })
+
     return (
-        <>
-            <button
+        <div>
+            <Button
+                variant={'contained'}
+                color={'primary'}
+                className={styles.buttonButton}
                 onClick={handleOpen}
-                className={styles.iconButton}
-                disabled={userId !== row.user_id}
             >
-                <FontAwesomeIcon
-                    className={styles.icon}
-                    icon={faPencil} size="lg"
-                />
-            </button>
+                Add new card
+            </Button>
             <Modal
                 open={open}
                 onClose={handleClose}
@@ -64,7 +63,7 @@ export const EditPackModal: React.FC<PropsType> = ({userId, row}) => {
             >
                 <div className={styles.box}>
                     <div className={styles.header}>
-                        <div className={styles.title}>Edit pack</div>
+                        <div className={styles.title}>Add new card</div>
                         <IconButton sx={{color: 'black', padding: '0'}} onClick={handleClose}>
                             <CloseIcon/>
                         </IconButton>
@@ -73,19 +72,20 @@ export const EditPackModal: React.FC<PropsType> = ({userId, row}) => {
                         <form onSubmit={formik.handleSubmit}>
                             <TextField
                                 variant="standard"
-                                label="Name Pack"
+                                label="Question"
                                 sx={{width: '100%'}}
-                                {...formik.getFieldProps('name')}
+                                {...formik.getFieldProps('question')}
                             />
                             {
-                                formik.touched.name &&
-                                formik.errors.name &&
-                                <div style={{color: 'red'}}>{formik.errors.name}</div>
+                                formik.touched.question &&
+                                formik.errors.question &&
+                                <div style={{color: 'red'}}>{formik.errors.question}</div>
                             }
-                            <FormControlLabel
-                                control={<Checkbox {...formik.getFieldProps('private')}/>}
-                                label="Private pack"
-                                sx={{marginTop: '30px'}}
+                            <TextField
+                                variant="standard"
+                                label="Answer"
+                                sx={{width: '100%'}}
+                                {...formik.getFieldProps('answer')}
                             />
                             <div className={styles.buttons}>
                                 <Button
@@ -108,11 +108,11 @@ export const EditPackModal: React.FC<PropsType> = ({userId, row}) => {
                     </div>
                 </div>
             </Modal>
-        </>
+        </div>
     )
 }
 
 type FormikErrorType = {
-    name?: string
-    private?: boolean
+    question?: string
+    answer?: string
 }
