@@ -8,6 +8,7 @@ import {
 import {AppStateType, AppThunkType} from "../../../app/store"
 import {setAppStatusAC} from "../../../app/appReducer";
 import {handleServerNetworkError} from "../../../common/utils/error-utils";
+import {gradeAPI, GradeParamsType, UpdateGradeResponseType} from "../../../api/gradeAPI";
 
 const initialState = {
     cards: [] as CardType[],
@@ -56,6 +57,11 @@ export const cardsListReducer = (state: InitialStateType = initialState, action:
                     ...action.payload.infoCardsPack
                 }
             }
+        case "CARDS-LIST/UPDATE-GRADE":
+            return {
+                ...state,
+                cards: state.cards.map(card => card._id === action.payload.updatedGrade.card_id ? {...card, grade: action.payload.updatedGrade.grade} : card)
+            }
         default:
             return state
     }
@@ -80,6 +86,13 @@ export const setInfoCardsPackAC = (infoCardsPack: InfoCardsPackType) => ({
     type: "CARDS-LIST/SET-INFO-CARDS-PACK",
     payload: {
         infoCardsPack
+    }
+}) as const
+
+export const updateGradeAC = (updatedGrade: UpdateGradeResponseType) => ({
+    type: "CARDS-LIST/UPDATE-GRADE",
+    payload: {
+        updatedGrade
     }
 }) as const
 
@@ -133,12 +146,25 @@ export const changeCardTC = (card: CardPutType): AppThunkType => async (dispatch
     }
 }
 
+export const updateGradeTC = (gradeParams: GradeParamsType): AppThunkType => async (dispatch) => {
+    try {
+        dispatch(setAppStatusAC("loading"))
+        const res = await gradeAPI.updateGrade(gradeParams)
+        dispatch(updateGradeAC(res.data))
+        dispatch(setAppStatusAC("succeeded"))
+    } catch (e) {
+        handleServerNetworkError(e, dispatch)
+        dispatch(setAppStatusAC("failed"))
+    }
+}
+
 
 //Types
 export type CardsListActionType =
     ReturnType<typeof getCardsListAC>
     | ReturnType<typeof setCardsQueryParamsAC>
     | ReturnType<typeof setInfoCardsPackAC>
+    | ReturnType<typeof updateGradeAC>
 
 type InitialStateType = typeof initialState
 

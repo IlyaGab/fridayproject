@@ -23,6 +23,27 @@
         @include note();
         margin-top: 15px;
       }
+
+      .answer {
+        margin-top: 35px;
+
+        span {
+          font-weight: 600;
+          font-size: 16px;
+          line-height: 24px;
+        }
+
+        form {
+          margin-top: 25px;
+
+          .inputForm {
+            display: block;
+            margin-top: 10px;
+          }
+        }
+
+
+      }
     }
   }
 }

@@ -9,6 +9,7 @@ export const ShowPacksCards = (): ReactElement => {
 
     const isMyCardsPack = useAppSelector(state => state.packsList.isMyCardsPack)
     const user_id = useAppSelector(state => state.profileReducer._id)
+    const status = useAppSelector(state => state.appReducer.status)
 
     const [showMyCards, setShowMyCards] = useState<boolean>(isMyCardsPack)
 
@@ -27,10 +28,14 @@ export const ShowPacksCards = (): ReactElement => {
                 Show packs cards
             </h3>
             <button className={showMyCards ? `${styles.btn} ${styles.btnActive}` : styles.btn}
-                    onClick={() => setShowMyCards(true)}>My
+                    onClick={() => setShowMyCards(true)}
+                    disabled={status === "loading"}
+            >My
             </button>
             <button className={!showMyCards ? `${styles.btn} ${styles.btnActive}` : styles.btn}
-                    onClick={() => setShowMyCards(false)}>All
+                    onClick={() => setShowMyCards(false)}
+                    disabled={status === "loading"}
+            >All
             </button>
         </div>
     )

@@ -16,6 +16,7 @@ export const cardsAPI = {
     }
 }
 
+//Types
 export type GetCardsResponseType = {
     cardPacks: CardType[]
     cardsTotalCount: number

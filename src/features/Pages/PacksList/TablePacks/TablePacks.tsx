@@ -39,7 +39,6 @@ export const TablePacks = (): ReactElement => {
 
     const navigateToCardsPackHandler = (cardsPack_id: string, packName: string, cardsCount: number, user_id: string) => (): void => {
         navigate(PATH.CardsList)
-        debugger
         dispatch(setCardsQueryParamsAC({cardsPack_id}))
         const isMyCards = user_id === userId
         dispatch(setInfoCardsPackAC({packName, cardsCount, isMyCards}))

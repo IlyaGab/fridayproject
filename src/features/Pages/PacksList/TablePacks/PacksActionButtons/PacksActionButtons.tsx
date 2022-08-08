@@ -6,16 +6,31 @@ import {useAppSelector} from "../../../../../common/hooks/useAppSelector";
 import {PackType} from "../../../../../api/packsAPI";
 import {DeletePackModal} from "../../../../Modals/DeletePackModal/DeletePackModal";
 import {EditPackModal} from "../../../../Modals/EditPackModal/EditPackModal";
-
+import {useNavigate} from "react-router-dom";
+import {PATH} from "../../../../../common/components/RoutesList/RoutersList";
+import {useAppDispatch} from "../../../../../common/hooks/useAppDispatch";
+import {getCardsListTC, setCardsQueryParamsAC} from "../../../CardsList/cardsListReducer";
 
 export const PacksActionButtons = ({row}: ActionButtonsType): ReactElement => {
+    const dispatch = useAppDispatch()
+
     const userId = useAppSelector(state => state.profileReducer._id)
+
+    const navigate = useNavigate()
+
+    const navigateToLearnHandler = (): void => {
+        debugger
+        navigate(PATH.Learn)
+        dispatch(setCardsQueryParamsAC({cardsPack_id: row._id}))
+        dispatch(getCardsListTC())
+    }
 
     return (
         <div>
             <DeletePackModal userId={userId} row={row}/>
             <EditPackModal userId={userId} row={row}/>
             <button className={styles.btn}
+                    onClick={navigateToLearnHandler}
             ><FontAwesomeIcon
                 className={styles.icon}
                 icon={faGraduationCap} size="lg"/>
