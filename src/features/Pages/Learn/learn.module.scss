@@ -1,0 +1,28 @@
+@import "../../../common/styles/mixins";
+
+.learnPage {
+  @include page();
+
+  .container {
+    @include container();
+
+    h2 {
+      @include title();
+    }
+
+    .learn {
+      @include block(20px);
+
+      span {
+        font-weight: 600;
+        font-size: 16px;
+        line-height: 24px;
+      }
+
+      .note {
+        @include note();
+        margin-top: 15px;
+      }
+    }
+  }
+}

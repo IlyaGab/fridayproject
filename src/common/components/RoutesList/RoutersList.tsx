@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {Route, Routes} from "react-router-dom";
 import {LoginPage} from "../../../features/Pages/LoginPage/LoginPage";
 import {RegistrationPage} from "../../../features/Pages/RegistrationPage/RegistrationPage";
@@ -10,17 +10,19 @@ import {ProfilePage} from "../../../features/Pages/ProfilePage/ProfilePage";
 import {CheckEmailPage} from "../../../features/Pages/CheckEmailPage/CheckEmailPage";
 import {ErrorPage} from "../../../features/Pages/ErrorPage/ErrorPage";
 import {PacksList} from "../../../features/Pages/PacksList/PacksList";
-import {CardsList} from '../../../features/Pages/CardsList/CardsList';
+import {CardsList} from "../../../features/Pages/CardsList/CardsList";
+import {Learn} from "../../../features/Pages/Learn/Learn";
 
 export enum PATH {
-    ChangePass = '/change-pass-page/*',
-    Login = '/',
-    ForgotPass = '/recovery-pass-page',
-    Profile = '/profile-page',
-    Registration = '/registration-page',
-    CheckEmail = '/check-email-page',
-    PacksList = '/packs-list',
-    CardsList = '/cards-list',
+    ChangePass = "/change-pass-page/*",
+    Login = "/",
+    ForgotPass = "/recovery-pass-page",
+    Profile = "/profile-page",
+    Registration = "/registration-page",
+    CheckEmail = "/check-email-page",
+    PacksList = "/packs-list",
+    CardsList = "/cards-list",
+    Learn = "/learn",
 }
 
 export const RoutersList = () => {
@@ -34,7 +36,8 @@ export const RoutersList = () => {
             <Route path={PATH.CheckEmail} element={<CheckEmailPage/>}/>
             <Route path={PATH.PacksList} element={<PacksList/>}/>
             <Route path={PATH.CardsList} element={<CardsList/>}/>
-            <Route path={'/*'} element={<ErrorPage/>}/>
+            <Route path={PATH.Learn} element={<Learn/>}/>
+            <Route path={"/*"} element={<ErrorPage/>}/>
         </Routes>
     )
 }

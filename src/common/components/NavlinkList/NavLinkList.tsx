@@ -11,6 +11,7 @@ export const NavLinkList = () => {
             <NavLink className={styles.navLink} to={PATH.Profile}>Profile</NavLink>
             <NavLink className={styles.navLink} to={PATH.CheckEmail}>Check Email</NavLink>
             <NavLink className={styles.navLink} to={PATH.CardsList}>Cards</NavLink>
+            <NavLink className={styles.navLink} to={PATH.Learn}>Learn</NavLink>
             <NavLink className={styles.navLink} to={'/*'}>Error 404</NavLink>
         </div>
     )
