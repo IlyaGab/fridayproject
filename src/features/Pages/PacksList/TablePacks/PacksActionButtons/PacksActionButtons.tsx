@@ -1,44 +1,20 @@
 import React, {ReactElement} from "react";
 import styles from "./packsActionButtons.module.scss";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faGraduationCap, faPencil, faTrashCan} from "@fortawesome/free-solid-svg-icons";
-import {changeNameCardsPackTC, deleteCardsPackTC} from "../../packsListReducer";
-import {useAppDispatch} from "../../../../../common/hooks/useAppDispatch";
+import {faGraduationCap} from "@fortawesome/free-solid-svg-icons";
 import {useAppSelector} from "../../../../../common/hooks/useAppSelector";
 import {PackType} from "../../../../../api/packsAPI";
+import {DeletePackModal} from "../../../../Modals/DeletePackModal/DeletePackModal";
+import {EditPackModal} from "../../../../Modals/EditPackModal/EditPackModal";
 
 
 export const PacksActionButtons = ({row}: ActionButtonsType): ReactElement => {
-    const dispatch = useAppDispatch()
-
     const userId = useAppSelector(state => state.profileReducer._id)
-
-    const deleteCardsPackHandler = (id: string) => (): void => {
-        dispatch(deleteCardsPackTC(id))
-    }
-
-    const changeNameCardsPackHandler = (id: string, name: string) => (): void => {
-        dispatch(changeNameCardsPackTC(id, name))
-    }
 
     return (
         <div>
-            <button onClick={deleteCardsPackHandler(row._id)}
-                    className={styles.btn}
-                    disabled={userId !== row.user_id}
-            ><FontAwesomeIcon
-                className={styles.icon}
-                icon={faTrashCan} size="lg"
-            />
-            </button>
-            <button
-                onClick={changeNameCardsPackHandler(row._id, "New name")}
-                className={styles.btn}
-                disabled={userId !== row.user_id}
-            ><FontAwesomeIcon
-                className={styles.icon}
-                icon={faPencil} size="lg"/>
-            </button>
+            <DeletePackModal userId={userId} row={row}/>
+            <EditPackModal userId={userId} row={row}/>
             <button className={styles.btn}
             ><FontAwesomeIcon
                 className={styles.icon}

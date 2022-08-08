@@ -23,7 +23,7 @@ export const DeletePackModal: React.FC<PropsType> = ({userId, row}) => {
 
     const dispatch = useAppDispatch()
 
-    const handleClick = () => {
+    const deleteCardsPackHandler = () => {
         dispatch(deleteCardsPackTC(row._id))
         handleClose()
     }
@@ -69,7 +69,7 @@ export const DeletePackModal: React.FC<PropsType> = ({userId, row}) => {
                             <Button
                                 variant={'contained'}
                                 color={'error'}
-                                onClick={handleClick}
+                                onClick={deleteCardsPackHandler}
                                 className={styles.button}
                             >
                                 Delete
