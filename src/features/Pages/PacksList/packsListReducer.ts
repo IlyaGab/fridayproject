@@ -77,8 +77,8 @@ export const deleteCardsPackTC = (id: string): AppThunkType => (dispatch) => {
         })
 }
 
-export const changeNameCardsPackTC = (id: string, name: string): AppThunkType => (dispatch) => {
-    packsAPI.changeNameCardsPack(id, name)
+export const changeNameCardsPackTC = (id: string, name: string, privateValue: boolean): AppThunkType => (dispatch) => {
+    packsAPI.changeNameCardsPack(id, name, privateValue)
         .then(() => {
             dispatch(getPackListTC())
         })

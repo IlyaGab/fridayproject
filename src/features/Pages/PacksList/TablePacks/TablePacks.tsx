@@ -8,13 +8,11 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import React, {ReactElement, useEffect, useState} from "react";
 import {
-    changeNameCardsPackTC,
-    deleteCardsPackTC,
     getPackListTC,
     setQueryParamsAC
 } from "../packsListReducer";
 import {useAppSelector} from "../../../../common/hooks/useAppSelector";
-import {faGraduationCap, faPencil, faTrashCan} from "@fortawesome/free-solid-svg-icons";
+import {faGraduationCap} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {useAppDispatch} from "../../../../common/hooks/useAppDispatch";
 import {PATH} from "../../../../common/components/RoutesList/RoutersList";
@@ -22,6 +20,8 @@ import {useNavigate} from "react-router-dom";
 import {getCardsListTC, setCardsQueryParamsAC} from "../../CardsList/cardsListReducer";
 import {setAppStatusAC} from "../../../../app/appReducer";
 import {SortIcon} from "./Sort/SortIcon";
+import { EditPackModal } from "../../../modals/EditPackModal/EditPackModal";
+import { DeletePackModal } from "../../../modals/DeletePackModal/DeletePackModal";
 
 export const TablePacks = (): ReactElement => {
     const dispatch = useAppDispatch()
@@ -36,14 +36,6 @@ export const TablePacks = (): ReactElement => {
         sortValue === 0 ? setSortValue(1) : setSortValue(0)
         dispatch(setQueryParamsAC({sortPacks: sortValue, sortPacksName: sortPacksName}))
         dispatch(getPackListTC())
-    }
-
-    const deleteCardsPackHandler = (id: string) => (): void => {
-        dispatch(deleteCardsPackTC(id))
-    }
-
-    const changeNameCardsPackHandler = (id: string, name: string) => (): void => {
-        dispatch(changeNameCardsPackTC(id, name))
     }
 
     const navigateToCardsPackHandler = (cardsPack_id: string, packName: string, cardsCount: number) => (): void => {
@@ -97,22 +89,8 @@ export const TablePacks = (): ReactElement => {
                                 <TableCell align="center">{row.updated}</TableCell>
                                 <TableCell align="center">{row.created}</TableCell>
                                 <TableCell align="center">
-                                    <button onClick={deleteCardsPackHandler(row._id)}
-                                            className={styles.btn}
-                                            disabled={userId !== row.user_id}
-                                    ><FontAwesomeIcon
-                                        className={styles.icon}
-                                        icon={faTrashCan} size="lg"
-                                    />
-                                    </button>
-                                    <button
-                                        onClick={changeNameCardsPackHandler(row._id, 'New name')}
-                                        className={styles.btn}
-                                        disabled={userId !== row.user_id}
-                                    ><FontAwesomeIcon
-                                        className={styles.icon}
-                                        icon={faPencil} size="lg"/>
-                                    </button>
+                                    <DeletePackModal userId={userId} row={row}/>
+                                    <EditPackModal userId={userId} row={row}/>
                                     <button className={styles.btn}
                                             disabled={userId !== row.user_id}
                                     ><FontAwesomeIcon
