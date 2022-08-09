@@ -46,3 +46,6 @@ export type AppRootActionsType =
     | CardsListActionType
 export type AppDispatchType = ThunkDispatch<AppStateType, unknown, AppRootActionsType>
 export type AppThunkType<ReturnType = void> = ThunkAction<ReturnType, AppStateType, unknown, AppRootActionsType>
+
+// @ts-ignore
+window.store = store

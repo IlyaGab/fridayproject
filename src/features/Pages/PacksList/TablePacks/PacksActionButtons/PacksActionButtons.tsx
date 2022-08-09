@@ -19,7 +19,6 @@ export const PacksActionButtons = ({row}: ActionButtonsType): ReactElement => {
     const navigate = useNavigate()
 
     const navigateToLearnHandler = (): void => {
-        debugger
         navigate(PATH.Learn)
         dispatch(setCardsQueryParamsAC({cardsPack_id: row._id}))
         dispatch(getCardsListTC())

@@ -1,6 +1,6 @@
-import React, {ReactElement, useEffect, useState} from "react";
+import React, {ReactElement} from "react";
 import {useAppDispatch} from "../../../../../common/hooks/useAppDispatch";
-import {setQueryParamsAC} from "../../packsListReducer";
+import {setIsMyCardsPackAC, setQueryParamsAC} from "../../packsListReducer";
 import styles from "./showPacksCards.module.scss";
 import {useAppSelector} from "../../../../../common/hooks/useAppSelector";
 
@@ -11,29 +11,28 @@ export const ShowPacksCards = (): ReactElement => {
     const user_id = useAppSelector(state => state.profileReducer._id)
     const status = useAppSelector(state => state.appReducer.status)
 
-    const [showMyCards, setShowMyCards] = useState<boolean>(isMyCardsPack)
+    const handleShowMyCards = () => {
+        dispatch(setQueryParamsAC({user_id}))
+        dispatch(setIsMyCardsPackAC(true))
+    }
 
-    useEffect(() => {
-        if (showMyCards) {
-            dispatch(setQueryParamsAC({user_id}))
-        } else {
-            dispatch(setQueryParamsAC({user_id: ""}))
-        }
-    }, [dispatch, showMyCards, user_id])
-
+    const handleShowAllCards = () => {
+        dispatch(setQueryParamsAC({user_id: ""}))
+        dispatch(setIsMyCardsPackAC(false))
+    }
 
     return (
         <div className={styles.showPacksCards}>
             <h3>
                 Show packs cards
             </h3>
-            <button className={showMyCards ? `${styles.btn} ${styles.btnActive}` : styles.btn}
-                    onClick={() => setShowMyCards(true)}
+            <button className={isMyCardsPack ? `${styles.btn} ${styles.btnActive}` : styles.btn}
+                    onClick={handleShowMyCards}
                     disabled={status === "loading"}
             >My
             </button>
-            <button className={!showMyCards ? `${styles.btn} ${styles.btnActive}` : styles.btn}
-                    onClick={() => setShowMyCards(false)}
+            <button className={!isMyCardsPack ? `${styles.btn} ${styles.btnActive}` : styles.btn}
+                    onClick={handleShowAllCards}
                     disabled={status === "loading"}
             >All
             </button>

@@ -2,13 +2,13 @@ import React, {ReactElement, useCallback} from "react";
 import styles from "./packsList.module.scss"
 import {Options} from "./Options/Options";
 import {TablePacks} from "./TablePacks/TablePacks";
-import {Pagination} from "../../../common/components/Pagination/Pagination";
 import {HeaderPacksList} from "./HeaderPacksList/HeaderPacksList";
 import {useAppDispatch} from "../../../common/hooks/useAppDispatch";
 import {setQueryParamsAC} from "./packsListReducer";
 import {useAppSelector} from "../../../common/hooks/useAppSelector";
 import {Navigate} from "react-router-dom";
 import {PATH} from "../../../common/components/RoutesList/RoutersList";
+import {Pagination} from "../../../common/components/Pagination/Pagination";
 
 export const PacksList = (): ReactElement => {
     const dispatch = useAppDispatch()
@@ -20,7 +20,6 @@ export const PacksList = (): ReactElement => {
         (page: number, pageCount: number) => {
             dispatch(setQueryParamsAC({page, pageCount}))
         }, [dispatch])
-
 
     if (!isLoggedIn) {
         return <Navigate to={PATH.Login}/>

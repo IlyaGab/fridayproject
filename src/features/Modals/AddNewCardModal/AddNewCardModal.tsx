@@ -50,6 +50,7 @@ export const AddNewCardModal: React.FC<PropsType> = ({cardsPackId}) => {
             <Button
                 variant={'contained'}
                 color={'primary'}
+                style={{borderRadius: "30px", padding: "5px 30px"}}
                 className={styles.buttonButton}
                 onClick={handleOpen}
             >

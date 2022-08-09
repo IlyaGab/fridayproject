@@ -1,9 +1,9 @@
-import React, {ChangeEvent, ReactElement, useEffect, useState} from "react";
+import React, {ChangeEvent, ReactElement, useState} from "react";
 import styles from "./learn.module.scss";
 import {BackButton} from "../../../common/components/BackButton/BackButton";
 import {Button} from "@mui/material";
 import {useAppDispatch} from "../../../common/hooks/useAppDispatch";
-import {getCardsListTC, updateGradeTC} from "../CardsList/cardsListReducer";
+import {updateGradeTC} from "../CardsList/cardsListReducer";
 import {getCard} from "../../../common/utils/getCards";
 import {useAppSelector} from "../../../common/hooks/useAppSelector";
 import {CardType} from "../../../api/cardsAPI";
@@ -25,13 +25,8 @@ export const Learn = (): ReactElement => {
     }
 
     const handleChangeRadioInput = (e: ChangeEvent<HTMLInputElement>) => {
-        // @ts-ignore
         setGrade(Number(e.currentTarget.value))
     }
-
-    useEffect(() => {
-        dispatch(getCardsListTC())
-    }, [dispatch])
 
     return (
         <div className={styles.learnPage}>

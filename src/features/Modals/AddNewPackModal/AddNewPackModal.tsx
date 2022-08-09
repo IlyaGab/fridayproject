@@ -45,6 +45,7 @@ export const AddNewPackModal = () => {
                 variant={'contained'}
                 color={'primary'}
                 className={styles.addButton}
+                style={{borderRadius: "30px", padding: "5px 30px"}}
                 onClick={handleOpen}
             >
                 Add new pack

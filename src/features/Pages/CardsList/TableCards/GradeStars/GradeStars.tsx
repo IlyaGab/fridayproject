@@ -4,7 +4,6 @@ import {faStar} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
 export const GradeStars = ({grade}:GradeStarsType): ReactElement => {
-
     return (
         <div>
             <FontAwesomeIcon
@@ -27,7 +26,6 @@ export const GradeStars = ({grade}:GradeStarsType): ReactElement => {
 }
 
 //Types
-
 type GradeStarsType = {
     grade: number
 }

@@ -8,7 +8,7 @@ import {
 import {AppStateType, AppThunkType} from "../../../app/store"
 import {setAppStatusAC} from "../../../app/appReducer";
 import {handleServerNetworkError} from "../../../common/utils/error-utils";
-import {gradeAPI, GradeParamsType, UpdateGradeResponseType} from "../../../api/gradeAPI";
+import {gradeAPI, GradeParamsType} from "../../../api/gradeAPI";
 
 const initialState = {
     cards: [] as CardType[],
@@ -60,7 +60,11 @@ export const cardsListReducer = (state: InitialStateType = initialState, action:
         case "CARDS-LIST/UPDATE-GRADE":
             return {
                 ...state,
-                cards: state.cards.map(card => card._id === action.payload.updatedGrade.card_id ? {...card, grade: action.payload.updatedGrade.grade} : card)
+                cards: state.cards.map(card => card._id === action.payload.updatedGrade.card_id ? {
+                    ...card,
+                    grade: action.payload.updatedGrade.grade,
+                    shots: action.payload.updatedGrade.shots
+                } : card)
             }
         default:
             return state
@@ -89,7 +93,7 @@ export const setInfoCardsPackAC = (infoCardsPack: InfoCardsPackType) => ({
     }
 }) as const
 
-export const updateGradeAC = (updatedGrade: UpdateGradeResponseType) => ({
+export const updateGradeAC = (updatedGrade: UpdateGradeType) => ({
     type: "CARDS-LIST/UPDATE-GRADE",
     payload: {
         updatedGrade
@@ -150,7 +154,7 @@ export const updateGradeTC = (gradeParams: GradeParamsType): AppThunkType => asy
     try {
         dispatch(setAppStatusAC("loading"))
         const res = await gradeAPI.updateGrade(gradeParams)
-        dispatch(updateGradeAC(res.data))
+        dispatch(updateGradeAC(res.data.updatedGrade))
         dispatch(setAppStatusAC("succeeded"))
     } catch (e) {
         handleServerNetworkError(e, dispatch)
@@ -183,4 +187,17 @@ type InfoCardsPackType = {
     packName?: string
     cardsCount?: number
     isMyCards?: boolean
+}
+
+type UpdateGradeType = {
+        _id: string
+        cardsPack_id: string
+        card_id: string
+        user_id: string
+        grade: number
+        shots: number
+        created: string
+        more_id: string
+        updated: string
+        __v: number
 }

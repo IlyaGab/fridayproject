@@ -37,6 +37,8 @@ export const packsListReducer = (state: InitialStateType = initialState, action:
                     ...action.payload
                 }
             }
+        case "PACKS-LIST/SET-IS-MY-CARDS-PACK":
+            return {...state, ...action.payload}
         default:
             return state
     }
@@ -54,6 +56,13 @@ export const setQueryParamsAC = (queryParams: QueryParamsThunkType) => ({
     type: "PACKS-LIST/SET-QUERY-PARAMS",
     payload: {
         ...queryParams
+    }
+}) as const
+
+export const setIsMyCardsPackAC = (isMyCardsPack: boolean) => ({
+    type: "PACKS-LIST/SET-IS-MY-CARDS-PACK",
+    payload: {
+        isMyCardsPack
     }
 }) as const
 
@@ -107,6 +116,7 @@ export const changeNameCardsPackTC = (id: string, name: string): AppThunkType =>
 //Types
 export type PacksListActionType = ReturnType<typeof getPacksListAC>
     | ReturnType<typeof setQueryParamsAC>
+    | ReturnType<typeof setIsMyCardsPackAC>
 type InitialStateType = typeof initialState
 type QueryParamsThunkType = {
     packName?: string
