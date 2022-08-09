@@ -1,29 +1,28 @@
 import React, {useState} from 'react';
-import styles from './deletePackModal.module.scss'
+import styles from './deleteCardModal.module.scss'
 import {useAppDispatch} from '../../../common/hooks/useAppDispatch';
 import {IconButton} from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import Button from '@mui/material/Button';
 import Modal from '@mui/material/Modal';
-import {PackType} from '../../../api/packsAPI';
 import {faTrashCan} from '@fortawesome/free-solid-svg-icons';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {deleteCardsPackTC} from '../../Pages/PacksList/packsListReducer';
+import {CardType} from '../../../api/cardsAPI';
+import {deleteCardTC} from '../../Pages/CardsList/cardsListReducer';
 
 type PropsType = {
-    userId: string
-    row: PackType
+    row: CardType
 }
 
-export const DeletePackModal: React.FC<PropsType> = ({userId, row}) => {
+export const DeleteCardModal: React.FC<PropsType> = ({row}) => {
     const [open, setOpen] = useState<boolean>(false)
     const handleOpen = () => setOpen(true)
     const handleClose = () => setOpen(false)
 
     const dispatch = useAppDispatch()
 
-    const deleteCardsPackHandler = (id: string) => (): void => {
-        dispatch(deleteCardsPackTC(id))
+    const deleteCardHandler = (id: string) => (): void => {
+        dispatch(deleteCardTC(id))
         handleClose()
     }
 
@@ -32,7 +31,6 @@ export const DeletePackModal: React.FC<PropsType> = ({userId, row}) => {
             <button
                 onClick={handleOpen}
                 className={styles.iconButton}
-                disabled={userId !== row.user_id}
             >
                 <FontAwesomeIcon
                     className={styles.icon}
@@ -47,15 +45,14 @@ export const DeletePackModal: React.FC<PropsType> = ({userId, row}) => {
             >
                 <div className={styles.box}>
                     <div className={styles.header}>
-                        <div className={styles.title}>Delete Pack</div>
+                        <div className={styles.title}>Delete Card</div>
                         <IconButton sx={{color: 'black', padding: '0'}} onClick={handleClose}>
                             <CloseIcon/>
                         </IconButton>
                     </div>
                     <div className={styles.content}>
                         <div className={styles.attention}>
-                            Do you really want to remove <b>{row.name}</b>? <br/>
-                            All cards will be deleted.
+                            Do you really want to remove <b>{row.question}</b>?
                         </div>
                         <div className={styles.buttons}>
                             <Button
@@ -68,7 +65,7 @@ export const DeletePackModal: React.FC<PropsType> = ({userId, row}) => {
                             <Button
                                 variant={'contained'}
                                 color={'error'}
-                                onClick={deleteCardsPackHandler(row._id)}
+                                onClick={deleteCardHandler(row._id)}
                                 className={styles.button}
                             >
                                 Delete
