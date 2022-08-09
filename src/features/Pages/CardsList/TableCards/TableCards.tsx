@@ -13,6 +13,7 @@ import styles from "./tableCards.module.scss";
 import {useAppDispatch} from "../../../../common/hooks/useAppDispatch";
 import {getCardsListTC} from "../cardsListReducer";
 import {CardsActionButtons} from "./CardsActionButtons/CardsActionButtons";
+import dayjs from 'dayjs';
 
 export const TableCards = (): ReactElement => {
     const dispatch = useAppDispatch()
@@ -46,7 +47,7 @@ export const TableCards = (): ReactElement => {
                                     {row.question}
                                 </TableCell>
                                 <TableCell align="left">{row.answer}</TableCell>
-                                <TableCell align="left">{row.updated}</TableCell>
+                                <TableCell align="left">{dayjs(row.updated).format('DD.MM.YYYY')}</TableCell>
                                 <TableCell align="left">{row.grade}</TableCell>
                                 {isMyCards && <TableCell align="center">
                                     <CardsActionButtons row={row}/>

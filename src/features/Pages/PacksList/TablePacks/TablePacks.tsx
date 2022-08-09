@@ -15,6 +15,7 @@ import {useNavigate} from "react-router-dom";
 import {setCardsQueryParamsAC, setInfoCardsPackAC} from "../../CardsList/cardsListReducer";
 import {SortIcon} from "./SortIcon/SortIcon";
 import {PacksActionButtons} from "./PacksActionButtons/PacksActionButtons";
+import dayjs from 'dayjs';
 
 export const TablePacks = (): ReactElement => {
     const dispatch = useAppDispatch()
@@ -86,7 +87,7 @@ export const TablePacks = (): ReactElement => {
                                     {row.name}
                                 </TableCell>
                                 <TableCell align="center">{row.cardsCount}</TableCell>
-                                <TableCell align="center">{row.updated}</TableCell>
+                                <TableCell align="center">{dayjs(row.updated).format('DD.MM.YYYY')}</TableCell>
                                 <TableCell align="center">{row.user_name}</TableCell>
                                 {}
                                 <TableCell align="center">
