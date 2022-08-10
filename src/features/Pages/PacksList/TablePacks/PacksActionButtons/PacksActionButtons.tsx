@@ -30,6 +30,7 @@ export const PacksActionButtons = ({row}: ActionButtonsType): ReactElement => {
             <EditPackModal userId={userId} row={row}/>
             <button className={styles.btn}
                     onClick={navigateToLearnHandler}
+                    disabled={row.cardsCount === 0}
             ><FontAwesomeIcon
                 className={styles.icon}
                 icon={faGraduationCap} size="lg"/>

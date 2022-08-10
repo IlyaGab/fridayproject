@@ -30,8 +30,7 @@ const initialState = {
     },
     infoCardsPack: {
         packName: "",
-        isMyCards: false,
-        packId: ""
+        isMyCards: false
     }
 }
 
@@ -186,7 +185,6 @@ type CardsQueryParamsActionType = {
 
 type InfoCardsPackType = {
     packName?: string
-    cardsCount?: number
     isMyCards?: boolean
 }
 

@@ -1,20 +1,20 @@
-import styles from './tablePacks.module.scss';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
-import React, {ReactElement, useEffect, useState} from 'react';
-import {getPackListTC, setQueryParamsAC} from '../packsListReducer';
-import {useAppSelector} from '../../../../common/hooks/useAppSelector';
-import {useAppDispatch} from '../../../../common/hooks/useAppDispatch';
-import {useNavigate} from 'react-router-dom';
-import {setCardsQueryParamsAC, setInfoCardsPackAC} from '../../CardsList/cardsListReducer';
-import {SortIcon} from './SortIcon/SortIcon';
-import {PacksActionButtons} from './PacksActionButtons/PacksActionButtons';
-import dayjs from 'dayjs';
+import styles from "./tablePacks.module.scss";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import Paper from "@mui/material/Paper";
+import React, {ReactElement, useEffect, useState} from "react";
+import {getPackListTC, setQueryParamsAC} from "../packsListReducer";
+import {useAppSelector} from "../../../../common/hooks/useAppSelector";
+import {useAppDispatch} from "../../../../common/hooks/useAppDispatch";
+import {useNavigate} from "react-router-dom";
+import {setCardsQueryParamsAC, setInfoCardsPackAC} from "../../CardsList/cardsListReducer";
+import {SortIcon} from "./SortIcon/SortIcon";
+import {PacksActionButtons} from "./PacksActionButtons/PacksActionButtons";
+import dayjs from "dayjs";
 
 export const TablePacks = (): ReactElement => {
     const dispatch = useAppDispatch()
@@ -36,10 +36,10 @@ export const TablePacks = (): ReactElement => {
         dispatch(setQueryParamsAC({sortPacks: `${sortValue}${sortPacksName}`}))
     }
 
-    const navigateToCardsPackHandler = (cardsPack_id: string, packName: string, cardsCount: number) => (): void => {
+    const navigateToCardsPackHandler = (cardsPack_id: string, packName: string) => (): void => {
         navigate(`/cards-list/${cardsPack_id}`)
         dispatch(setCardsQueryParamsAC({cardsPack_id}))
-        dispatch(setInfoCardsPackAC({packName, cardsCount}))
+        dispatch(setInfoCardsPackAC({packName}))
     }
 
     useEffect(() => {
@@ -54,7 +54,8 @@ export const TablePacks = (): ReactElement => {
                         <TableRow>
                             <TableCell
                                 onClick={sortPacksHandler("name")}>
-                                Name <SortIcon name={"name"}/>
+                                Name <SortIcon name={"name"}
+                            />
                             </TableCell>
                             <TableCell align="center"
                                        onClick={sortPacksHandler("cardsCount")}>
@@ -79,11 +80,13 @@ export const TablePacks = (): ReactElement => {
                                 sx={{"&:last-child td, &:last-child th": {border: 0}}}
                             >
                                 <TableCell component="th" scope="row"
-                                           onClick={navigateToCardsPackHandler(row._id, row.name, row.cardsCount, row.user_id)}>
+                                           style={{cursor: "pointer"}}
+                                           onClick={navigateToCardsPackHandler(row._id, row.name)}>
                                     {row.name}
                                 </TableCell>
                                 <TableCell align="center">{row.cardsCount}</TableCell>
-                                <TableCell align="center">{dayjs(row.updated).format('DD.MM.YYYY')}</TableCell>
+                                <TableCell
+                                    align="center">{dayjs(row.updated).format("DD.MM.YYYY")}</TableCell>
                                 <TableCell align="center">{row.user_name}</TableCell>
                                 {}
                                 <TableCell align="center">
