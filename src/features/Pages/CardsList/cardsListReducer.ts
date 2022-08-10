@@ -30,7 +30,6 @@ const initialState = {
     },
     infoCardsPack: {
         packName: "",
-        cardsCount: 0,
         isMyCards: false,
         packId: ""
     }
@@ -105,8 +104,10 @@ export const updateGradeAC = (updatedGrade: UpdateGradeType) => ({
 export const getCardsListTC = (): AppThunkType => async (dispatch, getState: () => AppStateType) => {
     try {
         dispatch(setAppStatusAC("loading"))
-        const res = await cardsAPI.getCards(getState().cardsList.queryParams, )
+        const res = await cardsAPI.getCards(getState().cardsList.queryParams)
         dispatch(getCardsListAC(res.data))
+        const isMyCards = getState().cardsList.packUserId === getState().profileReducer._id
+        dispatch(setInfoCardsPackAC({isMyCards}))
         dispatch(setAppStatusAC("succeeded"))
     } catch (e) {
         handleServerNetworkError(e, dispatch)
@@ -114,11 +115,10 @@ export const getCardsListTC = (): AppThunkType => async (dispatch, getState: () 
     }
 }
 
-export const createCardTC = (card: CardPostType): AppThunkType => async (dispatch, getState: () => AppStateType) => {
+export const createCardTC = (card: CardPostType): AppThunkType => async (dispatch) => {
     try {
         dispatch(setAppStatusAC("loading"))
         await cardsAPI.createCard(card)
-        dispatch(setInfoCardsPackAC({cardsCount: getState().cardsList.infoCardsPack.cardsCount + 1}))
         dispatch(getCardsListTC())
         dispatch(setAppStatusAC("succeeded"))
     } catch (e) {

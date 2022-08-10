@@ -1,4 +1,4 @@
-import React, {ReactElement, useCallback, useEffect} from 'react';
+import React, {ReactElement, useCallback, useEffect} from "react";
 import styles from "./cardsList.module.scss"
 import {BackButton} from "../../../common/components/BackButton/BackButton";
 import {TableCards} from "./TableCards/TableCards";
@@ -9,7 +9,7 @@ import {getCardsListTC, setCardsQueryParamsAC} from "./cardsListReducer";
 import {HeaderPacksList} from "./HeaderCardsList/HeaderCardsList";
 import {EmptyCardsList} from "./EmptyCardsList/EmptyCardsList";
 import {Search} from "../../../common/components/Search/Search";
-import {Navigate, useParams} from 'react-router-dom';
+import {Navigate, useParams} from "react-router-dom";
 import {PATH} from "../../../common/components/RoutesList/RoutersList";
 
 export const CardsList = (): ReactElement => {
@@ -24,13 +24,8 @@ export const CardsList = (): ReactElement => {
 
     const {cardsPack_id} = useParams()
 
-    useEffect(()=> {
-        if(cardsPack_id) {
-            dispatch(setCardsQueryParamsAC({cardsPack_id}))
-        }
-    },[dispatch])
-
     useEffect(() => {
+        dispatch(setCardsQueryParamsAC({cardsPack_id}))
         dispatch(getCardsListTC())
     }, [dispatch, cardsPack_id])
 
@@ -44,7 +39,7 @@ export const CardsList = (): ReactElement => {
                 <BackButton/>
                 <HeaderPacksList/>
                 {!!cardsTotalCount ? <div>
-                        <Search listType={'cardsList'}/>
+                        <Search listType={"cardsList"}/>
                         <TableCards/>
                         <Pagination cardPacksTotalCount={cardsTotalCount}
                                     changePagination={changePagination}/>

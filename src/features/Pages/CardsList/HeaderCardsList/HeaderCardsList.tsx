@@ -10,7 +10,7 @@ export const HeaderPacksList = (): ReactElement => {
 
     const cardsPack_id = useAppSelector(state => state.cardsList.queryParams.cardsPack_id)
     const packName = useAppSelector(state => state.cardsList.infoCardsPack.packName)
-    const cardsCount = useAppSelector(state => state.cardsList.infoCardsPack.cardsCount)
+    const cardsTotalCount = useAppSelector(state => state.cardsList.cardsTotalCount)
     const isMyCards = useAppSelector(state => state.cardsList.infoCardsPack.isMyCards)
 
     const [showMenu, setShowMenu] = useState<boolean>(false)
@@ -27,7 +27,7 @@ export const HeaderPacksList = (): ReactElement => {
                 </button>}
                 {showMenu && <Menu/>}
             </h2>
-            {isMyCards && !!cardsCount &&
+            {isMyCards && !!cardsTotalCount &&
                 <AddNewCardModal cardsPackId={cardsPack_id}/>
             }
         </div>

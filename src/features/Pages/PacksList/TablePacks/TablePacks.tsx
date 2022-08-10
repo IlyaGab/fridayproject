@@ -28,7 +28,6 @@ export const TablePacks = (): ReactElement => {
     const pageCount = useAppSelector(state => state.packsList.queryParams.pageCount)
     const page = useAppSelector(state => state.packsList.queryParams.page)
     const user_id = useAppSelector(state => state.packsList.queryParams.user_id)
-    const userId = useAppSelector(state => state.profileReducer._id)
 
     const [sortValue, setSortValue] = useState<number>(0)
 
@@ -37,11 +36,10 @@ export const TablePacks = (): ReactElement => {
         dispatch(setQueryParamsAC({sortPacks: `${sortValue}${sortPacksName}`}))
     }
 
-    const navigateToCardsPackHandler = (cardsPack_id: string, packName: string, cardsCount: number, user_id: string) => (): void => {
+    const navigateToCardsPackHandler = (cardsPack_id: string, packName: string, cardsCount: number) => (): void => {
         navigate(`/cards-list/${cardsPack_id}`)
         dispatch(setCardsQueryParamsAC({cardsPack_id}))
-        const isMyCards = user_id === userId
-        dispatch(setInfoCardsPackAC({packName, cardsCount, isMyCards}))
+        dispatch(setInfoCardsPackAC({packName, cardsCount}))
     }
 
     useEffect(() => {
