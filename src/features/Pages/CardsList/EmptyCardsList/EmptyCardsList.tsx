@@ -4,6 +4,7 @@ import {createCardTC} from "../cardsListReducer";
 import {useAppDispatch} from "../../../../common/hooks/useAppDispatch";
 import {useAppSelector} from "../../../../common/hooks/useAppSelector";
 import styles from "./emptyCardsList.module.scss"
+import {AddNewCardModal} from '../../../Modals/AddNewCardModal/AddNewCardModal';
 
 export const EmptyCardsList = (): ReactElement => {
     const dispatch = useAppDispatch()
@@ -21,7 +22,8 @@ export const EmptyCardsList = (): ReactElement => {
                 ? <div>
                     <p className={styles.message}>This pack is empty. Click add new card to fill
                         this pack</p>
-                    <AddButton name={"Add new card"} callback={addNewCard}/>
+                    {/*<AddButton name={"Add new card"} callback={addNewCard}/>*/}
+                    <AddNewCardModal cardsPackId={cardsPack_id}/>
                 </div>
                 : ""
             }

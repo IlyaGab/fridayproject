@@ -14,6 +14,7 @@ import {useAppDispatch} from "../../../../common/hooks/useAppDispatch";
 import {getCardsListTC} from "../cardsListReducer";
 import {CardsActionButtons} from "./CardsActionButtons/CardsActionButtons";
 import {GradeStars} from "./GradeStars/GradeStars";
+import dayjs from 'dayjs';
 
 export const TableCards = (): ReactElement => {
     const dispatch = useAppDispatch()
@@ -21,7 +22,6 @@ export const TableCards = (): ReactElement => {
     const rows = useAppSelector(state => state.cardsList.cards)
     const isMyCards = useAppSelector(state => state.cardsList.infoCardsPack.isMyCards)
     useEffect(() => {
-        debugger
         dispatch(getCardsListTC())
     }, [dispatch ])
 
@@ -48,7 +48,7 @@ export const TableCards = (): ReactElement => {
                                     {row.question}
                                 </TableCell>
                                 <TableCell align="left">{row.answer}</TableCell>
-                                <TableCell align="left">{row.updated}</TableCell>
+                                <TableCell align="left">{dayjs(row.updated).format('DD.MM.YYYY')}</TableCell>
                                 <TableCell align="left">
                                     <GradeStars grade={row.grade}/>
                                 </TableCell>

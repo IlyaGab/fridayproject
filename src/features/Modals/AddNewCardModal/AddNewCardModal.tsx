@@ -50,8 +50,7 @@ export const AddNewCardModal: React.FC<PropsType> = ({cardsPackId}) => {
             <Button
                 variant={'contained'}
                 color={'primary'}
-                style={{borderRadius: "30px", padding: "5px 30px"}}
-                className={styles.buttonButton}
+                sx={{borderRadius: '30px', padding: '5px 30px'}}
                 onClick={handleOpen}
             >
                 Add new card
@@ -88,6 +87,11 @@ export const AddNewCardModal: React.FC<PropsType> = ({cardsPackId}) => {
                                 sx={{width: '100%'}}
                                 {...formik.getFieldProps('answer')}
                             />
+                            {
+                                formik.touched.answer &&
+                                formik.errors.answer &&
+                                <div style={{color: 'red'}}>{formik.errors.answer}</div>
+                            }
                             <div className={styles.buttons}>
                                 <Button
                                     variant={'contained'}

@@ -28,20 +28,12 @@ export const EditPackModal: React.FC<PropsType> = ({userId, row}) => {
         initialValues: {
             name: row.name,
         },
-        validate: (values) => {
-            const errors: FormikErrorType = {}
-
-            if (!values.name) {
-                errors.name = 'Name is required'
-            }
-
-            return errors
-        },
         onSubmit: values => {
             dispatch(changeNameCardsPackTC(row._id, values.name))
             handleClose()
         }
     })
+
     return (
         <>
             <button
@@ -75,11 +67,6 @@ export const EditPackModal: React.FC<PropsType> = ({userId, row}) => {
                                 sx={{width: '100%'}}
                                 {...formik.getFieldProps('name')}
                             />
-                            {
-                                formik.touched.name &&
-                                formik.errors.name &&
-                                <div style={{color: 'red'}}>{formik.errors.name}</div>
-                            }
                             <div className={styles.buttons}>
                                 <Button
                                     variant={'contained'}
@@ -103,9 +90,4 @@ export const EditPackModal: React.FC<PropsType> = ({userId, row}) => {
             </Modal>
         </>
     )
-}
-
-type FormikErrorType = {
-    name?: string
-    private?: boolean
 }
