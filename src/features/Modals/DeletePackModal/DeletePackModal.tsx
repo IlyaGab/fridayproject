@@ -53,7 +53,7 @@ export const DeletePackModal: React.FC<PropsType> = ({userId, row}) => {
                         </IconButton>
                     </div>
                     <div className={styles.content}>
-                        <div className={styles.attention}>
+                        <div>
                             Do you really want to remove <b>{row.name}</b>? <br/>
                             All cards will be deleted.
                         </div>

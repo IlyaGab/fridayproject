@@ -51,7 +51,7 @@ export const DeleteCardModal: React.FC<PropsType> = ({row}) => {
                         </IconButton>
                     </div>
                     <div className={styles.content}>
-                        <div className={styles.attention}>
+                        <div>
                             Do you really want to remove <b>{row.question}</b>?
                         </div>
                         <div className={styles.buttons}>
