@@ -37,6 +37,7 @@ const initialState = {
 }
 
 export const cardsListReducer = (state: InitialStateType = initialState, action: CardsListActionType): InitialStateType => {
+
     switch (action.type) {
         case "CARDS-LIST/GET-CARDS-LIST":
             return {
@@ -104,7 +105,7 @@ export const updateGradeAC = (updatedGrade: UpdateGradeType) => ({
 export const getCardsListTC = (): AppThunkType => async (dispatch, getState: () => AppStateType) => {
     try {
         dispatch(setAppStatusAC("loading"))
-        const res = await cardsAPI.getCards(getState().cardsList.queryParams)
+        const res = await cardsAPI.getCards(getState().cardsList.queryParams, )
         dispatch(getCardsListAC(res.data))
         dispatch(setAppStatusAC("succeeded"))
     } catch (e) {

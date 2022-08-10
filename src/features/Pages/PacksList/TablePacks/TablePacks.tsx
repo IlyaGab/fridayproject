@@ -1,20 +1,19 @@
-import styles from "./tablePacks.module.scss";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
-import React, {ReactElement, useEffect, useState} from "react";
-import {getPackListTC, setQueryParamsAC} from "../packsListReducer";
-import {useAppSelector} from "../../../../common/hooks/useAppSelector";
-import {useAppDispatch} from "../../../../common/hooks/useAppDispatch";
-import {PATH} from "../../../../common/components/RoutesList/RoutersList";
-import {useNavigate} from "react-router-dom";
-import {setCardsQueryParamsAC, setInfoCardsPackAC} from "../../CardsList/cardsListReducer";
-import {SortIcon} from "./SortIcon/SortIcon";
-import {PacksActionButtons} from "./PacksActionButtons/PacksActionButtons";
+import styles from './tablePacks.module.scss';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import Paper from '@mui/material/Paper';
+import React, {ReactElement, useEffect, useState} from 'react';
+import {getPackListTC, setQueryParamsAC} from '../packsListReducer';
+import {useAppSelector} from '../../../../common/hooks/useAppSelector';
+import {useAppDispatch} from '../../../../common/hooks/useAppDispatch';
+import {useNavigate} from 'react-router-dom';
+import {setCardsQueryParamsAC, setInfoCardsPackAC} from '../../CardsList/cardsListReducer';
+import {SortIcon} from './SortIcon/SortIcon';
+import {PacksActionButtons} from './PacksActionButtons/PacksActionButtons';
 import dayjs from 'dayjs';
 
 export const TablePacks = (): ReactElement => {
@@ -39,7 +38,7 @@ export const TablePacks = (): ReactElement => {
     }
 
     const navigateToCardsPackHandler = (cardsPack_id: string, packName: string, cardsCount: number, user_id: string) => (): void => {
-        navigate(PATH.CardsList)
+        navigate(`/cards-list/${cardsPack_id}`)
         dispatch(setCardsQueryParamsAC({cardsPack_id}))
         const isMyCards = user_id === userId
         dispatch(setInfoCardsPackAC({packName, cardsCount, isMyCards}))

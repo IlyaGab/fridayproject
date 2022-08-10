@@ -15,7 +15,7 @@ export const Pagination = React.memo(({
                                           changePagination
                                       }: PaginationType): ReactElement => {
 
-    const statePageCount = useAppSelector(state => state.packsList.pageCount)
+    const statePageCount = useAppSelector(state => state.packsList.queryParams.pageCount)
     const [localPage, setLocalPage] = useState<number>(1)
     const [pageCount, setPageCount] = useState<number>(statePageCount)
 
