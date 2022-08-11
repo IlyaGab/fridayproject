@@ -14,9 +14,9 @@ import {getCardsListTC, setCardsQueryParamsAC} from "../../../CardsList/cardsLis
 export const PacksActionButtons = ({row}: ActionButtonsType): ReactElement => {
     const dispatch = useAppDispatch()
 
-    const userId = useAppSelector(state => state.profileReducer._id)
-
     const navigate = useNavigate()
+
+    const userId = useAppSelector(state => state.profileReducer._id)
 
     const navigateToLearnHandler = (): void => {
         navigate(PATH.Learn)

@@ -1,14 +1,14 @@
-import React, {useState} from 'react';
-import styles from './deletePackModal.module.scss'
-import {useAppDispatch} from '../../../common/hooks/useAppDispatch';
-import {IconButton} from '@mui/material';
-import CloseIcon from '@mui/icons-material/Close';
-import Button from '@mui/material/Button';
-import Modal from '@mui/material/Modal';
-import {PackType} from '../../../api/packsAPI';
-import {faTrashCan} from '@fortawesome/free-solid-svg-icons';
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {deleteCardsPackTC} from '../../Pages/PacksList/packsListReducer';
+import React, {useState} from "react";
+import styles from "./deletePackModal.module.scss"
+import {useAppDispatch} from "../../../common/hooks/useAppDispatch";
+import {IconButton} from "@mui/material";
+import CloseIcon from "@mui/icons-material/Close";
+import Button from "@mui/material/Button";
+import Modal from "@mui/material/Modal";
+import {PackType} from "../../../api/packsAPI";
+import {faTrashCan} from "@fortawesome/free-solid-svg-icons";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {deleteCardsPackTC} from "../../Pages/PacksList/packsListReducer";
 
 type PropsType = {
     userId: string
@@ -48,7 +48,7 @@ export const DeletePackModal: React.FC<PropsType> = ({userId, row}) => {
                 <div className={styles.box}>
                     <div className={styles.header}>
                         <div className={styles.title}>Delete Pack</div>
-                        <IconButton sx={{color: 'black', padding: '0'}} onClick={handleClose}>
+                        <IconButton sx={{color: "black", padding: "0"}} onClick={handleClose}>
                             <CloseIcon/>
                         </IconButton>
                     </div>
@@ -59,15 +59,15 @@ export const DeletePackModal: React.FC<PropsType> = ({userId, row}) => {
                         </div>
                         <div className={styles.buttons}>
                             <Button
-                                variant={'contained'}
+                                variant={"contained"}
                                 onClick={handleClose}
                                 className={styles.button}
                             >
                                 Cancel
                             </Button>
                             <Button
-                                variant={'contained'}
-                                color={'error'}
+                                variant={"contained"}
+                                color={"error"}
                                 onClick={deleteCardsPackHandler(row._id)}
                                 className={styles.button}
                             >

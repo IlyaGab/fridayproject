@@ -1,20 +1,20 @@
-import styles from './tablePacks.module.scss';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
-import React, {ReactElement, useEffect, useState} from 'react';
-import {getPackListTC, setQueryParamsAC} from '../packsListReducer';
-import {useAppSelector} from '../../../../common/hooks/useAppSelector';
-import {useAppDispatch} from '../../../../common/hooks/useAppDispatch';
-import {useNavigate, useSearchParams} from 'react-router-dom';
-import {setCardsQueryParamsAC, setInfoCardsPackAC} from '../../CardsList/cardsListReducer';
-import {SortIcon} from './SortIcon/SortIcon';
-import {PacksActionButtons} from './PacksActionButtons/PacksActionButtons';
-import dayjs from 'dayjs';
+import styles from "./tablePacks.module.scss";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import Paper from "@mui/material/Paper";
+import React, {ReactElement, useState} from "react";
+import {setQueryParamsAC} from "../packsListReducer";
+import {useAppSelector} from "../../../../common/hooks/useAppSelector";
+import {useAppDispatch} from "../../../../common/hooks/useAppDispatch";
+import {useNavigate} from "react-router-dom";
+import {setCardsQueryParamsAC, setInfoCardsPackAC} from "../../CardsList/cardsListReducer";
+import {SortIcon} from "./SortIcon/SortIcon";
+import {PacksActionButtons} from "./PacksActionButtons/PacksActionButtons";
+import dayjs from "dayjs";
 
 export const TablePacks = (): ReactElement => {
     const dispatch = useAppDispatch()
@@ -22,7 +22,6 @@ export const TablePacks = (): ReactElement => {
     const navigate = useNavigate()
 
     const rows = useAppSelector(state => state.packsList.cardPacks)
-    const sortPacks = useAppSelector(state => state.packsList.queryParams.sortPacks)
 
     const [sortValue, setSortValue] = useState<number>(0)
 
@@ -36,17 +35,6 @@ export const TablePacks = (): ReactElement => {
         dispatch(setCardsQueryParamsAC({cardsPack_id}))
         dispatch(setInfoCardsPackAC({packName}))
     }
-
-    const [search] = useSearchParams()
-    const user_id = search.get('user_id')
-    const min = search.get('min')
-    const max = search.get('max')
-    const page = search.get('page')
-    const pageCount = search.get('pageCount')
-
-        useEffect(() => {
-        dispatch(getPackListTC())
-    }, [dispatch, sortPacks, min, max, page, pageCount, user_id])
 
     return (
         <div className={styles.tablePacks}>

@@ -19,32 +19,25 @@ export const Pagination = React.memo(({
 
     const statePage = useAppSelector(state => state.packsList.queryParams.page)
     const statePageCount = useAppSelector(state => state.packsList.queryParams.pageCount)
+
     const page = Number(searchParams.get('page')) || statePage
     const pageCount = Number(searchParams.get('pageCount')) || statePageCount
-
 
     let numberOfPages = Math.ceil(cardPacksTotalCount / pageCount)
 
     const onChangePage = (event: React.ChangeEvent<unknown>, page: number) => {
         searchParams.set('page', `${page}`)
         setSearchParams(searchParams)
-        changePagination(page,pageCount)
     }
 
     const onChangeSizePageHandler = (e: ChangeEvent<HTMLSelectElement>): void => {
         searchParams.set('pageCount', `${Number(e.currentTarget.value)}`)
         setSearchParams(searchParams)
-        changePagination(page,pageCount)
     }
 
-
     useEffect(() => {
-        if(page || pageCount){
-            changePagination(page,pageCount)
-        } else {
-            changePagination(statePage, statePageCount)
-        }
-    }, [changePagination, page, pageCount, statePage, statePageCount])
+        changePagination(page,pageCount)
+    }, [changePagination, page, pageCount])
 
     return (
         <div className={styles.pagination}>
