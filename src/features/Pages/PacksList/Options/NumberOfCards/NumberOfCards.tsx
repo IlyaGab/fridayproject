@@ -1,19 +1,22 @@
 import {Slider} from "@mui/material";
 import React, {ReactElement, useEffect} from "react";
 import {useAppDispatch} from "../../../../../common/hooks/useAppDispatch";
-import {setQueryParamsAC} from "../../packsListReducer";
+import {setQueryParamsAC} from '../../packsListReducer';
 import styles from "./numberOfCards.module.scss";
-import {useDebounce} from "../../../../../common/hooks/useDebounce";
+import {useSearchParams} from 'react-router-dom';
+
 
 export const NumberOfCards = (): ReactElement => {
     const min = 0
     const max = 110
+    const [search, setSearch] = useSearchParams()
+
+    const minValue = Number(search.get('min')) || min
+    const maxValue = Number(search.get('max')) || max
 
     const dispatch = useAppDispatch()
 
-    const [value, setValue] = React.useState<number[]>([min, max]);
-
-    const debouncedValue = useDebounce<number[]>(value, 500)
+    const [value, setValue] = React.useState<number[]>([minValue,maxValue]);
 
     function valueText(value: number) {
         return `${{value}}`
@@ -21,11 +24,20 @@ export const NumberOfCards = (): ReactElement => {
 
     const handleChange = (event:  React.SyntheticEvent | Event, newValue: number | number[]): void => {
         setValue(newValue as number[])
+        search.set(`min` , `${value[0]}`)
+        search.set(`max` , `${value[1]}`)
+        setSearch(search)
     }
 
+
+
     useEffect(() => {
-        dispatch(setQueryParamsAC({min: debouncedValue[0], max: debouncedValue[1]}))
-    }, [dispatch, debouncedValue])
+        if(minValue || maxValue) {
+            dispatch(setQueryParamsAC({min: minValue, max: maxValue}))
+        } else {
+            dispatch(setQueryParamsAC({min: min, max: max}))
+        }
+    }, [dispatch, value, minValue, maxValue])
 
     return (
         <div className={styles.numberOfCards}>

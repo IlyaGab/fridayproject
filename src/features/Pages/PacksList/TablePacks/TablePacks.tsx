@@ -10,7 +10,7 @@ import React, {ReactElement, useEffect, useState} from 'react';
 import {getPackListTC, setQueryParamsAC} from '../packsListReducer';
 import {useAppSelector} from '../../../../common/hooks/useAppSelector';
 import {useAppDispatch} from '../../../../common/hooks/useAppDispatch';
-import {useNavigate} from 'react-router-dom';
+import {useNavigate, useSearchParams} from 'react-router-dom';
 import {setCardsQueryParamsAC, setInfoCardsPackAC} from '../../CardsList/cardsListReducer';
 import {SortIcon} from './SortIcon/SortIcon';
 import {PacksActionButtons} from './PacksActionButtons/PacksActionButtons';
@@ -23,11 +23,6 @@ export const TablePacks = (): ReactElement => {
 
     const rows = useAppSelector(state => state.packsList.cardPacks)
     const sortPacks = useAppSelector(state => state.packsList.queryParams.sortPacks)
-    const min = useAppSelector(state => state.packsList.queryParams.min)
-    const max = useAppSelector(state => state.packsList.queryParams.max)
-    const pageCount = useAppSelector(state => state.packsList.queryParams.pageCount)
-    const page = useAppSelector(state => state.packsList.queryParams.page)
-    const user_id = useAppSelector(state => state.packsList.queryParams.user_id)
     const userId = useAppSelector(state => state.profileReducer._id)
 
     const [sortValue, setSortValue] = useState<number>(0)
@@ -44,7 +39,14 @@ export const TablePacks = (): ReactElement => {
         dispatch(setInfoCardsPackAC({packName, cardsCount, isMyCards}))
     }
 
-    useEffect(() => {
+    const [search] = useSearchParams()
+    const user_id = search.get('user_id')
+    const min = search.get('min')
+    const max = search.get('max')
+    const page = search.get('page')
+    const pageCount = search.get('pageCount')
+
+        useEffect(() => {
         dispatch(getPackListTC())
     }, [dispatch, sortPacks, min, max, page, pageCount, user_id])
 

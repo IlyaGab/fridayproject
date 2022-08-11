@@ -2,11 +2,11 @@ import React, {
     ChangeEvent,
     ReactElement,
     useEffect,
-    useState
 } from "react";
 import styles from "./pagination.module.scss";
 import {Pagination as PaginationMUI} from "@mui/material";
 import {useAppSelector} from "../../hooks/useAppSelector";
+import {useSearchParams} from 'react-router-dom';
 
 const arr = [5, 10, 20, 50]
 
@@ -15,23 +15,36 @@ export const Pagination = React.memo(({
                                           changePagination
                                       }: PaginationType): ReactElement => {
 
+    const [searchParams, setSearchParams] = useSearchParams()
+
+    const statePage = useAppSelector(state => state.packsList.queryParams.page)
     const statePageCount = useAppSelector(state => state.packsList.queryParams.pageCount)
-    const [localPage, setLocalPage] = useState<number>(1)
-    const [pageCount, setPageCount] = useState<number>(statePageCount)
+    const page = Number(searchParams.get('page')) || statePage
+    const pageCount = Number(searchParams.get('pageCount')) || statePageCount
+
 
     let numberOfPages = Math.ceil(cardPacksTotalCount / pageCount)
 
     const onChangePage = (event: React.ChangeEvent<unknown>, page: number) => {
-        setLocalPage(page)
+        searchParams.set('page', `${page}`)
+        setSearchParams(searchParams)
+        changePagination(page,pageCount)
     }
 
     const onChangeSizePageHandler = (e: ChangeEvent<HTMLSelectElement>): void => {
-        setPageCount(Number(e.currentTarget.value))
+        searchParams.set('pageCount', `${Number(e.currentTarget.value)}`)
+        setSearchParams(searchParams)
+        changePagination(page,pageCount)
     }
 
+
     useEffect(() => {
-        changePagination(localPage, pageCount)
-    }, [changePagination, localPage, pageCount])
+        if(page || pageCount){
+            changePagination(page,pageCount)
+        } else {
+            changePagination(statePage, statePageCount)
+        }
+    }, [changePagination, page, pageCount, statePage, statePageCount])
 
     return (
         <div className={styles.pagination}>
