@@ -10,7 +10,7 @@ export const EmptyCardsList = (): ReactElement => {
 
     return (
         <div className={styles.emptyCardsList}>
-            {!isMyCards
+            {isMyCards
                 ? <div>
                     <p className={styles.message}>This pack is empty. Click add new card to fill
                         this pack</p>

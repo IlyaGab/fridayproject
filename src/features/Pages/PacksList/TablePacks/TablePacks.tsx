@@ -23,7 +23,6 @@ export const TablePacks = (): ReactElement => {
 
     const rows = useAppSelector(state => state.packsList.cardPacks)
     const sortPacks = useAppSelector(state => state.packsList.queryParams.sortPacks)
-    const userId = useAppSelector(state => state.profileReducer._id)
 
     const [sortValue, setSortValue] = useState<number>(0)
 
@@ -32,11 +31,10 @@ export const TablePacks = (): ReactElement => {
         dispatch(setQueryParamsAC({sortPacks: `${sortValue}${sortPacksName}`}))
     }
 
-    const navigateToCardsPackHandler = (cardsPack_id: string, packName: string, cardsCount: number, user_id: string) => (): void => {
+    const navigateToCardsPackHandler = (cardsPack_id: string, packName: string) => (): void => {
         navigate(`/cards-list/${cardsPack_id}`)
         dispatch(setCardsQueryParamsAC({cardsPack_id}))
-        const isMyCards = user_id === userId
-        dispatch(setInfoCardsPackAC({packName, cardsCount, isMyCards}))
+        dispatch(setInfoCardsPackAC({packName}))
     }
 
     const [search] = useSearchParams()
@@ -58,7 +56,8 @@ export const TablePacks = (): ReactElement => {
                         <TableRow>
                             <TableCell
                                 onClick={sortPacksHandler("name")}>
-                                Name <SortIcon name={"name"}/>
+                                Name <SortIcon name={"name"}
+                            />
                             </TableCell>
                             <TableCell align="center"
                                        onClick={sortPacksHandler("cardsCount")}>
@@ -83,11 +82,13 @@ export const TablePacks = (): ReactElement => {
                                 sx={{"&:last-child td, &:last-child th": {border: 0}}}
                             >
                                 <TableCell component="th" scope="row"
-                                           onClick={navigateToCardsPackHandler(row._id, row.name, row.cardsCount, row.user_id)}>
+                                           style={{cursor: "pointer"}}
+                                           onClick={navigateToCardsPackHandler(row._id, row.name)}>
                                     {row.name}
                                 </TableCell>
                                 <TableCell align="center">{row.cardsCount}</TableCell>
-                                <TableCell align="center">{dayjs(row.updated).format('DD.MM.YYYY')}</TableCell>
+                                <TableCell
+                                    align="center">{dayjs(row.updated).format("DD.MM.YYYY")}</TableCell>
                                 <TableCell align="center">{row.user_name}</TableCell>
                                 {}
                                 <TableCell align="center">
