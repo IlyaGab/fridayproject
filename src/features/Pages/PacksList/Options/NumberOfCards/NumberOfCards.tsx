@@ -5,16 +5,16 @@ import {setQueryParamsAC} from '../../packsListReducer';
 import styles from "./numberOfCards.module.scss";
 import {useSearchParams} from 'react-router-dom';
 
+const min = 0
+const max = 110
 
 export const NumberOfCards = (): ReactElement => {
-    const min = 0
-    const max = 110
+    const dispatch = useAppDispatch()
+
     const [search, setSearch] = useSearchParams()
 
     const minValue = Number(search.get('min')) || min
     const maxValue = Number(search.get('max')) || max
-
-    const dispatch = useAppDispatch()
 
     const [value, setValue] = React.useState<number[]>([minValue,maxValue]);
 
@@ -22,22 +22,16 @@ export const NumberOfCards = (): ReactElement => {
         return `${{value}}`
     }
 
-    const handleChange = (event:  React.SyntheticEvent | Event, newValue: number | number[]): void => {
+    const handleChangeCommitted = (event:  React.SyntheticEvent | Event, newValue: number | number[]): void => {
         setValue(newValue as number[])
         search.set(`min` , `${value[0]}`)
         search.set(`max` , `${value[1]}`)
         setSearch(search)
     }
 
-
-
     useEffect(() => {
-        if(minValue || maxValue) {
             dispatch(setQueryParamsAC({min: minValue, max: maxValue}))
-        } else {
-            dispatch(setQueryParamsAC({min: min, max: max}))
-        }
-    }, [dispatch, value, minValue, maxValue])
+    }, [dispatch, minValue, maxValue])
 
     return (
         <div className={styles.numberOfCards}>
@@ -48,7 +42,7 @@ export const NumberOfCards = (): ReactElement => {
                 <div className={styles.value}>{value[0]}</div>
                 <Slider
                     value={value}
-                    onChange={handleChange}
+                    onChangeCommitted={handleChangeCommitted}
                     valueLabelDisplay="auto"
                     getAriaValueText={valueText}
                     disableSwap
