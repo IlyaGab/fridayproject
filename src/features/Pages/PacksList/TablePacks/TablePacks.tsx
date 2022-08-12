@@ -15,6 +15,7 @@ import {setCardsQueryParamsAC, setInfoCardsPackAC} from "../../CardsList/cardsLi
 import {SortIcon} from "./SortIcon/SortIcon";
 import {PacksActionButtons} from "./PacksActionButtons/PacksActionButtons";
 import dayjs from "dayjs";
+import {PATH} from "../../../../common/components/RoutesList/RoutersList";
 
 export const TablePacks = (): ReactElement => {
     const dispatch = useAppDispatch()
@@ -31,7 +32,7 @@ export const TablePacks = (): ReactElement => {
     }
 
     const navigateToCardsPackHandler = (cardsPack_id: string, packName: string) => (): void => {
-        navigate(`/cards-list/${cardsPack_id}`)
+        navigate(PATH.CardsList)
         dispatch(setCardsQueryParamsAC({cardsPack_id}))
         dispatch(setInfoCardsPackAC({packName}))
     }

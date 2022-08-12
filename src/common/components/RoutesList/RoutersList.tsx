@@ -21,7 +21,7 @@ export enum PATH {
     Registration = "/registration-page",
     CheckEmail = "/check-email-page",
     PacksList = "/packs-list",
-    CardsList = "/cards-list/:cardsPack_id",
+    CardsList = "/cards-list",
     Learn = "/learn",
 }
 

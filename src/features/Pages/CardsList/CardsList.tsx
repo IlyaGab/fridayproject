@@ -5,11 +5,11 @@ import {TableCards} from "./TableCards/TableCards";
 import {Pagination} from "../../../common/components/Pagination/Pagination";
 import {useAppDispatch} from "../../../common/hooks/useAppDispatch";
 import {useAppSelector} from "../../../common/hooks/useAppSelector";
-import {getCardsListTC, setCardsQueryParamsAC} from "./cardsListReducer";
+import {getCardsListTC, setCardsQueryParamsAC, setInfoCardsPackAC} from "./cardsListReducer";
 import {HeaderPacksList} from "./HeaderCardsList/HeaderCardsList";
 import {EmptyCardsList} from "./EmptyCardsList/EmptyCardsList";
 import {Search} from "../../../common/components/Search/Search";
-import {Navigate, useParams} from "react-router-dom";
+import {Navigate, useSearchParams} from "react-router-dom";
 import {PATH} from "../../../common/components/RoutesList/RoutersList";
 
 export const CardsList = (): ReactElement => {
@@ -17,17 +17,26 @@ export const CardsList = (): ReactElement => {
 
     const cardsTotalCount = useAppSelector(state => state.cardsList.cardsTotalCount)
     const isLoggedIn = useAppSelector(state => state.loginReducer.isLoggedIn)
+    const stateCardsPackID = useAppSelector(state => state.cardsList.queryParams.cardsPack_id)
+    const statePackName = useAppSelector(state => state.cardsList.infoCardsPack.packName)
 
     const changePagination = useCallback((page: number, pageCount: number): void => {
         dispatch(setCardsQueryParamsAC({page, pageCount}))
     }, [dispatch])
 
-    const {cardsPack_id} = useParams()
+    const [searchParams, setSearchParams] = useSearchParams()
+
+    const cardsPack_id = searchParams.get("cardsPack_id") || stateCardsPackID
+    const packName = searchParams.get("packName") || statePackName
 
     useEffect(() => {
+        searchParams.set("cardsPack_id", cardsPack_id)
+        searchParams.set("packName", packName)
+        setSearchParams(searchParams)
         dispatch(setCardsQueryParamsAC({cardsPack_id}))
+        dispatch(setInfoCardsPackAC({packName}))
         dispatch(getCardsListTC())
-    }, [dispatch, cardsPack_id])
+    }, [dispatch, cardsPack_id, packName])
 
     if (!isLoggedIn) {
         return <Navigate to={PATH.Login}/>
