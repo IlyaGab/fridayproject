@@ -82,7 +82,6 @@ export const Learn = (): ReactElement => {
                                     />
                                     Сonfused
                                 </label>
-
                                 <label className={styles.inputForm} htmlFor="knewTheAnswer">
                                     <input type="radio" id="knewTheAnswer"
                                            name="answerForm" value={5}

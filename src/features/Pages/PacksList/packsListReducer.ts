@@ -1,4 +1,4 @@
-import {AppStateType, AppThunkType} from "../../../app/store"
+import {AppThunkType} from "../../../app/store"
 import {CardsPackType, GetPacksResponseType, packsAPI, PackType} from "../../../api/packsAPI"
 import {setAppStatusAC} from "../../../app/appReducer";
 import {handleServerNetworkError} from "../../../common/utils/error-utils";
@@ -67,7 +67,7 @@ export const setIsMyCardsPackAC = (isMyCardsPack: boolean) => ({
 }) as const
 
 //TC
-export const getPackListTC = (): AppThunkType => async (dispatch, getState: () => AppStateType) => {
+export const getPackListTC = (): AppThunkType => async (dispatch, getState) => {
     try {
         dispatch(setAppStatusAC("loading"))
         const res = await packsAPI.getCardsPacks(getState().packsList.queryParams)

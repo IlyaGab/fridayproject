@@ -23,11 +23,16 @@ export const PacksActionButtons = ({row}: ActionButtonsType): ReactElement => {
         dispatch(setCardsQueryParamsAC({cardsPack_id: row._id}))
         dispatch(getCardsListTC())
     }
+    const isMyCards = userId === row.user_id
 
     return (
         <div>
-            <DeletePackModal userId={userId} row={row}/>
-            <EditPackModal userId={userId} row={row}/>
+            {isMyCards &&
+                <>
+                    <DeletePackModal userId={userId} row={row}/>
+                    <EditPackModal userId={userId} row={row}/>
+                </>
+            }
             <button className={styles.btn}
                     onClick={navigateToLearnHandler}
                     disabled={row.cardsCount === 0}

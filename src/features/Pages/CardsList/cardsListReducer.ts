@@ -5,7 +5,7 @@ import {
     CardType,
     GetCardsResponseType
 } from "../../../api/cardsAPI"
-import {AppStateType, AppThunkType} from "../../../app/store"
+import {AppThunkType} from "../../../app/store"
 import {setAppStatusAC} from "../../../app/appReducer";
 import {handleServerNetworkError} from "../../../common/utils/error-utils";
 import {gradeAPI, GradeParamsType} from "../../../api/gradeAPI";
@@ -100,7 +100,7 @@ export const updateGradeAC = (updatedGrade: UpdateGradeType) => ({
 }) as const
 
 //TC
-export const getCardsListTC = (): AppThunkType => async (dispatch, getState: () => AppStateType) => {
+export const getCardsListTC = (): AppThunkType => async (dispatch, getState) => {
     try {
         dispatch(setAppStatusAC("loading"))
         const res = await cardsAPI.getCards(getState().cardsList.queryParams)
