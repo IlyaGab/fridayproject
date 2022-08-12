@@ -41,10 +41,10 @@ export const Pagination = React.memo(({
 
     return (
         <div className={styles.pagination}>
-            <PaginationMUI count={numberOfPages} color="primary" style={{display: "inline-block"}}
+            <PaginationMUI page={page} count={numberOfPages} color="primary" style={{display: "inline-block"}}
                            onChange={onChangePage}/>
             Show
-            <select onChange={onChangeSizePageHandler}>
+            <select onChange={onChangeSizePageHandler} value={pageCount}>
                 {arr.map(el => <option key={el} value={el}>{el}</option>)}
             </select>
             Cards per Page
