@@ -17,19 +17,22 @@ export const PacksList = (): ReactElement => {
     const isLoggedIn = useAppSelector(state => state.loginReducer.isLoggedIn)
     const sortPacks = useAppSelector(state => state.packsList.queryParams.sortPacks)
 
+    const stateMin = useAppSelector(state => state.packsList.queryParams.min)
+    const stateMax = useAppSelector(state => state.packsList.queryParams.max)
+    const statePage = useAppSelector(state => state.packsList.queryParams.page)
+    const statePageCount = useAppSelector(state => state.packsList.queryParams.pageCount)
+
     const [searchParams] = useSearchParams()
     const user_id = searchParams.get("user_id")
-    const min = searchParams.get("min")
-    const max = searchParams.get("max")
-    const page = searchParams.get("page")
-    const pageCount = searchParams.get("pageCount")
+    const page = Number(searchParams.get("page")) || statePage
+    const pageCount = Number(searchParams.get("pageCount")) || statePageCount
 
     useEffect(() => {
         dispatch(getPackListTC())
-    }, [dispatch, sortPacks, min, max, page, pageCount, user_id])
+    }, [dispatch, sortPacks, stateMin, stateMax, page, pageCount, user_id])
 
     const changePagination = useCallback(
-        (page?: number, pageCount?: number) => {
+        (page: number, pageCount: number) => {
             dispatch(setQueryParamsAC({page, pageCount}))
         }, [dispatch])
 
@@ -43,7 +46,7 @@ export const PacksList = (): ReactElement => {
                 <HeaderPacksList/>
                 <Options/>
                 <TablePacks/>
-                <Pagination cardPacksTotalCount={cardPacksTotalCount}
+                <Pagination page={page} pageCount={pageCount} cardPacksTotalCount={cardPacksTotalCount}
                             changePagination={changePagination}/>
             </div>
         </div>

@@ -4,17 +4,21 @@ import {useAppDispatch} from "../../../../../common/hooks/useAppDispatch";
 import {setQueryParamsAC} from "../../packsListReducer";
 import styles from "./numberOfCards.module.scss";
 import {useSearchParams} from "react-router-dom";
+import {useAppSelector} from "../../../../../common/hooks/useAppSelector";
 
-const min = 0
-const max = 110
+const minSlider = 0
+const maxSlider = 110
 
 export const NumberOfCards = (): ReactElement => {
     const dispatch = useAppDispatch()
 
     const [search, setSearch] = useSearchParams()
 
-    const minValue = Number(search.get("min")) || min
-    const maxValue = Number(search.get("max")) || max
+    const stateMin = useAppSelector(state => state.packsList.queryParams.min)
+    const stateMax = useAppSelector(state => state.packsList.queryParams.max)
+
+    const minValue = Number(search.get("min")) || stateMin
+    const maxValue = Number(search.get("max")) || stateMax
 
     const [value, setValue] = React.useState<number[]>([minValue, maxValue]);
 
@@ -24,8 +28,10 @@ export const NumberOfCards = (): ReactElement => {
 
     const handleChangeCommitted = (event: React.SyntheticEvent | Event, newValue: number | number[]): void => {
         setValue(newValue as number[])
-        search.set(`min`, `${value[0]}`)
-        search.set(`max`, `${value[1]}`)
+        if(Array.isArray(newValue)) {
+            search.set(`min`, `${newValue[0]}`)
+            search.set(`max`, `${newValue[1]}`)
+        }
         setSearch(search)
     }
 
@@ -46,8 +52,8 @@ export const NumberOfCards = (): ReactElement => {
                     valueLabelDisplay="auto"
                     getAriaValueText={valueText}
                     disableSwap
-                    min={min}
-                    max={max}
+                    min={minSlider}
+                    max={maxSlider}
                     style={{display: "inline-block"}}
                 />
                 <div className={styles.value}>{value[1]}</div>

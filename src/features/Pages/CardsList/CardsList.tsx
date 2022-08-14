@@ -15,10 +15,12 @@ import {PATH} from "../../../common/components/RoutesList/RoutersList";
 export const CardsList = (): ReactElement => {
     const dispatch = useAppDispatch()
 
-    const cardsTotalCount = useAppSelector(state => state.cardsList.cardsTotalCount)
     const isLoggedIn = useAppSelector(state => state.loginReducer.isLoggedIn)
+    const cardsTotalCount = useAppSelector(state => state.cardsList.cardsTotalCount)
     const stateCardsPackID = useAppSelector(state => state.cardsList.queryParams.cardsPack_id)
     const statePackName = useAppSelector(state => state.cardsList.infoCardsPack.packName)
+    const statePage = useAppSelector(state => state.cardsList.queryParams.page)
+    const statePageCount = useAppSelector(state => state.cardsList.queryParams.pageCount)
 
     const changePagination = useCallback((page: number, pageCount: number): void => {
         dispatch(setCardsQueryParamsAC({page, pageCount}))
@@ -28,15 +30,18 @@ export const CardsList = (): ReactElement => {
 
     const cardsPack_id = searchParams.get("cardsPack_id") || stateCardsPackID
     const packName = searchParams.get("packName") || statePackName
+    const page = Number(searchParams.get("page")) || statePage
+    const pageCount = Number(searchParams.get("pageCount")) || statePageCount
 
     useEffect(() => {
+
         searchParams.set("cardsPack_id", cardsPack_id)
         searchParams.set("packName", packName)
         setSearchParams(searchParams)
         dispatch(setCardsQueryParamsAC({cardsPack_id}))
         dispatch(setInfoCardsPackAC({packName}))
         dispatch(getCardsListTC())
-    }, [dispatch, cardsPack_id, packName])
+    }, [dispatch, cardsPack_id, packName, page, pageCount])
 
     if (!isLoggedIn) {
         return <Navigate to={PATH.Login}/>
@@ -50,7 +55,7 @@ export const CardsList = (): ReactElement => {
                 {!!cardsTotalCount ? <div>
                         <Search listType={"cardsList"}/>
                         <TableCards/>
-                        <Pagination cardPacksTotalCount={cardsTotalCount}
+                        <Pagination page={page} pageCount={pageCount} cardPacksTotalCount={cardsTotalCount}
                                     changePagination={changePagination}/>
                     </div>
                     : <EmptyCardsList/>

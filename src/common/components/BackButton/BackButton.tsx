@@ -15,5 +15,5 @@ export const BackButton = () => {
         <button className={styles.back} onClick={onClickHandler}>
             <FontAwesomeIcon icon={faArrowLeftLong} size="lg"/> <span>Back to Packs List</span>
         </button>
-    );
-};
+    )
+}
