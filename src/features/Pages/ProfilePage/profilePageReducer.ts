@@ -6,7 +6,7 @@ import {handleServerNetworkError} from "../../../common/utils/error-utils";
 const initialState = {
     name: "",
     email: "",
-    avatar: "avatar",
+    avatar: "",
     _id: ""
 }
 
@@ -45,11 +45,11 @@ export const changeInfoProfileAC = (name: string, avatar: string) => ({
 }) as const
 
 //TC
-export const changeInfoProfileTC = (name: string): AppThunkType => async (dispatch) => {
+export const changeInfoProfileTC = (name: string, avatar: string): AppThunkType => async (dispatch) => {
     try {
         dispatch(setAppStatusAC("loading"))
-        await profileAPI.changeInfo(name)
-        dispatch(changeInfoProfileAC(name, "avatar"))
+        await profileAPI.changeInfo(name, avatar)
+        dispatch(changeInfoProfileAC(name, avatar))
         dispatch(setAppStatusAC("succeeded"))
     } catch (e) {
         handleServerNetworkError(e, dispatch)

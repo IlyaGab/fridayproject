@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './header.module.scss'
 import {useAppSelector} from '../../common/hooks/useAppSelector';
-import avatar from '../../assets/img/avatar.png';
+import defaultAvatar from '../../assets/img/avatar.png';
 import logo from '../../assets/img/IT-INC-Logo.svg';
 import Button from '@mui/material/Button';
 import {NavLink} from 'react-router-dom';
@@ -10,6 +10,7 @@ import {PATH} from "../../common/components/RoutesList/RoutersList";
 export const Header = () => {
     const name = useAppSelector(state => state.profileReducer.name)
     const isLoggedIn = useAppSelector(state => state.loginReducer.isLoggedIn)
+    const avatar = useAppSelector(state => state.profileReducer.avatar)
 
     return (
         <div className={styles.header}>
@@ -21,7 +22,7 @@ export const Header = () => {
                     {isLoggedIn
                         ? <div className={styles.profileInfo}>
                             <p className={styles.name}>{name}</p>
-                            <NavLink to={PATH.Profile}><img className={styles.avatar} src={avatar}
+                            <NavLink to={PATH.Profile}><img className={styles.avatar} src={avatar || defaultAvatar}
                                                             alt={'avatar'}/></NavLink>
                         </div>
                         : <div className={styles.btn}>
