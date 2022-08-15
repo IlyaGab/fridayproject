@@ -34,9 +34,10 @@ export const CardsList = (): ReactElement => {
     const pageCount = Number(searchParams.get("pageCount")) || statePageCount
 
     useEffect(() => {
-
         searchParams.set("cardsPack_id", cardsPack_id)
         searchParams.set("packName", packName)
+        searchParams.set("page", String(page))
+        searchParams.set("pageCount", String(pageCount))
         setSearchParams(searchParams)
         dispatch(setCardsQueryParamsAC({cardsPack_id}))
         dispatch(setInfoCardsPackAC({packName}))
