@@ -1,4 +1,4 @@
-import React, {ChangeEvent, ReactElement, useState} from "react";
+import React, {ReactElement, useState} from "react";
 import styles from "./learn.module.scss";
 import {BackButton} from "../../../common/components/BackButton/BackButton";
 import {Button} from "@mui/material";
@@ -8,24 +8,28 @@ import {getCard} from "../../../common/utils/getCards";
 import {useAppSelector} from "../../../common/hooks/useAppSelector";
 import {CardType} from "../../../api/cardsAPI";
 import {GradeType} from "../../../api/gradeAPI";
+import {FormAnswer} from "./FormAnswer/FormAnswer";
 
 export const Learn = (): ReactElement => {
     const dispatch = useAppDispatch()
 
     const cards = useAppSelector(state => state.cardsList.cards)
 
-    const [showAnswer, setShowAnswer] = useState<boolean>(false)
+    const [showAnswer, setShowAnswer] = useState(false)
     const [grade, setGrade] = useState<GradeType>(1)
+    const [isSelectedAnswer, setIsSelectedAnswer] = useState(false)
 
     let newQuestion: CardType = getCard(cards)
 
     const handleNextButton = () => {
         setShowAnswer(false)
+        setIsSelectedAnswer(false)
         dispatch(updateGradeTC({grade, card_id: newQuestion._id}))
     }
 
-    const handleChangeRadioInput = (e: ChangeEvent<HTMLInputElement>) => {
-        setGrade(Number(e.currentTarget.value))
+    const handleChangeRadioInput = (value: number) => {
+        setGrade(value)
+        setIsSelectedAnswer(true)
     }
 
     return (
@@ -39,66 +43,30 @@ export const Learn = (): ReactElement => {
                     <span>Question:</span> {newQuestion && newQuestion.question}
                     <div className={styles.note}>Количество попыток ответов на
                         вопрос: {newQuestion && newQuestion.shots}</div>
-                    {!showAnswer && <Button
-                        type={"submit"}
-                        variant={"contained"}
-                        color={"primary"}
-                        onClick={() => {
-                            setShowAnswer(true)
-                        }}
-                        style={{width: "100%", borderRadius: "30px", marginTop: "30px"}}>
-                        Show answer
-                    </Button>}
                     {showAnswer
-                        && <div className={styles.answer}>
+                        ? <div className={styles.answer}>
                             <span>Answer:</span> {newQuestion && newQuestion.answer}
-                            <form>
-                                <p>Rate yourself:</p>
-                                <label className={styles.inputForm} htmlFor="didNotKnow">
-                                    <input type="radio" id="didNotKnow"
-                                           name="answerForm" value={1}
-                                           onChange={handleChangeRadioInput}
-                                    />
-                                    Did not know
-                                </label>
-                                <label className={styles.inputForm} htmlFor="forgot">
-                                    <input type="radio" id="forgot"
-                                           name="answerForm" value={2}
-                                           onChange={handleChangeRadioInput}
-                                    />
-                                    Forgot
-                                </label>
-                                <label className={styles.inputForm} htmlFor="aLotOfThought">
-                                    <input type="radio" id="aLotOfThought"
-                                           name="answerForm" value={3}
-                                           onChange={handleChangeRadioInput}
-                                    />
-                                    A lot of thought
-                                </label>
-                                <label className={styles.inputForm} htmlFor="confused">
-                                    <input type="radio" id="confused"
-                                           name="answerForm" value={4}
-                                           onChange={handleChangeRadioInput}
-                                    />
-                                    Сonfused
-                                </label>
-                                <label className={styles.inputForm} htmlFor="knewTheAnswer">
-                                    <input type="radio" id="knewTheAnswer"
-                                           name="answerForm" value={5}
-                                           onChange={handleChangeRadioInput}
-                                    />
-                                    Knew the answer
-                                </label>
-                            </form>
+                            <FormAnswer handleChangeRadioInput={handleChangeRadioInput}/>
                             <Button
                                 type={"submit"}
                                 variant={"contained"}
                                 color={"primary"}
                                 onClick={handleNextButton}
+                                disabled={!isSelectedAnswer}
                                 style={{width: "100%", borderRadius: "30px", marginTop: "30px"}}>
                                 Next
                             </Button>
                         </div>
+                        : <Button
+                            type={"submit"}
+                            variant={"contained"}
+                            color={"primary"}
+                            onClick={() => {
+                                setShowAnswer(true)
+                            }}
+                            style={{width: "100%", borderRadius: "30px", marginTop: "30px"}}>
+                            Show answer
+                        </Button>
                     }
                 </div>
             </div>

@@ -10,10 +10,10 @@ import {NavLinkList} from "../common/components/NavlinkList/NavLinkList";
 import {LinearProgress} from "@mui/material";
 
 export const App = (): ReactElement => {
+    const dispatch = useAppDispatch()
+
     const isInitialized = useAppSelector(state => state.appReducer.isInitialized)
     const status = useAppSelector(state => state.appReducer.status)
-
-    const dispatch = useAppDispatch()
 
     useEffect(() => {
         dispatch(initializeAppTC())
@@ -24,14 +24,13 @@ export const App = (): ReactElement => {
     }
 
     return (
-        <>
+        <div>
             <Header/>
-            {status === "loading" && <LinearProgress color="inherit" />}
-                <div>
-                    <RoutersList/>
-                    <NavLinkList/>
-                </div>
-
-        </>
+            {status === "loading" && <LinearProgress color="inherit"/>}
+            <div>
+                <RoutersList/>
+                <NavLinkList/>
+            </div>
+        </div>
     )
 }
