@@ -41,13 +41,16 @@ export const TableCards = (): ReactElement => {
                                     {row.question}
                                 </TableCell>
                                 <TableCell align="left">{row.answer}</TableCell>
-                                <TableCell align="left">{dayjs(row.updated).format('DD.MM.YYYY')}</TableCell>
+                                <TableCell
+                                    align="left">{dayjs(row.updated).format("DD.MM.YYYY")}</TableCell>
                                 <TableCell align="left">
                                     <GradeStars grade={row.grade}/>
                                 </TableCell>
-                                {isMyCards && <TableCell align="center">
-                                    <CardsActionButtons row={row}/>
-                                </TableCell>}
+                                {isMyCards &&
+                                    <TableCell align="center">
+                                        <CardsActionButtons row={row}/>
+                                    </TableCell>
+                                }
                             </TableRow>
                         ))}
                     </TableBody>

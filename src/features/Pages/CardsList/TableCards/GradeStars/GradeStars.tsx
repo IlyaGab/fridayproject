@@ -8,7 +8,7 @@ const stars: number[] = [1, 2, 3, 4, 5]
 export const GradeStars = ({grade}: GradeStarsPropsType): ReactElement => {
     return (
         <div>
-            {stars.map(star => <FontAwesomeIcon
+            {stars.map(star => <FontAwesomeIcon key={star}
                 className={grade >= star ? `${styles.iconYellow}` : `${styles.icon}`}
                 icon={faStar} size="lg"/>)}
         </div>

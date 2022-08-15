@@ -16,6 +16,7 @@ import {SortIcon} from "./SortIcon/SortIcon";
 import {PacksActionButtons} from "./PacksActionButtons/PacksActionButtons";
 import dayjs from "dayjs";
 import {PATH} from "../../../../common/components/RoutesList/RoutersList";
+import noCover from "../../../../assets/img/nocover.jpg"
 
 export const TablePacks = (): ReactElement => {
     const dispatch = useAppDispatch()
@@ -45,19 +46,23 @@ export const TablePacks = (): ReactElement => {
                         <TableRow>
                             <TableCell
                                 onClick={sortPacksHandler("name")}>
-                                Name <SortIcon name={"name"}
-                            />
+                                Name
+                                <SortIcon name={"name"}
+                                />
                             </TableCell>
                             <TableCell align="center"
                                        onClick={sortPacksHandler("cardsCount")}>
-                                Cards <SortIcon name={"cardsCount"}/>
+                                Cards
+                                <SortIcon name={"cardsCount"}/>
                             </TableCell>
                             <TableCell align="center" onClick={sortPacksHandler("updated")}>
                                 Last
-                                Updates <SortIcon name={"updated"}/>
+                                Updates
+                                <SortIcon name={"updated"}/>
                             </TableCell>
                             <TableCell align="center" onClick={sortPacksHandler("user_name")}>
-                                Author <SortIcon name={"user_name"}/>
+                                Author
+                                <SortIcon name={"user_name"}/>
                             </TableCell>
                             <TableCell align="center">
                                 Actions
@@ -73,6 +78,8 @@ export const TablePacks = (): ReactElement => {
                                 <TableCell component="th" scope="row"
                                            style={{cursor: "pointer"}}
                                            onClick={navigateToCardsPackHandler(row._id, row.name)}>
+                                    <img src={row.deckCover || noCover} alt="deckCover"
+                                         style={{width: "75px", height: "40px"}}/>
                                     {row.name}
                                 </TableCell>
                                 <TableCell align="center">{row.cardsCount}</TableCell>

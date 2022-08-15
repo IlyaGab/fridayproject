@@ -7,7 +7,6 @@ import {updateGradeTC} from "../CardsList/cardsListReducer";
 import {getCard} from "../../../common/utils/getCards";
 import {useAppSelector} from "../../../common/hooks/useAppSelector";
 import {CardType} from "../../../api/cardsAPI";
-import {GradeType} from "../../../api/gradeAPI";
 import {FormAnswer} from "./FormAnswer/FormAnswer";
 
 export const Learn = (): ReactElement => {
@@ -16,7 +15,7 @@ export const Learn = (): ReactElement => {
     const cards = useAppSelector(state => state.cardsList.cards)
 
     const [showAnswer, setShowAnswer] = useState(false)
-    const [grade, setGrade] = useState<GradeType>(1)
+    const [grade, setGrade] = useState(1)
     const [isSelectedAnswer, setIsSelectedAnswer] = useState(false)
 
     let newQuestion: CardType = getCard(cards)
