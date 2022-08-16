@@ -20,6 +20,8 @@ import {PATH} from "../../../../common/components/RoutesList/RoutersList";
 export const TablePacks = (): ReactElement => {
     const dispatch = useAppDispatch()
 
+
+
     const navigate = useNavigate()
 
     const rows = useAppSelector(state => state.packsList.cardPacks)
@@ -30,6 +32,7 @@ export const TablePacks = (): ReactElement => {
         sortValue === 0 ? setSortValue(1) : setSortValue(0)
         dispatch(setQueryParamsAC({sortPacks: `${sortValue}${sortPacksName}`}))
     }
+
 
     const navigateToCardsPackHandler = (cardsPack_id: string, packName: string) => (): void => {
         navigate(PATH.CardsList)

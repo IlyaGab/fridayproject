@@ -1,0 +1,29 @@
+.modalHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .modalTitle {
+    color: #000000;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 22px;
+    display: flex;
+    align-items: flex-end;
+  }
+}
+
+.modalContent {
+  margin: 20px 0 20px 0;
+}
+
+.modalButtons {
+  margin-top: 35px;
+  display: flex;
+  justify-content: space-between;
+
+  .modalButton {
+    border-radius: 30px;
+    padding: 5px 30px
+  }
+}

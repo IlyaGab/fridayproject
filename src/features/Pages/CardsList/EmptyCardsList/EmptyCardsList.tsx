@@ -1,7 +1,6 @@
 import React, {ReactElement} from 'react';
 import {useAppSelector} from '../../../../common/hooks/useAppSelector';
 import styles from './emptyCardsList.module.scss'
-import {AddNewCardModal} from '../../../Modals/AddNewCardModal/AddNewCardModal';
 
 export const EmptyCardsList = (): ReactElement => {
 
@@ -15,7 +14,7 @@ export const EmptyCardsList = (): ReactElement => {
                     <p className={styles.message}>This pack is empty. Click add new card to fill
                         this pack</p>
                     {/*<AddButton name={"Add new card"} callback={addNewCard}/>*/}
-                    <AddNewCardModal cardsPackId={cardsPack_id}/>
+                    {/*<AddNewCardModal cardsPackId={cardsPack_id}/>*/}
                 </div>
                 : ""
             }

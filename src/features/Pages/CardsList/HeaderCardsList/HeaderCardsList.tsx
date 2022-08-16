@@ -4,7 +4,6 @@ import styles from "./headerCardsList.module.scss"
 import {faEllipsisVertical} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {Menu} from "./Menu/Menu";
-import {AddNewCardModal} from "../../../Modals/AddNewCardModal/AddNewCardModal";
 import {useSearchParams} from "react-router-dom";
 
 export const HeaderPacksList = (): ReactElement => {
@@ -35,9 +34,9 @@ export const HeaderPacksList = (): ReactElement => {
                 </button>}
                 {showMenu && <Menu/>}
             </h2>
-            {isMyCards && !!cardsTotalCount &&
+            {/*{isMyCards && !!cardsTotalCount &&
                 <AddNewCardModal cardsPackId={cardsPack_id}/>
-            }
+            }*/}
         </div>
     )
 }

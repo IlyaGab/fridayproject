@@ -1,4 +1,4 @@
-import React, {ReactElement, useCallback, useEffect} from "react";
+import React, {ReactElement, useCallback, useEffect, useState} from 'react';
 import styles from "./packsList.module.scss"
 import {Options} from "./Options/Options";
 import {TablePacks} from "./TablePacks/TablePacks";
@@ -9,9 +9,11 @@ import {useAppSelector} from "../../../common/hooks/useAppSelector";
 import {Navigate, useSearchParams} from "react-router-dom";
 import {PATH} from "../../../common/components/RoutesList/RoutersList";
 import {Pagination} from "../../../common/components/Pagination/Pagination";
+import {AddNewPackModal} from '../../Modals/packsModals/AddNewPackModal';
 
 export const PacksList = (): ReactElement => {
     const dispatch = useAppDispatch()
+    const [isModalOpen, setIsModalOpen] = useState(false)
 
     const cardPacksTotalCount = useAppSelector(state => state.packsList.cardPacksTotalCount)
     const isLoggedIn = useAppSelector(state => state.loginReducer.isLoggedIn)
@@ -43,11 +45,15 @@ export const PacksList = (): ReactElement => {
     return (
         <div className={styles.packsListPage}>
             <div className={styles.container}>
-                <HeaderPacksList/>
+                <HeaderPacksList setIsModalOpen={setIsModalOpen}/>
                 <Options/>
                 <TablePacks/>
                 <Pagination page={page} pageCount={pageCount} cardPacksTotalCount={cardPacksTotalCount}
                             changePagination={changePagination}/>
+                <AddNewPackModal
+                    isModalOpen={isModalOpen}
+                    setIsModalOpen={setIsModalOpen}
+                />
             </div>
         </div>
     )
