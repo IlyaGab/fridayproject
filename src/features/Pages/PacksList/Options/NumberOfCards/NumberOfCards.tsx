@@ -36,8 +36,8 @@ export const NumberOfCards = (): ReactElement => {
     }
 
     useEffect(() => {
-        dispatch(setQueryParamsAC({min: minValue, max: maxValue}))
-    }, [dispatch, minValue, maxValue])
+        dispatch(setQueryParamsAC({min: value[0], max: value[1]}))
+    }, [dispatch, value])
 
     return (
         <div className={styles.numberOfCards}>
