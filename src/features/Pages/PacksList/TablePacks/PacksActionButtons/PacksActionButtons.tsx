@@ -7,8 +7,8 @@ import {PATH} from '../../../../../common/components/RoutesList/RoutersList';
 import {useAppDispatch} from '../../../../../common/hooks/useAppDispatch';
 import {getCardsListTC, setCardsQueryParamsAC} from '../../../CardsList/cardsListReducer';
 import {IconButton} from '../../../../../common/components/IconButton/IconButton';
-import {EditPackModal} from '../../../../Modals/packsModals/EditPackModal';
-import {DeletePackModal} from '../../../../Modals/packsModals/DeletePackModal';
+import {EditPackModal} from '../../../../Modals/PacksModals/EditPackModal';
+import {DeletePackModal} from '../../../../Modals/PacksModals/DeletePackModal';
 
 export const PacksActionButtons: React.FC<ActionButtonsPropsType> = ({row}: ActionButtonsPropsType): ReactElement => {
     const [isEditModalOpen, setIsEditModalOpen] = useState(false)

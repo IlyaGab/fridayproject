@@ -11,7 +11,7 @@ import {EmptyCardsList} from './EmptyCardsList/EmptyCardsList';
 import {Search} from '../../../common/components/Search/Search';
 import {Navigate, useSearchParams} from 'react-router-dom';
 import {PATH} from '../../../common/components/RoutesList/RoutersList';
-import {AddNewCardModal} from '../../Modals/cardsModals/AddNewCardModal';
+import {AddNewCardModal} from '../../Modals/CardsModals/AddNewCardModal';
 
 export const CardsList = (): ReactElement => {
     const [isModalOpen, setIsModalOpen] = useState(false)

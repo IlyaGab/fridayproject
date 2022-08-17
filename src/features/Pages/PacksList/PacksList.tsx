@@ -9,7 +9,7 @@ import {useAppSelector} from "../../../common/hooks/useAppSelector";
 import {Navigate, useSearchParams} from "react-router-dom";
 import {PATH} from "../../../common/components/RoutesList/RoutersList";
 import {Pagination} from "../../../common/components/Pagination/Pagination";
-import {AddNewPackModal} from '../../Modals/packsModals/AddNewPackModal';
+import {AddNewPackModal} from '../../Modals/PacksModals/AddNewPackModal';
 
 export const PacksList = (): ReactElement => {
     const dispatch = useAppDispatch()
