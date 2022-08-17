@@ -2,6 +2,7 @@ import React, {ChangeEvent, ReactElement, useEffect,} from "react";
 import styles from "./pagination.module.scss";
 import {Pagination as PaginationMUI} from "@mui/material";
 import {useSearchParams} from "react-router-dom";
+import {useAppSelector} from "../../hooks/useAppSelector";
 
 const arr = [5, 10, 20, 50]
 
@@ -11,6 +12,8 @@ export const Pagination = React.memo(({
                                           cardPacksTotalCount,
                                           changePagination
                                       }: PaginationType): ReactElement => {
+
+    const status = useAppSelector(state => state.appReducer.status)
 
     const [searchParams, setSearchParams] = useSearchParams()
 
@@ -34,6 +37,7 @@ export const Pagination = React.memo(({
         <div className={styles.pagination}>
             <PaginationMUI page={page} count={numberOfPages} color="primary"
                            style={{display: "inline-block"}}
+                           disabled={status === "loading"}
                            onChange={onChangePage}/>
             Show
             <select onChange={onChangeSizePageHandler} value={pageCount}>

@@ -26,6 +26,11 @@ export const CardsList = (): ReactElement => {
         dispatch(setCardsQueryParamsAC({page, pageCount}))
     }, [dispatch])
 
+    const setSearchPackName = (searchName: string) => {
+        dispatch(setCardsQueryParamsAC({cardQuestion: searchName}))
+        dispatch(getCardsListTC())
+    }
+
     const [searchParams, setSearchParams] = useSearchParams()
 
     const cardsPack_id = searchParams.get("cardsPack_id") || stateCardsPackID
@@ -54,9 +59,10 @@ export const CardsList = (): ReactElement => {
                 <BackButton/>
                 <HeaderPacksList/>
                 {!!cardsTotalCount ? <div>
-                        <Search listType={"cardsList"}/>
+                        <Search setSearchPackName={setSearchPackName}/>
                         <TableCards/>
-                        <Pagination page={page} pageCount={pageCount} cardPacksTotalCount={cardsTotalCount}
+                        <Pagination page={page} pageCount={pageCount}
+                                    cardPacksTotalCount={cardsTotalCount}
                                     changePagination={changePagination}/>
                     </div>
                     : <EmptyCardsList/>
