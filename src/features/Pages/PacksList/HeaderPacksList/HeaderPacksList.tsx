@@ -2,10 +2,6 @@ import React, {ReactElement} from 'react';
 import styles from './headerPacksList.module.scss';
 import {AddButton} from '../../../../common/components/AddButton/AddButton';
 
-type PropsType = {
-    setIsModalOpen: (value: boolean) => void
-}
-
 export const HeaderPacksList: React.FC<PropsType> = ({setIsModalOpen}): ReactElement => {
     const handleClick = () => {
         setIsModalOpen(true)
@@ -19,4 +15,8 @@ export const HeaderPacksList: React.FC<PropsType> = ({setIsModalOpen}): ReactEle
             <AddButton name={'Add new pack'} callback={handleClick}/>
         </div>
     )
+}
+
+type PropsType = {
+    setIsModalOpen: (value: boolean) => void
 }

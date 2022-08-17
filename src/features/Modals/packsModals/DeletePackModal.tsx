@@ -4,13 +4,7 @@ import {CustomModal} from '../CustomModal';
 import {useAppDispatch} from '../../../common/hooks/useAppDispatch';
 import {deleteCardsPackTC} from '../../Pages/PacksList/packsListReducer';
 
-type PropsType = {
-    isModalOpen: boolean
-    setIsModalOpen: (value: boolean) => void
-    row: PackType
-}
-
-export const DeletePackModal: React.FC<PropsType> = ({isModalOpen, setIsModalOpen, row}) => {
+export const DeletePackModal: React.FC<DeletePackModalPropsType> = ({isModalOpen, setIsModalOpen, row}) => {
     const dispatch = useAppDispatch();
 
     const deleteCardPack = () => {
@@ -31,4 +25,10 @@ export const DeletePackModal: React.FC<PropsType> = ({isModalOpen, setIsModalOpe
             </div>
         </CustomModal>
     )
+}
+
+type DeletePackModalPropsType = {
+    isModalOpen: boolean
+    setIsModalOpen: (value: boolean) => void
+    row: PackType
 }

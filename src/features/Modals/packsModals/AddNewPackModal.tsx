@@ -6,11 +6,6 @@ import {useAppDispatch} from '../../../common/hooks/useAppDispatch';
 import {CustomModal} from '../CustomModal';
 import {createCardsPackTC} from '../../Pages/PacksList/packsListReducer';
 
-type AddNewPackModalPropsType = {
-    isModalOpen: boolean
-    setIsModalOpen: (value: boolean) => void
-}
-
 export const AddNewPackModal: FC<AddNewPackModalPropsType> = ({isModalOpen, setIsModalOpen}) => {
     const [packName, setPackName] = useState<string>('');
     const [isPrivate, setIsPrivate] = useState<boolean>(false)
@@ -52,4 +47,9 @@ export const AddNewPackModal: FC<AddNewPackModalPropsType> = ({isModalOpen, setI
             </div>
         </CustomModal>
     )
+}
+
+type AddNewPackModalPropsType = {
+    isModalOpen: boolean
+    setIsModalOpen: (value: boolean) => void
 }

@@ -20,7 +20,7 @@ const style = {
 type PropsType = {
     isModalOpen: boolean
     setIsModalOpen: (value: boolean) => void
-    handleCloseOperation?: () => void
+    // handleCloseOperation?: () => void
     handleOperation: () => void
     modalTitle: string
     children: ReactNode
@@ -39,6 +39,15 @@ export const CustomModal: React.FC<PropsType> = React.memo((props) => {
 
     const handleModalClose = () => {
         setIsModalOpen(false);
+    }
+
+    const handleButton = () => {
+        if (buttonTitle === 'Save') {
+            handleOperation()
+            setIsModalOpen(false)
+        } else {
+            handleOperation()
+        }
     }
 
     return (
@@ -67,7 +76,7 @@ export const CustomModal: React.FC<PropsType> = React.memo((props) => {
                     </Button>
                     <Button
                         variant="contained"
-                        onClick={() => handleOperation()}
+                        onClick={handleButton}
                         className={styles.modalButton}
                         color={buttonTitle === 'Delete' ? 'error' : 'primary'}
                     >

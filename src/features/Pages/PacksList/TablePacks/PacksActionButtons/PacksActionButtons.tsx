@@ -10,29 +10,27 @@ import {IconButton} from '../../../../../common/components/IconButton/IconButton
 import {EditPackModal} from '../../../../Modals/packsModals/EditPackModal';
 import {DeletePackModal} from '../../../../Modals/packsModals/DeletePackModal';
 
-export const PacksActionButtons: React.FC<ActionButtonsType> = ({row}: ActionButtonsType): ReactElement => {
-    const dispatch = useAppDispatch()
-
+export const PacksActionButtons: React.FC<ActionButtonsPropsType> = ({row}: ActionButtonsPropsType): ReactElement => {
     const [isEditModalOpen, setIsEditModalOpen] = useState(false)
     const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false)
 
-    const navigate = useNavigate()
-
     const userId = useAppSelector(state => state.profileReducer._id)
+    const dispatch = useAppDispatch()
+
+    const navigate = useNavigate()
 
     const deletePackHandler = () => {
         setIsDeleteModalOpen(true)
     }
-
     const editPackHandler = () => {
         setIsEditModalOpen(true)
     }
-
     const navigateToLearnHandler = (): void => {
         navigate(PATH.Learn)
         dispatch(setCardsQueryParamsAC({cardsPack_id: row._id}))
         dispatch(getCardsListTC())
     }
+
     const isMyCards = userId === row.user_id
 
     return (
@@ -41,12 +39,10 @@ export const PacksActionButtons: React.FC<ActionButtonsType> = ({row}: ActionBut
                 <>
                     <IconButton
                         iconName={faTrashCan}
-                        disabled={userId !== row.user_id}
                         callback={deletePackHandler}
                     />
                     <IconButton
                         iconName={faPencil}
-                        disabled={userId !== row.user_id}
                         callback={editPackHandler}
                     />
                 </>
@@ -56,21 +52,20 @@ export const PacksActionButtons: React.FC<ActionButtonsType> = ({row}: ActionBut
                 disabled={row.cardsCount === 0}
                 callback={navigateToLearnHandler}
             />
-            <EditPackModal
-                isModalOpen={isEditModalOpen}
-                setIsModalOpen={setIsEditModalOpen}
-                row={row}
-            />
             <DeletePackModal
                 isModalOpen={isDeleteModalOpen}
                 setIsModalOpen={setIsDeleteModalOpen}
+                row={row}
+            />
+            <EditPackModal
+                isModalOpen={isEditModalOpen}
+                setIsModalOpen={setIsEditModalOpen}
                 row={row}
             />
         </div>
     )
 }
 
-//Types
-type ActionButtonsType = {
+type ActionButtonsPropsType = {
     row: PackType
 }

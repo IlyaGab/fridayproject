@@ -1,18 +1,20 @@
-import React, {ReactElement, useCallback, useEffect} from "react";
-import styles from "./cardsList.module.scss"
-import {BackButton} from "../../../common/components/BackButton/BackButton";
-import {TableCards} from "./TableCards/TableCards";
-import {Pagination} from "../../../common/components/Pagination/Pagination";
-import {useAppDispatch} from "../../../common/hooks/useAppDispatch";
-import {useAppSelector} from "../../../common/hooks/useAppSelector";
-import {getCardsListTC, setCardsQueryParamsAC, setInfoCardsPackAC} from "./cardsListReducer";
-import {HeaderPacksList} from "./HeaderCardsList/HeaderCardsList";
-import {EmptyCardsList} from "./EmptyCardsList/EmptyCardsList";
-import {Search} from "../../../common/components/Search/Search";
-import {Navigate, useSearchParams} from "react-router-dom";
-import {PATH} from "../../../common/components/RoutesList/RoutersList";
+import React, {ReactElement, useCallback, useEffect, useState} from 'react';
+import styles from './cardsList.module.scss'
+import {BackButton} from '../../../common/components/BackButton/BackButton';
+import {TableCards} from './TableCards/TableCards';
+import {Pagination} from '../../../common/components/Pagination/Pagination';
+import {useAppDispatch} from '../../../common/hooks/useAppDispatch';
+import {useAppSelector} from '../../../common/hooks/useAppSelector';
+import {getCardsListTC, setCardsQueryParamsAC, setInfoCardsPackAC} from './cardsListReducer';
+import {HeaderPacksList} from './HeaderCardsList/HeaderCardsList';
+import {EmptyCardsList} from './EmptyCardsList/EmptyCardsList';
+import {Search} from '../../../common/components/Search/Search';
+import {Navigate, useSearchParams} from 'react-router-dom';
+import {PATH} from '../../../common/components/RoutesList/RoutersList';
+import {AddNewCardModal} from '../../Modals/cardsModals/AddNewCardModal';
 
 export const CardsList = (): ReactElement => {
+    const [isModalOpen, setIsModalOpen] = useState(false)
     const dispatch = useAppDispatch()
 
     const isLoggedIn = useAppSelector(state => state.loginReducer.isLoggedIn)
@@ -28,16 +30,16 @@ export const CardsList = (): ReactElement => {
 
     const [searchParams, setSearchParams] = useSearchParams()
 
-    const cardsPack_id = searchParams.get("cardsPack_id") || stateCardsPackID
-    const packName = searchParams.get("packName") || statePackName
-    const page = Number(searchParams.get("page")) || statePage
-    const pageCount = Number(searchParams.get("pageCount")) || statePageCount
+    const cardsPack_id = searchParams.get('cardsPack_id') || stateCardsPackID
+    const packName = searchParams.get('packName') || statePackName
+    const page = Number(searchParams.get('page')) || statePage
+    const pageCount = Number(searchParams.get('pageCount')) || statePageCount
 
     useEffect(() => {
-        searchParams.set("cardsPack_id", cardsPack_id)
-        searchParams.set("packName", packName)
-        searchParams.set("page", String(page))
-        searchParams.set("pageCount", String(pageCount))
+        searchParams.set('cardsPack_id', cardsPack_id)
+        searchParams.set('packName', packName)
+        searchParams.set('page', String(page))
+        searchParams.set('pageCount', String(pageCount))
         setSearchParams(searchParams)
         dispatch(setCardsQueryParamsAC({cardsPack_id}))
         dispatch(setInfoCardsPackAC({packName}))
@@ -52,15 +54,23 @@ export const CardsList = (): ReactElement => {
         <div className={styles.pack}>
             <div className={styles.container}>
                 <BackButton/>
-                <HeaderPacksList/>
+                <HeaderPacksList
+                    setIsModalOpen={setIsModalOpen}
+                />
                 {!!cardsTotalCount ? <div>
-                        <Search listType={"cardsList"}/>
+                        <Search listType={'cardsList'}/>
                         <TableCards/>
                         <Pagination page={page} pageCount={pageCount} cardPacksTotalCount={cardsTotalCount}
                                     changePagination={changePagination}/>
                     </div>
-                    : <EmptyCardsList/>
+                    : <EmptyCardsList
+                        setIsModalOpen={setIsModalOpen}
+                    />
                 }
+                <AddNewCardModal
+                    isModalOpen={isModalOpen}
+                    setIsModalOpen={setIsModalOpen}
+                />
             </div>
         </div>
     )

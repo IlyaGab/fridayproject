@@ -5,12 +5,6 @@ import {PackType} from '../../../api/packsAPI';
 import {useAppDispatch} from '../../../common/hooks/useAppDispatch';
 import {changeNameCardsPackTC} from '../../Pages/PacksList/packsListReducer';
 
-type EditPackModalPropsType = {
-    isModalOpen: boolean
-    setIsModalOpen: (value: boolean) => void
-    row: PackType
-}
-
 export const EditPackModal: React.FC<EditPackModalPropsType> = ({isModalOpen, setIsModalOpen, row}) => {
     const [newPackName, setNewPackName] = useState<string>(row.name ? row.name : '')
 
@@ -45,4 +39,10 @@ export const EditPackModal: React.FC<EditPackModalPropsType> = ({isModalOpen, se
             </div>
         </CustomModal>
     )
+}
+
+type EditPackModalPropsType = {
+    isModalOpen: boolean
+    setIsModalOpen: (value: boolean) => void
+    row: PackType
 }

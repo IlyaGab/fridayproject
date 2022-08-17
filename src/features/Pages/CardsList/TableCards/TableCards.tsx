@@ -1,4 +1,4 @@
-import React, {ReactElement} from "react";
+import React, {ReactElement} from 'react';
 import {
     Paper,
     Table,
@@ -7,12 +7,12 @@ import {
     TableContainer,
     TableHead,
     TableRow
-} from "@mui/material";
-import {useAppSelector} from "../../../../common/hooks/useAppSelector";
-import styles from "./tableCards.module.scss";
-import {CardsActionButtons} from "./CardsActionButtons/CardsActionButtons";
-import {GradeStars} from "./GradeStars/GradeStars";
-import dayjs from "dayjs";
+} from '@mui/material';
+import {useAppSelector} from '../../../../common/hooks/useAppSelector';
+import styles from './tableCards.module.scss';
+import {CardsActionButtons} from './CardsActionButtons/CardsActionButtons';
+import {GradeStars} from './GradeStars/GradeStars';
+import dayjs from 'dayjs';
 
 export const TableCards = (): ReactElement => {
     const rows = useAppSelector(state => state.cardsList.cards)
@@ -20,7 +20,7 @@ export const TableCards = (): ReactElement => {
 
     return (
         <div className={styles.tableCards}>
-            <TableContainer component={Paper} style={{marginBottom: "0"}}>
+            <TableContainer component={Paper} style={{marginBottom: '0'}}>
                 <Table sx={{minWidth: 650}} aria-label="simple table">
                     <TableHead>
                         <TableRow>
@@ -35,7 +35,7 @@ export const TableCards = (): ReactElement => {
                         {rows.map((row) => (
                             <TableRow
                                 key={row._id}
-                                sx={{"&:last-child td, &:last-child th": {border: 0}}}
+                                sx={{'&:last-child td, &:last-child th': {border: 0}}}
                             >
                                 <TableCell align="left" component="th" scope="row">
                                     {row.question}
