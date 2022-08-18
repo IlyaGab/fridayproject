@@ -20,8 +20,6 @@ import {PATH} from "../../../../common/components/RoutesList/RoutersList";
 export const TablePacks = (): ReactElement => {
     const dispatch = useAppDispatch()
 
-
-
     const navigate = useNavigate()
 
     const rows = useAppSelector(state => state.packsList.cardPacks)
@@ -73,6 +71,7 @@ export const TablePacks = (): ReactElement => {
                                 key={row._id}
                                 sx={{"&:last-child td, &:last-child th": {border: 0}}}
                             >
+                                {/*<TableCell><img src={row.deckCover} alt={'packImage'} style={{width: '57px', height: '36px'}}/></TableCell>*/}
                                 <TableCell component="th" scope="row"
                                            style={{cursor: "pointer"}}
                                            onClick={navigateToCardsPackHandler(row._id, row.name)}>

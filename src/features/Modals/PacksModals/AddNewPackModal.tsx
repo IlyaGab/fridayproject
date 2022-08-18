@@ -5,16 +5,20 @@ import Checkbox from '@mui/material/Checkbox';
 import {useAppDispatch} from '../../../common/hooks/useAppDispatch';
 import {CustomModal} from '../CustomModal';
 import {createCardsPackTC} from '../../Pages/PacksList/packsListReducer';
+import {InputTypeFile} from '../../../common/components/InputTypeFile/InputTypeFile';
 
 export const AddNewPackModal: FC<AddNewPackModalPropsType> = ({isModalOpen, setIsModalOpen}) => {
     const [packName, setPackName] = useState<string>('');
     const [isPrivate, setIsPrivate] = useState<boolean>(false)
+    const [image, setImage] = useState('')
 
     const dispatch = useAppDispatch();
 
     const addCardPack = () => {
-        dispatch(createCardsPackTC({name: packName, private: isPrivate}));
+        dispatch(createCardsPackTC({name: packName, private: isPrivate, deckCover: image}));
         setPackName('')
+        setIsPrivate(false)
+        setImage('')
         setIsModalOpen(false)
     }
 
@@ -26,6 +30,11 @@ export const AddNewPackModal: FC<AddNewPackModalPropsType> = ({isModalOpen, setI
             handleOperation={addCardPack}
             buttonTitle={'Save'}
         >
+            {image && <img src={image} alt="packImage" width={'100%'} height={300}/>}
+            <InputTypeFile
+                buttonTitle={'Upload Image'}
+                setImage={setImage}
+            />
             <div>
                 <Input
                     value={packName}

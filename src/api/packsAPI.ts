@@ -44,7 +44,7 @@ export type PackType = {
     updated: string
     more_id: string
     __v: number
-    deckCover: null
+    deckCover: string
 }
 
 export type CardsPackType = {
