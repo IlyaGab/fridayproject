@@ -32,6 +32,7 @@ export const TablePacks = (): ReactElement => {
         dispatch(setQueryParamsAC({sortPacks: `${sortValue}${sortPacksName}`}))
     }
 
+
     const navigateToCardsPackHandler = (cardsPack_id: string, packName: string) => (): void => {
         navigate(PATH.CardsList)
         dispatch(setCardsQueryParamsAC({cardsPack_id}))
@@ -75,6 +76,7 @@ export const TablePacks = (): ReactElement => {
                                 key={row._id}
                                 sx={{"&:last-child td, &:last-child th": {border: 0}}}
                             >
+                                {/*<TableCell><img src={row.deckCover} alt={'packImage'} style={{width: '57px', height: '36px'}}/></TableCell>*/}
                                 <TableCell component="th" scope="row"
                                            style={{cursor: "pointer"}}
                                            onClick={navigateToCardsPackHandler(row._id, row.name)}>

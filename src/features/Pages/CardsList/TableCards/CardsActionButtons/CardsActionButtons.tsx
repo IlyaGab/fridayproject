@@ -1,19 +1,45 @@
-import React, {ReactElement} from "react";
-import {CardType} from "../../../../../api/cardsAPI";
-import {DeleteCardModal} from '../../../../Modals/DeleteCardModal/DeleteCardModal';
-import {EditCardModal} from '../../../../Modals/EditCardModal/EditCardModal';
+import React, {ReactElement, useState} from 'react';
+import {CardType} from '../../../../../api/cardsAPI';
+import {IconButton} from '../../../../../common/components/IconButton/IconButton';
+import {faPencil, faTrashCan} from '@fortawesome/free-solid-svg-icons';
+import {DeleteCardModal} from '../../../../Modals/CardsModals/DeleteCardModal';
+import {EditCardModal} from '../../../../Modals/CardsModals/EditCardModal';
 
-export const CardsActionButtons = ({row}: ActionButtonsType): ReactElement => {
+export const CardsActionButtons = ({row}: ActionButtonsPropsType): ReactElement => {
+    const [isEditModalOpen, setIsEditModalOpen] = useState(false)
+    const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false)
+
+    const deleteCardHandler = () => {
+        setIsDeleteModalOpen(true)
+    }
+    const editCardHandler = () => {
+        setIsEditModalOpen(true)
+    }
 
     return (
         <div>
-            <DeleteCardModal row={row}/>
-            <EditCardModal row={row}/>
+            <IconButton
+                iconName={faTrashCan}
+                callback={deleteCardHandler}
+            />
+            <IconButton
+                iconName={faPencil}
+                callback={editCardHandler}
+            />
+            <DeleteCardModal
+                isModalOpen={isDeleteModalOpen}
+                setIsModalOpen={setIsDeleteModalOpen}
+                row={row}
+            />
+            <EditCardModal
+                isModalOpen={isEditModalOpen}
+                setIsModalOpen={setIsEditModalOpen}
+                row={row}
+            />
         </div>
     )
 }
 
-//Types
-type ActionButtonsType = {
+type ActionButtonsPropsType = {
     row: CardType
 }

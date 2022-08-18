@@ -1,50 +1,71 @@
-import React, {ReactElement} from "react";
-import styles from "./packsActionButtons.module.scss";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faGraduationCap} from "@fortawesome/free-solid-svg-icons";
-import {useAppSelector} from "../../../../../common/hooks/useAppSelector";
-import {PackType} from "../../../../../api/packsAPI";
-import {DeletePackModal} from "../../../../Modals/DeletePackModal/DeletePackModal";
-import {EditPackModal} from "../../../../Modals/EditPackModal/EditPackModal";
-import {useNavigate} from "react-router-dom";
-import {PATH} from "../../../../../common/components/RoutesList/RoutersList";
-import {useAppDispatch} from "../../../../../common/hooks/useAppDispatch";
-import {getCardsListTC, setCardsQueryParamsAC} from "../../../CardsList/cardsListReducer";
+import React, {ReactElement, useState} from 'react';
+import {faGraduationCap, faPencil, faTrashCan} from '@fortawesome/free-solid-svg-icons';
+import {useAppSelector} from '../../../../../common/hooks/useAppSelector';
+import {PackType} from '../../../../../api/packsAPI';
+import {useNavigate} from 'react-router-dom';
+import {PATH} from '../../../../../common/components/RoutesList/RoutersList';
+import {useAppDispatch} from '../../../../../common/hooks/useAppDispatch';
+import {getCardsListTC, setCardsQueryParamsAC} from '../../../CardsList/cardsListReducer';
+import {IconButton} from '../../../../../common/components/IconButton/IconButton';
+import {EditPackModal} from '../../../../Modals/PacksModals/EditPackModal';
+import {DeletePackModal} from '../../../../Modals/PacksModals/DeletePackModal';
 
-export const PacksActionButtons = ({row}: ActionButtonsType): ReactElement => {
+export const PacksActionButtons: React.FC<ActionButtonsPropsType> = ({row}: ActionButtonsPropsType): ReactElement => {
+    const [isEditModalOpen, setIsEditModalOpen] = useState(false)
+    const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false)
+
+    const userId = useAppSelector(state => state.profileReducer._id)
     const dispatch = useAppDispatch()
 
     const navigate = useNavigate()
 
-    const userId = useAppSelector(state => state.profileReducer._id)
-
+    const deletePackHandler = () => {
+        setIsDeleteModalOpen(true)
+    }
+    const editPackHandler = () => {
+        setIsEditModalOpen(true)
+    }
     const navigateToLearnHandler = (): void => {
         navigate(PATH.Learn)
         dispatch(setCardsQueryParamsAC({cardsPack_id: row._id}))
         dispatch(getCardsListTC())
     }
+
     const isMyCards = userId === row.user_id
 
     return (
         <div>
             {isMyCards &&
                 <>
-                    <DeletePackModal userId={userId} row={row}/>
-                    <EditPackModal userId={userId} row={row}/>
+                    <IconButton
+                        iconName={faTrashCan}
+                        callback={deletePackHandler}
+                    />
+                    <IconButton
+                        iconName={faPencil}
+                        callback={editPackHandler}
+                    />
                 </>
             }
-            <button className={styles.btn}
-                    onClick={navigateToLearnHandler}
-                    disabled={row.cardsCount === 0}
-            ><FontAwesomeIcon
-                className={styles.icon}
-                icon={faGraduationCap} size="lg"/>
-            </button>
+            <IconButton
+                iconName={faGraduationCap}
+                disabled={row.cardsCount === 0}
+                callback={navigateToLearnHandler}
+            />
+            <DeletePackModal
+                isModalOpen={isDeleteModalOpen}
+                setIsModalOpen={setIsDeleteModalOpen}
+                row={row}
+            />
+            <EditPackModal
+                isModalOpen={isEditModalOpen}
+                setIsModalOpen={setIsEditModalOpen}
+                row={row}
+            />
         </div>
     )
 }
 
-//Types
-type ActionButtonsType = {
+type ActionButtonsPropsType = {
     row: PackType
 }

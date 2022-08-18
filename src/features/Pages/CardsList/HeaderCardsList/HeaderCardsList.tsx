@@ -1,27 +1,29 @@
-import React, {ReactElement, useState} from "react";
-import {useAppSelector} from "../../../../common/hooks/useAppSelector";
-import styles from "./headerCardsList.module.scss"
-import {faEllipsisVertical} from "@fortawesome/free-solid-svg-icons";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {Menu} from "./Menu/Menu";
-import {AddNewCardModal} from "../../../Modals/AddNewCardModal/AddNewCardModal";
-import {useSearchParams} from "react-router-dom";
+import React, {ReactElement, useState} from 'react';
+import {useAppSelector} from '../../../../common/hooks/useAppSelector';
+import styles from './headerCardsList.module.scss'
+import {faEllipsisVertical} from '@fortawesome/free-solid-svg-icons';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import {Menu} from './Menu/Menu';
+import {useSearchParams} from 'react-router-dom';
+import {AddButton} from '../../../../common/components/AddButton/AddButton';
 
-export const HeaderPacksList = (): ReactElement => {
-    const cardsPack_id = useAppSelector(state => state.cardsList.queryParams.cardsPack_id)
+export const HeaderPacksList: React.FC<PropsType> = ({setIsModalOpen}): ReactElement => {
     const cardsTotalCount = useAppSelector(state => state.cardsList.cardsTotalCount)
     const isMyCards = useAppSelector(state => state.cardsList.infoCardsPack.isMyCards)
 
     const [showMenu, setShowMenu] = useState<boolean>(false)
 
     const [searchParams] = useSearchParams()
-    const packName = searchParams.get("packName")
+    const packName = searchParams.get('packName')
 
+    const handleAddNewCard = () => {
+        setIsModalOpen(true)
+    }
     const onClickSetShowMenu = () => {
         setShowMenu(!showMenu)
     }
     const onBlurSetShowMenu = () => {
-        setTimeout(() =>{
+        setTimeout(() => {
             setShowMenu(false)
         }, 200)
     }
@@ -36,8 +38,11 @@ export const HeaderPacksList = (): ReactElement => {
                 {showMenu && <Menu/>}
             </h2>
             {isMyCards && !!cardsTotalCount &&
-                <AddNewCardModal cardsPackId={cardsPack_id}/>
-            }
+                <AddButton name={'Add new card'} callback={handleAddNewCard}/>}
         </div>
     )
+}
+
+type PropsType = {
+    setIsModalOpen: (value: boolean) => void
 }
