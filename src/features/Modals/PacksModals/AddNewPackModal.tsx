@@ -31,8 +31,12 @@ export const AddNewPackModal: FC<AddNewPackModalPropsType> = ({isModalOpen, setI
             handleOperation={addCardPack}
             buttonTitle={'Save'}
         >
-            <div className={styles.text}>Cover</div>
-            {image && <img src={image} alt="packImage" width={'100%'} height={300}/>}
+            {image && <>
+                <div className={styles.text}>Cover</div>
+                <div className={styles.imageContainer}>
+                    <img src={image} alt="packImage" className={styles.image}/>
+                </div>
+            </>}
             <InputTypeFile
                 buttonTitle={'Upload Image'}
                 setImage={setImage}

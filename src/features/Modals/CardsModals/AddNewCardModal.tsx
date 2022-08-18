@@ -76,13 +76,17 @@ export const AddNewCardModal: React.FC<AddNewCardModalPropsType> = ({isModalOpen
                 :
                 <div>
                     <div className={styles.text}>Question:</div>
-                    {questionImage && <img src={questionImage} alt="cardImage" width={'100%'} height={120}/>}
+                    <div className={styles.imageContainer}>
+                        {questionImage && <img src={questionImage} alt="cardImage" className={styles.image}/>}
+                    </div>
                     <InputTypeFile
                         buttonTitle={'Upload Image'}
                         setImage={setQuestionImage}
                     />
                     <div className={styles.text}>Answer:</div>
-                    {answerImage && <img src={answerImage} alt="cardImage" width={'100%'} height={120}/>}
+                    <div className={styles.imageContainer}>
+                        {answerImage && <img src={answerImage} alt="cardImage" className={styles.image}/>}
+                    </div>
                     <InputTypeFile
                         buttonTitle={'Upload Image'}
                         setImage={setAnswerImage}
