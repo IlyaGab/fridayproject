@@ -1,4 +1,5 @@
 import React, {FC, useState} from 'react';
+import styles from '../customModal.module.scss'
 import Input from '@mui/material/Input';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
@@ -30,6 +31,7 @@ export const AddNewPackModal: FC<AddNewPackModalPropsType> = ({isModalOpen, setI
             handleOperation={addCardPack}
             buttonTitle={'Save'}
         >
+            <div className={styles.text}>Cover</div>
             {image && <img src={image} alt="packImage" width={'100%'} height={300}/>}
             <InputTypeFile
                 buttonTitle={'Upload Image'}
