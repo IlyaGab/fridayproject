@@ -16,7 +16,7 @@ export const Header = () => {
         <div className={styles.header}>
             <div className={styles.container}>
                 <div className={styles.info}>
-                    <NavLink to={isLoggedIn ? PATH.Profile : PATH.Login}>
+                    <NavLink to={isLoggedIn ? PATH.PacksList : PATH.Login}>
                         <img className={styles.logo} src={logo} alt="IT-INC-Logo"/>
                     </NavLink>
                     {isLoggedIn

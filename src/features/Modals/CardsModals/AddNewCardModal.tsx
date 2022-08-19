@@ -15,19 +15,20 @@ export const AddNewCardModal: React.FC<AddNewCardModalPropsType> = ({isModalOpen
     const [format, setFormat] = useState('')
     const [question, setQuestion] = useState('')
     const [answer, setAnswer] = useState('')
-    const [questionImage, setQuestionImage] = useState('')
-    const [answerImage, setAnswerImage] = useState('')
+    const [questionImg, setQuestionImg] = useState('')
+    const [answerImg, setAnswerImg] = useState('')
 
     const cardsPack_id = useAppSelector(state => state.cardsList.queryParams.cardsPack_id)
     const dispatch = useAppDispatch()
 
     const addCard = () => {
-        dispatch(createCardTC({question, answer, cardsPack_id}))
+        dispatch(createCardTC({question, answer, cardsPack_id, answerImg, questionImg}))
         setFormat('')
         setQuestion('')
         setAnswer('')
-        setQuestionImage('')
-        setAnswerImage('')
+        setQuestionImg('')
+        setAnswerImg('')
+        setIsModalOpen(false)
     }
 
     const handleChange = (e: SelectChangeEvent) => {
@@ -77,19 +78,19 @@ export const AddNewCardModal: React.FC<AddNewCardModalPropsType> = ({isModalOpen
                 <div>
                     <div className={styles.text}>Question:</div>
                     <div className={styles.imageContainer}>
-                        {questionImage && <img src={questionImage} alt="cardImage" className={styles.image}/>}
+                        {questionImg && <img src={questionImg} alt="cardImage" className={styles.image}/>}
                     </div>
                     <InputTypeFile
                         buttonTitle={'Upload Image'}
-                        setImage={setQuestionImage}
+                        setImage={setQuestionImg}
                     />
                     <div className={styles.text}>Answer:</div>
                     <div className={styles.imageContainer}>
-                        {answerImage && <img src={answerImage} alt="cardImage" className={styles.image}/>}
+                        {answerImg && <img src={answerImg} alt="cardImage" className={styles.image}/>}
                     </div>
                     <InputTypeFile
                         buttonTitle={'Upload Image'}
-                        setImage={setAnswerImage}
+                        setImage={setAnswerImg}
                     />
                 </div>)
             }

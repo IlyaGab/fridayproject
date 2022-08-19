@@ -1,0 +1,11 @@
+.app {
+  position: relative;
+
+  .linearProgress {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 59px;
+    bottom: 0;
+  }
+}
