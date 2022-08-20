@@ -7,10 +7,11 @@ import {Menu} from './Menu/Menu';
 import {useSearchParams} from 'react-router-dom';
 import {AddButton} from '../../../../common/components/AddButton/AddButton';
 
-export const HeaderPacksList: React.FC<PropsType> = ({setIsModalOpen}): ReactElement => {
+export const HeaderCardsList: React.FC<PropsType> = ({setIsModalOpen}): ReactElement => {
     const cardsTotalCount = useAppSelector(state => state.cardsList.cardsTotalCount)
     const isMyCards = useAppSelector(state => state.cardsList.infoCardsPack.isMyCards)
     const status = useAppSelector(state => state.appReducer.status)
+    const deckCover = useAppSelector(state => state.cardsList.infoCardsPack.deckCover)
 
     const [showMenu, setShowMenu] = useState<boolean>(false)
 
@@ -32,6 +33,7 @@ export const HeaderPacksList: React.FC<PropsType> = ({setIsModalOpen}): ReactEle
     return (
         <div className={styles.header}>
             <h2>
+                {/*<img src={deckCover || noCover} alt="deckCover" style={{width: '75px', height: '40px'}}/>*/}
                 {packName} {isMyCards &&
                 <button className={styles.btnMenu} onClick={onClickSetShowMenu} onBlur={onBlurSetShowMenu}>
                     <FontAwesomeIcon className={styles.icon} icon={faEllipsisVertical} size="sm"/>

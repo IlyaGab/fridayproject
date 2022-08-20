@@ -30,7 +30,8 @@ const initialState = {
     },
     infoCardsPack: {
         packName: "",
-        isMyCards: false
+        isMyCards: false,
+        deckCover: ''
     }
 }
 
@@ -118,7 +119,7 @@ export const createCardTC = (card: CardPostType): AppThunkType => async (dispatc
     try {
         dispatch(setAppStatusAC("loading"))
         await cardsAPI.createCard(card)
-        dispatch(getCardsListTC())
+        await dispatch(getCardsListTC())
         dispatch(setAppStatusAC("succeeded"))
     } catch (e) {
         handleServerNetworkError(e, dispatch)
@@ -130,7 +131,7 @@ export const deleteCardTC = (id: string): AppThunkType => async (dispatch) => {
     try {
         dispatch(setAppStatusAC("loading"))
         await cardsAPI.deleteCard(id)
-        dispatch(getCardsListTC())
+        await dispatch(getCardsListTC())
         dispatch(setAppStatusAC("succeeded"))
     } catch (e) {
         handleServerNetworkError(e, dispatch)
@@ -142,7 +143,7 @@ export const changeCardTC = (card: CardPutType): AppThunkType => async (dispatch
     try {
         dispatch(setAppStatusAC("loading"))
         await cardsAPI.changeCard(card)
-        dispatch(getCardsListTC())
+        await dispatch(getCardsListTC())
         dispatch(setAppStatusAC("succeeded"))
     } catch (e) {
         handleServerNetworkError(e, dispatch)
@@ -186,6 +187,7 @@ type CardsQueryParamsActionType = {
 type InfoCardsPackType = {
     packName?: string
     isMyCards?: boolean
+    deckCover?: string
 }
 
 type UpdateGradeType = {

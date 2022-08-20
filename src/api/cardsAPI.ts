@@ -37,6 +37,8 @@ export type CardType = {
     created: string
     updated: string
     _id: string
+    questionImg: string,
+    answerImg: string
 }
 
 export type CardPostType = {
@@ -71,5 +73,7 @@ export type CardPutType = {
     user_id?: string
     created?: string
     updated?: string
+    answerImg?: string
+    questionImg?: string
     _id: string
 }

@@ -3,19 +3,26 @@ import {CustomModal} from '../CustomModal';
 import {CardType} from '../../../api/cardsAPI';
 import {useAppDispatch} from '../../../common/hooks/useAppDispatch';
 import {changeCardTC} from '../../Pages/CardsList/cardsListReducer';
-import FormControl from '@mui/material/FormControl';
-import InputLabel from '@mui/material/InputLabel';
-import NativeSelect from '@mui/material/NativeSelect';
 import Input from '@mui/material/Input';
+import styles from '../customModal.module.scss';
+import {InputTypeFile} from '../../../common/components/InputTypeFile/InputTypeFile';
 
 export const EditCardModal: React.FC<EditCardModalPropsType> = ({isModalOpen, setIsModalOpen, row}) => {
-    const [newQuestion, setNewQuestion] = useState(row.question)
-    const [newAnswer, setNewAnswer] = useState(row.answer)
+    const [newQuestion, setNewQuestion] = useState(row.question ? row.question : '')
+    const [newAnswer, setNewAnswer] = useState(row.answer ? row.answer : '')
+    const [questionImg, setQuestionImg] = useState(row.questionImg ? row.questionImg : '')
+    const [answerImg, setAnswerImg] = useState(row.answerImg ? row.answerImg : '')
 
     const dispatch = useAppDispatch()
 
     const editCard = () => {
-        dispatch(changeCardTC({question: newQuestion, answer: newAnswer, _id: row._id}))
+        dispatch(changeCardTC({
+            _id: row._id,
+            questionImg,
+            answerImg,
+            question: newQuestion,
+            answer: newAnswer
+        }))
         setIsModalOpen(false)
     }
 
@@ -27,37 +34,45 @@ export const EditCardModal: React.FC<EditCardModalPropsType> = ({isModalOpen, se
             handleOperation={editCard}
             buttonTitle={'Save'}
         >
-            <div>
-                <FormControl fullWidth>
-                    <InputLabel variant="standard" htmlFor="uncontrolled-native">
-                        Choose a question format
-                    </InputLabel>
-                    <NativeSelect
-                        defaultValue={'Text'}
-                    >
-                        <option value={'Text'}>Text</option>
-                        <option value={'Image'}>Image</option>
-                    </NativeSelect>
-                </FormControl>
-            </div>
-            <div>
-                <Input
-                    value={newQuestion}
-                    placeholder={'Question'}
-                    onChange={e => setNewQuestion(e.currentTarget.value)}
-                    fullWidth={true}
-                    style={{marginTop: '20px', marginBottom: '20px'}}
-                />
-            </div>
-            <div>
-                <Input
-                    value={newAnswer}
-                    placeholder={'Answer'}
-                    onChange={e => setNewAnswer(e.currentTarget.value)}
-                    fullWidth={true}
-                    style={{marginBottom: '20px'}}
-                />
-            </div>
+            {questionImg
+                ?
+                <div>
+                    <div className={styles.text}>Question:</div>
+                    <div className={styles.imageContainer}>
+                        {questionImg && <img src={questionImg} alt="cardImage" className={styles.image}/>}
+                    </div>
+                    <InputTypeFile
+                        buttonTitle={'Upload Image'}
+                        setImage={setQuestionImg}
+                    />
+                    <div className={styles.text}>Answer:</div>
+                    <div className={styles.imageContainer}>
+                        {answerImg && <img src={answerImg} alt="cardImage" className={styles.image}/>}
+                    </div>
+                    <InputTypeFile
+                        buttonTitle={'Upload Image'}
+                        setImage={setAnswerImg}
+                    />
+                </div>
+
+                :
+                <div>
+                    <Input
+                        value={newQuestion}
+                        placeholder={'Question'}
+                        onChange={e => setNewQuestion(e.currentTarget.value)}
+                        fullWidth={true}
+                        style={{marginTop: '20px', marginBottom: '20px'}}
+                    />
+                    <Input
+                        value={newAnswer}
+                        placeholder={'Answer'}
+                        onChange={e => setNewAnswer(e.currentTarget.value)}
+                        fullWidth={true}
+                        style={{marginBottom: '20px'}}
+                    />
+                </div>
+            }
         </CustomModal>
     )
 }

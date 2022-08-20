@@ -83,7 +83,7 @@ export const createCardsPackTC = (newCardsPack: CardsPackPostType): AppThunkType
     try {
         dispatch(setAppStatusAC("loading"))
         await packsAPI.createCardsPack(newCardsPack)
-        dispatch(getPackListTC())
+        await dispatch(getPackListTC())
     } catch (e) {
         handleServerNetworkError(e, dispatch)
         dispatch(setAppStatusAC("failed"))
@@ -94,7 +94,7 @@ export const deleteCardsPackTC = (id: string): AppThunkType => async (dispatch) 
     try {
         dispatch(setAppStatusAC("loading"))
         await packsAPI.deleteCardsPack(id)
-        dispatch(getPackListTC())
+        await dispatch(getPackListTC())
     } catch (e) {
         handleServerNetworkError(e, dispatch)
         dispatch(setAppStatusAC("failed"))
@@ -106,7 +106,7 @@ export const changeNameCardsPackTC = (newPackData: CardsPackPutType): AppThunkTy
     try {
         dispatch(setAppStatusAC("loading"))
         await packsAPI.changeNameCardsPack(newPackData)
-        dispatch(getPackListTC())
+        await dispatch(getPackListTC())
     } catch (e) {
         handleServerNetworkError(e, dispatch)
         dispatch(setAppStatusAC("failed"))

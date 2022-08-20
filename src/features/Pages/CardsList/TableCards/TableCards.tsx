@@ -1,13 +1,5 @@
 import React, {ReactElement} from 'react';
-import {
-    Paper,
-    Table,
-    TableBody,
-    TableCell,
-    TableContainer,
-    TableHead,
-    TableRow
-} from '@mui/material';
+import {Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow} from '@mui/material';
 import {useAppSelector} from '../../../../common/hooks/useAppSelector';
 import styles from './tableCards.module.scss';
 import {CardsActionButtons} from './CardsActionButtons/CardsActionButtons';
@@ -38,11 +30,26 @@ export const TableCards = (): ReactElement => {
                                 sx={{'&:last-child td, &:last-child th': {border: 0}}}
                             >
                                 <TableCell align="left" component="th" scope="row">
-                                    {row.question}
+                                    {row.answerImg
+                                        ? <img
+                                            src={row.questionImg}
+                                            alt="questionImg"
+                                            style={{width: '75px', height: '40px'}}
+                                        />
+                                        : row.question
+                                    }
                                 </TableCell>
-                                <TableCell align="left">{row.answer}</TableCell>
+                                <TableCell align="left">
+                                    {row.answerImg
+                                        ? <img src={row.answerImg}
+                                               alt="answerImg"
+                                               style={{width: '75px', height: '40px'}}
+                                        />
+                                        : row.answer
+                                    }
+                                </TableCell>
                                 <TableCell
-                                    align="left">{dayjs(row.updated).format("DD.MM.YYYY")}</TableCell>
+                                    align="left">{dayjs(row.updated).format('DD.MM.YYYY')}</TableCell>
                                 <TableCell align="left">
                                     <GradeStars grade={row.grade}/>
                                 </TableCell>

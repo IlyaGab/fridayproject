@@ -6,7 +6,7 @@ import {Pagination} from '../../../common/components/Pagination/Pagination';
 import {useAppDispatch} from '../../../common/hooks/useAppDispatch';
 import {useAppSelector} from '../../../common/hooks/useAppSelector';
 import {getCardsListTC, setCardsQueryParamsAC, setInfoCardsPackAC} from './cardsListReducer';
-import {HeaderPacksList} from './HeaderCardsList/HeaderCardsList';
+import {HeaderCardsList} from './HeaderCardsList/HeaderCardsList';
 import {EmptyCardsList} from './EmptyCardsList/EmptyCardsList';
 import {Search} from '../../../common/components/Search/Search';
 import {Navigate, useSearchParams} from 'react-router-dom';
@@ -59,7 +59,7 @@ export const CardsList = (): ReactElement => {
         <div className={styles.pack}>
             <div className={styles.container}>
                 <BackButton/>
-                <HeaderPacksList
+                <HeaderCardsList
                     setIsModalOpen={setIsModalOpen}
                 />
                 {!!cardsTotalCount ? <div>
