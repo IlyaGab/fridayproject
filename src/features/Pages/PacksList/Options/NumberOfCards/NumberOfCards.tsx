@@ -46,7 +46,7 @@ export const NumberOfCards = (): ReactElement => {
                     value={value}
                     onChange={handleChange}
                     onChangeCommitted={handleChangeCommitted}
-                    valueLabelDisplay="auto"
+                    valueLabelDisplay="off"
                     disableSwap
                     min={minSlider}
                     max={maxSlider}

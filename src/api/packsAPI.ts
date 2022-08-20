@@ -3,16 +3,16 @@ import {instance} from './istanceSettings';
 export const packsAPI = {
     getCardsPacks(queryParams: QueryParamsPackType) {
         const params = queryParams
-        return instance.get<GetPacksResponseType>("cards/pack", {params})
+        return instance.get<GetPacksResponseType>('cards/pack', {params})
     },
-    createCardsPack(newCardsPack: CardsPackType) {
+    createCardsPack(newCardsPack: CardsPackPostType) {
         return instance.post('cards/pack', {cardsPack: newCardsPack})
     },
     deleteCardsPack(id: string) {
         return instance.delete(`cards/pack?id=${id}`)
     },
-    changeNameCardsPack(_id: string, name: string) {
-        return instance.put('cards/pack', {cardsPack: {_id, name}})
+    changeNameCardsPack(newPackData: CardsPackPutType) {
+        return instance.put('cards/pack', {cardsPack: newPackData})
     }
 }
 
@@ -47,7 +47,7 @@ export type PackType = {
     deckCover: string
 }
 
-export type CardsPackType = {
+export type CardsPackPostType = {
     name?: string
     deckCover?: string
     private?: boolean
@@ -61,4 +61,23 @@ export type QueryParamsPackType = {
     page: number,
     pageCount: number,
     user_id: string
+}
+
+export type CardsPackPutType = {
+    _id: string
+    user_id?: string
+    user_name?: string
+    private?: boolean
+    name?: string
+    path?: string
+    grade?: number
+    shots?: number
+    cardsCount?: number
+    type?: string
+    rating?: number
+    created?: string
+    updated?: string
+    more_id?: string
+    __v?: number
+    deckCover?: string
 }

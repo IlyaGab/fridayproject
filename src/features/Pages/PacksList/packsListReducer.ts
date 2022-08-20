@@ -1,5 +1,5 @@
 import {AppThunkType} from "../../../app/store"
-import {CardsPackType, GetPacksResponseType, packsAPI, PackType} from "../../../api/packsAPI"
+import {CardsPackPostType, CardsPackPutType, GetPacksResponseType, packsAPI, PackType} from '../../../api/packsAPI'
 import {setAppStatusAC} from "../../../app/appReducer";
 import {handleServerNetworkError} from "../../../common/utils/error-utils";
 
@@ -79,7 +79,7 @@ export const getPackListTC = (): AppThunkType => async (dispatch, getState) => {
     }
 }
 
-export const createCardsPackTC = (newCardsPack: CardsPackType): AppThunkType => async (dispatch) => {
+export const createCardsPackTC = (newCardsPack: CardsPackPostType): AppThunkType => async (dispatch) => {
     try {
         dispatch(setAppStatusAC("loading"))
         await packsAPI.createCardsPack(newCardsPack)
@@ -102,10 +102,10 @@ export const deleteCardsPackTC = (id: string): AppThunkType => async (dispatch) 
 
 }
 
-export const changeNameCardsPackTC = (id: string, name: string): AppThunkType => async (dispatch) => {
+export const changeNameCardsPackTC = (newPackData: CardsPackPutType): AppThunkType => async (dispatch) => {
     try {
         dispatch(setAppStatusAC("loading"))
-        await packsAPI.changeNameCardsPack(id, name)
+        await packsAPI.changeNameCardsPack(newPackData)
         dispatch(getPackListTC())
     } catch (e) {
         handleServerNetworkError(e, dispatch)

@@ -31,35 +31,33 @@ export const AddNewPackModal: FC<AddNewPackModalPropsType> = ({isModalOpen, setI
             handleOperation={addCardPack}
             buttonTitle={'Save'}
         >
-            {image && <>
-                <div className={styles.text}>Cover</div>
-                <div className={styles.imageContainer}>
-                    <img src={image} alt="packImage" className={styles.image}/>
-                </div>
-            </>}
+            {image &&
+                <>
+                    <div className={styles.text}>Cover</div>
+                    <div className={styles.imageContainer}>
+                        <img src={image} alt="packImage" className={styles.image}/>
+                    </div>
+                </>
+            }
             <InputTypeFile
                 buttonTitle={'Upload Image'}
                 setImage={setImage}
             />
-            <div>
-                <Input
-                    value={packName}
-                    placeholder={'Name pack'}
-                    onChange={e => setPackName(e.currentTarget.value)}
-                    fullWidth={true}
-                    style={{marginBottom: '20px'}}
-                />
-            </div>
-            <div>
-                <FormControlLabel
-                    control={
-                        <Checkbox
-                            checked={isPrivate}
-                            onChange={e => setIsPrivate(e.currentTarget.checked)}
-                        />}
-                    label="Private pack"
-                />
-            </div>
+            <Input
+                value={packName}
+                placeholder={'Name pack'}
+                onChange={e => setPackName(e.currentTarget.value)}
+                fullWidth={true}
+                style={{marginBottom: '20px'}}
+            />
+            <FormControlLabel
+                control={
+                    <Checkbox
+                        checked={isPrivate}
+                        onChange={e => setIsPrivate(e.currentTarget.checked)}
+                    />}
+                label="Private pack"
+            />
         </CustomModal>
     )
 }
