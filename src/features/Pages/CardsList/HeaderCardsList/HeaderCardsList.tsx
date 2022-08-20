@@ -10,6 +10,7 @@ import {AddButton} from '../../../../common/components/AddButton/AddButton';
 export const HeaderPacksList: React.FC<PropsType> = ({setIsModalOpen}): ReactElement => {
     const cardsTotalCount = useAppSelector(state => state.cardsList.cardsTotalCount)
     const isMyCards = useAppSelector(state => state.cardsList.infoCardsPack.isMyCards)
+    const status = useAppSelector(state => state.appReducer.status)
 
     const [showMenu, setShowMenu] = useState<boolean>(false)
 
@@ -38,7 +39,7 @@ export const HeaderPacksList: React.FC<PropsType> = ({setIsModalOpen}): ReactEle
                 {showMenu && <Menu/>}
             </h2>
             {isMyCards && !!cardsTotalCount &&
-                <AddButton name={'Add new card'} callback={handleAddNewCard}/>}
+                <AddButton name={'Add new card'} callback={handleAddNewCard} disabled={status === 'loading'}/>}
         </div>
     )
 }

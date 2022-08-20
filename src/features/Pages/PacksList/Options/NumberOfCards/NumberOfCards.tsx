@@ -16,6 +16,7 @@ export const NumberOfCards = (): ReactElement => {
 
     const stateMin = useAppSelector(state => state.packsList.queryParams.min)
     const stateMax = useAppSelector(state => state.packsList.queryParams.max)
+    const status = useAppSelector(state => state.appReducer.status)
 
     const minValue = Number(search.get('min')) || stateMin
     const maxValue = Number(search.get('max')) || stateMax
@@ -51,6 +52,7 @@ export const NumberOfCards = (): ReactElement => {
                     min={minSlider}
                     max={maxSlider}
                     style={{display: 'inline-block'}}
+                    disabled={status === 'loading'}
                 />
                 <div className={styles.value}>{value[1]}</div>
             </div>

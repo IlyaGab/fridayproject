@@ -5,6 +5,7 @@ import {AddButton} from '../../../../common/components/AddButton/AddButton';
 
 export const EmptyCardsList: React.FC<PropsType> = ({setIsModalOpen}): ReactElement => {
     const isMyCards = useAppSelector(state => state.cardsList.infoCardsPack.isMyCards)
+    const status = useAppSelector(state => state.appReducer.status)
 
     const handleAddNewCard = () => {
         setIsModalOpen(true)
@@ -16,7 +17,7 @@ export const EmptyCardsList: React.FC<PropsType> = ({setIsModalOpen}): ReactElem
                 ? <div>
                     <p className={styles.message}>This pack is empty. Click add new card to fill
                         this pack</p>
-                    <AddButton name={'Add new card'} callback={handleAddNewCard}/>
+                    <AddButton name={'Add new card'} callback={handleAddNewCard} disabled={status === 'loading'}/>
                 </div>
                 : ''
             }

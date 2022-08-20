@@ -15,6 +15,7 @@ export const PacksActionButtons: React.FC<ActionButtonsPropsType> = ({row}: Acti
     const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false)
 
     const userId = useAppSelector(state => state.profileReducer._id)
+    const status = useAppSelector(state => state.appReducer.status)
     const dispatch = useAppDispatch()
 
     const navigate = useNavigate()
@@ -40,16 +41,18 @@ export const PacksActionButtons: React.FC<ActionButtonsPropsType> = ({row}: Acti
                     <IconButton
                         iconName={faTrashCan}
                         callback={deletePackHandler}
+                        disabled={status === 'loading'}
                     />
                     <IconButton
                         iconName={faPencil}
                         callback={editPackHandler}
+                        disabled={status === 'loading'}
                     />
                 </>
             }
             <IconButton
                 iconName={faGraduationCap}
-                disabled={row.cardsCount === 0}
+                disabled={row.cardsCount === 0 || status === 'loading'}
                 callback={navigateToLearnHandler}
             />
             <DeletePackModal
