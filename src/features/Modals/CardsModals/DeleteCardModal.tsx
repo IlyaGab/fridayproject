@@ -6,11 +6,13 @@ import {deleteCardTC} from '../../Pages/CardsList/cardsListReducer';
 
 export const DeleteCardModal: React.FC<DeleteCardModalPropsType> = ({isModalOpen, setIsModalOpen, row}) => {
     const dispatch = useAppDispatch();
+    const image = row.questionImg
 
     const deleteCard = () => {
         dispatch(deleteCardTC(row._id))
         setIsModalOpen(false)
     }
+
     return (
         <CustomModal
             modalTitle={'Delete card'}
@@ -20,7 +22,7 @@ export const DeleteCardModal: React.FC<DeleteCardModalPropsType> = ({isModalOpen
             buttonTitle={'Delete'}
         >
             <div>
-                <p>Do you really want to remove <b>{row.question}</b>?</p>
+                <p>Do you really want to remove {image ? 'this card' : <b>{row.question}</b>}?</p>
             </div>
         </CustomModal>
     )

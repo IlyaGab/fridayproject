@@ -19,7 +19,7 @@ export const EmptyCardsList: React.FC<PropsType> = ({setIsModalOpen}): ReactElem
                         this pack</p>
                     <AddButton name={'Add new card'} callback={handleAddNewCard} disabled={status === 'loading'}/>
                 </div>
-                : ''
+                : 'No cards'
             }
         </div>
     )

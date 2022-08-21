@@ -1,19 +1,19 @@
-import OutlinedInput from "@mui/material/OutlinedInput/OutlinedInput";
-import React, {ChangeEvent, ReactElement, useEffect, useState} from "react";
-import styles from "./search.module.scss";
-import {InputAdornment} from "@mui/material";
-import SearchIcon from "@mui/icons-material/Search";
-import {useDebounce} from "../../hooks/useDebounce";
+import OutlinedInput from '@mui/material/OutlinedInput/OutlinedInput';
+import React, {ChangeEvent, ReactElement, useEffect, useState} from 'react';
+import styles from './search.module.scss';
+import {InputAdornment} from '@mui/material';
+import SearchIcon from '@mui/icons-material/Search';
+import {useDebounce} from '../../hooks/useDebounce';
 
-export const Search: React.FC<SearchPropsType> = React.memo( ({setSearchPackName}): ReactElement => {
-    const [value, setValue] = useState<string>('')
+export const Search: React.FC<SearchPropsType> = React.memo(({setSearchPackName}): ReactElement => {
+    const [value, setValue] = useState('')
     const debouncedValue = useDebounce<string>(value, 500)
 
     const onChangeHandler = (e: ChangeEvent<HTMLInputElement>): void => {
         setValue(e.currentTarget.value);
     }
 
-    useEffect(()=>{
+    useEffect(() => {
         setSearchPackName(debouncedValue)
     }, [debouncedValue])
 

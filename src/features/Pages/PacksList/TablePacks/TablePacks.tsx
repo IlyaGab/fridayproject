@@ -47,36 +47,30 @@ export const TablePacks = (): ReactElement => {
                         <TableRow>
                             <TableCell
                                 onClick={sortPacksHandler('name')}
-                                style={{cursor: 'pointer'}}
                             >
-                                Name
+                                <span style={{cursor: 'pointer'}}>Name</span>
                                 <SortIcon name={'name'}
                                 />
                             </TableCell>
                             <TableCell
                                 align="center"
                                 onClick={sortPacksHandler('cardsCount')}
-                                style={{cursor: 'pointer'}}
-
                             >
-                                Cards
+                                <span style={{cursor: 'pointer'}}>Cards</span>
                                 <SortIcon name={'cardsCount'}/>
                             </TableCell>
                             <TableCell
                                 align="center"
                                 onClick={sortPacksHandler('updated')}
-                                style={{cursor: 'pointer'}}
                             >
-                                Last
-                                Updates
+                                <span style={{cursor: 'pointer'}}>Last Updates</span>
                                 <SortIcon name={'updated'}/>
                             </TableCell>
                             <TableCell
                                 align="center"
                                 onClick={sortPacksHandler('user_name')}
-                                style={{cursor: 'pointer'}}
                             >
-                                Author
+                                <span style={{cursor: 'pointer'}}>Author</span>
                                 <SortIcon name={'user_name'}/>
                             </TableCell>
                             <TableCell align="center">
