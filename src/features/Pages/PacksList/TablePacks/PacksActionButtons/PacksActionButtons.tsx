@@ -1,29 +1,33 @@
-import React, {ReactElement, useState} from 'react';
-import {faGraduationCap, faPencil, faTrashCan} from '@fortawesome/free-solid-svg-icons';
-import {useAppSelector} from '../../../../../common/hooks/useAppSelector';
-import {PackType} from '../../../../../api/packsAPI';
-import {useNavigate} from 'react-router-dom';
-import {PATH} from '../../../../../common/components/RoutesList/RoutersList';
-import {useAppDispatch} from '../../../../../common/hooks/useAppDispatch';
-import {getCardsListTC, setCardsQueryParamsAC} from '../../../CardsList/cardsListReducer';
-import {IconButton} from '../../../../../common/components/IconButton/IconButton';
-import {EditPackModal} from '../../../../Modals/PacksModals/EditPackModal';
-import {DeletePackModal} from '../../../../Modals/PacksModals/DeletePackModal';
+import React, {ReactElement, useState} from 'react'
 
-export const PacksActionButtons: React.FC<ActionButtonsPropsType> = ({row}: ActionButtonsPropsType): ReactElement => {
+import {faGraduationCap, faPencil, faTrashCan} from '@fortawesome/free-solid-svg-icons'
+import {useNavigate} from 'react-router-dom'
+
+import {PackType} from '../../../../../api/packsAPI'
+import {CustomIconButton} from '../../../../../common/components/CustomIconButton/CustomIconButton'
+import {PATH} from '../../../../../common/components/RoutesList/RoutersList'
+import {useAppDispatch} from '../../../../../common/hooks/useAppDispatch'
+import {useAppSelector} from '../../../../../common/hooks/useAppSelector'
+import {DeletePackModal} from '../../../../Modals/PacksModals/DeletePackModal'
+import {EditPackModal} from '../../../../Modals/PacksModals/EditPackModal'
+import {getCardsListTC, setCardsQueryParamsAC} from '../../../CardsList/cardsListReducer'
+
+export const PacksActionButtons: React.FC<ActionButtonsPropsType> = ({
+    row,
+}: ActionButtonsPropsType): ReactElement => {
     const [isEditModalOpen, setIsEditModalOpen] = useState(false)
     const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false)
 
-    const userId = useAppSelector(state => state.profileReducer._id)
-    const status = useAppSelector(state => state.appReducer.status)
+    const userId = useAppSelector(state => state.profile._id)
+    const status = useAppSelector(state => state.app.status)
     const dispatch = useAppDispatch()
 
     const navigate = useNavigate()
 
-    const deletePackHandler = () => {
+    const deletePackHandler = (): void => {
         setIsDeleteModalOpen(true)
     }
-    const editPackHandler = () => {
+    const editPackHandler = (): void => {
         setIsEditModalOpen(true)
     }
     const navigateToLearnHandler = (): void => {
@@ -36,21 +40,21 @@ export const PacksActionButtons: React.FC<ActionButtonsPropsType> = ({row}: Acti
 
     return (
         <div>
-            {isMyCards &&
+            {isMyCards && (
                 <>
-                    <IconButton
+                    <CustomIconButton
                         iconName={faTrashCan}
                         callback={deletePackHandler}
                         disabled={status === 'loading'}
                     />
-                    <IconButton
+                    <CustomIconButton
                         iconName={faPencil}
                         callback={editPackHandler}
                         disabled={status === 'loading'}
                     />
                 </>
-            }
-            <IconButton
+            )}
+            <CustomIconButton
                 iconName={faGraduationCap}
                 disabled={row.cardsCount === 0 || status === 'loading'}
                 callback={navigateToLearnHandler}

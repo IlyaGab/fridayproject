@@ -1,21 +1,22 @@
-import React, {ReactElement} from "react";
-import {Button} from "@mui/material";
+import React, {ReactElement} from 'react'
 
-export const AddButton = ({name, callback, disabled}:AddButtonType): ReactElement => {
+import {Button} from '@mui/material'
+
+export const AddButton = ({name, callback, disabled}: AddButtonType): ReactElement => {
     return (
-            <Button
-                variant={"contained"}
-                color={"primary"}
-                style={{borderRadius: "30px", padding: "5px 30px"}}
-                onClick={callback}
-                disabled={disabled}
-            >
-                {name}
-            </Button>
+        <Button
+            variant="contained"
+            color="primary"
+            style={{borderRadius: '30px', padding: '5px 30px'}}
+            onClick={callback}
+            disabled={disabled}
+        >
+            {name}
+        </Button>
     )
 }
 
-//Types
+// Types
 type AddButtonType = {
     name: string
     callback: () => void

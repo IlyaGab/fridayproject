@@ -1,10 +1,21 @@
-import React, {ReactElement} from 'react';
-import {Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow} from '@mui/material';
-import {useAppSelector} from '../../../../common/hooks/useAppSelector';
-import styles from './tableCards.module.scss';
-import {CardsActionButtons} from './CardsActionButtons/CardsActionButtons';
-import {GradeStars} from './GradeStars/GradeStars';
-import dayjs from 'dayjs';
+import React, {ReactElement} from 'react'
+
+import {
+    Paper,
+    Table,
+    TableBody,
+    TableCell,
+    TableContainer,
+    TableHead,
+    TableRow,
+} from '@mui/material'
+import dayjs from 'dayjs'
+
+import {useAppSelector} from '../../../../common/hooks/useAppSelector'
+
+import {CardsActionButtons} from './CardsActionButtons/CardsActionButtons'
+import {GradeStars} from './GradeStars/GradeStars'
+import styles from './tableCards.module.scss'
 
 export const TableCards = (): ReactElement => {
     const rows = useAppSelector(state => state.cardsList.cards)
@@ -24,40 +35,44 @@ export const TableCards = (): ReactElement => {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {rows.map((row) => (
+                        {rows.map(row => (
                             <TableRow
                                 key={row._id}
                                 sx={{'&:last-child td, &:last-child th': {border: 0}}}
                             >
                                 <TableCell align="left" component="th" scope="row">
-                                    {row.answerImg
-                                        ? <img
+                                    {row.answerImg ? (
+                                        <img
                                             src={row.questionImg}
                                             alt="questionImg"
                                             style={{width: '75px', height: '40px'}}
                                         />
-                                        : row.question
-                                    }
+                                    ) : (
+                                        row.question
+                                    )}
                                 </TableCell>
                                 <TableCell align="left">
-                                    {row.answerImg
-                                        ? <img src={row.answerImg}
-                                               alt="answerImg"
-                                               style={{width: '75px', height: '40px'}}
+                                    {row.answerImg ? (
+                                        <img
+                                            src={row.answerImg}
+                                            alt="answerImg"
+                                            style={{width: '75px', height: '40px'}}
                                         />
-                                        : row.answer
-                                    }
+                                    ) : (
+                                        row.answer
+                                    )}
                                 </TableCell>
-                                <TableCell
-                                    align="left">{dayjs(row.updated).format('DD.MM.YYYY')}</TableCell>
                                 <TableCell align="left">
-                                    <GradeStars grade={row.grade}/>
+                                    {dayjs(row.updated).format('DD.MM.YYYY')}
                                 </TableCell>
-                                {isMyCards &&
+                                <TableCell align="left">
+                                    <GradeStars grade={row.grade} />
+                                </TableCell>
+                                {isMyCards && (
                                     <TableCell align="center">
-                                        <CardsActionButtons row={row}/>
+                                        <CardsActionButtons row={row} />
                                     </TableCell>
-                                }
+                                )}
                             </TableRow>
                         ))}
                     </TableBody>

@@ -1,13 +1,19 @@
-import React, {useState} from 'react';
-import {CustomModal} from '../CustomModal';
-import {CardType} from '../../../api/cardsAPI';
-import {useAppDispatch} from '../../../common/hooks/useAppDispatch';
-import {changeCardTC} from '../../Pages/CardsList/cardsListReducer';
-import Input from '@mui/material/Input';
-import styles from '../customModal.module.scss';
-import {InputTypeFile} from '../../../common/components/InputTypeFile/InputTypeFile';
+import React, {useState} from 'react'
 
-export const EditCardModal: React.FC<EditCardModalPropsType> = ({isModalOpen, setIsModalOpen, row}) => {
+import Input from '@mui/material/Input'
+
+import {CardType} from '../../../api/cardsAPI'
+import {InputTypeFile} from '../../../common/components/InputTypeFile/InputTypeFile'
+import {useAppDispatch} from '../../../common/hooks/useAppDispatch'
+import {changeCardTC} from '../../Pages/CardsList/cardsListReducer'
+import {CustomModal} from '../CustomModal'
+import styles from '../customModal.module.scss'
+
+export const EditCardModal: React.FC<EditCardModalPropsType> = ({
+    isModalOpen,
+    setIsModalOpen,
+    row,
+}) => {
     const [newQuestion, setNewQuestion] = useState(row.question ? row.question : '')
     const [newAnswer, setNewAnswer] = useState(row.answer ? row.answer : '')
     const [questionImg, setQuestionImg] = useState(row.questionImg ? row.questionImg : '')
@@ -15,64 +21,70 @@ export const EditCardModal: React.FC<EditCardModalPropsType> = ({isModalOpen, se
 
     const dispatch = useAppDispatch()
 
-    const editCard = () => {
-        dispatch(changeCardTC({
-            _id: row._id,
-            questionImg,
-            answerImg,
-            question: newQuestion,
-            answer: newAnswer
-        }))
+    const editCard = (): void => {
+        dispatch(
+            changeCardTC({
+                _id: row._id,
+                questionImg,
+                answerImg,
+                question: newQuestion,
+                answer: newAnswer,
+            }),
+        )
         setIsModalOpen(false)
     }
 
     return (
         <CustomModal
-            modalTitle={'Edit card name'}
+            modalTitle="Edit card name"
             isModalOpen={isModalOpen}
             setIsModalOpen={setIsModalOpen}
             handleOperation={editCard}
-            buttonTitle={'Save'}
+            buttonTitle="Save"
         >
-            {questionImg
-                ?
+            {questionImg ? (
                 <div>
                     <div className={styles.text}>Question:</div>
                     <div className={styles.imageContainer}>
-                        {questionImg && <img src={questionImg} alt="cardImage" className={styles.image}/>}
+                        {questionImg && (
+                            <img
+                                src={questionImg}
+                                alt="cardImage"
+                                className={styles.image}
+                            />
+                        )}
                     </div>
-                    <InputTypeFile
-                        buttonTitle={'Upload Image'}
-                        setImage={setQuestionImg}
-                    />
+                    <InputTypeFile buttonTitle="Upload Image" setImage={setQuestionImg} />
                     <div className={styles.text}>Answer:</div>
                     <div className={styles.imageContainer}>
-                        {answerImg && <img src={answerImg} alt="cardImage" className={styles.image}/>}
+                        {answerImg && (
+                            <img
+                                src={answerImg}
+                                alt="cardImage"
+                                className={styles.image}
+                            />
+                        )}
                     </div>
-                    <InputTypeFile
-                        buttonTitle={'Upload Image'}
-                        setImage={setAnswerImg}
-                    />
+                    <InputTypeFile buttonTitle="Upload Image" setImage={setAnswerImg} />
                 </div>
-
-                :
+            ) : (
                 <div>
                     <Input
                         value={newQuestion}
-                        placeholder={'Question'}
+                        placeholder="Question"
                         onChange={e => setNewQuestion(e.currentTarget.value)}
-                        fullWidth={true}
+                        fullWidth
                         style={{marginTop: '20px', marginBottom: '20px'}}
                     />
                     <Input
                         value={newAnswer}
-                        placeholder={'Answer'}
+                        placeholder="Answer"
                         onChange={e => setNewAnswer(e.currentTarget.value)}
-                        fullWidth={true}
+                        fullWidth
                         style={{marginBottom: '20px'}}
                     />
                 </div>
-            }
+            )}
         </CustomModal>
     )
 }

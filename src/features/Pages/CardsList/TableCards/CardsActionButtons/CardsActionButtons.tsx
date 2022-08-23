@@ -1,32 +1,34 @@
-import React, {ReactElement, useState} from 'react';
-import {CardType} from '../../../../../api/cardsAPI';
-import {IconButton} from '../../../../../common/components/IconButton/IconButton';
-import {faPencil, faTrashCan} from '@fortawesome/free-solid-svg-icons';
-import {DeleteCardModal} from '../../../../Modals/CardsModals/DeleteCardModal';
-import {EditCardModal} from '../../../../Modals/CardsModals/EditCardModal';
-import {useAppSelector} from '../../../../../common/hooks/useAppSelector';
+import React, {ReactElement, useState} from 'react'
+
+import {faPencil, faTrashCan} from '@fortawesome/free-solid-svg-icons'
+
+import {CardType} from '../../../../../api/cardsAPI'
+import {CustomIconButton} from '../../../../../common/components/CustomIconButton/CustomIconButton'
+import {useAppSelector} from '../../../../../common/hooks/useAppSelector'
+import {DeleteCardModal} from '../../../../Modals/CardsModals/DeleteCardModal'
+import {EditCardModal} from '../../../../Modals/CardsModals/EditCardModal'
 
 export const CardsActionButtons = ({row}: ActionButtonsPropsType): ReactElement => {
     const [isEditModalOpen, setIsEditModalOpen] = useState(false)
     const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false)
 
-    const status = useAppSelector(state => state.appReducer.status)
+    const status = useAppSelector(state => state.app.status)
 
-    const deleteCardHandler = () => {
+    const deleteCardHandler = (): void => {
         setIsDeleteModalOpen(true)
     }
-    const editCardHandler = () => {
+    const editCardHandler = (): void => {
         setIsEditModalOpen(true)
     }
 
     return (
         <div>
-            <IconButton
+            <CustomIconButton
                 iconName={faTrashCan}
                 callback={deleteCardHandler}
                 disabled={status === 'loading'}
             />
-            <IconButton
+            <CustomIconButton
                 iconName={faPencil}
                 callback={editCardHandler}
                 disabled={status === 'loading'}

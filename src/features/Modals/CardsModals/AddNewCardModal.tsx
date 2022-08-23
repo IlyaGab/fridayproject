@@ -1,17 +1,22 @@
-import React, {useState} from 'react';
-import styles from '../customModal.module.scss'
-import {CustomModal} from '../CustomModal';
-import Input from '@mui/material/Input';
-import FormControl from '@mui/material/FormControl';
-import InputLabel from '@mui/material/InputLabel';
-import {useAppDispatch} from '../../../common/hooks/useAppDispatch';
-import {createCardTC} from '../../Pages/CardsList/cardsListReducer';
-import {useAppSelector} from '../../../common/hooks/useAppSelector';
-import Select, {SelectChangeEvent} from '@mui/material/Select';
-import MenuItem from '@mui/material/MenuItem';
-import {InputTypeFile} from '../../../common/components/InputTypeFile/InputTypeFile';
+import React, {useState} from 'react'
 
-export const AddNewCardModal: React.FC<AddNewCardModalPropsType> = ({isModalOpen, setIsModalOpen}) => {
+import FormControl from '@mui/material/FormControl'
+import Input from '@mui/material/Input'
+import InputLabel from '@mui/material/InputLabel'
+import MenuItem from '@mui/material/MenuItem'
+import Select, {SelectChangeEvent} from '@mui/material/Select'
+
+import {InputTypeFile} from '../../../common/components/InputTypeFile/InputTypeFile'
+import {useAppDispatch} from '../../../common/hooks/useAppDispatch'
+import {useAppSelector} from '../../../common/hooks/useAppSelector'
+import {createCardTC} from '../../Pages/CardsList/cardsListReducer'
+import {CustomModal} from '../CustomModal'
+import styles from '../customModal.module.scss'
+
+export const AddNewCardModal: React.FC<AddNewCardModalPropsType> = ({
+    isModalOpen,
+    setIsModalOpen,
+}) => {
     const [format, setFormat] = useState('')
     const [question, setQuestion] = useState('')
     const [answer, setAnswer] = useState('')
@@ -21,7 +26,7 @@ export const AddNewCardModal: React.FC<AddNewCardModalPropsType> = ({isModalOpen
     const cardsPack_id = useAppSelector(state => state.cardsList.queryParams.cardsPack_id)
     const dispatch = useAppDispatch()
 
-    const addCard = () => {
+    const addCard = (): void => {
         dispatch(createCardTC({question, answer, cardsPack_id, answerImg, questionImg}))
         setFormat('')
         setQuestion('')
@@ -31,20 +36,22 @@ export const AddNewCardModal: React.FC<AddNewCardModalPropsType> = ({isModalOpen
         setIsModalOpen(false)
     }
 
-    const handleChange = (e: SelectChangeEvent) => {
+    const handleChange = (e: SelectChangeEvent): void => {
         setFormat(e.target.value)
     }
 
     return (
         <CustomModal
-            modalTitle={'Add new card'}
+            modalTitle="Add new card"
             isModalOpen={isModalOpen}
             setIsModalOpen={setIsModalOpen}
             handleOperation={addCard}
-            buttonTitle={'Save'}
+            buttonTitle="Save"
         >
             <FormControl fullWidth>
-                <InputLabel id="demo-simple-select-label">Choose a question format</InputLabel>
+                <InputLabel id="demo-simple-select-label">
+                    Choose a question format
+                </InputLabel>
                 <Select
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
@@ -52,48 +59,60 @@ export const AddNewCardModal: React.FC<AddNewCardModalPropsType> = ({isModalOpen
                     label="Choose a question format"
                     onChange={handleChange}
                 >
-                    <MenuItem value={'Text'}>Text</MenuItem>
-                    <MenuItem value={'Image'}>Image</MenuItem>
+                    <MenuItem value="Text">Text</MenuItem>
+                    <MenuItem value="Image">Image</MenuItem>
                 </Select>
             </FormControl>
-            {format && (format === 'Text'
-                ?
-                <div>
-                    <Input
-                        value={question}
-                        placeholder={'Question'}
-                        onChange={e => setQuestion(e.currentTarget.value)}
-                        fullWidth={true}
-                        style={{marginTop: '20px', marginBottom: '20px'}}
-                    />
-                    <Input
-                        value={answer}
-                        placeholder={'Answer'}
-                        onChange={e => setAnswer(e.currentTarget.value)}
-                        fullWidth={true}
-                        style={{marginBottom: '20px'}}
-                    />
-                </div>
-                :
-                <div>
-                    <div className={styles.text}>Question:</div>
-                    <div className={styles.imageContainer}>
-                        {questionImg && <img src={questionImg} alt="cardImage" className={styles.image}/>}
+            {format &&
+                (format === 'Text' ? (
+                    <div>
+                        <Input
+                            value={question}
+                            placeholder="Question"
+                            onChange={e => setQuestion(e.currentTarget.value)}
+                            fullWidth
+                            style={{marginTop: '20px', marginBottom: '20px'}}
+                        />
+                        <Input
+                            value={answer}
+                            placeholder="Answer"
+                            onChange={e => setAnswer(e.currentTarget.value)}
+                            fullWidth
+                            style={{marginBottom: '20px'}}
+                        />
                     </div>
-                    <InputTypeFile
-                        buttonTitle={'Upload Image'}
-                        setImage={setQuestionImg}
-                    />
-                    <div className={styles.text}>Answer:</div>
-                    <div className={styles.imageContainer}>
-                        {answerImg && <img src={answerImg} alt="cardImage" className={styles.image}/>}
+                ) : (
+                    <div>
+                        <div className={styles.text}>Question:</div>
+                        <div className={styles.imageContainer}>
+                            {questionImg && (
+                                <img
+                                    src={questionImg}
+                                    alt="cardImage"
+                                    className={styles.image}
+                                />
+                            )}
+                        </div>
+                        <InputTypeFile
+                            buttonTitle="Upload Image"
+                            setImage={setQuestionImg}
+                        />
+                        <div className={styles.text}>Answer:</div>
+                        <div className={styles.imageContainer}>
+                            {answerImg && (
+                                <img
+                                    src={answerImg}
+                                    alt="cardImage"
+                                    className={styles.image}
+                                />
+                            )}
+                        </div>
+                        <InputTypeFile
+                            buttonTitle="Upload Image"
+                            setImage={setAnswerImg}
+                        />
                     </div>
-                    <InputTypeFile
-                        buttonTitle={'Upload Image'}
-                        setImage={setAnswerImg}
-                    />
-                </div>)
-            }
+                ))}
         </CustomModal>
     )
 }

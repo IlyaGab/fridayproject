@@ -1,4 +1,4 @@
-import {instance} from "./istanceSettings";
+import {instance} from './istanceSettings'
 
 export const authAPI = {
     login(data: LoginParamsType) {
@@ -10,15 +10,15 @@ export const authAPI = {
     logout() {
         return instance.delete<InfoResponseType>('auth/me')
     },
-    register: (data: RegisterParamsType) => {
+    register(data: RegisterParamsType) {
         return instance.post<RegisterResponseType>('auth/register', data)
     },
     forgot(data: ForgotParamsType) {
         return instance.post<InfoResponseType>('auth/forgot', data)
     },
     setNewPassword(data: SetNewPasswordParamsType) {
-        return instance.post<InfoResponseType>("auth/set-new-password", data)
-    }
+        return instance.post<InfoResponseType>('auth/set-new-password', data)
+    },
 }
 
 // Types
@@ -39,17 +39,17 @@ export type SetNewPasswordParamsType = {
 }
 
 export type UserResponseType = {
-    _id: string;
-    email: string;
-    name: string;
-    avatar?: string;
-    publicCardPacksCount: number;
-    created: Date;
-    updated: Date;
-    isAdmin: boolean;
-    verified: boolean;
-    rememberMe: boolean;
-    error?: string;
+    _id: string
+    email: string
+    name: string
+    avatar?: string
+    publicCardPacksCount: number
+    created: Date
+    updated: Date
+    isAdmin: boolean
+    verified: boolean
+    rememberMe: boolean
+    error?: string
 }
 
 export type ForgotParamsType = {
@@ -59,7 +59,7 @@ export type ForgotParamsType = {
 }
 
 export type RegisterResponseType<D = {}> = {
-    addedUser: D,
+    addedUser: D
     error?: string
 }
 

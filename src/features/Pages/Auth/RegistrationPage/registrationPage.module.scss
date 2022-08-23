@@ -1,0 +1,30 @@
+@import "../../../../common/styles/mixins";
+
+.registrationPage {
+  @include page();
+
+  .container {
+    @include container();
+
+    .registration {
+      @include block(60px);
+
+      .registrationPageForm {
+        h2 {
+          @include title();
+        }
+
+        .linkBlock {
+
+          .text {
+            @include question();
+          }
+
+          .link {
+            @include link();
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,12 +1,12 @@
-import {instance} from "./istanceSettings";
+import {instance} from './istanceSettings'
 
 export const gradeAPI = {
     updateGrade(gradeParams: GradeParamsType) {
-        return instance.put<UpdateGradeResponseType>("cards/grade", gradeParams)
-    }
+        return instance.put<UpdateGradeResponseType>('cards/grade', gradeParams)
+    },
 }
 
-//Types
+// Types
 export type GradeParamsType = {
     grade: number
     card_id: string

@@ -1,26 +1,34 @@
-import React from 'react';
-import {PackType} from '../../../api/packsAPI';
-import {CustomModal} from '../CustomModal';
-import {useAppDispatch} from '../../../common/hooks/useAppDispatch';
-import {deleteCardsPackTC} from '../../Pages/PacksList/packsListReducer';
+import React from 'react'
 
-export const DeletePackModal: React.FC<DeletePackModalPropsType> = ({isModalOpen, setIsModalOpen, row}) => {
-    const dispatch = useAppDispatch();
+import {PackType} from '../../../api/packsAPI'
+import {useAppDispatch} from '../../../common/hooks/useAppDispatch'
+import {deleteCardsPackTC} from '../../Pages/PacksList/packsListReducer'
+import {CustomModal} from '../CustomModal'
 
-    const deleteCardPack = () => {
-        dispatch(deleteCardsPackTC(row._id));
+export const DeletePackModal: React.FC<DeletePackModalPropsType> = ({
+    isModalOpen,
+    setIsModalOpen,
+    row,
+}) => {
+    const dispatch = useAppDispatch()
+
+    const deleteCardPack = (): void => {
+        dispatch(deleteCardsPackTC(row._id))
         setIsModalOpen(false)
     }
+
     return (
         <CustomModal
-            modalTitle={'Delete pack'}
+            modalTitle="Delete pack"
             isModalOpen={isModalOpen}
             setIsModalOpen={setIsModalOpen}
             handleOperation={deleteCardPack}
-            buttonTitle={'Delete'}
+            buttonTitle="Delete"
         >
             <div>
-                <p>Do you really want to remove <b>{row.name}</b>?</p>
+                <p>
+                    Do you really want to remove <b>{row.name}</b>?
+                </p>
                 <p>All cards will be deleted.</p>
             </div>
         </CustomModal>

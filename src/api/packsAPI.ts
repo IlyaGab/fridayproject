@@ -1,8 +1,9 @@
-import {instance} from './istanceSettings';
+import {instance} from './istanceSettings'
 
 export const packsAPI = {
     getCardsPacks(queryParams: QueryParamsPackType) {
         const params = queryParams
+
         return instance.get<GetPacksResponseType>('cards/pack', {params})
     },
     createCardsPack(newCardsPack: CardsPackPostType) {
@@ -13,10 +14,10 @@ export const packsAPI = {
     },
     changeNameCardsPack(newPackData: CardsPackPutType) {
         return instance.put('cards/pack', {cardsPack: newPackData})
-    }
+    },
 }
 
-//Types
+// Types
 export type GetPacksResponseType = {
     cardPacks: PackType[]
     cardPacksTotalCount: number
@@ -54,12 +55,12 @@ export type CardsPackPostType = {
 }
 
 export type QueryParamsPackType = {
-    packName: string,
-    min: number,
-    max: number,
-    sortPacks: string,
-    page: number,
-    pageCount: number,
+    packName: string
+    min: number
+    max: number
+    sortPacks: string
+    page: number
+    pageCount: number
     user_id: string
 }
 

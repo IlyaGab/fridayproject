@@ -1,22 +1,23 @@
-import {instance} from "./istanceSettings";
+import {instance} from './istanceSettings'
 
 export const cardsAPI = {
     getCards(queryParams: QueryParamsCardsType) {
         const params = queryParams
-        return instance.get<GetCardsResponseType>("cards/card", {params})
+
+        return instance.get<GetCardsResponseType>('cards/card', {params})
     },
     createCard(card: CardPostType) {
-        return instance.post("cards/card", {card})
+        return instance.post('cards/card', {card})
     },
-    deleteCard(id :string) {
+    deleteCard(id: string) {
         return instance.delete(`cards/card?id=${id}`)
     },
     changeCard(card: CardPutType) {
-        return instance.put("cards/card", {card})
-    }
+        return instance.put('cards/card', {card})
+    },
 }
 
-//Types
+// Types
 export type GetCardsResponseType = {
     cardPacks: CardType[]
     cardsTotalCount: number
@@ -37,7 +38,7 @@ export type CardType = {
     created: string
     updated: string
     _id: string
-    questionImg: string,
+    questionImg: string
     answerImg: string
 }
 

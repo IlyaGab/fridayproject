@@ -1,10 +1,12 @@
-import React, {ReactNode} from 'react';
+import React, {ReactNode} from 'react'
+
+import CloseIcon from '@mui/icons-material/Close'
+import Box from '@mui/material/Box'
+import Button from '@mui/material/Button'
+import IconButton from '@mui/material/IconButton'
+import Modal from '@mui/material/Modal'
+
 import styles from './customModal.module.scss'
-import Modal from '@mui/material/Modal';
-import Box from '@mui/material/Box';
-import IconButton from '@mui/material/IconButton';
-import CloseIcon from '@mui/icons-material/Close';
-import Button from '@mui/material/Button';
 
 const style = {
     position: 'absolute' as 'absolute',
@@ -27,21 +29,21 @@ type PropsType = {
     buttonTitle: string
 }
 
-export const CustomModal: React.FC<PropsType> = React.memo((props) => {
+export const CustomModal: React.FC<PropsType> = React.memo(props => {
     const {
         isModalOpen,
         setIsModalOpen,
         handleOperation,
         modalTitle,
         children,
-        buttonTitle
+        buttonTitle,
     } = props
 
-    const handleModalClose = () => {
-        setIsModalOpen(false);
+    const handleModalClose = (): void => {
+        setIsModalOpen(false)
     }
 
-    const handleButton = () => {
+    const handleButton = (): void => {
         if (buttonTitle === 'Save') {
             handleOperation()
             setIsModalOpen(false)
@@ -51,21 +53,16 @@ export const CustomModal: React.FC<PropsType> = React.memo((props) => {
     }
 
     return (
-        <Modal
-            open={isModalOpen}
-            onClose={handleModalClose}
-        >
+        <Modal open={isModalOpen} onClose={handleModalClose}>
             <Box sx={style}>
                 <div className={styles.modalHeader}>
                     <div className={styles.modalTitle}>{modalTitle}</div>
                     <IconButton aria-label="close" onClick={handleModalClose}>
-                        <CloseIcon/>
+                        <CloseIcon />
                     </IconButton>
                 </div>
-                <hr/>
-                <div className={styles.modalContent}>
-                    {children}
-                </div>
+                <hr />
+                <div className={styles.modalContent}>{children}</div>
                 <div className={styles.modalButtons}>
                     <Button
                         variant="contained"
@@ -87,4 +84,3 @@ export const CustomModal: React.FC<PropsType> = React.memo((props) => {
         </Modal>
     )
 })
-

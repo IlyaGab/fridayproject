@@ -1,10 +1,12 @@
-import React, {ReactElement} from "react";
-import styles from "./options.module.scss";
-import {Search} from "../../../../common/components/Search/Search";
-import {ShowPacksCards} from "./ShowPacksCards/ShowPacksCards";
-import {NumberOfCards} from "./NumberOfCards/NumberOfCards";
-import {setQueryParamsAC} from "../packsListReducer";
-import {useAppDispatch} from "../../../../common/hooks/useAppDispatch";
+import React, {ReactElement} from 'react'
+
+import {Search} from '../../../../common/components/Search/Search'
+import {useAppDispatch} from '../../../../common/hooks/useAppDispatch'
+import {setQueryParamsAC} from '../packsListReducer'
+
+import {NumberOfCards} from './NumberOfCards/NumberOfCards'
+import styles from './options.module.scss'
+import {ShowPacksCards} from './ShowPacksCards/ShowPacksCards'
 
 export const Options = (): ReactElement => {
     const dispatch = useAppDispatch()
@@ -15,9 +17,9 @@ export const Options = (): ReactElement => {
 
     return (
         <div className={styles.options}>
-            <Search setSearchPackName={setSearchPackName}/>
-            <ShowPacksCards/>
-            <NumberOfCards/>
+            <Search setSearchPackName={setSearchPackName} />
+            <ShowPacksCards />
+            <NumberOfCards />
         </div>
     )
 }

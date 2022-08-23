@@ -1,12 +1,15 @@
-import React, {ReactElement} from "react";
-import styles from "./menu.module.scss"
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faPencil, faTrashCan} from "@fortawesome/free-solid-svg-icons";
-import {useAppDispatch} from "../../../../../common/hooks/useAppDispatch";
-import {deleteCardsPackTC} from "../../../PacksList/packsListReducer";
-import {useAppSelector} from "../../../../../common/hooks/useAppSelector";
-import {useNavigate} from "react-router-dom";
-import {PATH} from "../../../../../common/components/RoutesList/RoutersList";
+import React, {ReactElement} from 'react'
+
+import {faPencil, faTrashCan} from '@fortawesome/free-solid-svg-icons'
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
+import {useNavigate} from 'react-router-dom'
+
+import {PATH} from '../../../../../common/components/RoutesList/RoutersList'
+import {useAppDispatch} from '../../../../../common/hooks/useAppDispatch'
+import {useAppSelector} from '../../../../../common/hooks/useAppSelector'
+import {deleteCardsPackTC} from '../../../PacksList/packsListReducer'
+
+import styles from './menu.module.scss'
 
 export const Menu = (): ReactElement => {
     const dispatch = useAppDispatch()
@@ -23,20 +26,16 @@ export const Menu = (): ReactElement => {
     return (
         <div className={styles.menu}>
             <div className={styles.menuContainer}>
-                <button
-                    className={styles.btn}
-                ><FontAwesomeIcon
-                    className={styles.icon}
-                    icon={faTrashCan} size="lg"
-                />
+                <button type="button" className={styles.btn}>
+                    <FontAwesomeIcon
+                        className={styles.icon}
+                        icon={faTrashCan}
+                        size="lg"
+                    />
                     Edit
                 </button>
-                <button
-                    onClick={deleteCardsPack}
-                    className={styles.btn}
-                ><FontAwesomeIcon
-                    className={styles.icon}
-                    icon={faPencil} size="lg"/>
+                <button type="button" onClick={deleteCardsPack} className={styles.btn}>
+                    <FontAwesomeIcon className={styles.icon} icon={faPencil} size="lg" />
                     Delete
                 </button>
             </div>

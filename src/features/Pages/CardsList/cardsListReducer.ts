@@ -3,12 +3,12 @@ import {
     CardPutType,
     cardsAPI,
     CardType,
-    GetCardsResponseType
-} from "../../../api/cardsAPI"
-import {AppThunkType} from "../../../app/store"
-import {setAppStatusAC} from "../../../app/appReducer";
-import {handleServerNetworkError} from "../../../common/utils/error-utils";
-import {gradeAPI, GradeParamsType} from "../../../api/gradeAPI";
+    GetCardsResponseType,
+} from '../../../api/cardsAPI'
+import {gradeAPI, GradeParamsType} from '../../../api/gradeAPI'
+import {setAppStatusAC} from '../../../app/appReducer'
+import {AppThunkType} from '../../../app/store'
+import {handleServerNetworkError} from '../../../common/utils/error-utils'
 
 const initialState = {
     cards: [] as CardType[],
@@ -17,156 +17,178 @@ const initialState = {
     minGrade: 0,
     page: 1,
     pageCount: 5,
-    packUserId: "",
+    packUserId: '',
     queryParams: {
-        cardAnswer: "",
-        cardQuestion: "",
-        cardsPack_id: "",
+        cardAnswer: '',
+        cardQuestion: '',
+        cardsPack_id: '',
         min: 0,
         max: 5,
-        sortCards: "0grade",
+        sortCards: '0grade',
         page: 1,
         pageCount: 5,
     },
     infoCardsPack: {
-        packName: "",
+        packName: '',
         isMyCards: false,
-        deckCover: ''
-    }
+        deckCover: '',
+    },
 }
 
-export const cardsListReducer = (state: InitialStateType = initialState, action: CardsListActionType): InitialStateType => {
-
+export const cardsListReducer = (
+    state: InitialStateType = initialState,
+    action: CardsListActionType,
+): InitialStateType => {
     switch (action.type) {
-        case "CARDS-LIST/GET-CARDS-LIST":
+        case 'CARDS-LIST/GET-CARDS-LIST':
             return {
-                ...state, ...action.payload.data
+                ...state,
+                ...action.payload.data,
             }
-        case "CARDS-LIST/SET-QUERY-PARAMS":
+        case 'CARDS-LIST/SET-QUERY-PARAMS':
             return {
-                ...state, queryParams: {
+                ...state,
+                queryParams: {
                     ...state.queryParams,
-                    ...action.payload
-                }
+                    ...action.payload,
+                },
             }
-        case "CARDS-LIST/SET-INFO-CARDS-PACK":
+        case 'CARDS-LIST/SET-INFO-CARDS-PACK':
             return {
                 ...state,
                 infoCardsPack: {
                     ...state.infoCardsPack,
-                    ...action.payload.infoCardsPack
-                }
+                    ...action.payload.infoCardsPack,
+                },
             }
-        case "CARDS-LIST/UPDATE-GRADE":
+        case 'CARDS-LIST/UPDATE-GRADE':
             return {
                 ...state,
-                cards: state.cards.map(card => card._id === action.payload.updatedGrade.card_id ? {
-                    ...card,
-                    grade: action.payload.updatedGrade.grade,
-                    shots: action.payload.updatedGrade.shots
-                } : card)
+                cards: state.cards.map(card =>
+                    card._id === action.payload.updatedGrade.card_id
+                        ? {
+                              ...card,
+                              grade: action.payload.updatedGrade.grade,
+                              shots: action.payload.updatedGrade.shots,
+                          }
+                        : card,
+                ),
             }
         default:
             return state
     }
 }
 
-//AC
-export const getCardsListAC = (data: GetCardsResponseType) => ({
-    type: "CARDS-LIST/GET-CARDS-LIST",
-    payload: {
-        data
-    }
-}) as const
+// AC
+export const getCardsListAC = (data: GetCardsResponseType) =>
+    ({
+        type: 'CARDS-LIST/GET-CARDS-LIST',
+        payload: {
+            data,
+        },
+    } as const)
 
-export const setCardsQueryParamsAC = (queryParams: CardsQueryParamsActionType) => ({
-    type: "CARDS-LIST/SET-QUERY-PARAMS",
-    payload: {
-        ...queryParams
-    }
-}) as const
+export const setCardsQueryParamsAC = (queryParams: CardsQueryParamsActionType) =>
+    ({
+        type: 'CARDS-LIST/SET-QUERY-PARAMS',
+        payload: {
+            ...queryParams,
+        },
+    } as const)
 
-export const setInfoCardsPackAC = (infoCardsPack: InfoCardsPackType) => ({
-    type: "CARDS-LIST/SET-INFO-CARDS-PACK",
-    payload: {
-        infoCardsPack
-    }
-}) as const
+export const setInfoCardsPackAC = (infoCardsPack: InfoCardsPackType) =>
+    ({
+        type: 'CARDS-LIST/SET-INFO-CARDS-PACK',
+        payload: {
+            infoCardsPack,
+        },
+    } as const)
 
-export const updateGradeAC = (updatedGrade: UpdateGradeType) => ({
-    type: "CARDS-LIST/UPDATE-GRADE",
-    payload: {
-        updatedGrade
-    }
-}) as const
+export const updateGradeAC = (updatedGrade: UpdateGradeType) =>
+    ({
+        type: 'CARDS-LIST/UPDATE-GRADE',
+        payload: {
+            updatedGrade,
+        },
+    } as const)
 
-//TC
+// TC
 export const getCardsListTC = (): AppThunkType => async (dispatch, getState) => {
     try {
-        dispatch(setAppStatusAC("loading"))
+        dispatch(setAppStatusAC('loading'))
         const res = await cardsAPI.getCards(getState().cardsList.queryParams)
+
         dispatch(getCardsListAC(res.data))
-        const isMyCards = getState().cardsList.packUserId === getState().profileReducer._id
+        const isMyCards = getState().cardsList.packUserId === getState().profile._id
+
         dispatch(setInfoCardsPackAC({isMyCards}))
-        dispatch(setAppStatusAC("succeeded"))
+        dispatch(setAppStatusAC('succeeded'))
     } catch (e) {
         handleServerNetworkError(e, dispatch)
-        dispatch(setAppStatusAC("failed"))
+        dispatch(setAppStatusAC('failed'))
     }
 }
 
-export const createCardTC = (card: CardPostType): AppThunkType => async (dispatch) => {
-    try {
-        dispatch(setAppStatusAC("loading"))
-        await cardsAPI.createCard(card)
-        await dispatch(getCardsListTC())
-        dispatch(setAppStatusAC("succeeded"))
-    } catch (e) {
-        handleServerNetworkError(e, dispatch)
-        dispatch(setAppStatusAC("failed"))
+export const createCardTC =
+    (card: CardPostType): AppThunkType =>
+    async dispatch => {
+        try {
+            dispatch(setAppStatusAC('loading'))
+            await cardsAPI.createCard(card)
+            await dispatch(getCardsListTC())
+            dispatch(setAppStatusAC('succeeded'))
+        } catch (e) {
+            handleServerNetworkError(e, dispatch)
+            dispatch(setAppStatusAC('failed'))
+        }
     }
-}
 
-export const deleteCardTC = (id: string): AppThunkType => async (dispatch) => {
-    try {
-        dispatch(setAppStatusAC("loading"))
-        await cardsAPI.deleteCard(id)
-        await dispatch(getCardsListTC())
-        dispatch(setAppStatusAC("succeeded"))
-    } catch (e) {
-        handleServerNetworkError(e, dispatch)
-        dispatch(setAppStatusAC("failed"))
+export const deleteCardTC =
+    (id: string): AppThunkType =>
+    async dispatch => {
+        try {
+            dispatch(setAppStatusAC('loading'))
+            await cardsAPI.deleteCard(id)
+            await dispatch(getCardsListTC())
+            dispatch(setAppStatusAC('succeeded'))
+        } catch (e) {
+            handleServerNetworkError(e, dispatch)
+            dispatch(setAppStatusAC('failed'))
+        }
     }
-}
 
-export const changeCardTC = (card: CardPutType): AppThunkType => async (dispatch) => {
-    try {
-        dispatch(setAppStatusAC("loading"))
-        await cardsAPI.changeCard(card)
-        await dispatch(getCardsListTC())
-        dispatch(setAppStatusAC("succeeded"))
-    } catch (e) {
-        handleServerNetworkError(e, dispatch)
-        dispatch(setAppStatusAC("failed"))
+export const changeCardTC =
+    (card: CardPutType): AppThunkType =>
+    async dispatch => {
+        try {
+            dispatch(setAppStatusAC('loading'))
+            await cardsAPI.changeCard(card)
+            await dispatch(getCardsListTC())
+            dispatch(setAppStatusAC('succeeded'))
+        } catch (e) {
+            handleServerNetworkError(e, dispatch)
+            dispatch(setAppStatusAC('failed'))
+        }
     }
-}
 
-export const updateGradeTC = (gradeParams: GradeParamsType): AppThunkType => async (dispatch) => {
-    try {
-        dispatch(setAppStatusAC("loading"))
-        const res = await gradeAPI.updateGrade(gradeParams)
-        dispatch(updateGradeAC(res.data.updatedGrade))
-        dispatch(setAppStatusAC("succeeded"))
-    } catch (e) {
-        handleServerNetworkError(e, dispatch)
-        dispatch(setAppStatusAC("failed"))
+export const updateGradeTC =
+    (gradeParams: GradeParamsType): AppThunkType =>
+    async dispatch => {
+        try {
+            dispatch(setAppStatusAC('loading'))
+            const res = await gradeAPI.updateGrade(gradeParams)
+
+            dispatch(updateGradeAC(res.data.updatedGrade))
+            dispatch(setAppStatusAC('succeeded'))
+        } catch (e) {
+            handleServerNetworkError(e, dispatch)
+            dispatch(setAppStatusAC('failed'))
+        }
     }
-}
 
-
-//Types
+// Types
 export type CardsListActionType =
-    ReturnType<typeof getCardsListAC>
+    | ReturnType<typeof getCardsListAC>
     | ReturnType<typeof setCardsQueryParamsAC>
     | ReturnType<typeof setInfoCardsPackAC>
     | ReturnType<typeof updateGradeAC>
@@ -191,14 +213,14 @@ type InfoCardsPackType = {
 }
 
 type UpdateGradeType = {
-        _id: string
-        cardsPack_id: string
-        card_id: string
-        user_id: string
-        grade: number
-        shots: number
-        created: string
-        more_id: string
-        updated: string
-        __v: number
+    _id: string
+    cardsPack_id: string
+    card_id: string
+    user_id: string
+    grade: number
+    shots: number
+    created: string
+    more_id: string
+    updated: string
+    __v: number
 }
