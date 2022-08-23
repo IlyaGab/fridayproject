@@ -14,8 +14,8 @@ export const AddNewPackModal: React.FC<AddNewPackModalPropsType> = ({
     isModalOpen,
     setIsModalOpen,
 }) => {
-    const [packName, setPackName] = useState<string>('')
-    const [isPrivate, setIsPrivate] = useState<boolean>(false)
+    const [packName, setPackName] = useState('')
+    const [isPrivate, setIsPrivate] = useState(false)
     const [image, setImage] = useState('')
 
     const dispatch = useAppDispatch()

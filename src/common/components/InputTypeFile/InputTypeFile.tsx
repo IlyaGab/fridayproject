@@ -37,6 +37,7 @@ export const InputTypeFile: React.FC<PropsType> = ({buttonTitle, setImage}) => {
         <label htmlFor="uploadInput">
             <input
                 type="file"
+                id="uploadInput"
                 onChange={uploadHandler}
                 style={{display: 'none'}}
                 accept={'image/*'}
