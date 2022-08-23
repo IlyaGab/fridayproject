@@ -1,20 +1,12 @@
 import React, {ReactElement} from 'react'
 
 import {Search} from '../../../../common/components/Search/Search'
-import {useAppDispatch} from '../../../../common/hooks/useAppDispatch'
-import {setQueryParamsAC} from '../packsListReducer'
 
 import {NumberOfCards} from './NumberOfCards/NumberOfCards'
 import styles from './options.module.scss'
 import {ShowPacksCards} from './ShowPacksCards/ShowPacksCards'
 
-export const Options = (): ReactElement => {
-    const dispatch = useAppDispatch()
-
-    const setSearchPackName = (searchName: string): void => {
-        dispatch(setQueryParamsAC({packName: searchName}))
-    }
-
+export const Options: React.FC<PropsType> = ({setSearchPackName}): ReactElement => {
     return (
         <div className={styles.options}>
             <Search setSearchPackName={setSearchPackName} />
@@ -22,4 +14,8 @@ export const Options = (): ReactElement => {
             <NumberOfCards />
         </div>
     )
+}
+
+type PropsType = {
+    setSearchPackName: (searchName: string) => void
 }

@@ -23,6 +23,7 @@ export const PacksList = (): ReactElement => {
     )
     const isLoggedIn = useAppSelector(state => state.login.isLoggedIn)
     const sortPacks = useAppSelector(state => state.packsList.queryParams.sortPacks)
+    const packName = useAppSelector(state => state.packsList.queryParams.packName)
 
     const stateMin = useAppSelector(state => state.packsList.queryParams.min)
     const stateMax = useAppSelector(state => state.packsList.queryParams.max)
@@ -34,9 +35,13 @@ export const PacksList = (): ReactElement => {
     const page = Number(searchParams.get('page')) || statePage
     const pageCount = Number(searchParams.get('pageCount')) || statePageCount
 
+    const setSearchPackName = (searchName: string): void => {
+        dispatch(setQueryParamsAC({packName: searchName}))
+    }
+
     useEffect(() => {
         dispatch(getPackListTC())
-    }, [dispatch, sortPacks, stateMin, stateMax, page, pageCount, user_id])
+    }, [dispatch, sortPacks, stateMin, stateMax, page, pageCount, user_id, packName])
 
     const changePagination = useCallback(
         (page: number, pageCount: number) => {
@@ -53,7 +58,7 @@ export const PacksList = (): ReactElement => {
         <div className={styles.packsListPage}>
             <div className={styles.container}>
                 <HeaderPacksList setIsModalOpen={setIsModalOpen} />
-                <Options />
+                <Options setSearchPackName={setSearchPackName} />
                 <TablePacks />
                 <Pagination
                     page={page}
