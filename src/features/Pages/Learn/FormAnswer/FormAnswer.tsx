@@ -20,7 +20,7 @@ export const FormAnswer = ({handleChangeRadioInput}: FormAnswerType): ReactEleme
             <p>Rate yourself:</p>
             {answers.map(answer => (
                 <label
-                    key={answer.name}
+                    key={answer.value}
                     className={styles.inputForm}
                     htmlFor={answer.name}
                 >

@@ -35,9 +35,12 @@ export const PacksList = (): ReactElement => {
     const page = Number(searchParams.get('page')) || statePage
     const pageCount = Number(searchParams.get('pageCount')) || statePageCount
 
-    const setSearchPackName = (searchName: string): void => {
-        dispatch(setQueryParamsAC({packName: searchName}))
-    }
+    const setSearchPackName = useCallback(
+        (searchName: string): void => {
+            dispatch(setQueryParamsAC({packName: searchName}))
+        },
+        [dispatch],
+    )
 
     useEffect(() => {
         dispatch(getPackListTC())

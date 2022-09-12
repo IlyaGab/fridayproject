@@ -1,4 +1,4 @@
-import React, {ReactElement, useState} from 'react'
+import React, {ReactElement, useMemo, useState} from 'react'
 
 import {Button} from '@mui/material'
 
@@ -21,7 +21,9 @@ export const Learn = (): ReactElement => {
     const [grade, setGrade] = useState(1)
     const [isSelectedAnswer, setIsSelectedAnswer] = useState(false)
 
-    const newQuestion: CardType = getCard(cards)
+    const newQuestion: CardType = useMemo(() => {
+        return getCard(cards)
+    }, [cards])
 
     const handleNextButton = (): void => {
         setShowAnswer(false)

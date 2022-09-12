@@ -3,7 +3,7 @@ import React, {ReactElement} from 'react'
 import Button from '@mui/material/Button'
 import {useNavigate} from 'react-router-dom'
 
-import ufo from '../../../assets/img/UFO.svg'
+import errorIcon from '../../../assets/img/error.svg'
 import {useAppSelector} from '../../hooks/useAppSelector'
 import {PATH} from '../RoutesList/RoutersList'
 
@@ -23,7 +23,7 @@ export const ErrorPage = (): ReactElement => {
             <div className={styles.container}>
                 <div className={styles.error}>
                     <h2 className={styles.errorTitle}>Oops! Page not found</h2>
-                    <img className={styles.icon} src={ufo} alt="error-icon" />
+                    <img className={styles.icon} src={errorIcon} alt="error-icon" />
                     <Button
                         variant="contained"
                         color="primary"

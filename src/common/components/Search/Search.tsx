@@ -11,8 +11,8 @@ import styles from './search.module.scss'
 export const Search: React.FC<SearchPropsType> = React.memo(
     ({setSearchPackName}): ReactElement => {
         const [value, setValue] = useState('')
-        // eslint-disable-next-line no-magic-numbers
-        const debouncedValue = useDebounce<string>(value, 500)
+        const debounceDelay = 500
+        const debouncedValue = useDebounce<string>(value, debounceDelay)
 
         const onChangeHandler = (e: ChangeEvent<HTMLInputElement>): void => {
             setValue(e.currentTarget.value)
@@ -20,7 +20,7 @@ export const Search: React.FC<SearchPropsType> = React.memo(
 
         useEffect(() => {
             setSearchPackName(debouncedValue)
-        }, [debouncedValue])
+        }, [debouncedValue, setSearchPackName])
 
         return (
             <div className={styles.search}>

@@ -4,7 +4,7 @@ import {faArrowRightFromBracket, faCamera} from '@fortawesome/free-solid-svg-ico
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {Navigate} from 'react-router-dom'
 
-import defaultAvatar from '../../../../assets/img/avatar.png'
+import defaultAvatar from '../../../../assets/img/default-avatar.png'
 import {BackButton} from '../../../../common/components/BackButton/BackButton'
 import {EditableSpan} from '../../../../common/components/EditableSpan/EditableSpan'
 import {PATH} from '../../../../common/components/RoutesList/RoutersList'

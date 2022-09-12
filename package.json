@@ -1,8 +1,8 @@
 {
-  "name": "friday_project",
+  "name": "cards",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://IlyaGab.github.io/fridayproject",
+  "homepage": "https://IlyaGab.github.io/cards",
   "dependencies": {
     "@emotion/react": "^11.9.3",
     "@emotion/styled": "^11.9.3",

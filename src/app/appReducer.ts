@@ -1,5 +1,4 @@
 import {authAPI} from '../api/authAPI'
-import {handleServerNetworkError} from '../common/utils/error-utils'
 import {setIsLoggedInAC} from '../features/Pages/Auth/LoginPage/loginPageReducer'
 import {setProfileDataAC} from '../features/Pages/Auth/ProfilePage/profilePageReducer'
 
@@ -73,9 +72,6 @@ export const initializeAppTC = (): AppThunkType => async dispatch => {
                 setProfileDataAC(res.data.name, res.data.email, 'avatar', res.data._id),
             )
         }
-    } catch (e) {
-        handleServerNetworkError(e, dispatch)
-        dispatch(setAppStatusAC('failed'))
     } finally {
         dispatch(setInitAC(true))
     }

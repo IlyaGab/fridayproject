@@ -3,8 +3,8 @@ import React, {ReactElement} from 'react'
 import Button from '@mui/material/Button'
 import {NavLink} from 'react-router-dom'
 
-import defaultAvatar from '../../assets/img/avatar.png'
-import logo from '../../assets/img/IT-INC-Logo.svg'
+import defaultAvatar from '../../assets/img/default-avatar.png'
+import logo from '../../assets/img/header-logo.png'
 import {PATH} from '../../common/components/RoutesList/RoutersList'
 import {useAppSelector} from '../../common/hooks/useAppSelector'
 
@@ -20,7 +20,7 @@ export const Header = (): ReactElement => {
             <div className={styles.container}>
                 <div className={styles.info}>
                     <NavLink to={isLoggedIn ? PATH.PacksList : PATH.Login}>
-                        <img className={styles.logo} src={logo} alt="IT-INC-Logo" />
+                        <img className={styles.logo} src={logo} alt="cards-logo" />
                     </NavLink>
                     {isLoggedIn ? (
                         <div className={styles.profileInfo}>
