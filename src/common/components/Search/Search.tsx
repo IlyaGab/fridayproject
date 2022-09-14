@@ -9,7 +9,7 @@ import {useDebounce} from '../../hooks/useDebounce'
 import styles from './search.module.scss'
 
 export const Search: React.FC<SearchPropsType> = React.memo(
-    ({setSearchPackName}): ReactElement => {
+    ({setSearchName}): ReactElement => {
         const [value, setValue] = useState('')
         const debounceDelay = 500
         const debouncedValue = useDebounce<string>(value, debounceDelay)
@@ -19,8 +19,8 @@ export const Search: React.FC<SearchPropsType> = React.memo(
         }
 
         useEffect(() => {
-            setSearchPackName(debouncedValue)
-        }, [debouncedValue, setSearchPackName])
+            setSearchName(debouncedValue)
+        }, [debouncedValue, setSearchName])
 
         return (
             <div className={styles.search}>
@@ -43,5 +43,5 @@ export const Search: React.FC<SearchPropsType> = React.memo(
 
 // Types
 type SearchPropsType = {
-    setSearchPackName: (searchName: string) => void
+    setSearchName: (searchName: string) => void
 }

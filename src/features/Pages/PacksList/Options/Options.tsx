@@ -7,10 +7,10 @@ import styles from './options.module.scss'
 import {ShowPacksCards} from './ShowPacksCards/ShowPacksCards'
 
 export const Options: React.FC<PropsType> = React.memo(
-    ({setSearchPackName}): ReactElement => {
+    ({setSearchName}): ReactElement => {
         return (
             <div className={styles.options}>
-                <Search setSearchPackName={setSearchPackName} />
+                <Search setSearchName={setSearchName} />
                 <ShowPacksCards />
                 <NumberOfCards />
             </div>
@@ -19,5 +19,5 @@ export const Options: React.FC<PropsType> = React.memo(
 )
 
 type PropsType = {
-    setSearchPackName: (searchName: string) => void
+    setSearchName: (searchName: string) => void
 }

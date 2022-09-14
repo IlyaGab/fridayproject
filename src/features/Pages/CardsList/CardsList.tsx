@@ -11,17 +11,12 @@ import {useAppSelector} from '../../../common/hooks/useAppSelector'
 import {AddNewCardModal} from '../../Modals/CardsModals/AddNewCardModal'
 
 import styles from './cardsList.module.scss'
-import {
-    getCardsListTC,
-    setCardsQueryParamsAC,
-    setInfoCardsPackAC,
-} from './cardsListReducer'
+import {getCardsListTC, setCardsQueryParamsAC} from './cardsListReducer'
 import {EmptyCardsList} from './EmptyCardsList/EmptyCardsList'
 import {HeaderCardsList} from './HeaderCardsList/HeaderCardsList'
 import {TableCards} from './TableCards/TableCards'
 
 export const CardsList = (): ReactElement => {
-    const [isModalOpen, setIsModalOpen] = useState(false)
     const dispatch = useAppDispatch()
 
     const isLoggedIn = useAppSelector(state => state.login.isLoggedIn)
@@ -32,18 +27,9 @@ export const CardsList = (): ReactElement => {
     const statePackName = useAppSelector(state => state.cardsList.infoCardsPack.packName)
     const statePage = useAppSelector(state => state.cardsList.queryParams.page)
     const statePageCount = useAppSelector(state => state.cardsList.queryParams.pageCount)
+    const cardQuestion = useAppSelector(state => state.cardsList.queryParams.cardQuestion)
 
-    const changePagination = useCallback(
-        (page: number, pageCount: number): void => {
-            dispatch(setCardsQueryParamsAC({page, pageCount}))
-        },
-        [dispatch],
-    )
-
-    const setSearchPackName = (searchName: string): void => {
-        dispatch(setCardsQueryParamsAC({cardQuestion: searchName}))
-        dispatch(getCardsListTC())
-    }
+    const [isModalOpen, setIsModalOpen] = useState(false)
 
     const [searchParams, setSearchParams] = useSearchParams()
 
@@ -52,16 +38,29 @@ export const CardsList = (): ReactElement => {
     const page = Number(searchParams.get('page')) || statePage
     const pageCount = Number(searchParams.get('pageCount')) || statePageCount
 
+    const changePagination = useCallback(
+        (page: number, pageCount: number): void => {
+            dispatch(setCardsQueryParamsAC({page, pageCount}))
+        },
+        [dispatch],
+    )
+
+    const setSearchPackName = useCallback(
+        (searchName: string): void => {
+            dispatch(setCardsQueryParamsAC({cardQuestion: searchName}))
+        },
+        [dispatch],
+    )
+
     useEffect(() => {
         searchParams.set('cardsPack_id', cardsPack_id)
         searchParams.set('packName', packName)
-        searchParams.set('page', String(page))
-        searchParams.set('pageCount', String(pageCount))
         setSearchParams(searchParams)
-        dispatch(setCardsQueryParamsAC({cardsPack_id}))
-        dispatch(setInfoCardsPackAC({packName}))
+    }, [cardsPack_id, packName, searchParams, setSearchParams])
+
+    useEffect(() => {
         dispatch(getCardsListTC())
-    }, [dispatch, cardsPack_id, packName, page, pageCount, searchParams, setSearchParams])
+    }, [dispatch, page, pageCount, cardQuestion])
 
     if (!isLoggedIn) {
         return <Navigate to={PATH.Login} />
@@ -74,7 +73,7 @@ export const CardsList = (): ReactElement => {
                 <HeaderCardsList setIsModalOpen={setIsModalOpen} />
                 {cardsTotalCount ? (
                     <div>
-                        <Search setSearchPackName={setSearchPackName} />
+                        <Search setSearchName={setSearchPackName} />
                         <TableCards />
                         <Pagination
                             page={page}

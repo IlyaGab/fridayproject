@@ -72,6 +72,8 @@ export const initializeAppTC = (): AppThunkType => async dispatch => {
                 setProfileDataAC(res.data.name, res.data.email, 'avatar', res.data._id),
             )
         }
+    } catch (e) {
+        console.log(e)
     } finally {
         dispatch(setInitAC(true))
     }

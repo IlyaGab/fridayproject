@@ -16,6 +16,7 @@ import {TablePacks} from './TablePacks/TablePacks'
 
 export const PacksList = (): ReactElement => {
     const dispatch = useAppDispatch()
+
     const [isModalOpen, setIsModalOpen] = useState(false)
 
     const cardPacksTotalCount = useAppSelector(
@@ -61,7 +62,7 @@ export const PacksList = (): ReactElement => {
         <div className={styles.packsListPage}>
             <div className={styles.container}>
                 <HeaderPacksList setIsModalOpen={setIsModalOpen} />
-                <Options setSearchPackName={setSearchPackName} />
+                <Options setSearchName={setSearchPackName} />
                 <TablePacks />
                 <Pagination
                     page={page}

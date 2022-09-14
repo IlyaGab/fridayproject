@@ -15,24 +15,24 @@ const maxSlider = 110
 export const NumberOfCards = (): ReactElement => {
     const dispatch = useAppDispatch()
 
-    const [search, setSearch] = useSearchParams()
+    const [searchParams, setSearchParams] = useSearchParams()
 
     const stateMin = useAppSelector(state => state.packsList.queryParams.min)
     const stateMax = useAppSelector(state => state.packsList.queryParams.max)
     const status = useAppSelector(state => state.app.status)
 
-    const minValue = Number(search.get('min')) || stateMin
-    const maxValue = Number(search.get('max')) || stateMax
+    const minValue = Number(searchParams.get('min')) || stateMin
+    const maxValue = Number(searchParams.get('max')) || stateMax
 
     const [value, setValue] = React.useState<number[]>([minValue, maxValue])
 
     const handleChange = (event: Event, newValue: number | number[]): void => {
         setValue(newValue as number[])
         if (Array.isArray(newValue)) {
-            search.set(`min`, `${newValue[0]}`)
-            search.set(`max`, `${newValue[1]}`)
+            searchParams.set(`min`, `${newValue[0]}`)
+            searchParams.set(`max`, `${newValue[1]}`)
         }
-        setSearch(search)
+        setSearchParams(searchParams)
     }
 
     const handleChangeCommitted = (
