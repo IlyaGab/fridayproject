@@ -21,6 +21,7 @@ export const CardsList = (): ReactElement => {
 
     const isLoggedIn = useAppSelector(state => state.login.isLoggedIn)
     const cardsTotalCount = useAppSelector(state => state.cardsList.cardsTotalCount)
+    const cardsCount = useAppSelector(state => state.cardsList.infoCardsPack.cardsCount)
     const stateCardsPackID = useAppSelector(
         state => state.cardsList.queryParams.cardsPack_id,
     )
@@ -71,7 +72,7 @@ export const CardsList = (): ReactElement => {
             <div className={styles.container}>
                 <BackButton />
                 <HeaderCardsList setIsModalOpen={setIsModalOpen} />
-                {cardsTotalCount ? (
+                {cardsCount ? (
                     <div>
                         <Search setSearchName={setSearchPackName} />
                         <TableCards />

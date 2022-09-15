@@ -32,6 +32,7 @@ const initialState = {
         packName: '',
         isMyCards: false,
         deckCover: '',
+        cardsCount: 0,
     },
 }
 
@@ -210,6 +211,7 @@ type InfoCardsPackType = {
     packName?: string
     isMyCards?: boolean
     deckCover?: string
+    cardsCount?: number
 }
 
 type UpdateGradeType = {

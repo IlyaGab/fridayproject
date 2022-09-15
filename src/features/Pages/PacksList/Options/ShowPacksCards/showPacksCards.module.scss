@@ -3,6 +3,8 @@
 .showPacksCards {
   flex-grow: 1;
 
+  padding-left: 50px;
+
   h3 {
     @include subtitle();
   }

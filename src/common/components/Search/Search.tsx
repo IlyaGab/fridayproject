@@ -29,7 +29,7 @@ export const Search: React.FC<SearchPropsType> = React.memo(
                     value={value}
                     onChange={onChangeHandler}
                     placeholder="Provide your text"
-                    className={styles.searchInputForPacksList}
+                    className={styles.searchInput}
                     startAdornment={
                         <InputAdornment position="start">
                             <SearchIcon />

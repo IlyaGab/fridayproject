@@ -9,27 +9,32 @@ import Select, {SelectChangeEvent} from '@mui/material/Select'
 import {InputTypeFile} from '../../../common/components/InputTypeFile/InputTypeFile'
 import {useAppDispatch} from '../../../common/hooks/useAppDispatch'
 import {useAppSelector} from '../../../common/hooks/useAppSelector'
-import {createCardTC} from '../../Pages/CardsList/cardsListReducer'
+import {createCardTC, setInfoCardsPackAC} from '../../Pages/CardsList/cardsListReducer'
 import {CustomModal} from '../CustomModal'
 import styles from '../customModal.module.scss'
 
 export const AddNewCardModal: React.FC<AddNewCardModalPropsType> = React.memo(
     ({isModalOpen, setIsModalOpen}) => {
+        const dispatch = useAppDispatch()
+
+        const cardsPack_id = useAppSelector(
+            state => state.cardsList.queryParams.cardsPack_id,
+        )
+        const cardsCount = useAppSelector(
+            state => state.cardsList.infoCardsPack.cardsCount,
+        )
+
         const [format, setFormat] = useState('')
         const [question, setQuestion] = useState('')
         const [answer, setAnswer] = useState('')
         const [questionImg, setQuestionImg] = useState('')
         const [answerImg, setAnswerImg] = useState('')
 
-        const cardsPack_id = useAppSelector(
-            state => state.cardsList.queryParams.cardsPack_id,
-        )
-        const dispatch = useAppDispatch()
-
         const addCard = (): void => {
             dispatch(
                 createCardTC({question, answer, cardsPack_id, answerImg, questionImg}),
             )
+            dispatch(setInfoCardsPackAC({cardsCount: cardsCount + 1}))
             setFormat('')
             setQuestion('')
             setAnswer('')

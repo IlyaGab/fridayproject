@@ -37,10 +37,11 @@ export const TablePacks = (): ReactElement => {
     }
 
     const navigateToCardsPackHandler =
-        (cardsPack_id: string, packName: string, deckCover: string) => (): void => {
+        (cardsPack_id: string, packName: string, deckCover: string, cardsCount: number) =>
+        (): void => {
             navigate(PATH.CardsList)
             dispatch(setCardsQueryParamsAC({cardsPack_id}))
-            dispatch(setInfoCardsPackAC({packName, deckCover}))
+            dispatch(setInfoCardsPackAC({packName, deckCover, cardsCount}))
         }
 
     return (
@@ -91,6 +92,7 @@ export const TablePacks = (): ReactElement => {
                                         row._id,
                                         row.name,
                                         row.deckCover,
+                                        row.cardsCount,
                                     )}
                                 >
                                     <img

@@ -12,10 +12,11 @@ import {Menu} from './Menu/Menu'
 
 export const HeaderCardsList: React.FC<PropsType> = React.memo(
     ({setIsModalOpen}): ReactElement => {
-        const cardsTotalCount = useAppSelector(state => state.cardsList.cardsTotalCount)
+        const cardsCount = useAppSelector(
+            state => state.cardsList.infoCardsPack.cardsCount,
+        )
         const isMyCards = useAppSelector(state => state.cardsList.infoCardsPack.isMyCards)
         const status = useAppSelector(state => state.app.status)
-        // const deckCover = useAppSelector(state => state.cardsList.infoCardsPack.deckCover)
 
         const [showMenu, setShowMenu] = useState<boolean>(false)
 
@@ -28,18 +29,19 @@ export const HeaderCardsList: React.FC<PropsType> = React.memo(
         const onClickSetShowMenu = (): void => {
             setShowMenu(!showMenu)
         }
+
         const onBlurSetShowMenu = (): void => {
+            const delayBlur = 200
+
             setTimeout(() => {
                 setShowMenu(false)
-                // eslint-disable-next-line no-magic-numbers
-            }, 200)
+            }, delayBlur)
         }
 
         return (
             <div className={styles.header}>
                 <h2>
-                    {/* <img src={deckCover || noCover} alt="deckCover" style={{width: '75px', height: '40px'}}/> */}
-                    {packName}{' '}
+                    {packName}
                     {isMyCards && (
                         <button
                             type="button"
@@ -56,7 +58,7 @@ export const HeaderCardsList: React.FC<PropsType> = React.memo(
                     )}
                     {showMenu && <Menu />}
                 </h2>
-                {isMyCards && !!cardsTotalCount && (
+                {isMyCards && !!cardsCount && (
                     <AddButton
                         name="Add new card"
                         callback={handleAddNewCard}

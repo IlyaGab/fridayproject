@@ -7,11 +7,8 @@
     @include subtitle();
   }
 
-  .searchInputForPacksList {
-    @include searchInput(90%, (0 0 0 0))
+  .searchInput {
+    @include searchInput(100%, (0 0 0 0))
   }
 
-  .searchInputForCardsList {
-    @include searchInput(100%, (0 0 24px))
-  }
 }
