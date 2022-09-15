@@ -11,6 +11,7 @@ import {RegistrationPage} from '../../../features/Pages/Auth/RegistrationPage/Re
 import {CardsList} from '../../../features/Pages/CardsList/CardsList'
 import {Learn} from '../../../features/Pages/Learn/Learn'
 import {PacksList} from '../../../features/Pages/PacksList/PacksList'
+import {UserProfile} from '../../../features/Pages/UserProfile/UserProfile'
 import {ErrorPage} from '../ErrorPage/ErrorPage'
 
 export enum PATH {
@@ -23,6 +24,7 @@ export enum PATH {
     PacksList = '/packs-list',
     CardsList = '/cards-list',
     Learn = '/learn',
+    UserProfile = '/user-profile',
 }
 
 export const RoutersList = (): ReactElement => {
@@ -37,6 +39,7 @@ export const RoutersList = (): ReactElement => {
             <Route path={PATH.PacksList} element={<PacksList />} />
             <Route path={PATH.CardsList} element={<CardsList />} />
             <Route path={PATH.Learn} element={<Learn />} />
+            <Route path={PATH.UserProfile} element={<UserProfile />} />
             <Route path={'/*'} element={<ErrorPage />} />
         </Routes>
     )

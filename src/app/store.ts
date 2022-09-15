@@ -29,6 +29,10 @@ import {
     PacksListActionType,
     packsListReducer,
 } from '../features/Pages/PacksList/packsListReducer'
+import {
+    UserProfileActionType,
+    userProfileReducer,
+} from '../features/Pages/UserProfile/userProfileReducer'
 
 import {AppActionsType, appReducer} from './appReducer'
 
@@ -41,6 +45,7 @@ const rootReducer = combineReducers({
     app: appReducer,
     packsList: packsListReducer,
     cardsList: cardsListReducer,
+    userProfile: userProfileReducer,
 })
 
 export const store = createStore(rootReducer, applyMiddleware(thunkMiddleware))
@@ -56,6 +61,7 @@ export type AppRootActionsType =
     | ChangePasswordActionType
     | PacksListActionType
     | CardsListActionType
+    | UserProfileActionType
 
 export type AppDispatchType = ThunkDispatch<AppStateType, unknown, AppRootActionsType>
 export type AppThunkType<ReturnType = void> = ThunkAction<

@@ -15,6 +15,7 @@ import {PATH} from '../../../../common/components/RoutesList/RoutersList'
 import {useAppDispatch} from '../../../../common/hooks/useAppDispatch'
 import {useAppSelector} from '../../../../common/hooks/useAppSelector'
 import {setCardsQueryParamsAC, setInfoCardsPackAC} from '../../CardsList/cardsListReducer'
+import {setUserProfileQueryParamsAC} from '../../UserProfile/userProfileReducer'
 import {setQueryParamsAC} from '../packsListReducer'
 
 import {PacksActionButtons} from './PacksActionButtons/PacksActionButtons'
@@ -36,13 +37,18 @@ export const TablePacks = (): ReactElement => {
         dispatch(setQueryParamsAC({sortPacks: `${sortValue}${sortPacksName}`}))
     }
 
-    const navigateToCardsPackHandler =
+    const navigateToCardsPack =
         (cardsPack_id: string, packName: string, deckCover: string, cardsCount: number) =>
         (): void => {
             navigate(PATH.CardsList)
-            dispatch(setCardsQueryParamsAC({cardsPack_id}))
+            dispatch(setCardsQueryParamsAC({cardsPack_id, pageCount: 5}))
             dispatch(setInfoCardsPackAC({packName, deckCover, cardsCount}))
         }
+
+    const navigateToUserProfile = (id: string) => (): void => {
+        dispatch(setUserProfileQueryParamsAC(id))
+        navigate(PATH.UserProfile)
+    }
 
     return (
         <div className={styles.tablePacks}>
@@ -87,8 +93,13 @@ export const TablePacks = (): ReactElement => {
                                 <TableCell
                                     component="th"
                                     scope="row"
-                                    style={{cursor: 'pointer'}}
-                                    onClick={navigateToCardsPackHandler(
+                                    style={{
+                                        cursor: 'pointer',
+                                        display: 'table-center',
+                                        verticalAlign: 'middle',
+                                        minHeight: '20px',
+                                    }}
+                                    onClick={navigateToCardsPack(
                                         row._id,
                                         row.name,
                                         row.deckCover,
@@ -100,14 +111,31 @@ export const TablePacks = (): ReactElement => {
                                         alt="deckCover"
                                         style={{width: '75px', height: '40px'}}
                                     />
-                                    {row.name}
+                                    <p
+                                        style={{
+                                            display: 'inline-block',
+                                            height: '100%',
+                                            position: 'relative',
+                                            top: '-12px',
+                                            marginLeft: '20px',
+                                        }}
+                                    >
+                                        {row.name}
+                                    </p>
                                 </TableCell>
                                 <TableCell align="center">{row.cardsCount}</TableCell>
                                 <TableCell align="center">
                                     {dayjs(row.updated).format('DD.MM.YYYY')}
                                 </TableCell>
-                                <TableCell align="center">{row.user_name}</TableCell>
-                                {}
+                                <TableCell
+                                    align="center"
+                                    style={{
+                                        cursor: 'pointer',
+                                    }}
+                                    onClick={navigateToUserProfile(row.user_id)}
+                                >
+                                    {row.user_name}
+                                </TableCell>
                                 <TableCell align="center">
                                     <PacksActionButtons row={row} />
                                 </TableCell>

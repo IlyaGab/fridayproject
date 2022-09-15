@@ -115,8 +115,8 @@ export const updateGradeAC = (updatedGrade: UpdateGradeType) =>
 
 // TC
 export const getCardsListTC = (): AppThunkType => async (dispatch, getState) => {
+    dispatch(setAppStatusAC('loading'))
     try {
-        dispatch(setAppStatusAC('loading'))
         const res = await cardsAPI.getCards(getState().cardsList.queryParams)
 
         dispatch(getCardsListAC(res.data))
@@ -133,8 +133,8 @@ export const getCardsListTC = (): AppThunkType => async (dispatch, getState) => 
 export const createCardTC =
     (card: CardPostType): AppThunkType =>
     async dispatch => {
+        dispatch(setAppStatusAC('loading'))
         try {
-            dispatch(setAppStatusAC('loading'))
             await cardsAPI.createCard(card)
             await dispatch(getCardsListTC())
             dispatch(setAppStatusAC('succeeded'))
@@ -147,8 +147,8 @@ export const createCardTC =
 export const deleteCardTC =
     (id: string): AppThunkType =>
     async dispatch => {
+        dispatch(setAppStatusAC('loading'))
         try {
-            dispatch(setAppStatusAC('loading'))
             await cardsAPI.deleteCard(id)
             await dispatch(getCardsListTC())
             dispatch(setAppStatusAC('succeeded'))
@@ -161,8 +161,8 @@ export const deleteCardTC =
 export const changeCardTC =
     (card: CardPutType): AppThunkType =>
     async dispatch => {
+        dispatch(setAppStatusAC('loading'))
         try {
-            dispatch(setAppStatusAC('loading'))
             await cardsAPI.changeCard(card)
             await dispatch(getCardsListTC())
             dispatch(setAppStatusAC('succeeded'))
@@ -175,8 +175,8 @@ export const changeCardTC =
 export const updateGradeTC =
     (gradeParams: GradeParamsType): AppThunkType =>
     async dispatch => {
+        dispatch(setAppStatusAC('loading'))
         try {
-            dispatch(setAppStatusAC('loading'))
             const res = await gradeAPI.updateGrade(gradeParams)
 
             dispatch(updateGradeAC(res.data.updatedGrade))

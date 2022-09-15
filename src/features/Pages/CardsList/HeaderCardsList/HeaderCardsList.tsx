@@ -4,6 +4,7 @@ import {faEllipsisVertical} from '@fortawesome/free-solid-svg-icons'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {useSearchParams} from 'react-router-dom'
 
+import noCover from '../../../../assets/img/nocover.jpg'
 import {AddButton} from '../../../../common/components/AddButton/AddButton'
 import {useAppSelector} from '../../../../common/hooks/useAppSelector'
 
@@ -17,6 +18,7 @@ export const HeaderCardsList: React.FC<PropsType> = React.memo(
         )
         const isMyCards = useAppSelector(state => state.cardsList.infoCardsPack.isMyCards)
         const status = useAppSelector(state => state.app.status)
+        const deckCover = useAppSelector(state => state.cardsList.infoCardsPack.deckCover)
 
         const [showMenu, setShowMenu] = useState<boolean>(false)
 
@@ -40,31 +42,38 @@ export const HeaderCardsList: React.FC<PropsType> = React.memo(
 
         return (
             <div className={styles.header}>
-                <h2>
-                    {packName}
-                    {isMyCards && (
-                        <button
-                            type="button"
-                            className={styles.btnMenu}
-                            onClick={onClickSetShowMenu}
-                            onBlur={onBlurSetShowMenu}
-                        >
-                            <FontAwesomeIcon
-                                className={styles.icon}
-                                icon={faEllipsisVertical}
-                                size="sm"
-                            />
-                            {showMenu && <Menu />}
-                        </button>
+                <div className={styles.headerContainer}>
+                    <h2>
+                        {packName}
+                        {isMyCards && (
+                            <button
+                                type="button"
+                                className={styles.btnMenu}
+                                onClick={onClickSetShowMenu}
+                                onBlur={onBlurSetShowMenu}
+                            >
+                                <FontAwesomeIcon
+                                    className={styles.icon}
+                                    icon={faEllipsisVertical}
+                                    size="sm"
+                                />
+                                {showMenu && <Menu />}
+                            </button>
+                        )}
+                    </h2>
+                    {isMyCards && !!cardsCount && (
+                        <AddButton
+                            name="Add new card"
+                            callback={handleAddNewCard}
+                            disabled={status === 'loading'}
+                        />
                     )}
-                </h2>
-                {isMyCards && !!cardsCount && (
-                    <AddButton
-                        name="Add new card"
-                        callback={handleAddNewCard}
-                        disabled={status === 'loading'}
-                    />
-                )}
+                </div>
+                <img
+                    src={deckCover || noCover}
+                    alt="deckCover"
+                    style={{width: '75px', height: '40px'}}
+                />
             </div>
         )
     },
