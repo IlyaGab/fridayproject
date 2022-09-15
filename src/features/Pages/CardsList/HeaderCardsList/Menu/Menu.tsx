@@ -25,20 +25,14 @@ export const Menu = (): ReactElement => {
 
     return (
         <div className={styles.menu}>
-            <div className={styles.menuContainer}>
-                <button type="button" className={styles.btn}>
-                    <FontAwesomeIcon
-                        className={styles.icon}
-                        icon={faTrashCan}
-                        size="lg"
-                    />
-                    Edit
-                </button>
-                <button type="button" onClick={deleteCardsPack} className={styles.btn}>
-                    <FontAwesomeIcon className={styles.icon} icon={faPencil} size="lg" />
-                    Delete
-                </button>
-            </div>
+            <button type="button" className={styles.btn}>
+                <FontAwesomeIcon className={styles.icon} icon={faTrashCan} size="lg" />
+                Edit
+            </button>
+            <button type="button" onClick={deleteCardsPack} className={styles.btn}>
+                <FontAwesomeIcon className={styles.icon} icon={faPencil} size="lg" />
+                Delete
+            </button>
         </div>
     )
 }

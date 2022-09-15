@@ -54,9 +54,9 @@ export const HeaderCardsList: React.FC<PropsType> = React.memo(
                                 icon={faEllipsisVertical}
                                 size="sm"
                             />
+                            {showMenu && <Menu />}
                         </button>
                     )}
-                    {showMenu && <Menu />}
                 </h2>
                 {isMyCards && !!cardsCount && (
                     <AddButton
