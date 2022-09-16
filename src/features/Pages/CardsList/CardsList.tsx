@@ -79,7 +79,7 @@ export const CardsList = (): ReactElement => {
                         <Pagination
                             page={page}
                             pageCount={pageCount}
-                            cardPacksTotalCount={cardsTotalCount}
+                            totalCount={cardsTotalCount}
                             changePagination={changePagination}
                         />
                     </div>

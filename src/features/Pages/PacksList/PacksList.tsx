@@ -67,7 +67,7 @@ export const PacksList = (): ReactElement => {
                 <Pagination
                     page={page}
                     pageCount={pageCount}
-                    cardPacksTotalCount={cardPacksTotalCount}
+                    totalCount={cardPacksTotalCount}
                     changePagination={changePagination}
                 />
                 <AddNewPackModal

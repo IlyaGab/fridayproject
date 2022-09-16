@@ -12,14 +12,14 @@ import {useNavigate} from 'react-router-dom'
 
 import noCover from '../../../../assets/img/nocover.jpg'
 import {PATH} from '../../../../common/components/RoutesList/RoutersList'
+import {SortIcon} from '../../../../common/components/SortIcon/SortIcon'
 import {useAppDispatch} from '../../../../common/hooks/useAppDispatch'
 import {useAppSelector} from '../../../../common/hooks/useAppSelector'
 import {setCardsQueryParamsAC, setInfoCardsPackAC} from '../../CardsList/cardsListReducer'
-import {setUserProfileQueryParamsAC} from '../../UserProfile/userProfileReducer'
+import {setUserProfileQueryParamsAC} from '../../UserProfile/UserProfile/userProfileReducer'
 import {setQueryParamsAC} from '../packsListReducer'
 
 import {PacksActionButtons} from './PacksActionButtons/PacksActionButtons'
-import {SortIcon} from './SortIcon/SortIcon'
 import styles from './tablePacks.module.scss'
 
 export const TablePacks = (): ReactElement => {
@@ -28,6 +28,7 @@ export const TablePacks = (): ReactElement => {
     const navigate = useNavigate()
 
     const rows = useAppSelector(state => state.packsList.cardPacks)
+    const sortQueryName = useAppSelector(state => state.packsList.queryParams.sortPacks)
 
     const [sortValue, setSortValue] = useState<number>(0)
 
@@ -58,28 +59,37 @@ export const TablePacks = (): ReactElement => {
                         <TableRow>
                             <TableCell onClick={sortPacksHandler('name')}>
                                 <span style={{cursor: 'pointer'}}>Name</span>
-                                <SortIcon name="name" />
+                                <SortIcon sortQueryName={sortQueryName} sortName="name" />
                             </TableCell>
                             <TableCell
                                 align="center"
                                 onClick={sortPacksHandler('cardsCount')}
                             >
                                 <span style={{cursor: 'pointer'}}>Cards</span>
-                                <SortIcon name="cardsCount" />
+                                <SortIcon
+                                    sortQueryName={sortQueryName}
+                                    sortName="cardsCount"
+                                />
                             </TableCell>
                             <TableCell
                                 align="center"
                                 onClick={sortPacksHandler('updated')}
                             >
                                 <span style={{cursor: 'pointer'}}>Last Updates</span>
-                                <SortIcon name="updated" />
+                                <SortIcon
+                                    sortQueryName={sortQueryName}
+                                    sortName="updated"
+                                />
                             </TableCell>
                             <TableCell
                                 align="center"
                                 onClick={sortPacksHandler('user_name')}
                             >
                                 <span style={{cursor: 'pointer'}}>Author</span>
-                                <SortIcon name="user_name" />
+                                <SortIcon
+                                    sortQueryName={sortQueryName}
+                                    sortName="user_name"
+                                />
                             </TableCell>
                             <TableCell align="center">Actions</TableCell>
                         </TableRow>

@@ -5,7 +5,7 @@ import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {useSearchParams} from 'react-router-dom'
 
 import noCover from '../../../../assets/img/nocover.jpg'
-import {AddButton} from '../../../../common/components/AddButton/AddButton'
+import {MyButton} from '../../../../common/components/MyButton/MyButton'
 import {useAppSelector} from '../../../../common/hooks/useAppSelector'
 
 import styles from './headerCardsList.module.scss'
@@ -62,7 +62,7 @@ export const HeaderCardsList: React.FC<PropsType> = React.memo(
                         )}
                     </h2>
                     {isMyCards && !!cardsCount && (
-                        <AddButton
+                        <MyButton
                             name="Add new card"
                             callback={handleAddNewCard}
                             disabled={status === 'loading'}

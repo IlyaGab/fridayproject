@@ -17,7 +17,7 @@ import {
 import {FormAnswer} from './FormAnswer/FormAnswer'
 import styles from './learn.module.scss'
 
-export const Learn = (): ReactElement => {
+export const LearnPage = (): ReactElement => {
     const dispatch = useAppDispatch()
 
     const cards = useAppSelector(state => state.cardsList.cards)

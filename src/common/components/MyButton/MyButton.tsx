@@ -2,7 +2,7 @@ import React, {ReactElement} from 'react'
 
 import {Button} from '@mui/material'
 
-export const AddButton = ({name, callback, disabled}: AddButtonType): ReactElement => {
+export const MyButton = ({name, callback, disabled}: AddButtonType): ReactElement => {
     return (
         <Button
             variant="contained"
@@ -20,5 +20,5 @@ export const AddButton = ({name, callback, disabled}: AddButtonType): ReactEleme
 type AddButtonType = {
     name: string
     callback: () => void
-    disabled: boolean
+    disabled?: boolean
 }

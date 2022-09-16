@@ -1,0 +1,10 @@
+@import "../../../../common/styles/mixins";
+
+.usersList {
+  @include page();
+
+  .container {
+    @include container();
+
+  }
+}

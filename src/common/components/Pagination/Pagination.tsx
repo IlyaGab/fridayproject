@@ -11,17 +11,12 @@ import styles from './pagination.module.scss'
 const arr = [5, 10, 20, 50]
 
 export const Pagination = React.memo(
-    ({
-        page,
-        pageCount,
-        cardPacksTotalCount,
-        changePagination,
-    }: PaginationType): ReactElement => {
+    ({page, pageCount, totalCount, changePagination}: PaginationType): ReactElement => {
         const status = useAppSelector(state => state.app.status)
 
         const [searchParams, setSearchParams] = useSearchParams()
 
-        const numberOfPages = Math.ceil(cardPacksTotalCount / pageCount)
+        const numberOfPages = Math.ceil(totalCount / pageCount)
 
         const onChangePage = (event: React.ChangeEvent<unknown>, page: number): void => {
             searchParams.set('page', `${page}`)
@@ -65,6 +60,6 @@ export const Pagination = React.memo(
 type PaginationType = {
     page: number
     pageCount: number
-    cardPacksTotalCount: number
+    totalCount: number
     changePagination: (age: number, pageCount: number) => void
 }

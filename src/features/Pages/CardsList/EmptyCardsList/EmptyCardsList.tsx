@@ -1,6 +1,6 @@
 import React, {ReactElement} from 'react'
 
-import {AddButton} from '../../../../common/components/AddButton/AddButton'
+import {MyButton} from '../../../../common/components/MyButton/MyButton'
 import {useAppSelector} from '../../../../common/hooks/useAppSelector'
 
 import styles from './emptyCardsList.module.scss'
@@ -21,7 +21,7 @@ export const EmptyCardsList: React.FC<PropsType> = React.memo(
                         <p className={styles.message}>
                             This pack is empty. Click add new card to fill this pack
                         </p>
-                        <AddButton
+                        <MyButton
                             name="Add new card"
                             callback={handleAddNewCard}
                             disabled={status === 'loading'}

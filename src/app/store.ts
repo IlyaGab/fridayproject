@@ -32,7 +32,11 @@ import {
 import {
     UserProfileActionType,
     userProfileReducer,
-} from '../features/Pages/UserProfile/userProfileReducer'
+} from '../features/Pages/UserProfile/UserProfile/userProfileReducer'
+import {
+    UsersListActionType,
+    usersListReducer,
+} from '../features/Pages/UserProfile/UsersList/usersListReducer'
 
 import {AppActionsType, appReducer} from './appReducer'
 
@@ -46,6 +50,7 @@ const rootReducer = combineReducers({
     packsList: packsListReducer,
     cardsList: cardsListReducer,
     userProfile: userProfileReducer,
+    usersList: usersListReducer,
 })
 
 export const store = createStore(rootReducer, applyMiddleware(thunkMiddleware))
@@ -62,6 +67,7 @@ export type AppRootActionsType =
     | PacksListActionType
     | CardsListActionType
     | UserProfileActionType
+    | UsersListActionType
 
 export type AppDispatchType = ThunkDispatch<AppStateType, unknown, AppRootActionsType>
 export type AppThunkType<ReturnType = void> = ThunkAction<

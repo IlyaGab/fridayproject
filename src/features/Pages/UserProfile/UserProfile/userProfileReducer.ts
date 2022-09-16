@@ -1,7 +1,7 @@
-import {userAPI, UserInfoType} from '../../../api/userAPI'
-import {setAppStatusAC} from '../../../app/appReducer'
-import {AppThunkType} from '../../../app/store'
-import {handleServerNetworkError} from '../../../common/utils/error-utils'
+import {userAPI, UserInfoType} from '../../../../api/userAPI'
+import {setAppStatusAC} from '../../../../app/appReducer'
+import {AppThunkType} from '../../../../app/store'
+import {handleServerNetworkError} from '../../../../common/utils/error-utils'
 
 const initialState = {
     _id: '',
