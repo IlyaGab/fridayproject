@@ -1,5 +1,6 @@
 import React, {ReactElement} from 'react'
 
+import {Button} from '@mui/material'
 import {useNavigate} from 'react-router-dom'
 
 import {MyButton} from '../../../../common/components/MyButton/MyButton'
@@ -24,7 +25,12 @@ export const HeaderPacksList: React.FC<PropsType> = ({setIsModalOpen}): ReactEle
     return (
         <div className={styles.header}>
             <h2>Packs List</h2>
-            <MyButton name="Users list" callback={navigateToUsersList} />
+            <Button
+                style={{fontSize: '20px', lineHeight: '24px'}}
+                onClick={navigateToUsersList}
+            >
+                Users list
+            </Button>
             <MyButton
                 name="Add new pack"
                 callback={handleClick}
