@@ -2,6 +2,7 @@ import React, {ReactElement, useEffect} from 'react'
 
 import defaultAvatar from '../../../../assets/img/default-avatar.png'
 import {BackButton} from '../../../../common/components/BackButton/BackButton'
+import {PATH} from '../../../../common/components/RoutesList/RoutersList'
 import {useAppDispatch} from '../../../../common/hooks/useAppDispatch'
 import {useAppSelector} from '../../../../common/hooks/useAppSelector'
 
@@ -20,7 +21,7 @@ export const UserProfilePage = (): ReactElement => {
     return (
         <div className={styles.userProfilePage}>
             <div className={styles.container}>
-                <BackButton />
+                <BackButton path={PATH.PacksList} title="Back to Packs List" />
                 <div className={styles.userProfile}>
                     <h1>{userInfo.name}</h1>
                     <div className={styles.avatar}>

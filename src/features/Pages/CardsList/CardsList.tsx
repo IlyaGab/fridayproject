@@ -70,7 +70,7 @@ export const CardsList = (): ReactElement => {
     return (
         <div className={styles.pack}>
             <div className={styles.container}>
-                <BackButton />
+                <BackButton path={PATH.PacksList} title="Back to Packs List" />
                 <HeaderCardsList setIsModalOpen={setIsModalOpen} />
                 {cardsCount ? (
                     <div>

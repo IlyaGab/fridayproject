@@ -4,6 +4,8 @@ import {useSearchParams} from 'react-router-dom'
 
 import {BackButton} from '../../../../common/components/BackButton/BackButton'
 import {Pagination} from '../../../../common/components/Pagination/Pagination'
+import {PATH} from '../../../../common/components/RoutesList/RoutersList'
+import {Search} from '../../../../common/components/Search/Search'
 import {useAppDispatch} from '../../../../common/hooks/useAppDispatch'
 import {useAppSelector} from '../../../../common/hooks/useAppSelector'
 
@@ -18,6 +20,7 @@ export const UsersList = (): ReactElement => {
     const pageCountState = useAppSelector(state => state.usersList.pageCount)
     const usersTotalCount = useAppSelector(state => state.usersList.usersTotalCount)
     const sortUsers = useAppSelector(state => state.usersList.queryParams.sortUsers)
+    const searchUserName = useAppSelector(state => state.usersList.queryParams.userName)
 
     const [searchParams] = useSearchParams()
 
@@ -26,7 +29,7 @@ export const UsersList = (): ReactElement => {
 
     useEffect(() => {
         dispatch(getUsersListTC())
-    }, [dispatch, page, pageCount, sortUsers])
+    }, [dispatch, page, pageCount, sortUsers, searchUserName])
 
     const changePagination = useCallback(
         (page: number, pageCount: number): void => {
@@ -35,10 +38,18 @@ export const UsersList = (): ReactElement => {
         [dispatch],
     )
 
+    const setSearchUserName = useCallback(
+        (searchName: string): void => {
+            dispatch(setUsersListQueryParamsAC({userName: searchName}))
+        },
+        [dispatch],
+    )
+
     return (
         <div className={styles.usersList}>
             <div className={styles.container}>
-                <BackButton />
+                <BackButton path={PATH.PacksList} title="Back to Packs List" />
+                <Search setSearchName={setSearchUserName} />
                 <TableUsers />
                 <Pagination
                     page={page}

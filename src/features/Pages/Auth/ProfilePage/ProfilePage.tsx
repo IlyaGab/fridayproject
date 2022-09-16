@@ -16,7 +16,6 @@ import styles from './profilePage.module.scss'
 import {changeInfoProfileTC} from './profilePageReducer'
 
 export const ProfilePage = (): ReactElement => {
-    const maxFileSize = 4000000
     const dispatch = useAppDispatch()
 
     const nameState = useAppSelector(state => state.profile.name)
@@ -41,6 +40,7 @@ export const ProfilePage = (): ReactElement => {
     const uploadHandler = (e: ChangeEvent<HTMLInputElement>): void => {
         if (e.target.files && e.target.files.length) {
             const file = e.target.files[0]
+            const maxFileSize = 4000000
 
             if (file.size < maxFileSize) {
                 convertFileToBase64(file, (file64: string) => {
@@ -67,7 +67,7 @@ export const ProfilePage = (): ReactElement => {
     return (
         <div className={styles.profilePage}>
             <div className={styles.container}>
-                <BackButton />
+                <BackButton path={PATH.PacksList} title="Back to Packs List" />
                 <div className={styles.profile}>
                     <h1>Personal Information</h1>
                     <div className={styles.avatar}>

@@ -66,7 +66,7 @@ export const LoginPage = (): ReactElement => {
     }
 
     if (isLoggedIn) {
-        return <Navigate to={PATH.Profile} />
+        return <Navigate to={PATH.PacksList} />
     }
 
     return (

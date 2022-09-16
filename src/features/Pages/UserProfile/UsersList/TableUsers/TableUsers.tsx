@@ -8,22 +8,17 @@ import TableContainer from '@mui/material/TableContainer'
 import TableHead from '@mui/material/TableHead'
 import TableRow from '@mui/material/TableRow'
 import dayjs from 'dayjs'
-import {useNavigate} from 'react-router-dom'
 
 import defaultAvatar from '../../../../../assets/img/default-avatar.png'
-import {PATH} from '../../../../../common/components/RoutesList/RoutersList'
 import {SortIcon} from '../../../../../common/components/SortIcon/SortIcon'
 import {useAppDispatch} from '../../../../../common/hooks/useAppDispatch'
 import {useAppSelector} from '../../../../../common/hooks/useAppSelector'
-import {setUserProfileQueryParamsAC} from '../../UserProfile/userProfileReducer'
 import {setUsersListQueryParamsAC} from '../usersListReducer'
 
-import styles from './tablePacks.module.scss'
+import styles from './tableUsers.module.scss'
 
 export const TableUsers = (): ReactElement => {
     const dispatch = useAppDispatch()
-
-    const navigate = useNavigate()
 
     const rows = useAppSelector(state => state.usersList.users)
     const sortQueryName = useAppSelector(state => state.usersList.queryParams.sortUsers)
@@ -34,11 +29,6 @@ export const TableUsers = (): ReactElement => {
         // eslint-disable-next-line no-unused-expressions
         sortValue === 0 ? setSortValue(1) : setSortValue(0)
         dispatch(setUsersListQueryParamsAC({sortUsers: `${sortValue}${sortUsers}`}))
-    }
-
-    const navigateToUserProfile = (id: string) => (): void => {
-        dispatch(setUserProfileQueryParamsAC(id))
-        navigate(PATH.UserProfile)
     }
 
     return (
@@ -86,17 +76,7 @@ export const TableUsers = (): ReactElement => {
                                 key={row._id}
                                 sx={{'&:last-child td, &:last-child th': {border: 0}}}
                             >
-                                <TableCell
-                                    component="th"
-                                    scope="row"
-                                    style={{
-                                        cursor: 'pointer',
-                                        display: 'table-center',
-                                        verticalAlign: 'middle',
-                                        minHeight: '20px',
-                                    }}
-                                    onClick={navigateToUserProfile(row._id)}
-                                >
+                                <TableCell component="th" scope="row">
                                     {row.name}
                                 </TableCell>
                                 <TableCell align="center">

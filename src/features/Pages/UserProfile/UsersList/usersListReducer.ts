@@ -14,8 +14,8 @@ const initialState = {
     tokenDeathTime: 0,
     queryParams: {
         userName: '',
-        min: 3,
-        max: 9,
+        min: 0,
+        max: 10,
         sortUsers: '0publicCardPacksCount',
         page: 1,
         pageCount: 5,

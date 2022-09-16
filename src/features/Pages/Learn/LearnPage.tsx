@@ -5,6 +5,7 @@ import {useSearchParams} from 'react-router-dom'
 
 import {CardType} from '../../../api/cardsAPI'
 import {BackButton} from '../../../common/components/BackButton/BackButton'
+import {PATH} from '../../../common/components/RoutesList/RoutersList'
 import {useAppDispatch} from '../../../common/hooks/useAppDispatch'
 import {useAppSelector} from '../../../common/hooks/useAppSelector'
 import {getCard} from '../../../common/utils/getCards'
@@ -57,7 +58,7 @@ export const LearnPage = (): ReactElement => {
     return (
         <div className={styles.learnPage}>
             <div className={styles.container}>
-                <BackButton />
+                <BackButton path={PATH.PacksList} title="Back to Packs List" />
                 <h2>Learn “Pack Name”</h2>
                 <div className={styles.learn}>
                     <span>Question:</span> {newQuestion && newQuestion.question}
