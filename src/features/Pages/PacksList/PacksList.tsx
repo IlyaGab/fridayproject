@@ -11,7 +11,7 @@ import {AddNewPackModal} from '../../Modals/PacksModals/AddNewPackModal'
 import {HeaderPacksList} from './HeaderPacksList/HeaderPacksList'
 import {Options} from './Options/Options'
 import styles from './packsList.module.scss'
-import {getPackListTC, setQueryParamsAC} from './packsListReducer'
+import {getPackListTC, setPacksListQueryParamsAC} from './packsListReducer'
 import {TablePacks} from './TablePacks/TablePacks'
 
 export const PacksList = (): ReactElement => {
@@ -41,14 +41,14 @@ export const PacksList = (): ReactElement => {
 
     const setSearchPackName = useCallback(
         (searchName: string): void => {
-            dispatch(setQueryParamsAC({packName: searchName}))
+            dispatch(setPacksListQueryParamsAC({packName: searchName}))
         },
         [dispatch],
     )
 
     const changePagination = useCallback(
         (page: number, pageCount: number) => {
-            dispatch(setQueryParamsAC({page, pageCount}))
+            dispatch(setPacksListQueryParamsAC({page, pageCount}))
         },
         [dispatch],
     )

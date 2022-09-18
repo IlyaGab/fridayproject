@@ -4,7 +4,7 @@ import {useSearchParams} from 'react-router-dom'
 
 import {useAppDispatch} from '../../../../../common/hooks/useAppDispatch'
 import {useAppSelector} from '../../../../../common/hooks/useAppSelector'
-import {setQueryParamsAC} from '../../packsListReducer'
+import {setPacksListQueryParamsAC} from '../../packsListReducer'
 
 import styles from './showPacksCards.module.scss'
 
@@ -21,17 +21,17 @@ export const ShowPacksCards = (): ReactElement => {
     const handleShowMyCards = (): void => {
         searchParams.set('user_id', user_id)
         setSearchParams(searchParams)
-        dispatch(setQueryParamsAC({user_id}))
+        dispatch(setPacksListQueryParamsAC({user_id}))
     }
 
     const handleShowAllCards = (): void => {
         searchParams.set('user_id', '')
         setSearchParams(searchParams)
-        dispatch(setQueryParamsAC({user_id: ''}))
+        dispatch(setPacksListQueryParamsAC({user_id: ''}))
     }
 
     useEffect(() => {
-        dispatch(setQueryParamsAC({user_id: userID}))
+        dispatch(setPacksListQueryParamsAC({user_id: userID}))
     }, [dispatch, userID])
 
     return (

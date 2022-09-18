@@ -4,7 +4,7 @@ import thunkMiddleware, {ThunkAction, ThunkDispatch} from 'redux-thunk'
 import {
     ChangePasswordActionType,
     changePasswordReducer,
-} from '../features/Pages/Auth/ChangePasswordPage/changePassReducer'
+} from '../features/Pages/Auth/ChangePasswordPage/changePasswordReducer'
 import {
     LoginActionsType,
     loginReducer,
@@ -32,11 +32,11 @@ import {
 import {
     UserProfileActionType,
     userProfileReducer,
-} from '../features/Pages/UserProfile/UserProfile/userProfileReducer'
+} from '../features/Pages/Users/UserProfile/userProfileReducer'
 import {
     UsersListActionType,
     usersListReducer,
-} from '../features/Pages/UserProfile/UsersList/usersListReducer'
+} from '../features/Pages/Users/UsersList/usersListReducer'
 
 import {AppActionsType, appReducer} from './appReducer'
 

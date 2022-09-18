@@ -64,7 +64,7 @@ export const getPacksListAC = (data: GetPacksResponseType) =>
         },
     } as const)
 
-export const setQueryParamsAC = (queryParams: QueryParamsThunkType) =>
+export const setPacksListQueryParamsAC = (queryParams: QueryParamsThunkType) =>
     ({
         type: 'PACKS-LIST/SET-QUERY-PARAMS',
         payload: {
@@ -136,9 +136,9 @@ export const changeNameCardsPackTC =
 // Types
 export type PacksListActionType =
     | ReturnType<typeof getPacksListAC>
-    | ReturnType<typeof setQueryParamsAC>
+    | ReturnType<typeof setPacksListQueryParamsAC>
     | ReturnType<typeof setIsMyCardsPackAC>
-type InitialStateType = typeof initialState
+export type InitialStateType = typeof initialState
 type QueryParamsThunkType = {
     packName?: string
     min?: number

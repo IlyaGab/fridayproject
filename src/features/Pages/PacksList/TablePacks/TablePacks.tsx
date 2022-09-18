@@ -16,8 +16,8 @@ import {SortIcon} from '../../../../common/components/SortIcon/SortIcon'
 import {useAppDispatch} from '../../../../common/hooks/useAppDispatch'
 import {useAppSelector} from '../../../../common/hooks/useAppSelector'
 import {setCardsQueryParamsAC, setInfoCardsPackAC} from '../../CardsList/cardsListReducer'
-import {setUserProfileQueryParamsAC} from '../../UserProfile/UserProfile/userProfileReducer'
-import {setQueryParamsAC} from '../packsListReducer'
+import {setUserProfileQueryParamsAC} from '../../Users/UserProfile/userProfileReducer'
+import {setPacksListQueryParamsAC} from '../packsListReducer'
 
 import {PacksActionButtons} from './PacksActionButtons/PacksActionButtons'
 import styles from './tablePacks.module.scss'
@@ -35,7 +35,7 @@ export const TablePacks = (): ReactElement => {
     const sortPacksHandler = (sortPacksName: string) => (): void => {
         // eslint-disable-next-line no-unused-expressions
         sortValue === 0 ? setSortValue(1) : setSortValue(0)
-        dispatch(setQueryParamsAC({sortPacks: `${sortValue}${sortPacksName}`}))
+        dispatch(setPacksListQueryParamsAC({sortPacks: `${sortValue}${sortPacksName}`}))
     }
 
     const navigateToCardsPack =

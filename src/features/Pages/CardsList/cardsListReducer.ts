@@ -12,12 +12,18 @@ import {handleServerNetworkError} from '../../../common/utils/error-utils'
 
 const initialState = {
     cards: [] as CardType[],
-    cardsTotalCount: 0,
-    maxGrade: 5,
-    minGrade: 0,
+    packUserId: '',
+    packName: '',
+    packPrivate: false,
+    packCreated: '',
+    packUpdated: '',
     page: 1,
     pageCount: 5,
-    packUserId: '',
+    cardsTotalCount: 10,
+    minGrade: 0,
+    maxGrade: 5,
+    token: '',
+    tokenDeathTime: 0,
     queryParams: {
         cardAnswer: '',
         cardQuestion: '',
@@ -194,7 +200,7 @@ export type CardsListActionType =
     | ReturnType<typeof setInfoCardsPackAC>
     | ReturnType<typeof updateGradeAC>
 
-type InitialStateType = typeof initialState
+export type InitialStateType = typeof initialState
 
 type CardsQueryParamsActionType = {
     cardAnswer?: string

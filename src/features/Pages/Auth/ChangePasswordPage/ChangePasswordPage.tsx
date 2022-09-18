@@ -17,8 +17,8 @@ import {PATH} from '../../../../common/components/RoutesList/RoutersList'
 import {useAppDispatch} from '../../../../common/hooks/useAppDispatch'
 import {useAppSelector} from '../../../../common/hooks/useAppSelector'
 
-import {setNewPasswordTC} from './changePassReducer'
 import styles from './changePasswordPage.module.scss'
+import {setNewPasswordTC} from './changePasswordReducer'
 
 export const ChangePasswordPage = (): ReactElement => {
     const minPassLength = 7

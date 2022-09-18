@@ -5,7 +5,7 @@ import {useSearchParams} from 'react-router-dom'
 
 import {useAppDispatch} from '../../../../../common/hooks/useAppDispatch'
 import {useAppSelector} from '../../../../../common/hooks/useAppSelector'
-import {setQueryParamsAC} from '../../packsListReducer'
+import {setPacksListQueryParamsAC} from '../../packsListReducer'
 
 import styles from './numberOfCards.module.scss'
 
@@ -40,7 +40,8 @@ export const NumberOfCards = (): ReactElement => {
         value: number | number[],
     ): void => {
         // eslint-disable-next-line no-unused-expressions
-        Array.isArray(value) && dispatch(setQueryParamsAC({min: value[0], max: value[1]}))
+        Array.isArray(value) &&
+            dispatch(setPacksListQueryParamsAC({min: value[0], max: value[1]}))
     }
 
     return (

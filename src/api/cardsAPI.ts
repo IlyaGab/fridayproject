@@ -19,27 +19,38 @@ export const cardsAPI = {
 
 // Types
 export type GetCardsResponseType = {
-    cardPacks: CardType[]
-    cardsTotalCount: number
-    maxGrade: number
-    minGrade: number
+    cards: CardType[]
+    packUserId: string
+    packName: string
+    packPrivate: boolean
+    packCreated: string
+    packUpdated: string
     page: number
     pageCount: number
-    packUserId: string
+    cardsTotalCount: number
+    minGrade: number
+    maxGrade: number
+    token: string
+    tokenDeathTime: number
 }
 
 export type CardType = {
+    _id: string
+    cardsPack_id: string
+    user_id: string
     answer: string
     question: string
-    cardsPack_id: string
     grade: number
     shots: number
-    user_id: string
-    created: string
-    updated: string
-    _id: string
     questionImg: string
     answerImg: string
+    comments: string
+    type: string
+    rating: number
+    more_id: string
+    created: string
+    updated: string
+    __v: number
 }
 
 export type CardPostType = {
