@@ -26,6 +26,10 @@ import {
     cardsListReducer,
 } from '../features/Pages/CardsList/cardsListReducer'
 import {
+    ChatActionType,
+    chatReducer,
+} from '../features/Pages/PacksList/ChatButton/Chat/chatReducer'
+import {
     PacksListActionType,
     packsListReducer,
 } from '../features/Pages/PacksList/packsListReducer'
@@ -51,6 +55,7 @@ const rootReducer = combineReducers({
     cardsList: cardsListReducer,
     userProfile: userProfileReducer,
     usersList: usersListReducer,
+    chat: chatReducer,
 })
 
 export const store = createStore(rootReducer, applyMiddleware(thunkMiddleware))
@@ -68,6 +73,7 @@ export type AppRootActionsType =
     | CardsListActionType
     | UserProfileActionType
     | UsersListActionType
+    | ChatActionType
 
 export type AppDispatchType = ThunkDispatch<AppStateType, unknown, AppRootActionsType>
 export type AppThunkType<ReturnType = void> = ThunkAction<

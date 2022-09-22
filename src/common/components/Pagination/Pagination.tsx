@@ -43,7 +43,11 @@ export const Pagination = React.memo(
                     onChange={onChangePage}
                 />
                 Show
-                <select onChange={onChangeSizePageHandler} value={pageCount}>
+                <select
+                    onChange={onChangeSizePageHandler}
+                    value={pageCount}
+                    disabled={status === 'loading'}
+                >
                     {arr.map(el => (
                         <option key={el} value={el}>
                             {el}

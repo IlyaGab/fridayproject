@@ -1,5 +1,6 @@
 import React, {ReactElement} from 'react'
 
+import GroupIcon from '@mui/icons-material/Group'
 import {Button} from '@mui/material'
 import {useNavigate} from 'react-router-dom'
 
@@ -29,7 +30,7 @@ export const HeaderPacksList: React.FC<PropsType> = ({setIsModalOpen}): ReactEle
                 style={{fontSize: '20px', lineHeight: '24px'}}
                 onClick={navigateToUsersList}
             >
-                Users list
+                <GroupIcon />
             </Button>
             <MyButton
                 name="Add new pack"

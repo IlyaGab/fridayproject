@@ -9,7 +9,6 @@ import {PasswordRecoveryPage} from '../../../features/Pages/Auth/PasswordRecover
 import {ProfilePage} from '../../../features/Pages/Auth/ProfilePage/ProfilePage'
 import {RegistrationPage} from '../../../features/Pages/Auth/RegistrationPage/RegistrationPage'
 import {CardsList} from '../../../features/Pages/CardsList/CardsList'
-import {Chat} from '../../../features/Pages/Chat/Chat'
 import {LearnPage} from '../../../features/Pages/Learn/LearnPage'
 import {PacksList} from '../../../features/Pages/PacksList/PacksList'
 import {UserProfilePage} from '../../../features/Pages/Users/UserProfile/UserProfilePage'
@@ -28,7 +27,6 @@ export enum PATH {
     Learn = '/learn',
     UserProfile = '/user-profile',
     UsersList = '/users-list',
-    Chat = '/chat',
 }
 
 export const RoutersList = (): ReactElement => {
@@ -45,7 +43,6 @@ export const RoutersList = (): ReactElement => {
             <Route path={PATH.Learn} element={<LearnPage />} />
             <Route path={PATH.UserProfile} element={<UserProfilePage />} />
             <Route path={PATH.UsersList} element={<UsersList />} />
-            <Route path={PATH.Chat} element={<Chat />} />
             <Route path={'/*'} element={<ErrorPage />} />
         </Routes>
     )

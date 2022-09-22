@@ -20,6 +20,7 @@ export const CardsList = (): ReactElement => {
     const dispatch = useAppDispatch()
 
     const isLoggedIn = useAppSelector(state => state.login.isLoggedIn)
+    const status = useAppSelector(state => state.app.status)
     const cardsTotalCount = useAppSelector(state => state.cardsList.cardsTotalCount)
     const cardsCount = useAppSelector(state => state.cardsList.infoCardsPack.cardsCount)
     const stateCardsPackID = useAppSelector(
@@ -74,7 +75,10 @@ export const CardsList = (): ReactElement => {
                 <HeaderCardsList setIsModalOpen={setIsModalOpen} />
                 {cardsCount ? (
                     <div>
-                        <Search setSearchName={setSearchPackName} />
+                        <Search
+                            setSearchName={setSearchPackName}
+                            isDisabled={status === 'loading'}
+                        />
                         <TableCards />
                         <Pagination
                             page={page}

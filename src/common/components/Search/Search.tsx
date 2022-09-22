@@ -9,7 +9,7 @@ import {useDebounce} from '../../hooks/useDebounce'
 import styles from './search.module.scss'
 
 export const Search: React.FC<SearchPropsType> = React.memo(
-    ({setSearchName}): ReactElement => {
+    ({setSearchName, isDisabled}): ReactElement => {
         const [value, setValue] = useState('')
         const debounceDelay = 500
         const debouncedValue = useDebounce<string>(value, debounceDelay)
@@ -30,6 +30,7 @@ export const Search: React.FC<SearchPropsType> = React.memo(
                     onChange={onChangeHandler}
                     placeholder="Provide your text"
                     className={styles.searchInput}
+                    disabled={isDisabled}
                     startAdornment={
                         <InputAdornment position="start">
                             <SearchIcon />
@@ -44,4 +45,5 @@ export const Search: React.FC<SearchPropsType> = React.memo(
 // Types
 type SearchPropsType = {
     setSearchName: (searchName: string) => void
+    isDisabled?: boolean
 }

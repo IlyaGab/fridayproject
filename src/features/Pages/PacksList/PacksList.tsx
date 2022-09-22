@@ -8,6 +8,7 @@ import {useAppDispatch} from '../../../common/hooks/useAppDispatch'
 import {useAppSelector} from '../../../common/hooks/useAppSelector'
 import {AddNewPackModal} from '../../Modals/PacksModals/AddNewPackModal'
 
+import {ChatButton} from './ChatButton/ChatButton'
 import {HeaderPacksList} from './HeaderPacksList/HeaderPacksList'
 import {Options} from './Options/Options'
 import styles from './packsList.module.scss'
@@ -73,6 +74,7 @@ export const PacksList = (): ReactElement => {
                     isModalOpen={isModalOpen}
                     setIsModalOpen={setIsModalOpen}
                 />
+                <ChatButton />
             </div>
         </div>
     )
