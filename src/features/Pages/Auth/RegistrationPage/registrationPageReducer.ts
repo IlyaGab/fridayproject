@@ -32,16 +32,14 @@ export const setIsRegisteredAC = (value: boolean) =>
 export const registrationTC =
     (data: RegisterParamsType): AppThunkType =>
     async dispatch => {
+        dispatch(setAppStatusAC('loading'))
         try {
-            dispatch(setAppStatusAC('loading'))
             await authAPI.register(data)
             dispatch(setIsRegisteredAC(true))
             dispatch(setAppStatusAC('succeeded'))
         } catch (e) {
             handleServerNetworkError(e, dispatch)
             dispatch(setAppStatusAC('failed'))
-        } finally {
-            dispatch(setIsRegisteredAC(false))
         }
     }
 

@@ -21,12 +21,14 @@ import styles from './registrationPage.module.scss'
 import {registrationTC} from './registrationPageReducer'
 
 export const RegistrationPage = (): ReactElement => {
+    const dispatch = useAppDispatch()
+
+    const isRegistered = useAppSelector(state => state.registration.isRegistered)
+    const status = useAppSelector(state => state.app.status)
+
     const minPassLength = 7
     const [showPassword, setShowPassword] = useState<boolean>(false)
     const [showConfirmPassword, setShowConfirmPassword] = useState<boolean>(false)
-
-    const isRegistered = useAppSelector(state => state.registration.isRegistered)
-    const dispatch = useAppDispatch()
 
     const formik = useFormik({
         initialValues: {
@@ -175,6 +177,7 @@ export const RegistrationPage = (): ReactElement => {
                                 type="submit"
                                 variant="contained"
                                 color="primary"
+                                disabled={status === 'loading'}
                                 style={{
                                     width: '100%',
                                     borderRadius: '30px',

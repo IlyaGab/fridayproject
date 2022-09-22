@@ -32,7 +32,7 @@ export const Chat = ({closeChat}: ChatPropsType): ReactElement => {
 
     useEffect(() => {
         myRef.current?.scrollIntoView({behavior: 'smooth'})
-    }, [message])
+    }, [messages])
 
     if (!isLoggedIn) {
         return <Navigate to={PATH.Login} />

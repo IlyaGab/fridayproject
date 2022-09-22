@@ -20,6 +20,7 @@ import {ErrorSnackbar} from '../../../../common/components/ErrorSnackbar/ErrorSn
 import {PATH} from '../../../../common/components/RoutesList/RoutersList'
 import {useAppDispatch} from '../../../../common/hooks/useAppDispatch'
 import {useAppSelector} from '../../../../common/hooks/useAppSelector'
+import {setIsRegisteredAC} from '../RegistrationPage/registrationPageReducer'
 
 import styles from './loginPage.module.scss'
 import {loginTC} from './loginPageReducer'
@@ -161,7 +162,11 @@ export const LoginPage = (): ReactElement => {
                             <div className={styles.linkBlock}>
                                 {/* eslint-disable-next-line react/no-unescaped-entities */}
                                 <div className={styles.text}>Don't have an account?</div>
-                                <NavLink to={PATH.Registration} className={styles.link}>
+                                <NavLink
+                                    to={PATH.Registration}
+                                    className={styles.link}
+                                    onClick={() => dispatch(setIsRegisteredAC(false))}
+                                >
                                     Sign Up
                                 </NavLink>
                             </div>
