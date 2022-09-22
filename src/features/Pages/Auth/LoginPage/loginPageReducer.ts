@@ -50,12 +50,7 @@ export const loginTC =
                 )
             } else {
                 dispatch(
-                    setProfileDataAC(
-                        res.data.name,
-                        res.data.email,
-                        'avatar',
-                        res.data._id,
-                    ),
+                    setProfileDataAC(res.data.name, res.data.email, '', res.data._id),
                 )
             }
         } catch (e) {
